@@ -12,7 +12,7 @@ using System;
 using System.Reflection;
 
 [assembly: System.Reflection.AssemblyCompanyAttribute("GrupoA.PampazonSA.AdministracionDeposito")]
-[assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
+[assembly: System.Reflection.AssemblyConfigurationAttribute("Release")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
 [assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+f5a7ae5de00bfb9839847507c64b68935b64e2a2")]
 [assembly: System.Reflection.AssemblyProductAttribute("GrupoA.PampazonSA.AdministracionDeposito")]
