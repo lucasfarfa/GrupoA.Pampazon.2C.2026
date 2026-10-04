@@ -1,6 +1,6 @@
 ﻿namespace AdministracionDeposito
 {
-    partial class FrmGenerarRemitoDespachar
+    partial class GenerarRemitoDespacharForm
     {
         /// <summary>
         ///  Required designer variable.
