@@ -1,4 +1,6 @@
+using AdministracionDeposito;
 using OrdenesPreparacion;
+
 namespace GrupoA.PampazonSA.AdministracionDeposito
 {
     internal static class Program
@@ -12,9 +14,14 @@ namespace GrupoA.PampazonSA.AdministracionDeposito
             // To customize application configuration such as set high DPI settings or default font,
             // see https://aka.ms/applicationconfiguration.
             ApplicationConfiguration.Initialize();
-            Application.Run(new FrmMenuPrincipal());
-            //Application.Run(new FrmRegistrarOrdenPreparacion());
 
-    }
+            // Inicia el menú principal por defecto
+            Application.Run(new FrmMenuPrincipal());
+
+            // (Opcional) Si necesitas probar formularios específicos sin pasar por el menú, 
+            // comenta la línea de arriba y descomenta una de estas:
+            // Application.Run(new GenerarRemitoDespacharForm());
+            // Application.Run(new FrmRegistrarOrdenPreparacion());
+        }
     }
 }
