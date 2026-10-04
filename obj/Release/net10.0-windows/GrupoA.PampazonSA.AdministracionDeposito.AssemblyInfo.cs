@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("GrupoA.PampazonSA.AdministracionDeposito")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Release")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+f5a7ae5de00bfb9839847507c64b68935b64e2a2")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+dfa3d4b16957daf5e0d5121b97757c0d7f63714f")]
 [assembly: System.Reflection.AssemblyProductAttribute("GrupoA.PampazonSA.AdministracionDeposito")]
 [assembly: System.Reflection.AssemblyTitleAttribute("GrupoA.PampazonSA.AdministracionDeposito")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

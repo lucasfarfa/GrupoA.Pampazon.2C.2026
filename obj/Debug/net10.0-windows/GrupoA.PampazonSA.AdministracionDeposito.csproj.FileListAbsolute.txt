@@ -3,8 +3,6 @@ C:\Mora\Facultad\2026c2\CAI\Pampazon\bin\Debug\net10.0-windows\GrupoA.PampazonSA
 C:\Mora\Facultad\2026c2\CAI\Pampazon\bin\Debug\net10.0-windows\GrupoA.PampazonSA.AdministracionDeposito.runtimeconfig.json
 C:\Mora\Facultad\2026c2\CAI\Pampazon\bin\Debug\net10.0-windows\GrupoA.PampazonSA.AdministracionDeposito.dll
 C:\Mora\Facultad\2026c2\CAI\Pampazon\bin\Debug\net10.0-windows\GrupoA.PampazonSA.AdministracionDeposito.pdb
-C:\Mora\Facultad\2026c2\CAI\Pampazon\obj\Debug\net10.0-windows\GrupoA.PampazonSA.AdministracionDeposito.Form1.resources
-C:\Mora\Facultad\2026c2\CAI\Pampazon\obj\Debug\net10.0-windows\GrupoA.PampazonSA.AdministracionDeposito.csproj.GenerateResource.cache
 C:\Mora\Facultad\2026c2\CAI\Pampazon\obj\Debug\net10.0-windows\GrupoA.PampazonSA.AdministracionDeposito.GeneratedMSBuildEditorConfig.editorconfig
 C:\Mora\Facultad\2026c2\CAI\Pampazon\obj\Debug\net10.0-windows\GrupoA.PampazonSA.AdministracionDeposito.AssemblyInfoInputs.cache
 C:\Mora\Facultad\2026c2\CAI\Pampazon\obj\Debug\net10.0-windows\GrupoA.PampazonSA.AdministracionDeposito.AssemblyInfo.cs

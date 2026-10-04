@@ -86,11 +86,16 @@ public static class Msg
 // ---------------------------------------------------------------
 public static class Repositorio
 {
-    private static readonly Operador _operadorActual = new()
+    // Depósitos disponibles en el menú de inicio
+    public static readonly List<string> Depositos = new()
     {
-        Nombre = "Juan Pérez",
-        Deposito = "Depósito Avellaneda"
+        "Depósito Buenos Aires",
+        "Depósito Avellaneda",
+        "Depósito Rosario"
     };
+
+    // Lo setea el menú de inicio cuando el operador elige el depósito
+    public static string DepositoActual { get; set; } = "Depósito Buenos Aires";
 
     // AL1: clientes y contratos
     private static readonly List<Cliente> _clientes = new()
@@ -137,7 +142,9 @@ public static class Repositorio
     private static readonly List<OrdenPreparacion> _colaOrdenes = new();
     private static int _ultimoNumero = 0;
 
-    public static Operador ObtenerOperadorActual() => _operadorActual;
+    // El operador trabaja en el depósito elegido en el menú de inicio
+    public static Operador ObtenerOperadorActual() =>
+        new Operador { Nombre = "Juan Pérez", Deposito = DepositoActual };
 
     public static string SoloDigitos(string texto) =>
         new string((texto ?? "").Where(char.IsDigit).ToArray());
