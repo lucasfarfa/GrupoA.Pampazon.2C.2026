@@ -69,7 +69,7 @@ namespace OrdenesPreparacion
             this.btnValidarOrdenes.TabIndex = 3;
             this.btnValidarOrdenes.Text = "Validar órdenes de preparación";
             this.btnValidarOrdenes.UseVisualStyleBackColor = true;
-            this.btnValidarOrdenes.Click += new System.EventHandler(this.btnValidarOrdenes_Click);
+      //      this.btnValidarOrdenes.Click += new System.EventHandler(this.btnValidarOrdenes_Click);
             //
             // btnGenerarSeleccion
             //
@@ -79,7 +79,7 @@ namespace OrdenesPreparacion
             this.btnGenerarSeleccion.TabIndex = 4;
             this.btnGenerarSeleccion.Text = "Generar orden de selección";
             this.btnGenerarSeleccion.UseVisualStyleBackColor = true;
-            this.btnGenerarSeleccion.Click += new System.EventHandler(this.btnGenerarSeleccion_Click);
+          //  this.btnGenerarSeleccion.Click += new System.EventHandler(this.btnGenerarSeleccion_Click);
             //
             // btnPrepararProductos
             //
@@ -89,7 +89,7 @@ namespace OrdenesPreparacion
             this.btnPrepararProductos.TabIndex = 5;
             this.btnPrepararProductos.Text = "Preparar los productos";
             this.btnPrepararProductos.UseVisualStyleBackColor = true;
-            this.btnPrepararProductos.Click += new System.EventHandler(this.btnPrepararProductos_Click);
+         //   this.btnPrepararProductos.Click += new System.EventHandler(this.btnPrepararProductos_Click);
             //
             // btnEmpaquetar
             //
@@ -99,7 +99,7 @@ namespace OrdenesPreparacion
             this.btnEmpaquetar.TabIndex = 6;
             this.btnEmpaquetar.Text = "Empaquetar productos";
             this.btnEmpaquetar.UseVisualStyleBackColor = true;
-            this.btnEmpaquetar.Click += new System.EventHandler(this.btnEmpaquetar_Click);
+         //   this.btnEmpaquetar.Click += new System.EventHandler(this.btnEmpaquetar_Click);
             //
             // btnGenerarEntrega
             //
@@ -109,7 +109,7 @@ namespace OrdenesPreparacion
             this.btnGenerarEntrega.TabIndex = 7;
             this.btnGenerarEntrega.Text = "Generar orden de entrega";
             this.btnGenerarEntrega.UseVisualStyleBackColor = true;
-            this.btnGenerarEntrega.Click += new System.EventHandler(this.btnGenerarEntrega_Click);
+          //  this.btnGenerarEntrega.Click += new System.EventHandler(this.btnGenerarEntrega_Click);
             //
             // btnGenerarRemito
             //
@@ -119,7 +119,7 @@ namespace OrdenesPreparacion
             this.btnGenerarRemito.TabIndex = 8;
             this.btnGenerarRemito.Text = "Generar remito y despachar";
             this.btnGenerarRemito.UseVisualStyleBackColor = true;
-            this.btnGenerarRemito.Click += new System.EventHandler(this.btnGenerarRemito_Click);
+           // this.btnGenerarRemito.Click += new System.EventHandler(this.btnGenerarRemito_Click);
             //
             // FrmMenuPrincipal
             //
