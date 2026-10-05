@@ -1,4 +1,12 @@
+# Carpetas de resultados de compilación (esto evita los conflictos que acabas de tener)
+[Bb]in/
+[Oo]bj/
+
+# Configuraciones locales y temporales de Visual Studio
 .vs/
-bin/
-obj/
 *.user
+*.suo
+*.cache
+
+# Archivos de publicación
+Publish/
