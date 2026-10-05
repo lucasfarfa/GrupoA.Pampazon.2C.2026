@@ -5,13 +5,13 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 
-namespace OrdenesPreparacion;
+namespace GrupoA.PampazonSA.AdministracionDeposito.RegistrarOrdenPreparacion;
 
 // Pantalla del CU-B.2.2.1 "Validar órdenes de preparación".
 // Actor principal: Operador de depósito.
 // Los comentarios "Paso N" referencian los pasos del flujo principal del caso de uso.
 // Los comentarios "Excepción" marcan dónde va cada bifurcación (le ponen el número ustedes).
-public class FrmRegistrarOrdenPreparacion : Form
+public class RegistrarOrdenPreparacionForm : Form
 {
     private readonly Operador _operador = Repositorio.ObtenerOperadorActual();
     private Cliente _cliente;                                  // null hasta que se valida el CUIT (paso 4)
@@ -29,7 +29,7 @@ public class FrmRegistrarOrdenPreparacion : Form
     private TextBox txtSku, txtCantidad;
     private DataGridView dgvItems;
 
-    public FrmRegistrarOrdenPreparacion()
+    public RegistrarOrdenPreparacionForm()
     {
         ConstruirPantalla();
         CargarPantallaInicial();

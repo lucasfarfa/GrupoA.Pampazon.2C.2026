@@ -5,9 +5,9 @@ namespace OrdenesPreparacion;
 
 // Menú de inicio: el operador elige el depósito y la actividad a realizar.
 // Los controles están definidos en FrmMenuPrincipal.Designer.cs
-public partial class FrmMenuPrincipal : Form
+public partial class MenuPrincipalForm : Form
 {
-    public FrmMenuPrincipal()
+    public MenuPrincipalForm()
     {
         InitializeComponent();
 

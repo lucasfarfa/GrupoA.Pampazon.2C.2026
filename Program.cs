@@ -16,7 +16,7 @@ namespace GrupoA.PampazonSA.AdministracionDeposito
             ApplicationConfiguration.Initialize();
 
             // Inicia el menú principal por defecto
-            Application.Run(new FrmMenuPrincipal());
+            Application.Run(new MenuPrincipalForm());
 
             // (Opcional) Si necesitas probar formularios específicos sin pasar por el menú, 
             // comenta la línea de arriba y descomenta una de estas:

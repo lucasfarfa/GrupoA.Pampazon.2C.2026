@@ -4,7 +4,7 @@ using System.Windows.Forms;
 
 namespace OrdenesPreparacion
 {
-    partial class FrmMenuPrincipal
+    partial class MenuPrincipalForm
     {
         private System.ComponentModel.IContainer components = null;
 
