@@ -21,128 +21,125 @@ namespace OrdenesPreparacion
 
         private void InitializeComponent()
         {
-            this.lblTitulo = new System.Windows.Forms.Label();
-            this.lblDeposito = new System.Windows.Forms.Label();
-            this.cboDeposito = new System.Windows.Forms.ComboBox();
-            this.btnValidarOrdenes = new System.Windows.Forms.Button();
-            this.btnGenerarSeleccion = new System.Windows.Forms.Button();
-            this.btnPrepararProductos = new System.Windows.Forms.Button();
-            this.btnEmpaquetar = new System.Windows.Forms.Button();
-            this.btnGenerarEntrega = new System.Windows.Forms.Button();
-            this.btnGenerarRemito = new System.Windows.Forms.Button();
-            this.SuspendLayout();
-            //
+            lblTitulo = new Label();
+            lblDeposito = new Label();
+            cboDeposito = new ComboBox();
+            btnValidarOrdenes = new Button();
+            btnGenerarSeleccion = new Button();
+            btnPrepararProductos = new Button();
+            btnEmpaquetar = new Button();
+            btnGenerarEntrega = new Button();
+            btnGenerarRemito = new Button();
+            SuspendLayout();
+            // 
             // lblTitulo
-            //
-            this.lblTitulo.AutoSize = false;
-            this.lblTitulo.Location = new System.Drawing.Point(0, 15);
-            this.lblTitulo.Name = "lblTitulo";
-            this.lblTitulo.Size = new System.Drawing.Size(500, 24);
-            this.lblTitulo.TabIndex = 0;
-            this.lblTitulo.Text = "Menú Inicio Empresa";
-            this.lblTitulo.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            //
+            // 
+            lblTitulo.Location = new Point(0, 15);
+            lblTitulo.Name = "lblTitulo";
+            lblTitulo.Size = new Size(500, 24);
+            lblTitulo.TabIndex = 0;
+            lblTitulo.Text = "Menú Inicio Empresa";
+            lblTitulo.TextAlign = ContentAlignment.MiddleCenter;
+            // 
             // lblDeposito
-            //
-            this.lblDeposito.AutoSize = true;
-            this.lblDeposito.Location = new System.Drawing.Point(88, 52);
-            this.lblDeposito.Name = "lblDeposito";
-            this.lblDeposito.Size = new System.Drawing.Size(60, 19);
-            this.lblDeposito.TabIndex = 1;
-            this.lblDeposito.Text = "Depósito";
-            //
+            // 
+            lblDeposito.AutoSize = true;
+            lblDeposito.Location = new Point(88, 52);
+            lblDeposito.Name = "lblDeposito";
+            lblDeposito.Size = new Size(92, 28);
+            lblDeposito.TabIndex = 1;
+            lblDeposito.Text = "Depósito";
+            lblDeposito.Click += lblDeposito_Click;
+            // 
             // cboDeposito
-            //
-            this.cboDeposito.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cboDeposito.FormattingEnabled = true;
-            this.cboDeposito.Location = new System.Drawing.Point(88, 74);
-            this.cboDeposito.Name = "cboDeposito";
-            this.cboDeposito.Size = new System.Drawing.Size(324, 25);
-            this.cboDeposito.TabIndex = 2;
-            this.cboDeposito.SelectedIndexChanged += new System.EventHandler(this.cboDeposito_SelectedIndexChanged);
-            //
+            // 
+            cboDeposito.DropDownStyle = ComboBoxStyle.DropDownList;
+            cboDeposito.FormattingEnabled = true;
+            cboDeposito.Items.AddRange(new object[] { "DEPOSITO BSAS", "DEPOSITO LAS FLORES", "DEPOSITO RAUCH", "DEPOSITO TANDIL", "DEPOSITO NECOCHEA" });
+            cboDeposito.Location = new Point(88, 83);
+            cboDeposito.Name = "cboDeposito";
+            cboDeposito.Size = new Size(324, 36);
+            cboDeposito.TabIndex = 2;
+            cboDeposito.SelectedIndexChanged += cboDeposito_SelectedIndexChanged;
+            // 
             // btnValidarOrdenes
-            //
-            this.btnValidarOrdenes.Location = new System.Drawing.Point(88, 118);
-            this.btnValidarOrdenes.Name = "btnValidarOrdenes";
-            this.btnValidarOrdenes.Size = new System.Drawing.Size(324, 46);
-            this.btnValidarOrdenes.TabIndex = 3;
-            this.btnValidarOrdenes.Text = "Validar órdenes de preparación";
-            this.btnValidarOrdenes.UseVisualStyleBackColor = true;
-            this.btnValidarOrdenes.Click += new System.EventHandler(this.btnValidarOrdenes_Click);
-            //
+            // 
+            btnValidarOrdenes.Location = new Point(88, 145);
+            btnValidarOrdenes.Name = "btnValidarOrdenes";
+            btnValidarOrdenes.Size = new Size(324, 46);
+            btnValidarOrdenes.TabIndex = 3;
+            btnValidarOrdenes.Text = "Validar órdenes de preparación";
+            btnValidarOrdenes.UseVisualStyleBackColor = true;
+            // 
             // btnGenerarSeleccion
-            //
-            this.btnGenerarSeleccion.Location = new System.Drawing.Point(88, 180);
-            this.btnGenerarSeleccion.Name = "btnGenerarSeleccion";
-            this.btnGenerarSeleccion.Size = new System.Drawing.Size(324, 46);
-            this.btnGenerarSeleccion.TabIndex = 4;
-            this.btnGenerarSeleccion.Text = "Generar orden de selección";
-            this.btnGenerarSeleccion.UseVisualStyleBackColor = true;
-            this.btnGenerarSeleccion.Click += new System.EventHandler(this.btnGenerarSeleccion_Click);
-            //
+            // 
+            btnGenerarSeleccion.Location = new Point(88, 207);
+            btnGenerarSeleccion.Name = "btnGenerarSeleccion";
+            btnGenerarSeleccion.Size = new Size(324, 46);
+            btnGenerarSeleccion.TabIndex = 4;
+            btnGenerarSeleccion.Text = "Generar orden de selección";
+            btnGenerarSeleccion.UseVisualStyleBackColor = true;
+            // 
             // btnPrepararProductos
-            //
-            this.btnPrepararProductos.Location = new System.Drawing.Point(88, 242);
-            this.btnPrepararProductos.Name = "btnPrepararProductos";
-            this.btnPrepararProductos.Size = new System.Drawing.Size(324, 46);
-            this.btnPrepararProductos.TabIndex = 5;
-            this.btnPrepararProductos.Text = "Preparar los productos";
-            this.btnPrepararProductos.UseVisualStyleBackColor = true;
-            this.btnPrepararProductos.Click += new System.EventHandler(this.btnPrepararProductos_Click);
-            //
+            // 
+            btnPrepararProductos.Location = new Point(88, 269);
+            btnPrepararProductos.Name = "btnPrepararProductos";
+            btnPrepararProductos.Size = new Size(324, 46);
+            btnPrepararProductos.TabIndex = 5;
+            btnPrepararProductos.Text = "Preparar los productos";
+            btnPrepararProductos.UseVisualStyleBackColor = true;
+            btnPrepararProductos.Click += btnPrepararProductos_Click;
+            // 
             // btnEmpaquetar
-            //
-            this.btnEmpaquetar.Location = new System.Drawing.Point(88, 304);
-            this.btnEmpaquetar.Name = "btnEmpaquetar";
-            this.btnEmpaquetar.Size = new System.Drawing.Size(324, 46);
-            this.btnEmpaquetar.TabIndex = 6;
-            this.btnEmpaquetar.Text = "Empaquetar productos";
-            this.btnEmpaquetar.UseVisualStyleBackColor = true;
-            this.btnEmpaquetar.Click += new System.EventHandler(this.btnEmpaquetar_Click);
-            //
+            // 
+            btnEmpaquetar.Location = new Point(88, 331);
+            btnEmpaquetar.Name = "btnEmpaquetar";
+            btnEmpaquetar.Size = new Size(324, 46);
+            btnEmpaquetar.TabIndex = 6;
+            btnEmpaquetar.Text = "Empaquetar productos";
+            btnEmpaquetar.UseVisualStyleBackColor = true;
+            // 
             // btnGenerarEntrega
-            //
-            this.btnGenerarEntrega.Location = new System.Drawing.Point(88, 366);
-            this.btnGenerarEntrega.Name = "btnGenerarEntrega";
-            this.btnGenerarEntrega.Size = new System.Drawing.Size(324, 46);
-            this.btnGenerarEntrega.TabIndex = 7;
-            this.btnGenerarEntrega.Text = "Generar orden de entrega";
-            this.btnGenerarEntrega.UseVisualStyleBackColor = true;
-            this.btnGenerarEntrega.Click += new System.EventHandler(this.btnGenerarEntrega_Click);
-            //
+            // 
+            btnGenerarEntrega.Location = new Point(88, 393);
+            btnGenerarEntrega.Name = "btnGenerarEntrega";
+            btnGenerarEntrega.Size = new Size(324, 46);
+            btnGenerarEntrega.TabIndex = 7;
+            btnGenerarEntrega.Text = "Generar orden de entrega";
+            btnGenerarEntrega.UseVisualStyleBackColor = true;
+            // 
             // btnGenerarRemito
-            //
-            this.btnGenerarRemito.Location = new System.Drawing.Point(88, 428);
-            this.btnGenerarRemito.Name = "btnGenerarRemito";
-            this.btnGenerarRemito.Size = new System.Drawing.Size(324, 46);
-            this.btnGenerarRemito.TabIndex = 8;
-            this.btnGenerarRemito.Text = "Generar remito y despachar";
-            this.btnGenerarRemito.UseVisualStyleBackColor = true;
-            this.btnGenerarRemito.Click += new System.EventHandler(this.btnGenerarRemito_Click);
-            //
-            // FrmMenuPrincipal
-            //
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(500, 500);
-            this.Controls.Add(this.btnGenerarRemito);
-            this.Controls.Add(this.btnGenerarEntrega);
-            this.Controls.Add(this.btnEmpaquetar);
-            this.Controls.Add(this.btnPrepararProductos);
-            this.Controls.Add(this.btnGenerarSeleccion);
-            this.Controls.Add(this.btnValidarOrdenes);
-            this.Controls.Add(this.cboDeposito);
-            this.Controls.Add(this.lblDeposito);
-            this.Controls.Add(this.lblTitulo);
-            this.Font = new System.Drawing.Font("Segoe UI", 10F);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
-            this.MaximizeBox = false;
-            this.Name = "FrmMenuPrincipal";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Menú Empresa";
-            this.ResumeLayout(false);
-            this.PerformLayout();
+            // 
+            btnGenerarRemito.Location = new Point(88, 455);
+            btnGenerarRemito.Name = "btnGenerarRemito";
+            btnGenerarRemito.Size = new Size(324, 46);
+            btnGenerarRemito.TabIndex = 8;
+            btnGenerarRemito.Text = "Generar remito y despachar";
+            btnGenerarRemito.UseVisualStyleBackColor = true;
+            // 
+            // MenuPrincipalForm
+            // 
+            AutoScaleDimensions = new SizeF(11F, 28F);
+            AutoScaleMode = AutoScaleMode.Font;
+            ClientSize = new Size(500, 535);
+            Controls.Add(btnGenerarRemito);
+            Controls.Add(btnGenerarEntrega);
+            Controls.Add(btnEmpaquetar);
+            Controls.Add(btnPrepararProductos);
+            Controls.Add(btnGenerarSeleccion);
+            Controls.Add(btnValidarOrdenes);
+            Controls.Add(cboDeposito);
+            Controls.Add(lblDeposito);
+            Controls.Add(lblTitulo);
+            Font = new Font("Segoe UI", 10F);
+            FormBorderStyle = FormBorderStyle.FixedSingle;
+            MaximizeBox = false;
+            Name = "MenuPrincipalForm";
+            StartPosition = FormStartPosition.CenterScreen;
+            Text = "Menú Empresa";
+            Load += MenuPrincipalForm_Load;
+            ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion

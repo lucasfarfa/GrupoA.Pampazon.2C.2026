@@ -1,4 +1,4 @@
-﻿using System;
+﻿/*using System;
 using System.ComponentModel;
 using System.Drawing;
 using System.Linq;
@@ -13,9 +13,9 @@ namespace GrupoA.PampazonSA.AdministracionDeposito.RegistrarOrdenPreparacion;
 // Los comentarios "Excepción" marcan dónde va cada bifurcación (le ponen el número ustedes).
 public class RegistrarOrdenPreparacionForm : Form
 {
-    private readonly Operador _operador = Repositorio.ObtenerOperadorActual();
-    private Cliente _cliente;                                  // null hasta que se valida el CUIT (paso 4)
-    private readonly BindingList<ItemOrden> _items = new();
+   // private readonly Operador _operador = Repositorio.ObtenerOperadorActual();
+    //private Cliente _cliente;                                  // null hasta que se valida el CUIT (paso 4)
+   // private readonly BindingList<ItemOrden> _items = new();
     private bool _salidaConfirmada;                            // true = cerrar sin volver a preguntar
     private bool _seRegistroOrden;                             // true = ya se registró al menos una orden
 
@@ -134,7 +134,7 @@ public class RegistrarOrdenPreparacionForm : Form
         dgvItems.Columns.Add(new DataGridViewTextBoxColumn { HeaderText = "Descripción", DataPropertyName = "Descripcion", FillWeight = 48 });
         dgvItems.Columns.Add(new DataGridViewTextBoxColumn { HeaderText = "Cantidad", DataPropertyName = "Cantidad", FillWeight = 15 });
         dgvItems.Columns.Add(new DataGridViewButtonColumn { Name = "colQuitar", HeaderText = "", Text = "Quitar", UseColumnTextForButtonValue = true, FillWeight = 15 });
-        dgvItems.DataSource = _items;
+      //  dgvItems.DataSource = _items;
         dgvItems.CellClick += dgvItems_CellClick;
         gbItems.Controls.Add(dgvItems);
 
@@ -142,7 +142,7 @@ public class RegistrarOrdenPreparacionForm : Form
         gbItems.Controls.Add(lblTotales);
         Controls.Add(gbItems);
 
-        _items.ListChanged += (s, e) => ActualizarTotales();
+       // _items.ListChanged += (s, e) => ActualizarTotales();
 
         // ---- Botones principales ----
         btnSalir = new Button { Text = "Salir", Left = 12, Top = 590, Width = 100, Height = 34 };
@@ -171,7 +171,7 @@ public class RegistrarOrdenPreparacionForm : Form
     // ===============================================================
     private void CargarPantallaInicial()
     {
-        lblSesion.Text = $"Operador: {_operador.Nombre} · {_operador.Deposito} · {DateTime.Now:dd/MM/yyyy HH:mm}";
+        //lblSesion.Text = $"Operador: {_operador.Nombre} · {_operador.Deposito} · {DateTime.Now:dd/MM/yyyy HH:mm}";
         txtCuit.Clear();
         txtRazonSocial.Clear();
         txtContrato.Clear();
@@ -194,34 +194,34 @@ public class RegistrarOrdenPreparacionForm : Form
     // ===============================================================
     private void btnBuscar_Click(object sender, EventArgs e)
     {
-        string cuit = Repositorio.SoloDigitos(txtCuit.Text);
+       // string cuit = Repositorio.SoloDigitos(txtCuit.Text);
 
         if (cuit.Length != 11)
         {
-            Advertir(Msg.CuitInvalido);                    // Excepción paso 4: CUIT mal ingresado
+         //   Advertir(Msg.CuitInvalido);                    // Excepción paso 4: CUIT mal ingresado
             txtCuit.Focus();
             return;
         }
 
-        var cliente = Repositorio.BuscarClientePorCuit(cuit);
+     //   var cliente = Repositorio.BuscarClientePorCuit(cuit);
         if (cliente == null)
         {
-            Advertir(Msg.ClienteNoRegistrado);             // Excepción paso 4: cliente no registrado (vuelve al paso 3)
+          //  Advertir(Msg.ClienteNoRegistrado);             // Excepción paso 4: cliente no registrado (vuelve al paso 3)
             txtCuit.SelectAll(); txtCuit.Focus();
             return;
         }
 
-        if (!cliente.ContratoVigente)
+       // if (!cliente.ContratoVigente)
         {
-            Advertir(Msg.ContratoNoVigente);               // Excepción paso 4: contrato no vigente (vuelve al paso 3)
+          //  Advertir(Msg.ContratoNoVigente);               // Excepción paso 4: contrato no vigente (vuelve al paso 3)
             txtCuit.SelectAll(); txtCuit.Focus();
             return;
         }
 
         // Paso 4 (camino feliz): muestra razón social y contrato, y habilita el resto de la carga
-        _cliente = cliente;
-        txtRazonSocial.Text = cliente.RazonSocial;
-        txtContrato.Text = cliente.NroContrato;
+      //  _cliente = cliente;
+    //    txtRazonSocial.Text = cliente.RazonSocial;
+     //   txtContrato.Text = cliente.NroContrato;
         HabilitarCarga(true);
         dtpRequerida.Focus();
     }
@@ -230,11 +230,11 @@ public class RegistrarOrdenPreparacionForm : Form
     // y se descartan los ítems (los SKUs válidos dependen del cliente).
     private void txtCuit_TextChanged(object sender, EventArgs e)
     {
-        if (_cliente != null &&
-            Repositorio.SoloDigitos(txtCuit.Text) != Repositorio.SoloDigitos(_cliente.Cuit))
+        //if (_cliente != null &&
+        //    Repositorio.SoloDigitos(txtCuit.Text) != Repositorio.SoloDigitos(_cliente.Cuit))
         {
-            _cliente = null;
-            _items.Clear();
+        //    _cliente = null;
+        //    _items.Clear();
             txtRazonSocial.Clear();
             txtContrato.Clear();
             HabilitarCarga(false);
@@ -247,10 +247,10 @@ public class RegistrarOrdenPreparacionForm : Form
     private void btnAgregar_Click(object sender, EventArgs e)
     {
         // Paso 7: el SKU debe estar declarado por ESTE cliente y habilitado
-        var sku = Repositorio.BuscarSku(_cliente, txtSku.Text.Trim());
-        if (sku == null || !sku.Habilitado)
+      //  var sku = Repositorio.BuscarSku(_cliente, txtSku.Text.Trim());
+      //  if (sku == null || !sku.Habilitado)
         {
-            Advertir(Msg.SkuInvalido);                                  // Excepción paso 7: SKU inválido
+        //    Advertir(Msg.SkuInvalido);                                  // Excepción paso 7: SKU inválido
             txtSku.Clear(); txtCantidad.Clear(); txtSku.Focus();        // limpia y vuelve al paso 6
             return;
         }
@@ -402,7 +402,7 @@ public class RegistrarOrdenPreparacionForm : Form
         {
             if (HayDatosCargados())
             {
-                var r = MessageBox.Show(Msg.ConfirmaSalida, Text, MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+              //  var r = MessageBox.Show(Msg.ConfirmaSalida, Text, MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                 if (r == DialogResult.No)
                 {
                     e.Cancel = true;        // se queda en la pantalla con los datos intactos
@@ -444,6 +444,13 @@ public class RegistrarOrdenPreparacionForm : Form
             fila.DefaultCellStyle.BackColor = Color.Empty;
     }
 
+    private void InitializeComponent()
+    {
+
+    }
+
     private void Advertir(string mensaje) =>
         MessageBox.Show(mensaje, Text, MessageBoxButtons.OK, MessageBoxIcon.Warning);
 }
+
+*/
