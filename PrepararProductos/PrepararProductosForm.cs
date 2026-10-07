@@ -68,18 +68,18 @@ namespace GrupoA.PampazonSA.AdministracionDeposito.PrepararProductos
 
                 if (estado == "SELECCIONADA")
                 {
-                    btnIniciarFulFillment.Enabled = true;
-                    btnFinalizarFulFillment.Enabled = false;
+                    btnIniciarPicking.Enabled = true;
+                    btnFinalizarPicking.Enabled = false;
                 }
                 else if (estado == "EN_PROCESO")
                 {
-                    btnIniciarFulFillment.Enabled = false;
-                    btnFinalizarFulFillment.Enabled = true;
+                    btnIniciarPicking.Enabled = false;
+                    btnFinalizarPicking.Enabled = true;
                 }
                 else if (estado == "CUMPLIDO")
                 {
-                    btnIniciarFulFillment.Enabled = false;
-                    btnFinalizarFulFillment.Enabled = false;
+                    btnIniciarPicking.Enabled = false;
+                    btnFinalizarPicking.Enabled = false;
                 }
 
                 switch (id)
@@ -124,13 +124,13 @@ namespace GrupoA.PampazonSA.AdministracionDeposito.PrepararProductos
             if (listViewOP.SelectedItems.Count > 0)
             {
 
-                CambiarEstadoFila(listViewOP.SelectedItems[0], 3, "CUMPLIDO");
+                CambiarEstadoFila(listViewOP.SelectedItems[0], 3, "PICKEADA");
 
                 // Cambiar Estado a CUMPLIDO
-                listViewOP.SelectedItems[0].SubItems[3].Text = "CUMPLIDO";
+                listViewOP.SelectedItems[0].SubItems[3].Text = "PICKEADA";
 
                 // Apagar el botón de finalizar
-                btnFinalizarFulFillment.Enabled = false;
+                btnFinalizarPicking.Enabled = false;
 
                 // Validar si TODO listView1 quedó listo para habilitar el botón grande de abajo
                 btnCierreSeleccion.Enabled = ValidarTodosCumplidos();
@@ -151,7 +151,7 @@ namespace GrupoA.PampazonSA.AdministracionDeposito.PrepararProductos
                     // Extraer el texto quitando espacios en blanco y convirtiendo a mayúsculas
                     string estado = fila.SubItems[3].Text.Trim().ToUpper();
 
-                    if (estado != "CUMPLIDO")
+                    if (estado != "PICKEADA")
                     {
                         return false; // Al primer fallo, cancelamos y salimos
                     }
@@ -181,10 +181,12 @@ namespace GrupoA.PampazonSA.AdministracionDeposito.PrepararProductos
                     break;
 
                 case "EN_PROCESO":
+                case "EN_PICKING":
                     fila.SubItems[indice].ForeColor = Color.Red;  // Rojo para En Proceso
                     break;
 
                 case "CUMPLIDO":
+                case "PICKEADA":
                     fila.SubItems[indice].ForeColor = Color.Green; // Verde para Cumplido
                     break;
 
@@ -200,12 +202,12 @@ namespace GrupoA.PampazonSA.AdministracionDeposito.PrepararProductos
             if (listViewOP.SelectedItems.Count > 0)
             {
                 // Cambiar Estado en la columna 4 (índice 3)
-                listViewOP.SelectedItems[0].SubItems[3].Text = "EN_PROCESO";
-                CambiarEstadoFila(listViewOP.SelectedItems[0], 3, "EN_PROCESO");
+                listViewOP.SelectedItems[0].SubItems[3].Text = "EN_PICKING";
+                CambiarEstadoFila(listViewOP.SelectedItems[0], 3, "EN_PICKING");
 
                 // Cambiar estados de botones
-                btnIniciarFulFillment.Enabled = false;
-                btnFinalizarFulFillment.Enabled = true;
+                btnIniciarPicking.Enabled = false;
+                btnFinalizarPicking.Enabled = true;
 
             }
         }
@@ -222,8 +224,8 @@ namespace GrupoA.PampazonSA.AdministracionDeposito.PrepararProductos
                 listViewOP.Items.Clear();
                 listViewProductos.Items.Clear();
 
-                btnIniciarFulFillment.Enabled = false;
-                btnFinalizarFulFillment.Enabled = false;
+                btnIniciarPicking.Enabled = false;
+                btnFinalizarPicking.Enabled = false;
                 btnCierreSeleccion.Enabled = false;
                 
                 if (estado == "CUMPLIDO") { 
