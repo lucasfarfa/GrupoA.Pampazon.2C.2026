@@ -34,14 +34,14 @@
             columnHeader5 = new ColumnHeader();
             columnHeader6 = new ColumnHeader();
             columnHeader7 = new ColumnHeader();
-            btnIniciarFulFillment = new Button();
+            btnIniciarPicking = new Button();
             label2 = new Label();
             listViewOP = new ListView();
             columnHeader1 = new ColumnHeader();
             columnHeader2 = new ColumnHeader();
             columnHeader3 = new ColumnHeader();
             columnHeader8 = new ColumnHeader();
-            btnFinalizarFulFillment = new Button();
+            btnFinalizarPicking = new Button();
             label3 = new Label();
             btnCierreSeleccion = new Button();
             listViewOS = new ListView();
@@ -91,16 +91,16 @@
             columnHeader7.Text = "Posición en Racks";
             columnHeader7.TextAlign = HorizontalAlignment.Center;
             // 
-            // btnIniciarFulFillment
+            // btnIniciarPicking
             // 
-            btnIniciarFulFillment.Enabled = false;
-            btnIniciarFulFillment.Location = new Point(799, 694);
-            btnIniciarFulFillment.Name = "btnIniciarFulFillment";
-            btnIniciarFulFillment.Size = new Size(251, 34);
-            btnIniciarFulFillment.TabIndex = 5;
-            btnIniciarFulFillment.Text = "Iniciar FulFillment";
-            btnIniciarFulFillment.UseVisualStyleBackColor = true;
-            btnIniciarFulFillment.Click += btnIniciarFulFillment_Click;
+            btnIniciarPicking.Enabled = false;
+            btnIniciarPicking.Location = new Point(799, 694);
+            btnIniciarPicking.Name = "btnIniciarPicking";
+            btnIniciarPicking.Size = new Size(251, 34);
+            btnIniciarPicking.TabIndex = 5;
+            btnIniciarPicking.Text = "Iniciar Picking";
+            btnIniciarPicking.UseVisualStyleBackColor = true;
+            btnIniciarPicking.Click += btnIniciarFulFillment_Click;
             // 
             // label2
             // 
@@ -141,16 +141,16 @@
             columnHeader8.Text = "Estado";
             columnHeader8.TextAlign = HorizontalAlignment.Center;
             // 
-            // btnFinalizarFulFillment
+            // btnFinalizarPicking
             // 
-            btnFinalizarFulFillment.Enabled = false;
-            btnFinalizarFulFillment.Location = new Point(1359, 694);
-            btnFinalizarFulFillment.Name = "btnFinalizarFulFillment";
-            btnFinalizarFulFillment.Size = new Size(276, 34);
-            btnFinalizarFulFillment.TabIndex = 5;
-            btnFinalizarFulFillment.Text = "Finalizar FulFillment (nueva OE)";
-            btnFinalizarFulFillment.UseVisualStyleBackColor = true;
-            btnFinalizarFulFillment.Click += cmdFinalizarFulFillment_Click;
+            btnFinalizarPicking.Enabled = false;
+            btnFinalizarPicking.Location = new Point(1359, 694);
+            btnFinalizarPicking.Name = "btnFinalizarPicking";
+            btnFinalizarPicking.Size = new Size(276, 34);
+            btnFinalizarPicking.TabIndex = 5;
+            btnFinalizarPicking.Text = "Finalizar Picking";
+            btnFinalizarPicking.UseVisualStyleBackColor = true;
+            btnFinalizarPicking.Click += cmdFinalizarFulFillment_Click;
             // 
             // label3
             // 
@@ -214,8 +214,8 @@
             Controls.Add(btnCierreSeleccion);
             Controls.Add(label3);
             Controls.Add(listViewOP);
-            Controls.Add(btnFinalizarFulFillment);
-            Controls.Add(btnIniciarFulFillment);
+            Controls.Add(btnFinalizarPicking);
+            Controls.Add(btnIniciarPicking);
             Controls.Add(listViewProductos);
             Controls.Add(label2);
             Controls.Add(label1);
@@ -251,8 +251,8 @@
 
             AjustarColumnasFormulario();
 
-            btnIniciarFulFillment.Enabled = false;
-            btnFinalizarFulFillment.Enabled = false;
+            btnIniciarPicking.Enabled = false;
+            btnFinalizarPicking.Enabled = false;
             btnCierreSeleccion.Enabled = false;
 
         }
@@ -278,13 +278,13 @@
         private ColumnHeader columnHeader5;
         private ColumnHeader columnHeader6;
         private ColumnHeader columnHeader7;
-        private Button btnIniciarFulFillment;
+        private Button btnIniciarPicking;
         private Label label2;
         private ListView listViewOP;
         private ColumnHeader columnHeader1;
         private ColumnHeader columnHeader2;
         private ColumnHeader columnHeader3;
-        private Button btnFinalizarFulFillment;
+        private Button btnFinalizarPicking;
         private ColumnHeader columnHeader8;
         private Label label3;
         private Button btnCierreSeleccion;
