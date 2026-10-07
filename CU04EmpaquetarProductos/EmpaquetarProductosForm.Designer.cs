@@ -108,7 +108,7 @@
             // 
             btnLogin.BackColor = SystemColors.AppWorkspace;
             btnLogin.ForeColor = Color.Black;
-            btnLogin.Location = new Point(957, 121);
+            btnLogin.Location = new Point(953, 121);
             btnLogin.Name = "btnLogin";
             btnLogin.Size = new Size(269, 44);
             btnLogin.TabIndex = 4;
