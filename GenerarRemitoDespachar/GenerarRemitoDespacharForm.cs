@@ -1,8 +1,8 @@
 namespace AdministracionDeposito
 {
-    public partial class FrmGenerarRemitoDespachar : Form
+    public partial class GenerarRemitoDespacharForm : Form
     {
-        public FrmGenerarRemitoDespachar()
+        public GenerarRemitoDespacharForm()
         {
             InitializeComponent();
         }
