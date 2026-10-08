@@ -245,7 +245,6 @@
             lblPatente.TabIndex = 2;
             lblPatente.Text = "Patente";
             lblPatente.TextAlign = ContentAlignment.MiddleRight;
-            lblPatente.Click += this.lblPatente_Click;
             // 
             // textBox1
             // 
@@ -274,7 +273,6 @@
             textBox4.Name = "textBox4";
             textBox4.Size = new Size(337, 27);
             textBox4.TabIndex = 6;
-            textBox4.TextChanged += this.textBox4_TextChanged;
             // 
             // FrmGenerarRemitoDespachar
             // 
