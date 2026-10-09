@@ -1,4 +1,5 @@
 using AdministracionDeposito;
+using GrupoA.PampazonSA.AdministracionDeposito.GenerarOrdenSeleccion;
 using OrdenesPreparacion;
 
 namespace GrupoA.PampazonSA.AdministracionDeposito
@@ -17,11 +18,7 @@ namespace GrupoA.PampazonSA.AdministracionDeposito
 
             // Inicia el menú principal por defecto
             Application.Run(new MenuPrincipalForm());
-
-            // (Opcional) Si necesitas probar formularios específicos sin pasar por el menú, 
-            // comenta la línea de arriba y descomenta una de estas:
-            // Application.Run(new GenerarRemitoDespacharForm());
-            // Application.Run(new FrmRegistrarOrdenPreparacion());
+       
         }
     }
 }

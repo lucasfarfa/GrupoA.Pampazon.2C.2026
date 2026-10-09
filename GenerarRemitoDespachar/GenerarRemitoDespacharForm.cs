@@ -26,5 +26,15 @@ namespace AdministracionDeposito
         {
 
         }
+
+        private void lblEmpresaTransportista_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnConfirmarDespacho_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
