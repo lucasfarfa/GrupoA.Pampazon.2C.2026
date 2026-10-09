@@ -37,7 +37,7 @@ namespace OrdenesPreparacion
             lblDeposito.AutoSize = true;
             lblDeposito.Location = new Point(88, 52);
             lblDeposito.Name = "lblDeposito";
-            lblDeposito.Size = new Size(78, 23);
+            lblDeposito.Size = new Size(92, 28);
             lblDeposito.TabIndex = 1;
             lblDeposito.Text = "Depósito";
             lblDeposito.Click += lblDeposito_Click;
@@ -46,10 +46,10 @@ namespace OrdenesPreparacion
             // 
             cboDeposito.DropDownStyle = ComboBoxStyle.DropDownList;
             cboDeposito.FormattingEnabled = true;
-            cboDeposito.Items.AddRange(new object[] { "GBA 1", "ROSARIO", "CORDOBA 1", "TUCUMAN", "GBA 2", "SALTA", "CORDOBA 2", "NEUQUEN" });
+            cboDeposito.Items.AddRange(new object[] { "CORDOBA 1", "CORDOBA 2", "GBA 1", "GBA 2", "NEUQUEN", "ROSARIO", "SALTA", "TUCUMAN" });
             cboDeposito.Location = new Point(88, 83);
             cboDeposito.Name = "cboDeposito";
-            cboDeposito.Size = new Size(324, 31);
+            cboDeposito.Size = new Size(324, 36);
             cboDeposito.Sorted = true;
             cboDeposito.TabIndex = 2;
             cboDeposito.SelectedIndexChanged += cboDeposito_SelectedIndexChanged;
@@ -125,7 +125,7 @@ namespace OrdenesPreparacion
             // 
             // MenuPrincipalForm
             // 
-            AutoScaleDimensions = new SizeF(9F, 23F);
+            AutoScaleDimensions = new SizeF(11F, 28F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(506, 596);
             Controls.Add(button1);
