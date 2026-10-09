@@ -55,7 +55,7 @@ namespace OrdenesPreparacion
             // 
             cboDeposito.DropDownStyle = ComboBoxStyle.DropDownList;
             cboDeposito.FormattingEnabled = true;
-            cboDeposito.Items.AddRange(new object[] { "DEPOSITO BSAS", "DEPOSITO LAS FLORES", "DEPOSITO RAUCH", "DEPOSITO TANDIL", "DEPOSITO NECOCHEA" });
+            cboDeposito.Items.AddRange(new object[] { "GBA 1", "ROSARIO", "CORDOBA 1", "TUCUMAN", "GBA 2", "SALTA", "CORDOBA 2", "NEUQUEN" });
             cboDeposito.Location = new Point(88, 83);
             cboDeposito.Name = "cboDeposito";
             cboDeposito.Size = new Size(324, 36);
