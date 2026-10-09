@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
@@ -10,28 +11,41 @@ namespace GrupoA.PampazonSA.AdministracionDeposito.PrepararProductos
 {
     public partial class PrepararProductosForm : Form
     {
+        private PrepararProductosModelo _modelo;
+
         public PrepararProductosForm()
         {
             InitializeComponent();
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        public void InitializeModelBindings()
         {
-            LimpiarSeleccionDeOrdenesPendientes();
+            if (_modelo == null) _modelo = new PrepararProductosModelo();
+            RefrescarListaOrdenesSeleccion();
+
+            btnFinalizarPicking.Enabled = false;
+            btnCierreSeleccion.Enabled = false;
         }
 
-
-        private void button4_Click(object sender, EventArgs e)
+        private void RefrescarListaOrdenesSeleccion()
         {
-            SeleccionarTodasLasOrdenesPendientes();
+            listViewOS.Items.Clear();
+            foreach (var os in _modelo.OrdenesSeleccion.Where(w => w.Estado != "CUMPLIDA"))
+            {
+                var lvi = new ListViewItem(new string[] { os.Id, os.Descripcion, os.Estado });
+                listViewOS.Items.Add(lvi);
+                CambiarEstadoFila(lvi, 2, os.Estado);
+            }
+
+            if (_modelo.OrdenesSeleccion.Where(w => w.Estado != "CUMPLIDA").Count() == 0)
+            {
+                MessageBox.Show("No hay Ordenes de Selección pendientes de cumplir.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                lblTituloNoHayOS.Visible = true;
+            } else
+            {
+                lblTituloNoHayOS.Visible = false;
+            }
         }
-
-
-        private void button5_Click(object sender, EventArgs e)
-        {
-            LimpiarSeleccionDeOrdenesPendientes();
-        }
-
 
         private void AjustarColumnasFormulario()
         {
@@ -55,58 +69,69 @@ namespace GrupoA.PampazonSA.AdministracionDeposito.PrepararProductos
             listViewProductos.Columns[3].Width = (int)(anchoDisponibleProductos * 0.20);
         }
 
+        private void listViewOS_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (listViewOS.SelectedItems.Count == 0) return;
+
+            var itemSeleccionado = listViewOS.SelectedItems[0];
+            var osId = itemSeleccionado.SubItems[0].Text;
+            var os = _modelo?.GetOrdenSeleccionById(osId);
+            if (os == null) return;
+
+            listViewOP.Items.Clear();
+            listViewProductos.Items.Clear();
+
+            btnFinalizarPicking.Enabled = false;
+            btnCierreSeleccion.Enabled = false;
+
+            if (string.Equals(os.Estado, "CUMPLIDA", StringComparison.OrdinalIgnoreCase))
+            {
+                MessageBox.Show("La Orden de Selección ya esta cumplida.\nPor favor, selecciona un elemento de la lista que no este CUMPLIDO.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            foreach (var op in os.OrdenesPreparacion)
+            {
+                var lvi = new ListViewItem(new string[] { op.Id, op.Cliente, string.Empty, op.Estado });
+                listViewOP.Items.Add(lvi);
+                CambiarEstadoFila(lvi, 3, op.Estado);
+            }
+
+            // Habilitar el botón de cerrar SOLO si todas las OP de esta OS están PREPARADA y la OS aún no está CUMPLIDA
+            btnCierreSeleccion.Enabled = os.OrdenesPreparacion.All(o => string.Equals(o.Estado, "PREPARADA", StringComparison.OrdinalIgnoreCase))
+                                      && !string.Equals(os.Estado, "CUMPLIDA", StringComparison.OrdinalIgnoreCase);
+        }
+
         private void listViewOP_SelectedIndexChanged(object sender, EventArgs e)
         {
+            listViewProductos.Items.Clear();
 
-            if (listViewOP.SelectedItems.Count > 0)
+            if (listViewOP.SelectedItems.Count == 0) return;
+
+            var itemSeleccionado = listViewOP.SelectedItems[0];
+            var opId = itemSeleccionado.SubItems[0].Text;
+
+            var op = _modelo?.GetOrdenPreparacionById(opId);
+            if (op == null) return;
+
+            // llenar productos
+            foreach (var p in op.Productos)
             {
-                ListViewItem itemSeleccionado = listViewOP.SelectedItems[0];
-                string id = itemSeleccionado.SubItems[0].Text;
-                string estado = itemSeleccionado.SubItems[3].Text;
-
-                listViewProductos.Items.Clear();
-
-                if (estado == "SELECCIONADA")
-                {
-                    btnIniciarPicking.Enabled = true;
-                    btnFinalizarPicking.Enabled = false;
-                }
-                else if (estado == "EN_PROCESO")
-                {
-                    btnIniciarPicking.Enabled = false;
-                    btnFinalizarPicking.Enabled = true;
-                }
-                else if (estado == "CUMPLIDO")
-                {
-                    btnIniciarPicking.Enabled = false;
-                    btnFinalizarPicking.Enabled = false;
-                }
-
-                switch (id)
-                {
-                    case "OP-0000001":
-                    case "OP-0000003":
-                    case "OP-0000005":
-                    case "OP-0000007":
-                        listViewProductos.Items.Add(new ListViewItem(new string[] { "SKU-0000001", "Teclado", "10.00", "X0-Y1-Z2" }));
-                        listViewProductos.Items.Add(new ListViewItem(new string[] { "SKU-0000002", "Mouse", "10.00", "X3-Y4-Z5" }));
-                        listViewProductos.Items.Add(new ListViewItem(new string[] { "SKU-0000003", "Usb", "10.00", "X6-Y7-Z8" }));
-                        break;
-
-                    case "OP-0000002":
-                    case "OP-0000004":
-                    case "OP-0000006":
-                        listViewProductos.Items.Add(new ListViewItem(new string[] { "SKU-0000004", "Monitor", "10.00", "X9-Y12-Z22" }));
-                        listViewProductos.Items.Add(new ListViewItem(new string[] { "SKU-0000005", "Motherboard", "10.00", "X20-Y21-Z22" }));
-                        listViewProductos.Items.Add(new ListViewItem(new string[] { "SKU-0000006", "CPU AMD", "10.00", "X30-Y51-Z42" }));
-                        break;
-
-                    case "OP-0000008":
-                        listViewProductos.Items.Add(new ListViewItem(new string[] { "SKU-0000007", "CPU INTEL", "10.00", "X40-Y41-Z42" }));
-                        listViewProductos.Items.Add(new ListViewItem(new string[] { "SKU-0000008", "Fuente X Watts", "10.00", "X40-Y41-Z82" }));
-                        break;
-                }
+                listViewProductos.Items.Add(new ListViewItem(new string[] { p.Sku, p.Nombre, p.Cantidad.ToString("0.##"), p.Ubicacion }));
             }
+
+            // botones según estado
+            if (string.Equals(op.Estado, "SELECCIONADA", StringComparison.OrdinalIgnoreCase))
+            {
+                btnFinalizarPicking.Enabled = true;
+            }
+            else
+            {
+                btnFinalizarPicking.Enabled = false;
+            }
+
+            // mantener color/estado visual
+            CambiarEstadoFila(itemSeleccionado, 3, op.Estado);
         }
 
         private void listViewProductos_SelectedIndexChanged(object sender, EventArgs e)
@@ -114,55 +139,69 @@ namespace GrupoA.PampazonSA.AdministracionDeposito.PrepararProductos
 
         }
 
-        private void cmdFinalizarFulFillment_Click(object sender, EventArgs e)
+        private void btnRefrescar_Click(object sender, EventArgs e)
         {
-            ValidarBotonCierreSeleccion();
+            RefrescarListaOrdenesSeleccion();
         }
 
-        private void ValidarBotonCierreSeleccion()
+        private void btnFinalizarPicking_Click(object sender, EventArgs e)
         {
-            if (listViewOP.SelectedItems.Count > 0)
+            if (listViewOP.SelectedItems.Count == 0) return;
+
+            var opId = listViewOP.SelectedItems[0].SubItems[0].Text;
+            var ok = _modelo?.FinalizarPicking(opId) ?? false;
+            if (!ok) return;
+
+            // actualizar UI
+            var item = listViewOP.SelectedItems[0];
+            item.SubItems[3].Text = "PREPARADA";
+            CambiarEstadoFila(item, 3, "PREPARADA");
+            btnFinalizarPicking.Enabled = false;
+
+            // habilitar cierre si la OS padre tiene todas las OP PREPARADA y la OS no está aún CUMPLIDA
+            var parent = _modelo?.OrdenesSeleccion.FirstOrDefault(os => os.OrdenesPreparacion.Any(o => o.Id == opId));
+            if (parent != null)
             {
-
-                CambiarEstadoFila(listViewOP.SelectedItems[0], 3, "PICKEADA");
-
-                // Cambiar Estado a CUMPLIDO
-                listViewOP.SelectedItems[0].SubItems[3].Text = "PICKEADA";
-
-                // Apagar el botón de finalizar
-                btnFinalizarPicking.Enabled = false;
-
-                // Validar si TODO listView1 quedó listo para habilitar el botón grande de abajo
-                btnCierreSeleccion.Enabled = ValidarTodosCumplidos();
-            }
-        }
-
-        private bool ValidarTodosCumplidos()
-        {
-            // 1. Si la grilla está vacía, decidimos si habilitar o no (ejemplo: false)
-            if (listViewOP.Items.Count == 0) return false;
-
-            // 2. Recorrer cada fila de la grilla
-            foreach (ListViewItem fila in listViewOP.Items)
-            {
-                // Validar que la fila tenga suficientes subelementos para evitar errores
-                if (fila.SubItems.Count > 3)
+                var listo = parent.OrdenesPreparacion.All(o => string.Equals(o.Estado, "PREPARADA", StringComparison.OrdinalIgnoreCase));
+                btnCierreSeleccion.Enabled = listo && !string.Equals(parent.Estado, "CUMPLIDA", StringComparison.OrdinalIgnoreCase);
+                // actualizar estado visual de la OS en la lista si existe
+                foreach (ListViewItem l in listViewOS.Items)
                 {
-                    // Extraer el texto quitando espacios en blanco y convirtiendo a mayúsculas
-                    string estado = fila.SubItems[3].Text.Trim().ToUpper();
-
-                    if (estado != "PICKEADA")
+                    if (l.SubItems[0].Text == parent.Id)
                     {
-                        return false; // Al primer fallo, cancelamos y salimos
+                        l.SubItems[2].Text = parent.Estado;
+                        CambiarEstadoFila(l, 2, parent.Estado);
+                        break;
                     }
                 }
-                else
-                {
-                    return false; // Si falta la columna [3] en alguna fila, no está cumplido todo
-                }
+            }
+        }
+
+        private void btnCierreSeleccion_Click(object sender, EventArgs e)
+        {
+            if (listViewOS.SelectedItems.Count == 0)
+            {
+                MessageBox.Show("Por favor, selecciona un elemento de la lista.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
             }
 
-            return true; // Si completó el bucle sin salir, es porque TODOS son "CUMPLIDO"
+            var osId = listViewOS.SelectedItems[0].SubItems[0].Text;
+            var ok = _modelo?.CerrarOrdenSeleccion(osId) ?? false;
+            if (!ok)
+            {
+                MessageBox.Show("No se puede cerrar la Orden de Selección. Verifica que todas las órdenes de preparación estén preparadas y que la OS no esté ya cumplida.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            // Actualizar UI solo si el modelo cerró correctamente la OS
+            listViewOS.SelectedItems[0].SubItems[2].Text = "CUMPLIDA";
+            CambiarEstadoFila(listViewOS.SelectedItems[0], 2, "CUMPLIDA");
+            listViewOP.Items.Clear();
+            listViewProductos.Items.Clear();
+
+            RefrescarListaOrdenesSeleccion();
+
+            btnCierreSeleccion.Enabled = false;
         }
 
         private void CambiarEstadoFila(ListViewItem fila, int indice, string nuevoEstado)
@@ -180,14 +219,9 @@ namespace GrupoA.PampazonSA.AdministracionDeposito.PrepararProductos
                     fila.SubItems[indice].ForeColor = Color.Blue; // Azul para Seleccionada, sin trabajo todavia
                     break;
 
-                case "EN_PROCESO":
-                case "EN_PICKING":
-                    fila.SubItems[indice].ForeColor = Color.Red;  // Rojo para En Proceso
-                    break;
-
                 case "CUMPLIDO":
-                case "PICKEADA":
-                    fila.SubItems[indice].ForeColor = Color.Green; // Verde para Cumplido
+                case "PREPARADA":
+                    fila.SubItems[indice].ForeColor = Color.Green; // Verde para Cumplido / Preparada
                     break;
 
                 default:
@@ -196,77 +230,5 @@ namespace GrupoA.PampazonSA.AdministracionDeposito.PrepararProductos
             }
         }
 
-
-        private void btnIniciarFulFillment_Click(object sender, EventArgs e)
-        {
-            if (listViewOP.SelectedItems.Count > 0)
-            {
-                // Cambiar Estado en la columna 4 (índice 3)
-                listViewOP.SelectedItems[0].SubItems[3].Text = "EN_PICKING";
-                CambiarEstadoFila(listViewOP.SelectedItems[0], 3, "EN_PICKING");
-
-                // Cambiar estados de botones
-                btnIniciarPicking.Enabled = false;
-                btnFinalizarPicking.Enabled = true;
-
-            }
-        }
-
-        private void listViewOS_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if (listViewOS.SelectedItems.Count > 0)
-            {
-                ListViewItem itemSeleccionado = listViewOS.SelectedItems[0];
-                string id = itemSeleccionado.SubItems[0].Text;
-                string fecha = itemSeleccionado.SubItems[1].Text;
-                string estado = itemSeleccionado.SubItems[2].Text;
-
-                listViewOP.Items.Clear();
-                listViewProductos.Items.Clear();
-
-                btnIniciarPicking.Enabled = false;
-                btnFinalizarPicking.Enabled = false;
-                btnCierreSeleccion.Enabled = false;
-                
-                if (estado == "CUMPLIDO") { 
-                    MessageBox.Show("La Orden de Selección ya esta cumplida.\nPor favor, selecciona un elemento de la lista que no este CUMPLIDO.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    return;
-                }
-
-                switch (id)
-                {
-                    case "OS-0000092":
-                        listViewOP.Items.Add(new ListViewItem(new string[] { "OP-0000002", "Luis Pérez", "2026-01-01 10:00:00", "SELECCIONADA" }));
-                        listViewOP.Items.Add(new ListViewItem(new string[] { "OP-0000003", "Luis Pérez", "2026-01-01 10:00:00", "SELECCIONADA" }));
-                        listViewOP.Items.Add(new ListViewItem(new string[] { "OP-0000004", "Luis Pérez", "2026-01-01 10:00:00", "SELECCIONADA" }));
-                        listViewOP.Items.Add(new ListViewItem(new string[] { "OP-0000005", "Luis Pérez", "2026-01-01 10:00:00", "SELECCIONADA" }));
-                        listViewOP.Items.Add(new ListViewItem(new string[] { "OP-0000006", "Luis Pérez", "2026-01-01 10:00:00", "SELECCIONADA" }));
-                        break;
-
-                    case "OS-0000093":
-                        listViewOP.Items.Add(new ListViewItem(new string[] { "OP-0000007", "Luis Pérez", "2026-01-01 10:00:00", "SELECCIONADA" }));
-                        listViewOP.Items.Add(new ListViewItem(new string[] { "OP-0000008", "Luis Pérez", "2026-01-01 10:00:00", "SELECCIONADA" }));
-                        listViewOP.Items.Add(new ListViewItem(new string[] { "OP-0000001", "Luis Pérez", "2026-01-01 10:00:00", "SELECCIONADA" }));
-                        break;
-                }
-            }
-        }
-
-        private void btnCierreSeleccion_Click(object sender, EventArgs e)
-        {
-            // 1. Validar que haya al menos un elemento seleccionado
-            if (listViewOS.SelectedItems.Count > 0)
-            {
-                // 2. Modificar el SubItem[2] del primer elemento seleccionado
-                listViewOS.SelectedItems[0].SubItems[2].Text = "CUMPLIDO";
-                CambiarEstadoFila(listViewOS.SelectedItems[0], 2, "CUMPLIDO");
-                listViewOP.Items.Clear();
-                listViewProductos.Items.Clear();
-            }
-            else
-            {
-                MessageBox.Show("Por favor, selecciona un elemento de la lista.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-            }
-        }
     }
 }
