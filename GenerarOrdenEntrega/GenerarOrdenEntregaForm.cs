@@ -8,9 +8,9 @@ using System.Windows.Forms;
 
 namespace GrupoA.PampazonSA.AdministracionDeposito.GenerarOrdenEntrega
 {
-    public partial class GenerarOrdenEntregaForm : Form
+    public partial class btnCancelar : Form
     {
-        public GenerarOrdenEntregaForm()
+        public btnCancelar()
         {
             InitializeComponent();
         }
@@ -36,6 +36,16 @@ namespace GrupoA.PampazonSA.AdministracionDeposito.GenerarOrdenEntrega
         }
 
         private void label4_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void txtObservaciones_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void dtpFechaSalida_ValueChanged(object sender, EventArgs e)
         {
 
         }
