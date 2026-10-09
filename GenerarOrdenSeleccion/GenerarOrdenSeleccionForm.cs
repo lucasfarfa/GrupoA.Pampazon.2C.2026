@@ -14,5 +14,10 @@ namespace GrupoA.PampazonSA.AdministracionDeposito.GenerarOrdenSeleccion
         {
             InitializeComponent();
         }
+
+        private void OPPendientesListView_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }
