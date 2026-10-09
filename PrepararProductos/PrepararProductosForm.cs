@@ -23,7 +23,6 @@ namespace GrupoA.PampazonSA.AdministracionDeposito.PrepararProductos
             if (_modelo == null) _modelo = new PrepararProductosModelo();
             RefrescarListaOrdenesSeleccion();
 
-            btnIniciarPicking.Enabled = false;
             btnFinalizarPicking.Enabled = false;
             btnCierreSeleccion.Enabled = false;
         }
@@ -82,7 +81,6 @@ namespace GrupoA.PampazonSA.AdministracionDeposito.PrepararProductos
             listViewOP.Items.Clear();
             listViewProductos.Items.Clear();
 
-            btnIniciarPicking.Enabled = false;
             btnFinalizarPicking.Enabled = false;
             btnCierreSeleccion.Enabled = false;
 
@@ -99,8 +97,8 @@ namespace GrupoA.PampazonSA.AdministracionDeposito.PrepararProductos
                 CambiarEstadoFila(lvi, 3, op.Estado);
             }
 
-            // Habilitar el botón de cerrar SOLO si todas las OP de esta OS están PICKEADA y la OS aún no está CUMPLIDA
-            btnCierreSeleccion.Enabled = os.OrdenesPreparacion.All(o => string.Equals(o.Estado, "PICKEADA", StringComparison.OrdinalIgnoreCase))
+            // Habilitar el botón de cerrar SOLO si todas las OP de esta OS están PREPARADA y la OS aún no está CUMPLIDA
+            btnCierreSeleccion.Enabled = os.OrdenesPreparacion.All(o => string.Equals(o.Estado, "PREPARADA", StringComparison.OrdinalIgnoreCase))
                                       && !string.Equals(os.Estado, "CUMPLIDA", StringComparison.OrdinalIgnoreCase);
         }
 
@@ -125,17 +123,10 @@ namespace GrupoA.PampazonSA.AdministracionDeposito.PrepararProductos
             // botones según estado
             if (string.Equals(op.Estado, "SELECCIONADA", StringComparison.OrdinalIgnoreCase))
             {
-                btnIniciarPicking.Enabled = true;
-                btnFinalizarPicking.Enabled = false;
-            }
-            else if (string.Equals(op.Estado, "EN_PROCESO", StringComparison.OrdinalIgnoreCase))
-            {
-                btnIniciarPicking.Enabled = false;
                 btnFinalizarPicking.Enabled = true;
             }
             else
             {
-                btnIniciarPicking.Enabled = false;
                 btnFinalizarPicking.Enabled = false;
             }
 
@@ -153,52 +144,7 @@ namespace GrupoA.PampazonSA.AdministracionDeposito.PrepararProductos
             RefrescarListaOrdenesSeleccion();
         }
 
-        private void btnIniciarPicking_Click(object sender, EventArgs e)
-        {
-            if (listViewOP.SelectedItems.Count == 0) return;
-
-            var opId = listViewOP.SelectedItems[0].SubItems[0].Text;
-            var ok = _modelo?.IniciarPicking(opId) ?? false;
-            if (!ok) return;
-
-            // actualizar UI
-            var item = listViewOP.SelectedItems[0];
-            item.SubItems[3].Text = "EN_PROCESO";
-            CambiarEstadoFila(item, 3, "EN_PROCESO");
-            btnIniciarPicking.Enabled = false;
-            btnFinalizarPicking.Enabled = true;
-        }
-
         private void btnFinalizarPicking_Click(object sender, EventArgs e)
-        {
-            ValidarBotonCierreSeleccion();
-        }
-
-        private void btnCierreSeleccion_Click(object sender, EventArgs e)
-        {
-            if (listViewOS.SelectedItems.Count == 0)
-            {
-                MessageBox.Show("Por favor, selecciona un elemento de la lista.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
-            }
-
-            var osId = listViewOS.SelectedItems[0].SubItems[0].Text;
-            var os = _modelo?.GetOrdenSeleccionById(osId);
-            if (os == null) return;
-
-            // Cerrar la OS si corresponde (en el prototipo, forzamos el cierre)
-            os.Estado = "CUMPLIDA";
-            listViewOS.SelectedItems[0].SubItems[2].Text = "CUMPLIDA";
-            CambiarEstadoFila(listViewOS.SelectedItems[0], 2, "CUMPLIDA");
-            listViewOP.Items.Clear();
-            listViewProductos.Items.Clear();
-
-            RefrescarListaOrdenesSeleccion();
-
-            btnCierreSeleccion.Enabled = false;
-        }
-
-        private void ValidarBotonCierreSeleccion()
         {
             if (listViewOP.SelectedItems.Count == 0) return;
 
@@ -208,15 +154,15 @@ namespace GrupoA.PampazonSA.AdministracionDeposito.PrepararProductos
 
             // actualizar UI
             var item = listViewOP.SelectedItems[0];
-            item.SubItems[3].Text = "PICKEADA";
-            CambiarEstadoFila(item, 3, "PICKEADA");
+            item.SubItems[3].Text = "PREPARADA";
+            CambiarEstadoFila(item, 3, "PREPARADA");
             btnFinalizarPicking.Enabled = false;
 
-            // habilitar cierre si la OS padre tiene todas las OP PICKEADA y la OS no está aún CUMPLIDA
+            // habilitar cierre si la OS padre tiene todas las OP PREPARADA y la OS no está aún CUMPLIDA
             var parent = _modelo?.OrdenesSeleccion.FirstOrDefault(os => os.OrdenesPreparacion.Any(o => o.Id == opId));
             if (parent != null)
             {
-                var listo = parent.OrdenesPreparacion.All(o => string.Equals(o.Estado, "PICKEADA", StringComparison.OrdinalIgnoreCase));
+                var listo = parent.OrdenesPreparacion.All(o => string.Equals(o.Estado, "PREPARADA", StringComparison.OrdinalIgnoreCase));
                 btnCierreSeleccion.Enabled = listo && !string.Equals(parent.Estado, "CUMPLIDA", StringComparison.OrdinalIgnoreCase);
                 // actualizar estado visual de la OS en la lista si existe
                 foreach (ListViewItem l in listViewOS.Items)
@@ -229,6 +175,33 @@ namespace GrupoA.PampazonSA.AdministracionDeposito.PrepararProductos
                     }
                 }
             }
+        }
+
+        private void btnCierreSeleccion_Click(object sender, EventArgs e)
+        {
+            if (listViewOS.SelectedItems.Count == 0)
+            {
+                MessageBox.Show("Por favor, selecciona un elemento de la lista.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            var osId = listViewOS.SelectedItems[0].SubItems[0].Text;
+            var ok = _modelo?.CerrarOrdenSeleccion(osId) ?? false;
+            if (!ok)
+            {
+                MessageBox.Show("No se puede cerrar la Orden de Selección. Verifica que todas las órdenes de preparación estén preparadas y que la OS no esté ya cumplida.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            // Actualizar UI solo si el modelo cerró correctamente la OS
+            listViewOS.SelectedItems[0].SubItems[2].Text = "CUMPLIDA";
+            CambiarEstadoFila(listViewOS.SelectedItems[0], 2, "CUMPLIDA");
+            listViewOP.Items.Clear();
+            listViewProductos.Items.Clear();
+
+            RefrescarListaOrdenesSeleccion();
+
+            btnCierreSeleccion.Enabled = false;
         }
 
         private void CambiarEstadoFila(ListViewItem fila, int indice, string nuevoEstado)
@@ -246,14 +219,9 @@ namespace GrupoA.PampazonSA.AdministracionDeposito.PrepararProductos
                     fila.SubItems[indice].ForeColor = Color.Blue; // Azul para Seleccionada, sin trabajo todavia
                     break;
 
-                case "EN_PROCESO":
-                case "EN_PICKING":
-                    fila.SubItems[indice].ForeColor = Color.Red;  // Rojo para En Proceso
-                    break;
-
                 case "CUMPLIDO":
-                case "PICKEADA":
-                    fila.SubItems[indice].ForeColor = Color.Green; // Verde para Cumplido
+                case "PREPARADA":
+                    fila.SubItems[indice].ForeColor = Color.Green; // Verde para Cumplido / Preparada
                     break;
 
                 default:
