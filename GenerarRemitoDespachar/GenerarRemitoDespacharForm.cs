@@ -36,5 +36,25 @@ namespace AdministracionDeposito
         {
 
         }
+
+        private void groupBox2_Enter(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textBox3_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void lblDepósito_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
