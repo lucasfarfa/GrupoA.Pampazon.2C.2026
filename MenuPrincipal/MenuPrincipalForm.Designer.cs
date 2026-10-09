@@ -23,13 +23,12 @@ namespace OrdenesPreparacion
         {
             lblDeposito = new Label();
             cboDeposito = new ComboBox();
-            btnValidarOrdenes = new Button();
-            btnGenerarSeleccion = new Button();
-            btnPrepararProductos = new Button();
-            btnEmpaquetar = new Button();
-            btnGenerarEntrega = new Button();
-            btnGenerarRemito = new Button();
-            button1 = new Button();
+            RegistrarOrdenPrepracionBtn = new Button();
+            GenerarOrdenSeleccionBtn = new Button();
+            PrepararProductosBtn = new Button();
+            EmpaquetarBtn = new Button();
+            GenerarOrdenEntregaBtn = new Button();
+            GenerarRemitoDespachar = new Button();
             SuspendLayout();
             // 
             // lblDeposito
@@ -37,7 +36,7 @@ namespace OrdenesPreparacion
             lblDeposito.AutoSize = true;
             lblDeposito.Location = new Point(88, 52);
             lblDeposito.Name = "lblDeposito";
-            lblDeposito.Size = new Size(92, 28);
+            lblDeposito.Size = new Size(78, 23);
             lblDeposito.TabIndex = 1;
             lblDeposito.Text = "Depósito";
             lblDeposito.Click += lblDeposito_Click;
@@ -49,92 +48,80 @@ namespace OrdenesPreparacion
             cboDeposito.Items.AddRange(new object[] { "CORDOBA 1", "CORDOBA 2", "GBA 1", "GBA 2", "NEUQUEN", "ROSARIO", "SALTA", "TUCUMAN" });
             cboDeposito.Location = new Point(88, 83);
             cboDeposito.Name = "cboDeposito";
-            cboDeposito.Size = new Size(324, 36);
+            cboDeposito.Size = new Size(324, 31);
             cboDeposito.Sorted = true;
             cboDeposito.TabIndex = 2;
             cboDeposito.SelectedIndexChanged += cboDeposito_SelectedIndexChanged;
             // 
-            // btnValidarOrdenes
+            // RegistrarOrdenPrepracionBtn
             // 
-            btnValidarOrdenes.Location = new Point(88, 145);
-            btnValidarOrdenes.Name = "btnValidarOrdenes";
-            btnValidarOrdenes.Size = new Size(324, 46);
-            btnValidarOrdenes.TabIndex = 3;
-            btnValidarOrdenes.Text = "Generar Orden de Preparación";
-            btnValidarOrdenes.UseVisualStyleBackColor = true;
-            btnValidarOrdenes.Click += btnValidarOrdenes_Click;
+            RegistrarOrdenPrepracionBtn.Location = new Point(88, 145);
+            RegistrarOrdenPrepracionBtn.Name = "RegistrarOrdenPrepracionBtn";
+            RegistrarOrdenPrepracionBtn.Size = new Size(324, 46);
+            RegistrarOrdenPrepracionBtn.TabIndex = 3;
+            RegistrarOrdenPrepracionBtn.Text = "Registrar Orden de Preparación";
+            RegistrarOrdenPrepracionBtn.UseVisualStyleBackColor = true;
+            RegistrarOrdenPrepracionBtn.Click += btnValidarOrdenes_Click;
             // 
-            // btnGenerarSeleccion
+            // GenerarOrdenSeleccionBtn
             // 
-            btnGenerarSeleccion.Location = new Point(88, 207);
-            btnGenerarSeleccion.Name = "btnGenerarSeleccion";
-            btnGenerarSeleccion.Size = new Size(324, 46);
-            btnGenerarSeleccion.TabIndex = 4;
-            btnGenerarSeleccion.Text = "Generar Orden de Selección";
-            btnGenerarSeleccion.UseVisualStyleBackColor = true;
+            GenerarOrdenSeleccionBtn.Location = new Point(88, 207);
+            GenerarOrdenSeleccionBtn.Name = "GenerarOrdenSeleccionBtn";
+            GenerarOrdenSeleccionBtn.Size = new Size(324, 46);
+            GenerarOrdenSeleccionBtn.TabIndex = 4;
+            GenerarOrdenSeleccionBtn.Text = "Generar Orden de Selección";
+            GenerarOrdenSeleccionBtn.UseVisualStyleBackColor = true;
             // 
-            // btnPrepararProductos
+            // PrepararProductosBtn
             // 
-            btnPrepararProductos.Location = new Point(88, 269);
-            btnPrepararProductos.Name = "btnPrepararProductos";
-            btnPrepararProductos.Size = new Size(324, 46);
-            btnPrepararProductos.TabIndex = 5;
-            btnPrepararProductos.Text = "Preparar los productos (picking)";
-            btnPrepararProductos.UseVisualStyleBackColor = true;
-            btnPrepararProductos.Click += btnPrepararProductos_Click;
+            PrepararProductosBtn.Location = new Point(88, 269);
+            PrepararProductosBtn.Name = "PrepararProductosBtn";
+            PrepararProductosBtn.Size = new Size(324, 46);
+            PrepararProductosBtn.TabIndex = 5;
+            PrepararProductosBtn.Text = "Preparar los productos (picking)";
+            PrepararProductosBtn.UseVisualStyleBackColor = true;
+            PrepararProductosBtn.Click += btnPrepararProductos_Click;
             // 
-            // btnEmpaquetar
+            // EmpaquetarBtn
             // 
-            btnEmpaquetar.Location = new Point(88, 331);
-            btnEmpaquetar.Name = "btnEmpaquetar";
-            btnEmpaquetar.Size = new Size(324, 46);
-            btnEmpaquetar.TabIndex = 6;
-            btnEmpaquetar.Text = "Empaquetar productos (fullfilment)";
-            btnEmpaquetar.UseVisualStyleBackColor = true;
+            EmpaquetarBtn.Location = new Point(88, 331);
+            EmpaquetarBtn.Name = "EmpaquetarBtn";
+            EmpaquetarBtn.Size = new Size(324, 46);
+            EmpaquetarBtn.TabIndex = 6;
+            EmpaquetarBtn.Text = "Empaquetar productos (fullfilment)";
+            EmpaquetarBtn.UseVisualStyleBackColor = true;
             // 
-            // btnGenerarEntrega
+            // GenerarOrdenEntregaBtn
             // 
-            btnGenerarEntrega.Location = new Point(88, 397);
-            btnGenerarEntrega.Name = "btnGenerarEntrega";
-            btnGenerarEntrega.Size = new Size(324, 46);
-            btnGenerarEntrega.TabIndex = 7;
-            btnGenerarEntrega.Text = "Generar Orden de Entrega";
-            btnGenerarEntrega.UseVisualStyleBackColor = true;
-            btnGenerarEntrega.Click += btnGenerarEntrega_Click;
+            GenerarOrdenEntregaBtn.Location = new Point(88, 397);
+            GenerarOrdenEntregaBtn.Name = "GenerarOrdenEntregaBtn";
+            GenerarOrdenEntregaBtn.Size = new Size(324, 46);
+            GenerarOrdenEntregaBtn.TabIndex = 7;
+            GenerarOrdenEntregaBtn.Text = "Generar Orden de Entrega";
+            GenerarOrdenEntregaBtn.UseVisualStyleBackColor = true;
+            GenerarOrdenEntregaBtn.Click += btnGenerarEntrega_Click;
             // 
-            // btnGenerarRemito
+            // GenerarRemitoDespachar
             // 
-            btnGenerarRemito.Location = new Point(88, 521);
-            btnGenerarRemito.Name = "btnGenerarRemito";
-            btnGenerarRemito.Size = new Size(324, 46);
-            btnGenerarRemito.TabIndex = 8;
-            btnGenerarRemito.Text = "Generar remito y despachar";
-            btnGenerarRemito.UseVisualStyleBackColor = true;
-            btnGenerarRemito.Click += btnGenerarRemito_Click;
-            // 
-            // button1
-            // 
-            button1.BackColor = SystemColors.ControlDark;
-            button1.Location = new Point(88, 458);
-            button1.Name = "button1";
-            button1.Size = new Size(324, 46);
-            button1.TabIndex = 9;
-            button1.Text = "Confirmar Orden de Entrega";
-            button1.UseVisualStyleBackColor = false;
-            button1.Click += button1_Click;
+            GenerarRemitoDespachar.Location = new Point(88, 461);
+            GenerarRemitoDespachar.Name = "GenerarRemitoDespachar";
+            GenerarRemitoDespachar.Size = new Size(324, 46);
+            GenerarRemitoDespachar.TabIndex = 8;
+            GenerarRemitoDespachar.Text = "Generar remito y despachar";
+            GenerarRemitoDespachar.UseVisualStyleBackColor = true;
+            GenerarRemitoDespachar.Click += btnGenerarRemito_Click;
             // 
             // MenuPrincipalForm
             // 
-            AutoScaleDimensions = new SizeF(11F, 28F);
+            AutoScaleDimensions = new SizeF(9F, 23F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(506, 596);
-            Controls.Add(button1);
-            Controls.Add(btnGenerarRemito);
-            Controls.Add(btnGenerarEntrega);
-            Controls.Add(btnEmpaquetar);
-            Controls.Add(btnPrepararProductos);
-            Controls.Add(btnGenerarSeleccion);
-            Controls.Add(btnValidarOrdenes);
+            ClientSize = new Size(506, 554);
+            Controls.Add(GenerarRemitoDespachar);
+            Controls.Add(GenerarOrdenEntregaBtn);
+            Controls.Add(EmpaquetarBtn);
+            Controls.Add(PrepararProductosBtn);
+            Controls.Add(GenerarOrdenSeleccionBtn);
+            Controls.Add(RegistrarOrdenPrepracionBtn);
             Controls.Add(cboDeposito);
             Controls.Add(lblDeposito);
             Font = new Font("Segoe UI", 10F);
@@ -151,12 +138,11 @@ namespace OrdenesPreparacion
         #endregion
         private System.Windows.Forms.Label lblDeposito;
         private System.Windows.Forms.ComboBox cboDeposito;
-        private System.Windows.Forms.Button btnValidarOrdenes;
-        private System.Windows.Forms.Button btnGenerarSeleccion;
-        private System.Windows.Forms.Button btnPrepararProductos;
-        private System.Windows.Forms.Button btnEmpaquetar;
-        private System.Windows.Forms.Button btnGenerarEntrega;
-        private System.Windows.Forms.Button btnGenerarRemito;
-        private Button button1;
+        private System.Windows.Forms.Button RegistrarOrdenPrepracionBtn;
+        private System.Windows.Forms.Button GenerarOrdenSeleccionBtn;
+        private System.Windows.Forms.Button PrepararProductosBtn;
+        private System.Windows.Forms.Button EmpaquetarBtn;
+        private System.Windows.Forms.Button GenerarOrdenEntregaBtn;
+        private System.Windows.Forms.Button GenerarRemitoDespachar;
     }
 }

@@ -35,8 +35,6 @@
             label5 = new Label();
             textCliente = new TextBox();
             txtCliente = new Label();
-            label3 = new Label();
-            cmbOrden = new ComboBox();
             groupBox2 = new GroupBox();
             lstProductos = new ListView();
             columnHeader1 = new ColumnHeader();
@@ -51,7 +49,12 @@
             btnCancelar = new Button();
             ActualizarBtn = new Button();
             label1 = new Label();
-            DepositoCombo = new ComboBox();
+            DepositoLbl = new Label();
+            label4 = new Label();
+            PuestoLbl = new Label();
+            label3 = new Label();
+            cmbOrden = new ComboBox();
+            columnHeader4 = new ColumnHeader();
             grpOrden.SuspendLayout();
             groupBox2.SuspendLayout();
             groupBox3.SuspendLayout();
@@ -146,32 +149,6 @@
             txtCliente.Text = "Cliente:";
             txtCliente.UseWaitCursor = true;
             // 
-            // label3
-            // 
-            label3.AutoSize = true;
-            label3.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label3.Location = new Point(9, 37);
-            label3.Margin = new Padding(2, 0, 2, 0);
-            label3.Name = "label3";
-            label3.Size = new Size(53, 20);
-            label3.TabIndex = 0;
-            label3.Text = "Orden:";
-            label3.UseWaitCursor = true;
-            label3.Click += label3_Click;
-            // 
-            // cmbOrden
-            // 
-            cmbOrden.DropDownStyle = ComboBoxStyle.DropDownList;
-            cmbOrden.FormattingEnabled = true;
-            cmbOrden.Items.AddRange(new object[] { "OP-2026-0016 (MundoFOX S.A.)" });
-            cmbOrden.Location = new Point(97, 33);
-            cmbOrden.Margin = new Padding(2);
-            cmbOrden.Name = "cmbOrden";
-            cmbOrden.Size = new Size(281, 28);
-            cmbOrden.TabIndex = 1;
-            cmbOrden.UseWaitCursor = true;
-            cmbOrden.SelectedIndexChanged += cmbOrden_SelectedIndexChanged;
-            // 
             // groupBox2
             // 
             groupBox2.Controls.Add(lstProductos);
@@ -188,7 +165,7 @@
             // 
             // lstProductos
             // 
-            lstProductos.Columns.AddRange(new ColumnHeader[] { columnHeader1, columnHeader2, columnHeader3 });
+            lstProductos.Columns.AddRange(new ColumnHeader[] { columnHeader1, columnHeader2, columnHeader3, columnHeader4 });
             lstProductos.FullRowSelect = true;
             lstProductos.HeaderStyle = ColumnHeaderStyle.Nonclickable;
             lstProductos.Location = new Point(7, 24);
@@ -204,12 +181,12 @@
             // columnHeader1
             // 
             columnHeader1.Text = "SKU Producto";
-            columnHeader1.Width = 260;
+            columnHeader1.Width = 120;
             // 
             // columnHeader2
             // 
-            columnHeader2.Text = "Nombre Producto";
-            columnHeader2.Width = 650;
+            columnHeader2.Text = "Descripcion";
+            columnHeader2.Width = 200;
             // 
             // columnHeader3
             // 
@@ -245,7 +222,7 @@
             // txtCantidadBultos
             // 
             txtCantidadBultos.Enabled = false;
-            txtCantidadBultos.Location = new Point(466, 31);
+            txtCantidadBultos.Location = new Point(694, 36);
             txtCantidadBultos.Margin = new Padding(2);
             txtCantidadBultos.Name = "txtCantidadBultos";
             txtCantidadBultos.Size = new Size(61, 27);
@@ -255,7 +232,7 @@
             // label6
             // 
             label6.AutoSize = true;
-            label6.Location = new Point(303, 35);
+            label6.Location = new Point(552, 39);
             label6.Margin = new Padding(2, 0, 2, 0);
             label6.Name = "label6";
             label6.Size = new Size(138, 20);
@@ -279,7 +256,7 @@
             // 
             btnEmpaquetar.Enabled = false;
             btnEmpaquetar.ForeColor = SystemColors.HotTrack;
-            btnEmpaquetar.Location = new Point(537, 576);
+            btnEmpaquetar.Location = new Point(539, 529);
             btnEmpaquetar.Margin = new Padding(2);
             btnEmpaquetar.Name = "btnEmpaquetar";
             btnEmpaquetar.Size = new Size(122, 47);
@@ -291,7 +268,7 @@
             // 
             btnCancelar.BackColor = SystemColors.ControlLight;
             btnCancelar.ForeColor = SystemColors.WindowFrame;
-            btnCancelar.Location = new Point(663, 576);
+            btnCancelar.Location = new Point(665, 529);
             btnCancelar.Margin = new Padding(2);
             btnCancelar.Name = "btnCancelar";
             btnCancelar.Size = new Size(102, 47);
@@ -313,31 +290,84 @@
             label1.AutoSize = true;
             label1.Location = new Point(9, 23);
             label1.Name = "label1";
-            label1.Size = new Size(70, 20);
+            label1.Size = new Size(73, 20);
             label1.TabIndex = 12;
-            label1.Text = "Depósito";
+            label1.Text = "Depósito:";
             // 
-            // DepositoCombo
+            // DepositoLbl
             // 
-            DepositoCombo.FormattingEnabled = true;
-            DepositoCombo.Location = new Point(85, 20);
-            DepositoCombo.Name = "DepositoCombo";
-            DepositoCombo.Size = new Size(309, 28);
-            DepositoCombo.TabIndex = 11;
+            DepositoLbl.AutoSize = true;
+            DepositoLbl.Location = new Point(88, 23);
+            DepositoLbl.Name = "DepositoLbl";
+            DepositoLbl.Size = new Size(87, 20);
+            DepositoLbl.TabIndex = 14;
+            DepositoLbl.Text = "[DEPOSITO]";
+            // 
+            // label4
+            // 
+            label4.AutoSize = true;
+            label4.Location = new Point(217, 23);
+            label4.Name = "label4";
+            label4.Size = new Size(56, 20);
+            label4.TabIndex = 15;
+            label4.Text = "Puesto:";
+            // 
+            // PuestoLbl
+            // 
+            PuestoLbl.AutoSize = true;
+            PuestoLbl.Location = new Point(279, 23);
+            PuestoLbl.Name = "PuestoLbl";
+            PuestoLbl.Size = new Size(71, 20);
+            PuestoLbl.TabIndex = 16;
+            PuestoLbl.Text = "[PUESTO]";
+            // 
+            // label3
+            // 
+            label3.AutoSize = true;
+            label3.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label3.Location = new Point(9, 37);
+            label3.Margin = new Padding(2, 0, 2, 0);
+            label3.Name = "label3";
+            label3.Size = new Size(53, 20);
+            label3.TabIndex = 0;
+            label3.Text = "Orden:";
+            label3.UseWaitCursor = true;
+            label3.Click += label3_Click;
+            // 
+            // cmbOrden
+            // 
+            cmbOrden.DropDownStyle = ComboBoxStyle.DropDownList;
+            cmbOrden.FormattingEnabled = true;
+            cmbOrden.Items.AddRange(new object[] { "OP-2026-0016 (MundoFOX S.A.)" });
+            cmbOrden.Location = new Point(97, 33);
+            cmbOrden.Margin = new Padding(2);
+            cmbOrden.Name = "cmbOrden";
+            cmbOrden.Size = new Size(281, 28);
+            cmbOrden.TabIndex = 1;
+            cmbOrden.UseWaitCursor = true;
+            cmbOrden.SelectedIndexChanged += cmbOrden_SelectedIndexChanged;
+            // 
+            // columnHeader4
+            // 
+            columnHeader4.Text = "Unidad";
+            columnHeader4.Width = 80;
             // 
             // EmpaquetarProductosForm
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(774, 640);
+            ClientSize = new Size(774, 584);
+            Controls.Add(PuestoLbl);
+            Controls.Add(label4);
+            Controls.Add(DepositoLbl);
             Controls.Add(ActualizarBtn);
             Controls.Add(label1);
-            Controls.Add(DepositoCombo);
             Controls.Add(btnCancelar);
             Controls.Add(btnEmpaquetar);
             Controls.Add(groupBox3);
             Controls.Add(groupBox2);
             Controls.Add(grpOrden);
+            FormBorderStyle = FormBorderStyle.FixedDialog;
             Margin = new Padding(2);
             Name = "EmpaquetarProductosForm";
             Text = "Empaquetar Productos Forms - Pampazon S.A";
@@ -354,8 +384,6 @@
 
         #endregion
         private GroupBox grpOrden;
-        private Label label3;
-        private ComboBox cmbOrden;
         private Label txtCliente;
         private TextBox textCliente;
         private Label label5;
@@ -376,6 +404,11 @@
         private Label label2;
         private Button ActualizarBtn;
         private Label label1;
-        private ComboBox DepositoCombo;
+        private Label DepositoLbl;
+        private Label label4;
+        private Label PuestoLbl;
+        private Label label3;
+        private ComboBox cmbOrden;
+        private ColumnHeader columnHeader4;
     }
 }

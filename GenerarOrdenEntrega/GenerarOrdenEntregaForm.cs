@@ -49,5 +49,15 @@ namespace GrupoA.PampazonSA.AdministracionDeposito.GenerarOrdenEntrega
         {
 
         }
+
+        private void listView2_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

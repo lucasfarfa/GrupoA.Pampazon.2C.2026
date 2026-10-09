@@ -53,9 +53,10 @@
             // lblTituloOS
             // 
             lblTituloOS.AutoSize = true;
-            lblTituloOS.Location = new Point(12, 9);
+            lblTituloOS.Location = new Point(10, 7);
+            lblTituloOS.Margin = new Padding(2, 0, 2, 0);
             lblTituloOS.Name = "lblTituloOS";
-            lblTituloOS.Size = new Size(182, 25);
+            lblTituloOS.Size = new Size(152, 20);
             lblTituloOS.TabIndex = 0;
             lblTituloOS.Text = "Ordenes de Selección";
             // 
@@ -63,10 +64,11 @@
             // 
             listViewProductos.Columns.AddRange(new ColumnHeader[] { columnHeader4, columnHeader5, columnHeader6, columnHeader7 });
             listViewProductos.HeaderStyle = ColumnHeaderStyle.Nonclickable;
-            listViewProductos.Location = new Point(665, 335);
+            listViewProductos.Location = new Point(532, 268);
+            listViewProductos.Margin = new Padding(2, 2, 2, 2);
             listViewProductos.MultiSelect = false;
             listViewProductos.Name = "listViewProductos";
-            listViewProductos.Size = new Size(616, 379);
+            listViewProductos.Size = new Size(494, 304);
             listViewProductos.TabIndex = 3;
             listViewProductos.UseCompatibleStateImageBehavior = false;
             listViewProductos.View = View.Details;
@@ -79,33 +81,38 @@
             // columnHeader5
             // 
             columnHeader5.Text = "Descripción";
+            columnHeader5.Width = 130;
             // 
             // columnHeader6
             // 
             columnHeader6.Text = "Cantidad";
             columnHeader6.TextAlign = HorizontalAlignment.Right;
+            columnHeader6.Width = 80;
             // 
             // columnHeader7
             // 
             columnHeader7.Text = "Posición en Racks";
             columnHeader7.TextAlign = HorizontalAlignment.Center;
+            columnHeader7.Width = 130;
             // 
             // lblTituloOP
             // 
             lblTituloOP.AutoSize = true;
-            lblTituloOP.Location = new Point(13, 307);
+            lblTituloOP.Location = new Point(10, 246);
+            lblTituloOP.Margin = new Padding(2, 0, 2, 0);
             lblTituloOP.Name = "lblTituloOP";
-            lblTituloOP.Size = new Size(477, 25);
+            lblTituloOP.Size = new Size(401, 20);
             lblTituloOP.TabIndex = 0;
             lblTituloOP.Text = "Ordenes de preparación vinculadas a la orden de Selección";
             // 
             // listViewOP
             // 
             listViewOP.Columns.AddRange(new ColumnHeader[] { columnHeader1, columnHeader2, columnHeader3, columnHeader8 });
-            listViewOP.Location = new Point(13, 335);
+            listViewOP.Location = new Point(10, 268);
+            listViewOP.Margin = new Padding(2, 2, 2, 2);
             listViewOP.MultiSelect = false;
             listViewOP.Name = "listViewOP";
-            listViewOP.Size = new Size(646, 379);
+            listViewOP.Size = new Size(518, 304);
             listViewOP.TabIndex = 6;
             listViewOP.UseCompatibleStateImageBehavior = false;
             listViewOP.View = View.Details;
@@ -114,27 +121,32 @@
             // columnHeader1
             // 
             columnHeader1.Text = "Nro Orden";
+            columnHeader1.Width = 130;
             // 
             // columnHeader2
             // 
             columnHeader2.Text = "Cliente";
+            columnHeader2.Width = 130;
             // 
             // columnHeader3
             // 
             columnHeader3.Text = "Fecha/Hora";
             columnHeader3.TextAlign = HorizontalAlignment.Center;
+            columnHeader3.Width = 130;
             // 
             // columnHeader8
             // 
             columnHeader8.Text = "Estado";
             columnHeader8.TextAlign = HorizontalAlignment.Center;
+            columnHeader8.Width = 130;
             // 
             // btnFinalizarPicking
             // 
             btnFinalizarPicking.Enabled = false;
-            btnFinalizarPicking.Location = new Point(665, 720);
+            btnFinalizarPicking.Location = new Point(532, 576);
+            btnFinalizarPicking.Margin = new Padding(2, 2, 2, 2);
             btnFinalizarPicking.Name = "btnFinalizarPicking";
-            btnFinalizarPicking.Size = new Size(616, 34);
+            btnFinalizarPicking.Size = new Size(493, 27);
             btnFinalizarPicking.TabIndex = 5;
             btnFinalizarPicking.Text = "Entregar en Preparación";
             btnFinalizarPicking.UseVisualStyleBackColor = true;
@@ -143,9 +155,10 @@
             // btnCierreSeleccion
             // 
             btnCierreSeleccion.Enabled = false;
-            btnCierreSeleccion.Location = new Point(13, 224);
+            btnCierreSeleccion.Location = new Point(10, 179);
+            btnCierreSeleccion.Margin = new Padding(2, 2, 2, 2);
             btnCierreSeleccion.Name = "btnCierreSeleccion";
-            btnCierreSeleccion.Size = new Size(304, 34);
+            btnCierreSeleccion.Size = new Size(243, 27);
             btnCierreSeleccion.TabIndex = 8;
             btnCierreSeleccion.Text = "Cerrar Orden de Selección";
             btnCierreSeleccion.UseVisualStyleBackColor = true;
@@ -154,9 +167,10 @@
             // listViewOS
             // 
             listViewOS.Columns.AddRange(new ColumnHeader[] { columnHeader9, columnHeader10, columnHeader11 });
-            listViewOS.Location = new Point(12, 37);
+            listViewOS.Location = new Point(10, 30);
+            listViewOS.Margin = new Padding(2, 2, 2, 2);
             listViewOS.Name = "listViewOS";
-            listViewOS.Size = new Size(1268, 181);
+            listViewOS.Size = new Size(1015, 146);
             listViewOS.TabIndex = 9;
             listViewOS.UseCompatibleStateImageBehavior = false;
             listViewOS.View = View.Details;
@@ -165,20 +179,24 @@
             // columnHeader9
             // 
             columnHeader9.Text = "Nro Orden";
+            columnHeader9.Width = 130;
             // 
             // columnHeader10
             // 
             columnHeader10.Text = "Fecha/Hora";
+            columnHeader10.Width = 130;
             // 
             // columnHeader11
             // 
             columnHeader11.Text = "Estado";
+            columnHeader11.Width = 130;
             // 
             // btnRefrescar
             // 
-            btnRefrescar.Location = new Point(928, 224);
+            btnRefrescar.Location = new Point(742, 179);
+            btnRefrescar.Margin = new Padding(2, 2, 2, 2);
             btnRefrescar.Name = "btnRefrescar";
-            btnRefrescar.Size = new Size(352, 34);
+            btnRefrescar.Size = new Size(282, 27);
             btnRefrescar.TabIndex = 10;
             btnRefrescar.Text = "Refrescar Lista de Ordenes de Selección";
             btnRefrescar.UseVisualStyleBackColor = true;
@@ -189,18 +207,19 @@
             lblTituloNoHayOS.AutoSize = true;
             lblTituloNoHayOS.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
             lblTituloNoHayOS.ForeColor = Color.DodgerBlue;
-            lblTituloNoHayOS.Location = new Point(869, 9);
+            lblTituloNoHayOS.Location = new Point(695, 7);
+            lblTituloNoHayOS.Margin = new Padding(2, 0, 2, 0);
             lblTituloNoHayOS.Name = "lblTituloNoHayOS";
-            lblTituloNoHayOS.Size = new Size(411, 25);
+            lblTituloNoHayOS.Size = new Size(337, 20);
             lblTituloNoHayOS.TabIndex = 0;
             lblTituloNoHayOS.Text = "NO HAY ORDENES DE SELECCION PENDIENTES";
             lblTituloNoHayOS.Visible = false;
             // 
             // PrepararProductosForm
             // 
-            AutoScaleDimensions = new SizeF(10F, 25F);
+            AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1293, 767);
+            ClientSize = new Size(1034, 614);
             Controls.Add(btnRefrescar);
             Controls.Add(listViewOS);
             Controls.Add(btnCierreSeleccion);
@@ -210,6 +229,7 @@
             Controls.Add(lblTituloOP);
             Controls.Add(lblTituloNoHayOS);
             Controls.Add(lblTituloOS);
+            Margin = new Padding(2, 2, 2, 2);
             MaximizeBox = false;
             MinimizeBox = false;
             Name = "PrepararProductosForm";

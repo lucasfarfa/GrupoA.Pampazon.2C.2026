@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            DepositoCombo = new ComboBox();
             label1 = new Label();
             ActualizarBtn = new Button();
             groupBox1 = new GroupBox();
@@ -51,26 +50,20 @@
             GenerarOSBtn = new Button();
             label2 = new Label();
             NroOSLabel = new Label();
+            DepositoLbl = new Label();
             groupBox1.SuspendLayout();
             groupBox2.SuspendLayout();
             SuspendLayout();
-            // 
-            // DepositoCombo
-            // 
-            DepositoCombo.FormattingEnabled = true;
-            DepositoCombo.Location = new Point(88, 18);
-            DepositoCombo.Name = "DepositoCombo";
-            DepositoCombo.Size = new Size(309, 28);
-            DepositoCombo.TabIndex = 0;
             // 
             // label1
             // 
             label1.AutoSize = true;
             label1.Location = new Point(12, 21);
             label1.Name = "label1";
-            label1.Size = new Size(70, 20);
+            label1.Size = new Size(73, 20);
             label1.TabIndex = 1;
-            label1.Text = "Depósito";
+            label1.Text = "Depósito:";
+            label1.Click += label1_Click;
             // 
             // ActualizarBtn
             // 
@@ -239,12 +232,22 @@
             NroOSLabel.TabIndex = 8;
             NroOSLabel.Text = "XXXXXXXXXX";
             // 
+            // DepositoLbl
+            // 
+            DepositoLbl.AutoSize = true;
+            DepositoLbl.Location = new Point(91, 21);
+            DepositoLbl.Name = "DepositoLbl";
+            DepositoLbl.Size = new Size(87, 20);
+            DepositoLbl.TabIndex = 9;
+            DepositoLbl.Text = "[DEPOSITO]";
+            // 
             // GenerarOrdenSeleccionForm
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             CancelButton = CencelarBtn;
             ClientSize = new Size(800, 603);
+            Controls.Add(DepositoLbl);
             Controls.Add(NroOSLabel);
             Controls.Add(label2);
             Controls.Add(GenerarOSBtn);
@@ -253,7 +256,6 @@
             Controls.Add(groupBox1);
             Controls.Add(ActualizarBtn);
             Controls.Add(label1);
-            Controls.Add(DepositoCombo);
             FormBorderStyle = FormBorderStyle.FixedDialog;
             Name = "GenerarOrdenSeleccionForm";
             Text = "GenerarOrdenSeleccionForm";
@@ -264,8 +266,6 @@
         }
 
         #endregion
-
-        private ComboBox DepositoCombo;
         private Label label1;
         private Button ActualizarBtn;
         private GroupBox groupBox1;
@@ -288,5 +288,6 @@
         private Button GenerarOSBtn;
         private Label label2;
         private Label NroOSLabel;
+        private Label DepositoLbl;
     }
 }

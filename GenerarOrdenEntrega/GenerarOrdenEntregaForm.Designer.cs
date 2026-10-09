@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            label1 = new Label();
             btnGenerarOrden = new Button();
             listView1 = new ListView();
             columnHeader1 = new ColumnHeader();
@@ -38,7 +37,6 @@
             columnHeader5 = new ColumnHeader();
             columnHeader6 = new ColumnHeader();
             columnHeader7 = new ColumnHeader();
-            label2 = new Label();
             listView2 = new ListView();
             columnHeader8 = new ColumnHeader();
             columnHeader9 = new ColumnHeader();
@@ -47,7 +45,6 @@
             columnHeader12 = new ColumnHeader();
             columnHeader13 = new ColumnHeader();
             columnHeader14 = new ColumnHeader();
-            cmbDeposito = new ComboBox();
             label3 = new Label();
             button1 = new Button();
             button2 = new Button();
@@ -55,23 +52,18 @@
             txtNumeroOE = new TextBox();
             button3 = new Button();
             btnActualizarListas = new Button();
+            label5 = new Label();
+            groupBox1 = new GroupBox();
+            groupBox2 = new GroupBox();
+            groupBox1.SuspendLayout();
+            groupBox2.SuspendLayout();
             SuspendLayout();
-            // 
-            // label1
-            // 
-            label1.AutoSize = true;
-            label1.Location = new Point(12, 89);
-            label1.Name = "label1";
-            label1.Size = new Size(284, 20);
-            label1.TabIndex = 2;
-            label1.Text = "Órdenes preparadas sin orden de entrega";
-            label1.Click += label1_Click;
             // 
             // btnGenerarOrden
             // 
-            btnGenerarOrden.Location = new Point(362, 607);
+            btnGenerarOrden.Location = new Point(289, 607);
             btnGenerarOrden.Name = "btnGenerarOrden";
-            btnGenerarOrden.Size = new Size(199, 29);
+            btnGenerarOrden.Size = new Size(199, 49);
             btnGenerarOrden.TabIndex = 3;
             btnGenerarOrden.Text = "Generar Orden de Entrega";
             btnGenerarOrden.UseVisualStyleBackColor = true;
@@ -80,9 +72,9 @@
             // listView1
             // 
             listView1.Columns.AddRange(new ColumnHeader[] { columnHeader1, columnHeader2, columnHeader3, columnHeader4, columnHeader5, columnHeader6, columnHeader7 });
-            listView1.Location = new Point(12, 136);
+            listView1.Location = new Point(9, 33);
             listView1.Name = "listView1";
-            listView1.Size = new Size(693, 115);
+            listView1.Size = new Size(684, 115);
             listView1.TabIndex = 14;
             listView1.UseCompatibleStateImageBehavior = false;
             listView1.View = View.Details;
@@ -121,24 +113,16 @@
             columnHeader7.Text = "Fecha Preparación";
             columnHeader7.Width = 140;
             // 
-            // label2
-            // 
-            label2.AutoSize = true;
-            label2.Location = new Point(12, 320);
-            label2.Name = "label2";
-            label2.Size = new Size(360, 20);
-            label2.TabIndex = 24;
-            label2.Text = "Órdenes preparadas incluidas en la orden de entrega";
-            // 
             // listView2
             // 
             listView2.Columns.AddRange(new ColumnHeader[] { columnHeader8, columnHeader9, columnHeader10, columnHeader11, columnHeader12, columnHeader13, columnHeader14 });
-            listView2.Location = new Point(12, 353);
+            listView2.Location = new Point(9, 28);
             listView2.Name = "listView2";
-            listView2.Size = new Size(693, 115);
+            listView2.Size = new Size(684, 115);
             listView2.TabIndex = 25;
             listView2.UseCompatibleStateImageBehavior = false;
             listView2.View = View.Details;
+            listView2.SelectedIndexChanged += listView2_SelectedIndexChanged;
             // 
             // columnHeader8
             // 
@@ -174,18 +158,10 @@
             columnHeader14.Text = "Fecha Preparación";
             columnHeader14.Width = 140;
             // 
-            // cmbDeposito
-            // 
-            cmbDeposito.FormattingEnabled = true;
-            cmbDeposito.Location = new Point(136, 33);
-            cmbDeposito.Name = "cmbDeposito";
-            cmbDeposito.Size = new Size(170, 28);
-            cmbDeposito.TabIndex = 26;
-            // 
             // label3
             // 
             label3.AutoSize = true;
-            label3.Location = new Point(46, 36);
+            label3.Location = new Point(12, 21);
             label3.Name = "label3";
             label3.Size = new Size(73, 20);
             label3.TabIndex = 27;
@@ -193,26 +169,27 @@
             // 
             // button1
             // 
-            button1.Location = new Point(399, 257);
+            button1.Location = new Point(9, 164);
             button1.Name = "button1";
-            button1.Size = new Size(306, 29);
+            button1.Size = new Size(684, 43);
             button1.TabIndex = 28;
             button1.Text = "Agregar las órdenes seleccionadas";
             button1.UseVisualStyleBackColor = true;
             // 
             // button2
             // 
-            button2.Location = new Point(399, 488);
+            button2.Location = new Point(9, 170);
             button2.Name = "button2";
-            button2.Size = new Size(306, 29);
+            button2.Size = new Size(684, 44);
             button2.TabIndex = 29;
             button2.Text = "Quitar las órdenes seleccionadas";
             button2.UseVisualStyleBackColor = true;
+            button2.Click += button2_Click;
             // 
             // label4
             // 
             label4.AutoSize = true;
-            label4.Location = new Point(37, 552);
+            label4.Location = new Point(12, 539);
             label4.Name = "label4";
             label4.Size = new Size(147, 20);
             label4.TabIndex = 30;
@@ -220,7 +197,7 @@
             // 
             // txtNumeroOE
             // 
-            txtNumeroOE.Location = new Point(201, 552);
+            txtNumeroOE.Location = new Point(171, 539);
             txtNumeroOE.Name = "txtNumeroOE";
             txtNumeroOE.ReadOnly = true;
             txtNumeroOE.Size = new Size(125, 27);
@@ -228,48 +205,77 @@
             // 
             // button3
             // 
-            button3.Location = new Point(567, 607);
+            button3.Location = new Point(506, 607);
             button3.Name = "button3";
-            button3.Size = new Size(199, 29);
+            button3.Size = new Size(199, 49);
             button3.TabIndex = 32;
             button3.Text = "Cancelar";
             button3.UseVisualStyleBackColor = true;
             // 
             // btnActualizarListas
             // 
-            btnActualizarListas.Location = new Point(502, 45);
+            btnActualizarListas.Location = new Point(583, 12);
             btnActualizarListas.Name = "btnActualizarListas";
-            btnActualizarListas.Size = new Size(203, 29);
+            btnActualizarListas.Size = new Size(131, 38);
             btnActualizarListas.TabIndex = 33;
             btnActualizarListas.Text = "Actualizar lista";
             btnActualizarListas.UseVisualStyleBackColor = true;
+            // 
+            // label5
+            // 
+            label5.AutoSize = true;
+            label5.Location = new Point(91, 21);
+            label5.Name = "label5";
+            label5.Size = new Size(87, 20);
+            label5.TabIndex = 34;
+            label5.Text = "[DEPOSITO]";
+            // 
+            // groupBox1
+            // 
+            groupBox1.Controls.Add(button1);
+            groupBox1.Controls.Add(listView1);
+            groupBox1.Location = new Point(12, 70);
+            groupBox1.Name = "groupBox1";
+            groupBox1.Size = new Size(702, 223);
+            groupBox1.TabIndex = 35;
+            groupBox1.TabStop = false;
+            groupBox1.Text = "Ordenes preparadas sin orden de entrega";
+            // 
+            // groupBox2
+            // 
+            groupBox2.Controls.Add(button2);
+            groupBox2.Controls.Add(listView2);
+            groupBox2.Location = new Point(12, 313);
+            groupBox2.Name = "groupBox2";
+            groupBox2.Size = new Size(702, 220);
+            groupBox2.TabIndex = 36;
+            groupBox2.TabStop = false;
+            groupBox2.Text = "Ordenes preparadas incluidas en la orden de entrega";
             // 
             // btnCancelar
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(893, 712);
+            ClientSize = new Size(726, 683);
+            Controls.Add(groupBox2);
+            Controls.Add(groupBox1);
+            Controls.Add(label5);
             Controls.Add(btnActualizarListas);
             Controls.Add(button3);
             Controls.Add(txtNumeroOE);
             Controls.Add(label4);
-            Controls.Add(button2);
-            Controls.Add(button1);
             Controls.Add(label3);
-            Controls.Add(cmbDeposito);
-            Controls.Add(listView2);
-            Controls.Add(label2);
-            Controls.Add(listView1);
             Controls.Add(btnGenerarOrden);
-            Controls.Add(label1);
+            FormBorderStyle = FormBorderStyle.FixedDialog;
             Name = "btnCancelar";
             Text = "GenerarOrdenEntrega";
+            groupBox1.ResumeLayout(false);
+            groupBox2.ResumeLayout(false);
             ResumeLayout(false);
             PerformLayout();
         }
 
         #endregion
-        private Label label1;
         private Button btnGenerarOrden;
         private ListView listView1;
         private ColumnHeader columnHeader1;
@@ -279,7 +285,6 @@
         private ColumnHeader columnHeader5;
         private ColumnHeader columnHeader6;
         private ColumnHeader columnHeader7;
-        private Label label2;
         private ListView listView2;
         private ColumnHeader columnHeader8;
         private ColumnHeader columnHeader9;
@@ -288,7 +293,6 @@
         private ColumnHeader columnHeader12;
         private ColumnHeader columnHeader13;
         private ColumnHeader columnHeader14;
-        private ComboBox cmbDeposito;
         private Label label3;
         private Button button1;
         private Button button2;
@@ -296,5 +300,8 @@
         private TextBox txtNumeroOE;
         private Button button3;
         private Button btnActualizarListas;
+        private Label label5;
+        private GroupBox groupBox1;
+        private GroupBox groupBox2;
     }
 }
