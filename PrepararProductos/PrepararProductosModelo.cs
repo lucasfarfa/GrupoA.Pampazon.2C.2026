@@ -86,23 +86,13 @@ namespace GrupoA.PampazonSA.AdministracionDeposito.PrepararProductos
             }
         }
 
-        // Iniciar picking para una OP (pasa SELECCIONADA -> EN_PROCESO)
-        public bool IniciarPicking(string opId)
-        {
-            var op = FindOrdenPreparacion(opId);
-            if (op == null) return false;
-            if (!string.Equals(op.Estado, "SELECCIONADA", StringComparison.OrdinalIgnoreCase)) return false;
-            op.Estado = "EN_PROCESO";
-            return true;
-        }
-
-        // Finalizar picking para una OP (pasa EN_PROCESO -> PICKEADA) y actualiza su OS
+        // Finalizar picking para una OP (pasa SELECCIONADA -> PREPARADA) y actualiza su OS
         public bool FinalizarPicking(string opId)
         {
             var (op, _) = FindOrdenPreparacionWithParent(opId);
             if (op == null) return false;
-            if (!string.Equals(op.Estado, "EN_PROCESO", StringComparison.OrdinalIgnoreCase)) return false;
-            op.Estado = "PICKEADA";
+            if (!string.Equals(op.Estado, "SELECCIONADA", StringComparison.OrdinalIgnoreCase)) return false;
+            op.Estado = "PREPARADA";
 
             // Note: Do not auto-mark the parent OS as CUMPLIDA here.
             // The UI/user must explicitly close the OrdenSeleccion when ready.
@@ -119,12 +109,12 @@ namespace GrupoA.PampazonSA.AdministracionDeposito.PrepararProductos
             return true;
         }
 
-        // Valida si todas las OPs (en todas las OS) están PICKEADA
+        // Valida si todas las OPs (en todas las OS) están PREPARADA
         public bool ValidarTodosCumplidos()
         {
             var allOps = OrdenesSeleccion.SelectMany(os => os.OrdenesPreparacion).ToList();
             if (allOps.Count == 0) return false;
-            return allOps.All(op => string.Equals(op.Estado?.Trim(), "PICKEADA", StringComparison.OrdinalIgnoreCase));
+            return allOps.All(op => string.Equals(op.Estado?.Trim(), "PREPARADA", StringComparison.OrdinalIgnoreCase));
         }
 
         // Obtener productos asociados a una OP
@@ -167,6 +157,25 @@ namespace GrupoA.PampazonSA.AdministracionDeposito.PrepararProductos
             }
             return (null, null);
         }
+
+        // Cierra una OrdenSeleccion si todas sus OrdenPreparacion están PREPARADA.
+        // Devuelve true si la operación tuvo efecto (OS marcada como CUMPLIDA).
+        public bool CerrarOrdenSeleccion(string osId)
+        {
+            if (osId == null) return false;
+            var os = OrdenesSeleccion.FirstOrDefault(x => x.Id == osId);
+            if (os == null) return false;
+
+            // Si ya está cumplida no hacemos nada
+            if (string.Equals(os.Estado, "CUMPLIDA", StringComparison.OrdinalIgnoreCase)) return false;
+
+            // Solo se puede cerrar si todas las OP están en estado PREPARADA
+            var todasPickeadas = os.OrdenesPreparacion.All(o => string.Equals(o.Estado, "PREPARADA", StringComparison.OrdinalIgnoreCase));
+            if (!todasPickeadas) return false;
+
+            os.Estado = "CUMPLIDA";
+            return true;
+        }
     }
 
     public class OrdenSeleccion
@@ -189,7 +198,7 @@ namespace GrupoA.PampazonSA.AdministracionDeposito.PrepararProductos
     {
         public string Id { get; set; }
         public string Cliente { get; set; }
-        // Estados: SELECCIONADA (inicial), EN_PROCESO, PICKEADA
+        // Estados: SELECCIONADA (inicial), PREPARADA
         public string Estado { get; set; }
         public bool IsSelected { get; set; }
         public List<Producto> Productos { get; } = new List<Producto>();

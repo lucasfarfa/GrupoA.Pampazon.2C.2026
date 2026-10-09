@@ -34,7 +34,6 @@
             columnHeader5 = new ColumnHeader();
             columnHeader6 = new ColumnHeader();
             columnHeader7 = new ColumnHeader();
-            btnIniciarPicking = new Button();
             lblTituloOP = new Label();
             listViewOP = new ListView();
             columnHeader1 = new ColumnHeader();
@@ -91,17 +90,6 @@
             columnHeader7.Text = "Posición en Racks";
             columnHeader7.TextAlign = HorizontalAlignment.Center;
             // 
-            // btnIniciarPicking
-            // 
-            btnIniciarPicking.Enabled = false;
-            btnIniciarPicking.Location = new Point(665, 720);
-            btnIniciarPicking.Name = "btnIniciarPicking";
-            btnIniciarPicking.Size = new Size(158, 34);
-            btnIniciarPicking.TabIndex = 5;
-            btnIniciarPicking.Text = "Iniciar Picking";
-            btnIniciarPicking.UseVisualStyleBackColor = true;
-            btnIniciarPicking.Click += btnIniciarPicking_Click;
-            // 
             // lblTituloOP
             // 
             lblTituloOP.AutoSize = true;
@@ -144,11 +132,11 @@
             // btnFinalizarPicking
             // 
             btnFinalizarPicking.Enabled = false;
-            btnFinalizarPicking.Location = new Point(1123, 720);
+            btnFinalizarPicking.Location = new Point(665, 720);
             btnFinalizarPicking.Name = "btnFinalizarPicking";
-            btnFinalizarPicking.Size = new Size(158, 34);
+            btnFinalizarPicking.Size = new Size(616, 34);
             btnFinalizarPicking.TabIndex = 5;
-            btnFinalizarPicking.Text = "Finalizar Picking";
+            btnFinalizarPicking.Text = "Entregar en Preparación";
             btnFinalizarPicking.UseVisualStyleBackColor = true;
             btnFinalizarPicking.Click += btnFinalizarPicking_Click;
             // 
@@ -218,7 +206,6 @@
             Controls.Add(btnCierreSeleccion);
             Controls.Add(listViewOP);
             Controls.Add(btnFinalizarPicking);
-            Controls.Add(btnIniciarPicking);
             Controls.Add(listViewProductos);
             Controls.Add(lblTituloOP);
             Controls.Add(lblTituloNoHayOS);
@@ -264,7 +251,6 @@
         private ColumnHeader columnHeader5;
         private ColumnHeader columnHeader6;
         private ColumnHeader columnHeader7;
-        private Button btnIniciarPicking;
         private Label lblTituloOP;
         private ListView listViewOP;
         private ColumnHeader columnHeader1;
