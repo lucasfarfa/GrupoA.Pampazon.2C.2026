@@ -36,24 +36,41 @@
             ColBultos = new ColumnHeader();
             ColDarsena = new ColumnHeader();
             ColFechaPreparación = new ColumnHeader();
+            grpDatosOrden = new GroupBox();
+            textBox8 = new TextBox();
+            textBox7 = new TextBox();
+            textBox6 = new TextBox();
+            textBox5 = new TextBox();
+            textBox4 = new TextBox();
+            textBox3 = new TextBox();
+            textBox2 = new TextBox();
+            textBox1 = new TextBox();
+            label7 = new Label();
+            label6 = new Label();
+            label4 = new Label();
+            label1 = new Label();
+            label5 = new Label();
+            label3 = new Label();
+            label2 = new Label();
+            labelRazonSocial = new Label();
+            grpVerificacionChofer = new GroupBox();
+            button3 = new Button();
+            textBox12 = new TextBox();
+            textBox11 = new TextBox();
+            textBox10 = new TextBox();
+            textBox9 = new TextBox();
+            label12 = new Label();
+            label11 = new Label();
+            label10 = new Label();
+            label9 = new Label();
+            grpCargaRemito = new GroupBox();
+            button2 = new Button();
+            textBox14 = new TextBox();
+            textBox13 = new TextBox();
+            label14 = new Label();
+            label13 = new Label();
             btnConfirmarDespacho = new Button();
             button1 = new Button();
-            groupBox1 = new GroupBox();
-            groupBox2 = new GroupBox();
-            ColDomicilio = new ColumnHeader();
-            ColPeso = new ColumnHeader();
-            lvwDetalle = new ListView();
-            ColOrdenPreparacion = new ColumnHeader();
-            ColProducto = new ColumnHeader();
-            ColCantidad = new ColumnHeader();
-            lblEmpresaTransportista = new Label();
-            lblDni = new Label();
-            lblChofer = new Label();
-            lblPatente = new Label();
-            textBox1 = new TextBox();
-            textBox2 = new TextBox();
-            textBox3 = new TextBox();
-            textBox4 = new TextBox();
             grpOrdenesPendientes.SuspendLayout();
             groupBox1.SuspendLayout();
             groupBox2.SuspendLayout();
@@ -110,171 +127,320 @@
             // ColFechaPreparación
             // 
             ColFechaPreparación.Text = "Fecha de preparación";
-            ColFechaPreparación.Width = 155;
+            ColFechaPreparación.Width = 110;
+            // 
+            // grpDatosOrden
+            // 
+            grpDatosOrden.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            grpDatosOrden.Controls.Add(textBox8);
+            grpDatosOrden.Controls.Add(textBox7);
+            grpDatosOrden.Controls.Add(textBox6);
+            grpDatosOrden.Controls.Add(textBox5);
+            grpDatosOrden.Controls.Add(textBox4);
+            grpDatosOrden.Controls.Add(textBox3);
+            grpDatosOrden.Controls.Add(textBox2);
+            grpDatosOrden.Controls.Add(textBox1);
+            grpDatosOrden.Controls.Add(label7);
+            grpDatosOrden.Controls.Add(label6);
+            grpDatosOrden.Controls.Add(label4);
+            grpDatosOrden.Controls.Add(label1);
+            grpDatosOrden.Controls.Add(label5);
+            grpDatosOrden.Controls.Add(label3);
+            grpDatosOrden.Controls.Add(label2);
+            grpDatosOrden.Controls.Add(labelRazonSocial);
+            grpDatosOrden.Font = new Font("Segoe UI", 9F);
+            grpDatosOrden.Location = new Point(454, 12);
+            grpDatosOrden.Name = "grpDatosOrden";
+            grpDatosOrden.Size = new Size(640, 225);
+            grpDatosOrden.TabIndex = 1;
+            grpDatosOrden.TabStop = false;
+            grpDatosOrden.Text = "Datos de la orden";
+            // 
+            // textBox8
+            // 
+            textBox8.Location = new Point(513, 143);
+            textBox8.Name = "textBox8";
+            textBox8.Size = new Size(79, 27);
+            textBox8.TabIndex = 21;
+            // 
+            // textBox7
+            // 
+            textBox7.Location = new Point(289, 143);
+            textBox7.Name = "textBox7";
+            textBox7.Size = new Size(79, 27);
+            textBox7.TabIndex = 20;
+            // 
+            // textBox6
+            // 
+            textBox6.Location = new Point(93, 143);
+            textBox6.Name = "textBox6";
+            textBox6.Size = new Size(59, 27);
+            textBox6.TabIndex = 19;
+            // 
+            // textBox5
+            // 
+            textBox5.Location = new Point(486, 30);
+            textBox5.Name = "textBox5";
+            textBox5.Size = new Size(134, 27);
+            textBox5.TabIndex = 18;
+            // 
+            // textBox4
+            // 
+            textBox4.Location = new Point(166, 178);
+            textBox4.Name = "textBox4";
+            textBox4.Size = new Size(426, 27);
+            textBox4.TabIndex = 17;
+            // 
+            // textBox3
+            // 
+            textBox3.Location = new Point(166, 100);
+            textBox3.Name = "textBox3";
+            textBox3.Size = new Size(202, 27);
+            textBox3.TabIndex = 16;
+            // 
+            // textBox2
+            // 
+            textBox2.Location = new Point(194, 63);
+            textBox2.Name = "textBox2";
+            textBox2.Size = new Size(202, 27);
+            textBox2.TabIndex = 15;
+            // 
+            // textBox1
+            // 
+            textBox1.Location = new Point(140, 30);
+            textBox1.Name = "textBox1";
+            textBox1.Size = new Size(202, 27);
+            textBox1.TabIndex = 14;
+            // 
+            // label7
+            // 
+            label7.Location = new Point(38, 181);
+            label7.Name = "label7";
+            label7.Size = new Size(122, 20);
+            label7.TabIndex = 12;
+            label7.Text = "Transportista aut.";
+            // 
+            // label6
+            // 
+            label6.Location = new Point(405, 143);
+            label6.Name = "label6";
+            label6.Size = new Size(71, 20);
+            label6.TabIndex = 11;
+            label6.Text = "Volumen (m3)";
+            label6.Click += label6_Click;
+            // 
+            // label4
+            // 
+            label4.Location = new Point(212, 143);
+            label4.Name = "label4";
+            label4.Size = new Size(50, 20);
+            label4.TabIndex = 10;
+            label4.Text = "Peso (Kg)";
+            // 
+            // label1
+            // 
+            label1.Location = new Point(37, 143);
+            label1.Name = "label1";
+            label1.Size = new Size(123, 20);
+            label1.TabIndex = 9;
+            label1.Text = "Bultos";
+            // 
+            // label5
+            // 
+            label5.Location = new Point(445, 33);
+            label5.Name = "label5";
+            label5.Size = new Size(35, 20);
+            label5.TabIndex = 7;
+            label5.Text = "Cuit";
+            label5.Click += label5_Click;
+            // 
+            // label3
+            // 
+            label3.Location = new Point(37, 68);
+            label3.Name = "label3";
+            label3.Size = new Size(151, 35);
+            label3.TabIndex = 2;
+            label3.Text = "Domicilio de entrega";
+            // 
+            // label2
+            // 
+            label2.Location = new Point(37, 103);
+            label2.Name = "label2";
+            label2.Size = new Size(151, 35);
+            label2.TabIndex = 1;
+            label2.Text = "Ordenes de prep.";
+            // 
+            // labelRazonSocial
+            // 
+            labelRazonSocial.Location = new Point(37, 33);
+            labelRazonSocial.Name = "labelRazonSocial";
+            labelRazonSocial.Size = new Size(151, 20);
+            labelRazonSocial.TabIndex = 0;
+            labelRazonSocial.Text = "Razón social";
+            // 
+            // grpVerificacionChofer
+            // 
+            grpVerificacionChofer.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            grpVerificacionChofer.Controls.Add(button3);
+            grpVerificacionChofer.Controls.Add(textBox12);
+            grpVerificacionChofer.Controls.Add(textBox11);
+            grpVerificacionChofer.Controls.Add(textBox10);
+            grpVerificacionChofer.Controls.Add(textBox9);
+            grpVerificacionChofer.Controls.Add(label12);
+            grpVerificacionChofer.Controls.Add(label11);
+            grpVerificacionChofer.Controls.Add(label10);
+            grpVerificacionChofer.Controls.Add(label9);
+            grpVerificacionChofer.Font = new Font("Segoe UI", 9F);
+            grpVerificacionChofer.Location = new Point(454, 247);
+            grpVerificacionChofer.Name = "grpVerificacionChofer";
+            grpVerificacionChofer.Size = new Size(650, 150);
+            grpVerificacionChofer.TabIndex = 2;
+            grpVerificacionChofer.TabStop = false;
+            grpVerificacionChofer.Text = "Verificación del chofer";
+            // 
+            // button3
+            // 
+            button3.Location = new Point(498, 50);
+            button3.Name = "button3";
+            button3.Size = new Size(127, 29);
+            button3.TabIndex = 29;
+            button3.Text = "Verificar chofer";
+            button3.UseVisualStyleBackColor = true;
+            // 
+            // textBox12
+            // 
+            textBox12.Location = new Point(158, 114);
+            textBox12.Name = "textBox12";
+            textBox12.Size = new Size(136, 27);
+            textBox12.TabIndex = 25;
+            // 
+            // textBox11
+            // 
+            textBox11.Location = new Point(93, 80);
+            textBox11.Name = "textBox11";
+            textBox11.Size = new Size(136, 27);
+            textBox11.TabIndex = 24;
+            // 
+            // textBox10
+            // 
+            textBox10.Location = new Point(326, 47);
+            textBox10.Name = "textBox10";
+            textBox10.Size = new Size(140, 27);
+            textBox10.TabIndex = 23;
+            // 
+            // textBox9
+            // 
+            textBox9.Location = new Point(81, 43);
+            textBox9.Name = "textBox9";
+            textBox9.Size = new Size(136, 27);
+            textBox9.TabIndex = 22;
+            // 
+            // label12
+            // 
+            label12.Location = new Point(38, 117);
+            label12.Name = "label12";
+            label12.Size = new Size(122, 20);
+            label12.TabIndex = 16;
+            label12.Text = "Empresa transp.";
+            // 
+            // label11
+            // 
+            label11.Location = new Point(37, 83);
+            label11.Name = "label11";
+            label11.Size = new Size(58, 20);
+            label11.TabIndex = 15;
+            label11.Text = "Chofer";
+            // 
+            // label10
+            // 
+            label10.Location = new Point(262, 50);
+            label10.Name = "label10";
+            label10.Size = new Size(35, 20);
+            label10.TabIndex = 14;
+            label10.Text = "Patente";
+            // 
+            // label9
+            // 
+            label9.Location = new Point(37, 46);
+            label9.Name = "label9";
+            label9.Size = new Size(122, 20);
+            label9.TabIndex = 13;
+            label9.Text = "DNI";
+            // 
+            // grpCargaRemito
+            // 
+            grpCargaRemito.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            grpCargaRemito.Controls.Add(button2);
+            grpCargaRemito.Controls.Add(textBox14);
+            grpCargaRemito.Controls.Add(textBox13);
+            grpCargaRemito.Controls.Add(label14);
+            grpCargaRemito.Controls.Add(label13);
+            grpCargaRemito.Font = new Font("Segoe UI", 9F);
+            grpCargaRemito.Location = new Point(454, 407);
+            grpCargaRemito.Name = "grpCargaRemito";
+            grpCargaRemito.Size = new Size(640, 175);
+            grpCargaRemito.TabIndex = 3;
+            grpCargaRemito.TabStop = false;
+            grpCargaRemito.Text = "Carga y remito";
+            // 
+            // button2
+            // 
+            button2.Location = new Point(262, 45);
+            button2.Name = "button2";
+            button2.Size = new Size(113, 29);
+            button2.TabIndex = 28;
+            button2.Text = "Emitir remito";
+            button2.UseVisualStyleBackColor = true;
+            // 
+            // textBox14
+            // 
+            textBox14.Location = new Point(498, 47);
+            textBox14.Name = "textBox14";
+            textBox14.Size = new Size(136, 27);
+            textBox14.TabIndex = 27;
+            // 
+            // textBox13
+            // 
+            textBox13.Location = new Point(158, 44);
+            textBox13.Name = "textBox13";
+            textBox13.Size = new Size(82, 27);
+            textBox13.TabIndex = 26;
+            // 
+            // label14
+            // 
+            label14.Location = new Point(418, 54);
+            label14.Name = "label14";
+            label14.Size = new Size(115, 20);
+            label14.TabIndex = 18;
+            label14.Text = "N° remito";
+            // 
+            // label13
+            // 
+            label13.Location = new Point(37, 47);
+            label13.Name = "label13";
+            label13.Size = new Size(122, 20);
+            label13.TabIndex = 17;
+            label13.Text = "Bultos cargados";
             // 
             // btnConfirmarDespacho
             // 
-            btnConfirmarDespacho.Location = new Point(776, 618);
+            btnConfirmarDespacho.Location = new Point(766, 604);
             btnConfirmarDespacho.Name = "btnConfirmarDespacho";
-            btnConfirmarDespacho.Size = new Size(166, 27);
+            btnConfirmarDespacho.Size = new Size(185, 41);
             btnConfirmarDespacho.TabIndex = 4;
             btnConfirmarDespacho.Text = "Confirmar despacho";
             btnConfirmarDespacho.UseVisualStyleBackColor = true;
-            btnConfirmarDespacho.Click += btnConfirmarDespacho_Click;
             // 
             // button1
             // 
-            button1.Location = new Point(970, 618);
+            button1.Location = new Point(957, 604);
             button1.Name = "button1";
-            button1.Size = new Size(123, 27);
+            button1.Size = new Size(137, 41);
             button1.TabIndex = 5;
             button1.Text = "Cancelar";
             button1.UseVisualStyleBackColor = true;
             // 
-            // groupBox1
-            // 
-            groupBox1.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
-            groupBox1.Controls.Add(lvwDetalle);
-            groupBox1.Font = new Font("Segoe UI", 9F);
-            groupBox1.Location = new Point(15, 320);
-            groupBox1.Name = "groupBox1";
-            groupBox1.Size = new Size(523, 274);
-            groupBox1.TabIndex = 1;
-            groupBox1.TabStop = false;
-            groupBox1.Text = "Detalle de la orden";
-            // 
-            // groupBox2
-            // 
-            groupBox2.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
-            groupBox2.Controls.Add(textBox4);
-            groupBox2.Controls.Add(textBox3);
-            groupBox2.Controls.Add(textBox2);
-            groupBox2.Controls.Add(textBox1);
-            groupBox2.Controls.Add(lblPatente);
-            groupBox2.Controls.Add(lblChofer);
-            groupBox2.Controls.Add(lblDni);
-            groupBox2.Controls.Add(lblEmpresaTransportista);
-            groupBox2.Font = new Font("Segoe UI", 9F);
-            groupBox2.Location = new Point(570, 317);
-            groupBox2.Name = "groupBox2";
-            groupBox2.Size = new Size(534, 274);
-            groupBox2.TabIndex = 2;
-            groupBox2.TabStop = false;
-            groupBox2.Text = "Datos del transportista";
-            // 
-            // ColDomicilio
-            // 
-            ColDomicilio.Text = "Domicilio de entrega";
-            ColDomicilio.Width = 300;
-            // 
-            // ColPeso
-            // 
-            ColPeso.Text = "Peso (kg)";
-            ColPeso.TextAlign = HorizontalAlignment.Right;
-            ColPeso.Width = 80;
-            // 
-            // lvwDetalle
-            // 
-            lvwDetalle.Columns.AddRange(new ColumnHeader[] { ColOrdenPreparacion, ColProducto, ColCantidad });
-            lvwDetalle.Dock = DockStyle.Fill;
-            lvwDetalle.FullRowSelect = true;
-            lvwDetalle.GridLines = true;
-            lvwDetalle.HeaderStyle = ColumnHeaderStyle.Nonclickable;
-            lvwDetalle.Items.AddRange(new ListViewItem[] { listViewItem3 });
-            lvwDetalle.Location = new Point(3, 23);
-            lvwDetalle.MultiSelect = false;
-            lvwDetalle.Name = "lvwDetalle";
-            lvwDetalle.Size = new Size(517, 248);
-            lvwDetalle.TabIndex = 0;
-            lvwDetalle.TabStop = false;
-            lvwDetalle.UseCompatibleStateImageBehavior = false;
-            lvwDetalle.View = View.Details;
-            // 
-            // ColOrdenPreparacion
-            // 
-            ColOrdenPreparacion.Text = "Orden de preparación";
-            ColOrdenPreparacion.Width = 165;
-            // 
-            // ColProducto
-            // 
-            ColProducto.Text = "Producto";
-            ColProducto.Width = 190;
-            // 
-            // ColCantidad
-            // 
-            ColCantidad.Text = "Cantidad";
-            ColCantidad.Width = 75;
-            // 
-            // lblEmpresaTransportista
-            // 
-            lblEmpresaTransportista.Font = new Font("Segoe UI", 11F);
-            lblEmpresaTransportista.Location = new Point(10, 50);
-            lblEmpresaTransportista.Name = "lblEmpresaTransportista";
-            lblEmpresaTransportista.Size = new Size(155, 23);
-            lblEmpresaTransportista.TabIndex = 0;
-            lblEmpresaTransportista.Text = "Empresa transportista";
-            lblEmpresaTransportista.TextAlign = ContentAlignment.MiddleRight;
-            lblEmpresaTransportista.Click += lblEmpresaTransportista_Click;
-            // 
-            // lblDni
-            // 
-            lblDni.Font = new Font("Segoe UI", 11F);
-            lblDni.Location = new Point(10, 150);
-            lblDni.Name = "lblDni";
-            lblDni.Size = new Size(151, 23);
-            lblDni.TabIndex = 1;
-            lblDni.Text = "DNI";
-            lblDni.TextAlign = ContentAlignment.MiddleRight;
-            // 
-            // lblChofer
-            // 
-            lblChofer.Font = new Font("Segoe UI", 11F);
-            lblChofer.Location = new Point(10, 100);
-            lblChofer.Name = "lblChofer";
-            lblChofer.Size = new Size(151, 23);
-            lblChofer.TabIndex = 1;
-            lblChofer.Text = "Chofer";
-            lblChofer.TextAlign = ContentAlignment.MiddleRight;
-            // 
-            // lblPatente
-            // 
-            lblPatente.Font = new Font("Segoe UI", 11F);
-            lblPatente.Location = new Point(10, 204);
-            lblPatente.Name = "lblPatente";
-            lblPatente.Size = new Size(151, 23);
-            lblPatente.TabIndex = 2;
-            lblPatente.Text = "Patente";
-            lblPatente.TextAlign = ContentAlignment.MiddleRight;
-            // 
-            // textBox1
-            // 
-            textBox1.Location = new Point(176, 46);
-            textBox1.Name = "textBox1";
-            textBox1.Size = new Size(337, 27);
-            textBox1.TabIndex = 3;
-            // 
-            // textBox2
-            // 
-            textBox2.Location = new Point(176, 96);
-            textBox2.Name = "textBox2";
-            textBox2.Size = new Size(337, 27);
-            textBox2.TabIndex = 4;
-            // 
-            // textBox3
-            // 
-            textBox3.Location = new Point(176, 146);
-            textBox3.Name = "textBox3";
-            textBox3.Size = new Size(337, 27);
-            textBox3.TabIndex = 5;
-            // 
-            // textBox4
-            // 
-            textBox4.Location = new Point(176, 200);
-            textBox4.Name = "textBox4";
-            textBox4.Size = new Size(337, 27);
-            textBox4.TabIndex = 6;
-            // 
-            // FrmGenerarRemitoDespachar
+            // GenerarRemitoDespacharForm
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
@@ -285,7 +451,7 @@
             Controls.Add(btnConfirmarDespacho);
             Controls.Add(grpOrdenesPendientes);
             MinimumSize = new Size(1100, 650);
-            Name = "FrmGenerarRemitoDespachar";
+            Name = "GenerarRemitoDespacharForm";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Generar remito y despachar";
             WindowState = FormWindowState.Maximized;
