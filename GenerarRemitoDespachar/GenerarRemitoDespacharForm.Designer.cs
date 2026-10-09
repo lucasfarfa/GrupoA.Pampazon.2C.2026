@@ -28,300 +28,269 @@
         /// </summary>
         private void InitializeComponent()
         {
-            ListViewItem listViewItem3 = new ListViewItem(new string[] { "OP-000310", "Producto ficticio A", "40" }, -1);
             grpOrdenesPendientes = new GroupBox();
             lvwOrdenes = new ListView();
-            ColNroOrden = new ColumnHeader();
+            ColNroOrdenEntrega = new ColumnHeader();
+            ColNOp = new ColumnHeader();
             ColCliente = new ColumnHeader();
             ColBultos = new ColumnHeader();
-            ColDarsena = new ColumnHeader();
-            ColFechaPreparación = new ColumnHeader();
             btnConfirmarDespacho = new Button();
-            button1 = new Button();
-            groupBox1 = new GroupBox();
-            groupBox2 = new GroupBox();
-            ColDomicilio = new ColumnHeader();
-            ColPeso = new ColumnHeader();
-            lvwDetalle = new ListView();
-            ColOrdenPreparacion = new ColumnHeader();
-            ColProducto = new ColumnHeader();
-            ColCantidad = new ColumnHeader();
-            lblEmpresaTransportista = new Label();
-            lblDni = new Label();
-            lblChofer = new Label();
+            btnCancelar = new Button();
+            grpTransportista = new GroupBox();
+            btnBuscarOrdenes = new Button();
+            txtPatente = new TextBox();
+            txtDni = new TextBox();
             lblPatente = new Label();
-            textBox1 = new TextBox();
-            textBox2 = new TextBox();
-            textBox3 = new TextBox();
-            textBox4 = new TextBox();
+            lblDni = new Label();
+            lblDepósito = new Label();
+            cmbDepósito = new ComboBox();
+            lblNroRemito = new Label();
+            txtNroRemito = new TextBox();
+            lblTotalBultos = new Label();
+            lblTotalBultosValor = new Label();
             grpOrdenesPendientes.SuspendLayout();
-            groupBox1.SuspendLayout();
-            groupBox2.SuspendLayout();
+            grpTransportista.SuspendLayout();
             SuspendLayout();
             // 
             // grpOrdenesPendientes
             // 
             grpOrdenesPendientes.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
+            grpOrdenesPendientes.Controls.Add(lblTotalBultosValor);
+            grpOrdenesPendientes.Controls.Add(lblTotalBultos);
             grpOrdenesPendientes.Controls.Add(lvwOrdenes);
             grpOrdenesPendientes.Font = new Font("Segoe UI", 9F);
-            grpOrdenesPendientes.Location = new Point(12, 12);
+            grpOrdenesPendientes.Location = new Point(30, 173);
             grpOrdenesPendientes.Name = "grpOrdenesPendientes";
-            grpOrdenesPendientes.Size = new Size(1095, 302);
+            grpOrdenesPendientes.Size = new Size(1040, 351);
             grpOrdenesPendientes.TabIndex = 0;
             grpOrdenesPendientes.TabStop = false;
-            grpOrdenesPendientes.Text = "Órdenes de entrega en despacho";
+            grpOrdenesPendientes.Text = "Órdenes de entrega pendientes del transportista";
             grpOrdenesPendientes.Enter += grpOrdenesPendientes_Enter;
             // 
             // lvwOrdenes
             // 
-            lvwOrdenes.Columns.AddRange(new ColumnHeader[] { ColNroOrden, ColCliente, ColDomicilio, ColBultos, ColPeso, ColDarsena, ColFechaPreparación });
-            lvwOrdenes.Dock = DockStyle.Fill;
+            lvwOrdenes.Columns.AddRange(new ColumnHeader[] { ColNroOrdenEntrega, ColNOp, ColCliente, ColBultos });
             lvwOrdenes.Font = new Font("Segoe UI", 9F);
             lvwOrdenes.FullRowSelect = true;
-            lvwOrdenes.Location = new Point(3, 23);
+            lvwOrdenes.Location = new Point(3, 26);
             lvwOrdenes.MultiSelect = false;
             lvwOrdenes.Name = "lvwOrdenes";
-            lvwOrdenes.Size = new Size(1089, 276);
+            lvwOrdenes.Size = new Size(1034, 285);
             lvwOrdenes.TabIndex = 0;
             lvwOrdenes.UseCompatibleStateImageBehavior = false;
             lvwOrdenes.View = View.Details;
             lvwOrdenes.SelectedIndexChanged += lvwOrdenes_SelectedIndexChanged;
             // 
-            // ColNroOrden
+            // ColNroOrdenEntrega
             // 
-            ColNroOrden.Text = "N° Orden";
-            ColNroOrden.Width = 80;
+            ColNroOrdenEntrega.Text = "N° OE";
+            ColNroOrdenEntrega.Width = 80;
+            // 
+            // ColNOp
+            // 
+            ColNOp.Text = "N°OP";
+            ColNOp.Width = 80;
             // 
             // ColCliente
             // 
             ColCliente.Text = "Cliente";
-            ColCliente.Width = 330;
+            ColCliente.Width = 400;
             // 
             // ColBultos
             // 
             ColBultos.Text = "Bultos";
             ColBultos.TextAlign = HorizontalAlignment.Right;
             // 
-            // ColDarsena
-            // 
-            ColDarsena.Text = "Dársena";
-            ColDarsena.Width = 70;
-            // 
-            // ColFechaPreparación
-            // 
-            ColFechaPreparación.Text = "Fecha de preparación";
-            ColFechaPreparación.Width = 155;
-            // 
             // btnConfirmarDespacho
             // 
-            btnConfirmarDespacho.Location = new Point(776, 618);
+            btnConfirmarDespacho.AutoSize = true;
+            btnConfirmarDespacho.Location = new Point(668, 552);
             btnConfirmarDespacho.Name = "btnConfirmarDespacho";
-            btnConfirmarDespacho.Size = new Size(166, 27);
+            btnConfirmarDespacho.Size = new Size(258, 30);
             btnConfirmarDespacho.TabIndex = 4;
-            btnConfirmarDespacho.Text = "Confirmar despacho";
+            btnConfirmarDespacho.Text = "Confirmar despacho y emitir remito";
             btnConfirmarDespacho.UseVisualStyleBackColor = true;
             btnConfirmarDespacho.Click += btnConfirmarDespacho_Click;
             // 
-            // button1
+            // btnCancelar
             // 
-            button1.Location = new Point(970, 618);
-            button1.Name = "button1";
-            button1.Size = new Size(123, 27);
-            button1.TabIndex = 5;
-            button1.Text = "Cancelar";
-            button1.UseVisualStyleBackColor = true;
+            btnCancelar.Location = new Point(944, 554);
+            btnCancelar.Name = "btnCancelar";
+            btnCancelar.Size = new Size(123, 27);
+            btnCancelar.TabIndex = 5;
+            btnCancelar.Text = "Cancelar";
+            btnCancelar.UseVisualStyleBackColor = true;
             // 
-            // groupBox1
+            // grpTransportista
             // 
-            groupBox1.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
-            groupBox1.Controls.Add(lvwDetalle);
-            groupBox1.Font = new Font("Segoe UI", 9F);
-            groupBox1.Location = new Point(15, 320);
-            groupBox1.Name = "groupBox1";
-            groupBox1.Size = new Size(523, 274);
-            groupBox1.TabIndex = 1;
-            groupBox1.TabStop = false;
-            groupBox1.Text = "Detalle de la orden";
+            grpTransportista.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
+            grpTransportista.Controls.Add(btnBuscarOrdenes);
+            grpTransportista.Controls.Add(txtPatente);
+            grpTransportista.Controls.Add(txtDni);
+            grpTransportista.Controls.Add(lblPatente);
+            grpTransportista.Controls.Add(lblDni);
+            grpTransportista.Font = new Font("Segoe UI", 9F);
+            grpTransportista.Location = new Point(33, 48);
+            grpTransportista.Name = "grpTransportista";
+            grpTransportista.Size = new Size(893, 113);
+            grpTransportista.TabIndex = 2;
+            grpTransportista.TabStop = false;
+            grpTransportista.Text = "Identificación del transportista";
+            grpTransportista.Enter += groupBox2_Enter;
             // 
-            // groupBox2
+            // btnBuscarOrdenes
             // 
-            groupBox2.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
-            groupBox2.Controls.Add(textBox4);
-            groupBox2.Controls.Add(textBox3);
-            groupBox2.Controls.Add(textBox2);
-            groupBox2.Controls.Add(textBox1);
-            groupBox2.Controls.Add(lblPatente);
-            groupBox2.Controls.Add(lblChofer);
-            groupBox2.Controls.Add(lblDni);
-            groupBox2.Controls.Add(lblEmpresaTransportista);
-            groupBox2.Font = new Font("Segoe UI", 9F);
-            groupBox2.Location = new Point(570, 317);
-            groupBox2.Name = "groupBox2";
-            groupBox2.Size = new Size(534, 274);
-            groupBox2.TabIndex = 2;
-            groupBox2.TabStop = false;
-            groupBox2.Text = "Datos del transportista";
+            btnBuscarOrdenes.Location = new Point(674, 53);
+            btnBuscarOrdenes.Name = "btnBuscarOrdenes";
+            btnBuscarOrdenes.Size = new Size(166, 27);
+            btnBuscarOrdenes.TabIndex = 6;
+            btnBuscarOrdenes.Text = "Buscar órdenes";
+            btnBuscarOrdenes.UseVisualStyleBackColor = true;
+            btnBuscarOrdenes.Click += button2_Click;
             // 
-            // ColDomicilio
+            // txtPatente
             // 
-            ColDomicilio.Text = "Domicilio de entrega";
-            ColDomicilio.Width = 300;
+            txtPatente.Location = new Point(445, 53);
+            txtPatente.Name = "txtPatente";
+            txtPatente.Size = new Size(173, 27);
+            txtPatente.TabIndex = 6;
             // 
-            // ColPeso
+            // txtDni
             // 
-            ColPeso.Text = "Peso (kg)";
-            ColPeso.TextAlign = HorizontalAlignment.Right;
-            ColPeso.Width = 80;
-            // 
-            // lvwDetalle
-            // 
-            lvwDetalle.Columns.AddRange(new ColumnHeader[] { ColOrdenPreparacion, ColProducto, ColCantidad });
-            lvwDetalle.Dock = DockStyle.Fill;
-            lvwDetalle.FullRowSelect = true;
-            lvwDetalle.GridLines = true;
-            lvwDetalle.HeaderStyle = ColumnHeaderStyle.Nonclickable;
-            lvwDetalle.Items.AddRange(new ListViewItem[] { listViewItem3 });
-            lvwDetalle.Location = new Point(3, 23);
-            lvwDetalle.MultiSelect = false;
-            lvwDetalle.Name = "lvwDetalle";
-            lvwDetalle.Size = new Size(517, 248);
-            lvwDetalle.TabIndex = 0;
-            lvwDetalle.TabStop = false;
-            lvwDetalle.UseCompatibleStateImageBehavior = false;
-            lvwDetalle.View = View.Details;
-            // 
-            // ColOrdenPreparacion
-            // 
-            ColOrdenPreparacion.Text = "Orden de preparación";
-            ColOrdenPreparacion.Width = 165;
-            // 
-            // ColProducto
-            // 
-            ColProducto.Text = "Producto";
-            ColProducto.Width = 190;
-            // 
-            // ColCantidad
-            // 
-            ColCantidad.Text = "Cantidad";
-            ColCantidad.Width = 75;
-            // 
-            // lblEmpresaTransportista
-            // 
-            lblEmpresaTransportista.Font = new Font("Segoe UI", 11F);
-            lblEmpresaTransportista.Location = new Point(10, 50);
-            lblEmpresaTransportista.Name = "lblEmpresaTransportista";
-            lblEmpresaTransportista.Size = new Size(155, 23);
-            lblEmpresaTransportista.TabIndex = 0;
-            lblEmpresaTransportista.Text = "Empresa transportista";
-            lblEmpresaTransportista.TextAlign = ContentAlignment.MiddleRight;
-            lblEmpresaTransportista.Click += lblEmpresaTransportista_Click;
-            // 
-            // lblDni
-            // 
-            lblDni.Font = new Font("Segoe UI", 11F);
-            lblDni.Location = new Point(10, 150);
-            lblDni.Name = "lblDni";
-            lblDni.Size = new Size(151, 23);
-            lblDni.TabIndex = 1;
-            lblDni.Text = "DNI";
-            lblDni.TextAlign = ContentAlignment.MiddleRight;
-            // 
-            // lblChofer
-            // 
-            lblChofer.Font = new Font("Segoe UI", 11F);
-            lblChofer.Location = new Point(10, 100);
-            lblChofer.Name = "lblChofer";
-            lblChofer.Size = new Size(151, 23);
-            lblChofer.TabIndex = 1;
-            lblChofer.Text = "Chofer";
-            lblChofer.TextAlign = ContentAlignment.MiddleRight;
+            txtDni.Location = new Point(108, 51);
+            txtDni.Name = "txtDni";
+            txtDni.Size = new Size(211, 27);
+            txtDni.TabIndex = 5;
+            txtDni.TextChanged += textBox3_TextChanged;
             // 
             // lblPatente
             // 
-            lblPatente.Font = new Font("Segoe UI", 11F);
-            lblPatente.Location = new Point(10, 204);
+            lblPatente.Font = new Font("Segoe UI", 9F);
+            lblPatente.Location = new Point(348, 53);
             lblPatente.Name = "lblPatente";
-            lblPatente.Size = new Size(151, 23);
+            lblPatente.Size = new Size(91, 23);
             lblPatente.TabIndex = 2;
             lblPatente.Text = "Patente";
             lblPatente.TextAlign = ContentAlignment.MiddleRight;
             // 
-            // textBox1
+            // lblDni
             // 
-            textBox1.Location = new Point(176, 46);
-            textBox1.Name = "textBox1";
-            textBox1.Size = new Size(337, 27);
-            textBox1.TabIndex = 3;
+            lblDni.Font = new Font("Segoe UI", 9F);
+            lblDni.Location = new Point(39, 53);
+            lblDni.Name = "lblDni";
+            lblDni.Size = new Size(63, 23);
+            lblDni.TabIndex = 1;
+            lblDni.Text = "DNI";
+            lblDni.TextAlign = ContentAlignment.MiddleRight;
             // 
-            // textBox2
+            // lblDepósito
             // 
-            textBox2.Location = new Point(176, 96);
-            textBox2.Name = "textBox2";
-            textBox2.Size = new Size(337, 27);
-            textBox2.TabIndex = 4;
+            lblDepósito.AutoSize = true;
+            lblDepósito.Font = new Font("Segoe UI", 9F);
+            lblDepósito.Location = new Point(33, 13);
+            lblDepósito.Name = "lblDepósito";
+            lblDepósito.Size = new Size(70, 20);
+            lblDepósito.TabIndex = 7;
+            lblDepósito.Text = "Depósito";
+            lblDepósito.TextAlign = ContentAlignment.MiddleLeft;
+            lblDepósito.Click += lblDepósito_Click;
             // 
-            // textBox3
+            // cmbDepósito
             // 
-            textBox3.Location = new Point(176, 146);
-            textBox3.Name = "textBox3";
-            textBox3.Size = new Size(337, 27);
-            textBox3.TabIndex = 5;
+            cmbDepósito.DropDownStyle = ComboBoxStyle.DropDownList;
+            cmbDepósito.FormattingEnabled = true;
+            cmbDepósito.Location = new Point(126, 10);
+            cmbDepósito.Name = "cmbDepósito";
+            cmbDepósito.Size = new Size(148, 28);
+            cmbDepósito.TabIndex = 8;
             // 
-            // textBox4
+            // lblNroRemito
             // 
-            textBox4.Location = new Point(176, 200);
-            textBox4.Name = "textBox4";
-            textBox4.Size = new Size(337, 27);
-            textBox4.TabIndex = 6;
+            lblNroRemito.CausesValidation = false;
+            lblNroRemito.Font = new Font("Segoe UI", 9F);
+            lblNroRemito.Location = new Point(33, 555);
+            lblNroRemito.Name = "lblNroRemito";
+            lblNroRemito.Size = new Size(102, 23);
+            lblNroRemito.TabIndex = 7;
+            lblNroRemito.Text = "N°remito";
+            lblNroRemito.TextAlign = ContentAlignment.MiddleRight;
             // 
-            // FrmGenerarRemitoDespachar
+            // txtNroRemito
+            // 
+            txtNroRemito.Location = new Point(141, 553);
+            txtNroRemito.Name = "txtNroRemito";
+            txtNroRemito.ReadOnly = true;
+            txtNroRemito.Size = new Size(211, 27);
+            txtNroRemito.TabIndex = 7;
+            // 
+            // lblTotalBultos
+            // 
+            lblTotalBultos.Font = new Font("Segoe UI", 9F);
+            lblTotalBultos.Location = new Point(818, 314);
+            lblTotalBultos.Name = "lblTotalBultos";
+            lblTotalBultos.Size = new Size(102, 23);
+            lblTotalBultos.TabIndex = 9;
+            lblTotalBultos.Text = "Total bultos:";
+            lblTotalBultos.TextAlign = ContentAlignment.MiddleRight;
+            // 
+            // lblTotalBultosValor
+            // 
+            lblTotalBultosValor.Font = new Font("Segoe UI", 9F);
+            lblTotalBultosValor.ForeColor = SystemColors.ControlText;
+            lblTotalBultosValor.ImageAlign = ContentAlignment.MiddleRight;
+            lblTotalBultosValor.Location = new Point(926, 314);
+            lblTotalBultosValor.Name = "lblTotalBultosValor";
+            lblTotalBultosValor.Size = new Size(102, 23);
+            lblTotalBultosValor.TabIndex = 10;
+            lblTotalBultosValor.Text = "9";
+            lblTotalBultosValor.TextAlign = ContentAlignment.MiddleRight;
+            // 
+            // GenerarRemitoDespacharForm
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1119, 662);
-            Controls.Add(groupBox2);
-            Controls.Add(groupBox1);
-            Controls.Add(button1);
+            ClientSize = new Size(1082, 603);
+            Controls.Add(txtNroRemito);
+            Controls.Add(lblNroRemito);
+            Controls.Add(cmbDepósito);
+            Controls.Add(lblDepósito);
+            Controls.Add(grpTransportista);
+            Controls.Add(btnCancelar);
             Controls.Add(btnConfirmarDespacho);
             Controls.Add(grpOrdenesPendientes);
             MinimumSize = new Size(1100, 650);
-            Name = "FrmGenerarRemitoDespachar";
+            Name = "GenerarRemitoDespacharForm";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Generar remito y despachar";
             WindowState = FormWindowState.Maximized;
             grpOrdenesPendientes.ResumeLayout(false);
-            groupBox1.ResumeLayout(false);
-            groupBox2.ResumeLayout(false);
-            groupBox2.PerformLayout();
+            grpTransportista.ResumeLayout(false);
+            grpTransportista.PerformLayout();
             ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion
 
         private GroupBox grpOrdenesPendientes;
         private Button btnConfirmarDespacho;
-        private Button button1;
+        private Button btnCancelar;
         private ListView lvwOrdenes;
-        private ColumnHeader ColNroOrden;
-        private ColumnHeader ColCliente;
+        private ColumnHeader ColNroOrdenEntrega;
+        private ColumnHeader ColNOp;
         private ColumnHeader ColBultos;
-        private ColumnHeader ColDarsena;
-        private ColumnHeader ColFechaPreparación;
-        private ColumnHeader ColDomicilio;
-        private ColumnHeader ColPeso;
-        private GroupBox groupBox1;
-        private GroupBox groupBox2;
-        private ListView lvwDetalle;
-        private ColumnHeader ColOrdenPreparacion;
-        private ColumnHeader ColProducto;
-        private ColumnHeader ColCantidad;
+        private ColumnHeader ColCliente;
+        private GroupBox grpTransportista;
         private Label lblPatente;
-        private Label lblChofer;
         private Label lblDni;
-        private Label lblEmpresaTransportista;
-        private TextBox textBox4;
-        private TextBox textBox3;
-        private TextBox textBox2;
-        private TextBox textBox1;
+        private TextBox txtPatente;
+        private TextBox txtDni;
+        private Button btnBuscarOrdenes;
+        private Label lblDepósito;
+        private ComboBox cmbDepósito;
+        private Label lblNroRemito;
+        private TextBox txtNroRemito;
+        private Label lblTotalBultos;
+        private Label lblTotalBultosValor;
     }
 }
