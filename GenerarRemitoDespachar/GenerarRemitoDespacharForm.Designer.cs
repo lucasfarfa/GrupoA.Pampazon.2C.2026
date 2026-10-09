@@ -28,9 +28,10 @@
         /// </summary>
         private void InitializeComponent()
         {
+            ListViewItem listViewItem3 = new ListViewItem(new string[] { "OP-000310", "Producto ficticio A", "40" }, -1);
             grpOrdenesPendientes = new GroupBox();
             lvwOrdenes = new ListView();
-            colNroOrden = new ColumnHeader();
+            ColNroOrden = new ColumnHeader();
             ColCliente = new ColumnHeader();
             ColBultos = new ColumnHeader();
             ColDarsena = new ColumnHeader();
@@ -71,9 +72,8 @@
             btnConfirmarDespacho = new Button();
             button1 = new Button();
             grpOrdenesPendientes.SuspendLayout();
-            grpDatosOrden.SuspendLayout();
-            grpVerificacionChofer.SuspendLayout();
-            grpCargaRemito.SuspendLayout();
+            groupBox1.SuspendLayout();
+            groupBox2.SuspendLayout();
             SuspendLayout();
             // 
             // grpOrdenesPendientes
@@ -83,46 +83,46 @@
             grpOrdenesPendientes.Font = new Font("Segoe UI", 9F);
             grpOrdenesPendientes.Location = new Point(12, 12);
             grpOrdenesPendientes.Name = "grpOrdenesPendientes";
-            grpOrdenesPendientes.Size = new Size(430, 570);
+            grpOrdenesPendientes.Size = new Size(1095, 302);
             grpOrdenesPendientes.TabIndex = 0;
             grpOrdenesPendientes.TabStop = false;
-            grpOrdenesPendientes.Text = "Ordenes de entrega pendientes";
+            grpOrdenesPendientes.Text = "Órdenes de entrega en despacho";
             grpOrdenesPendientes.Enter += grpOrdenesPendientes_Enter;
             // 
             // lvwOrdenes
             // 
-            lvwOrdenes.Columns.AddRange(new ColumnHeader[] { colNroOrden, ColCliente, ColBultos, ColDarsena, ColFechaPreparación });
+            lvwOrdenes.Columns.AddRange(new ColumnHeader[] { ColNroOrden, ColCliente, ColDomicilio, ColBultos, ColPeso, ColDarsena, ColFechaPreparación });
             lvwOrdenes.Dock = DockStyle.Fill;
             lvwOrdenes.Font = new Font("Segoe UI", 9F);
             lvwOrdenes.FullRowSelect = true;
             lvwOrdenes.Location = new Point(3, 23);
             lvwOrdenes.MultiSelect = false;
             lvwOrdenes.Name = "lvwOrdenes";
-            lvwOrdenes.Size = new Size(424, 544);
+            lvwOrdenes.Size = new Size(1089, 276);
             lvwOrdenes.TabIndex = 0;
             lvwOrdenes.UseCompatibleStateImageBehavior = false;
             lvwOrdenes.View = View.Details;
             lvwOrdenes.SelectedIndexChanged += lvwOrdenes_SelectedIndexChanged;
             // 
-            // colNroOrden
+            // ColNroOrden
             // 
-            colNroOrden.Text = "N° Orden";
-            colNroOrden.Width = 90;
+            ColNroOrden.Text = "N° Orden";
+            ColNroOrden.Width = 80;
             // 
             // ColCliente
             // 
             ColCliente.Text = "Cliente";
-            ColCliente.Width = 150;
+            ColCliente.Width = 330;
             // 
             // ColBultos
             // 
             ColBultos.Text = "Bultos";
             ColBultos.TextAlign = HorizontalAlignment.Right;
-            ColBultos.Width = 55;
             // 
             // ColDarsena
             // 
-            ColDarsena.Text = "Darsena";
+            ColDarsena.Text = "Dársena";
+            ColDarsena.Width = 70;
             // 
             // ColFechaPreparación
             // 
@@ -445,11 +445,10 @@
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1119, 662);
+            Controls.Add(groupBox2);
+            Controls.Add(groupBox1);
             Controls.Add(button1);
             Controls.Add(btnConfirmarDespacho);
-            Controls.Add(grpCargaRemito);
-            Controls.Add(grpVerificacionChofer);
-            Controls.Add(grpDatosOrden);
             Controls.Add(grpOrdenesPendientes);
             MinimumSize = new Size(1100, 650);
             Name = "GenerarRemitoDespacharForm";
@@ -457,58 +456,38 @@
             Text = "Generar remito y despachar";
             WindowState = FormWindowState.Maximized;
             grpOrdenesPendientes.ResumeLayout(false);
-            grpDatosOrden.ResumeLayout(false);
-            grpDatosOrden.PerformLayout();
-            grpVerificacionChofer.ResumeLayout(false);
-            grpVerificacionChofer.PerformLayout();
-            grpCargaRemito.ResumeLayout(false);
-            grpCargaRemito.PerformLayout();
+            groupBox1.ResumeLayout(false);
+            groupBox2.ResumeLayout(false);
+            groupBox2.PerformLayout();
             ResumeLayout(false);
         }
 
         #endregion
 
         private GroupBox grpOrdenesPendientes;
-        private GroupBox grpDatosOrden;
-        private GroupBox grpVerificacionChofer;
-        private GroupBox grpCargaRemito;
         private Button btnConfirmarDespacho;
         private Button button1;
         private ListView lvwOrdenes;
-        private ColumnHeader colNroOrden;
+        private ColumnHeader ColNroOrden;
         private ColumnHeader ColCliente;
         private ColumnHeader ColBultos;
         private ColumnHeader ColDarsena;
         private ColumnHeader ColFechaPreparación;
-        private Label label5;
-        private TextBox textBox3;
-        private Label label3;
-        private Label label2;
-        private Label labelRazonSocial;
-        private Label label7;
-        private Label label6;
-        private Label label4;
-        private Label label1;
-        private Label label12;
-        private Label label11;
-        private Label label10;
-        private Label label9;
-        private Label label13;
-        private TextBox textBox8;
-        private TextBox textBox7;
-        private TextBox textBox6;
-        private TextBox textBox5;
+        private ColumnHeader ColDomicilio;
+        private ColumnHeader ColPeso;
+        private GroupBox groupBox1;
+        private GroupBox groupBox2;
+        private ListView lvwDetalle;
+        private ColumnHeader ColOrdenPreparacion;
+        private ColumnHeader ColProducto;
+        private ColumnHeader ColCantidad;
+        private Label lblPatente;
+        private Label lblChofer;
+        private Label lblDni;
+        private Label lblEmpresaTransportista;
         private TextBox textBox4;
+        private TextBox textBox3;
         private TextBox textBox2;
         private TextBox textBox1;
-        private Button button3;
-        private TextBox textBox12;
-        private TextBox textBox11;
-        private TextBox textBox10;
-        private TextBox textBox9;
-        private Button button2;
-        private TextBox textBox14;
-        private TextBox textBox13;
-        private Label label14;
     }
 }
