@@ -8,19 +8,19 @@
     "net10.0-windows": []
   },
   "packageFolders": {
-    "C:\\Users\\LUCAS FARFALLINI\\.nuget\\packages\\": {}
+    "C:\\Users\\Mora\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\LUCAS FARFALLINI\\source\\repos\\GrupoA.PampazonSA.AdministracionDeposito\\GrupoA.PampazonSA.AdministracionDeposito.csproj",
+      "projectUniqueName": "C:\\Mora\\Facultad\\2026c2\\CAI\\Pampazon\\GrupoA.PampazonSA.AdministracionDeposito.csproj",
       "projectName": "GrupoA.PampazonSA.AdministracionDeposito",
-      "projectPath": "C:\\Users\\LUCAS FARFALLINI\\source\\repos\\GrupoA.PampazonSA.AdministracionDeposito\\GrupoA.PampazonSA.AdministracionDeposito.csproj",
-      "packagesPath": "C:\\Users\\LUCAS FARFALLINI\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\LUCAS FARFALLINI\\source\\repos\\GrupoA.PampazonSA.AdministracionDeposito\\obj\\",
+      "projectPath": "C:\\Mora\\Facultad\\2026c2\\CAI\\Pampazon\\GrupoA.PampazonSA.AdministracionDeposito.csproj",
+      "packagesPath": "C:\\Users\\Mora\\.nuget\\packages\\",
+      "outputPath": "C:\\Mora\\Facultad\\2026c2\\CAI\\Pampazon\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\LUCAS FARFALLINI\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\Mora\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [

@@ -1,10 +1,10 @@
-<<<<<<< Updated upstream
-=======
+using System;
+using System.Windows.Forms;
 using AdministracionDeposito;
 using GrupoA.PampazonSA.AdministracionDeposito.GenerarOrdenSeleccion;
 using GrupoA.PampazonSA.AdministracionDeposito.RegistrarOrdenPreparacion;
->>>>>>> Stashed changes
 using OrdenesPreparacion;
+
 namespace GrupoA.PampazonSA.AdministracionDeposito
 {
     internal static class Program
@@ -21,15 +21,11 @@ namespace GrupoA.PampazonSA.AdministracionDeposito
             Application.Run(new FrmMenuPrincipal());
             //Application.Run(new FrmRegistrarOrdenPreparacion());
 
-<<<<<<< Updated upstream
     }
-=======
             // Inicia el menú principal por defecto
             Application.Run(new MenuPrincipalForm());
 
             Application.Run(new RegistrarOrdenPreparacionForm());
 
         }
->>>>>>> Stashed changes
     }
-}
