@@ -3,24 +3,23 @@
   "WorkspaceRootPath": "C:\\Mora\\Facultad\\2026c2\\CAI\\Pampazon\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Mora\\Facultad\\2026c2\\CAI\\Pampazon\\FrmMenuPrincipal.Designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:FrmMenuPrincipal.Designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Mora\\Facultad\\2026c2\\CAI\\Pampazon\\FrmMenuPrincipal.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:FrmMenuPrincipal.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Mora\\Facultad\\2026c2\\CAI\\Pampazon\\FrmenDesarrollo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:FrmenDesarrollo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Mora\\Facultad\\2026c2\\CAI\\Pampazon\\Program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Mora\\Facultad\\2026c2\\CAI\\Pampazon\\Datos.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Datos.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Mora\\Facultad\\2026c2\\CAI\\Pampazon\\RegistrarOrdenPreparacion\\RegistrarOrdenPreparacionModelo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:RegistrarOrdenPreparacion\\RegistrarOrdenPreparacionModelo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Mora\\Facultad\\2026c2\\CAI\\Pampazon\\RegistrarOrdenPreparacion\\RegistrarOrdenPreparacionForm.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:RegistrarOrdenPreparacion\\RegistrarOrdenPreparacionForm.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Program Files\\dotnet\\sdk\\10.0.401\\Sdks\\Microsoft.NET.Sdk\\targets\\Microsoft.PackageDependencyResolution.targets||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Mora\\Facultad\\2026c2\\CAI\\Pampazon\\RegistrarOrdenPreparacion\\RegistrarOrdenPreparacionForm.Designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:RegistrarOrdenPreparacion\\RegistrarOrdenPreparacionForm.Designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -38,68 +37,65 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "FrmenDesarrollo.cs",
-              "DocumentMoniker": "C:\\Mora\\Facultad\\2026c2\\CAI\\Pampazon\\FrmenDesarrollo.cs",
-              "RelativeDocumentMoniker": "FrmenDesarrollo.cs",
-              "ToolTip": "C:\\Mora\\Facultad\\2026c2\\CAI\\Pampazon\\FrmenDesarrollo.cs",
-              "RelativeToolTip": "FrmenDesarrollo.cs",
-              "ViewState": "AgIAABEAAAAAAAAAAAAAAC8AAAABAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-10-04T15:13:23.936Z",
-              "EditorCaption": ""
+              "DocumentIndex": 3,
+              "Title": "Microsoft.PackageDependencyResolution.targets",
+              "DocumentMoniker": "C:\\Program Files\\dotnet\\sdk\\10.0.401\\Sdks\\Microsoft.NET.Sdk\\targets\\Microsoft.PackageDependencyResolution.targets",
+              "RelativeDocumentMoniker": "..\\..\\..\\..\\..\\Program Files\\dotnet\\sdk\\10.0.401\\Sdks\\Microsoft.NET.Sdk\\targets\\Microsoft.PackageDependencyResolution.targets",
+              "ToolTip": "C:\\Program Files\\dotnet\\sdk\\10.0.401\\Sdks\\Microsoft.NET.Sdk\\targets\\Microsoft.PackageDependencyResolution.targets",
+              "RelativeToolTip": "..\\..\\..\\..\\..\\Program Files\\dotnet\\sdk\\10.0.401\\Sdks\\Microsoft.NET.Sdk\\targets\\Microsoft.PackageDependencyResolution.targets",
+              "ViewState": "AgIAAPwAAAAAAAAAAAAkwAkBAAAEAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003801|",
+              "WhenOpened": "2026-10-10T20:18:10.881Z"
             },
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "FrmMenuPrincipal.Designer.cs",
-              "DocumentMoniker": "C:\\Mora\\Facultad\\2026c2\\CAI\\Pampazon\\FrmMenuPrincipal.Designer.cs",
-              "RelativeDocumentMoniker": "FrmMenuPrincipal.Designer.cs",
-              "ToolTip": "C:\\Mora\\Facultad\\2026c2\\CAI\\Pampazon\\FrmMenuPrincipal.Designer.cs",
-              "RelativeToolTip": "FrmMenuPrincipal.Designer.cs",
-              "ViewState": "AgIAAIQAAAAAAAAAAAAswIcAAAAwAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-10-03T22:03:54.828Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "FrmMenuPrincipal.cs",
-              "DocumentMoniker": "C:\\Mora\\Facultad\\2026c2\\CAI\\Pampazon\\FrmMenuPrincipal.cs",
-              "RelativeDocumentMoniker": "FrmMenuPrincipal.cs",
-              "ToolTip": "C:\\Mora\\Facultad\\2026c2\\CAI\\Pampazon\\FrmMenuPrincipal.cs",
-              "RelativeToolTip": "FrmMenuPrincipal.cs",
-              "ViewState": "AgIAAB0AAAAAAAAAAAAswC4AAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-10-03T21:55:33.876Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
               "Title": "Program.cs",
               "DocumentMoniker": "C:\\Mora\\Facultad\\2026c2\\CAI\\Pampazon\\Program.cs",
               "RelativeDocumentMoniker": "Program.cs",
               "ToolTip": "C:\\Mora\\Facultad\\2026c2\\CAI\\Pampazon\\Program.cs",
               "RelativeToolTip": "Program.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABMAAAABAAAAAAAAAA==",
+              "ViewState": "AgIAAAIAAAAAAAAAAAAmwBEAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-10-03T15:42:53.792Z",
+              "WhenOpened": "2026-10-10T20:17:40.095Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "Datos.cs",
-              "DocumentMoniker": "C:\\Mora\\Facultad\\2026c2\\CAI\\Pampazon\\Datos.cs",
-              "RelativeDocumentMoniker": "Datos.cs",
-              "ToolTip": "C:\\Mora\\Facultad\\2026c2\\CAI\\Pampazon\\Datos.cs",
-              "RelativeToolTip": "Datos.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABIAAAA+AAAAAAAAAA==",
+              "DocumentIndex": 1,
+              "Title": "RegistrarOrdenPreparacionModelo.cs",
+              "DocumentMoniker": "C:\\Mora\\Facultad\\2026c2\\CAI\\Pampazon\\RegistrarOrdenPreparacion\\RegistrarOrdenPreparacionModelo.cs",
+              "RelativeDocumentMoniker": "RegistrarOrdenPreparacion\\RegistrarOrdenPreparacionModelo.cs",
+              "ToolTip": "C:\\Mora\\Facultad\\2026c2\\CAI\\Pampazon\\RegistrarOrdenPreparacion\\RegistrarOrdenPreparacionModelo.cs",
+              "RelativeToolTip": "RegistrarOrdenPreparacion\\RegistrarOrdenPreparacionModelo.cs",
+              "ViewState": "AgIAAKQAAAAAAAAAAAAkwKsAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-10-03T15:42:17.843Z",
+              "WhenOpened": "2026-10-10T19:59:09.532Z",
               "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "RegistrarOrdenPreparacionForm.cs",
+              "DocumentMoniker": "C:\\Mora\\Facultad\\2026c2\\CAI\\Pampazon\\RegistrarOrdenPreparacion\\RegistrarOrdenPreparacionForm.cs",
+              "RelativeDocumentMoniker": "RegistrarOrdenPreparacion\\RegistrarOrdenPreparacionForm.cs",
+              "ToolTip": "C:\\Mora\\Facultad\\2026c2\\CAI\\Pampazon\\RegistrarOrdenPreparacion\\RegistrarOrdenPreparacionForm.cs",
+              "RelativeToolTip": "RegistrarOrdenPreparacion\\RegistrarOrdenPreparacionForm.cs",
+              "ViewState": "AgIAADgBAAAAAAAAAAAkwEQBAAAtAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-10-10T19:59:07.176Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "RegistrarOrdenPreparacionForm.Designer.cs",
+              "DocumentMoniker": "C:\\Mora\\Facultad\\2026c2\\CAI\\Pampazon\\RegistrarOrdenPreparacion\\RegistrarOrdenPreparacionForm.Designer.cs",
+              "RelativeDocumentMoniker": "RegistrarOrdenPreparacion\\RegistrarOrdenPreparacionForm.Designer.cs",
+              "ToolTip": "C:\\Mora\\Facultad\\2026c2\\CAI\\Pampazon\\RegistrarOrdenPreparacion\\RegistrarOrdenPreparacionForm.Designer.cs",
+              "RelativeToolTip": "RegistrarOrdenPreparacion\\RegistrarOrdenPreparacionForm.Designer.cs",
+              "ViewState": "AgIAAKYAAAAAAAAAAAAkwEUCAAAFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-10-10T19:59:03.13Z"
             }
           ]
         }

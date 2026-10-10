@@ -1,7 +1,14 @@
 {
   "ExpandedNodes": [
+<<<<<<< Updated upstream
     ""
   ],
   "SelectedNode": "\\FrmMenuPrincipal.Designer.cs",
+=======
+    "",
+    "\\RegistrarOrdenPreparacion"
+  ],
+  "SelectedNode": "\\Program.cs",
+>>>>>>> Stashed changes
   "PreviewInSolutionExplorer": false
 }

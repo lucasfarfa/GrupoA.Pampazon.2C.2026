@@ -1,3 +1,9 @@
+<<<<<<< Updated upstream
+=======
+using AdministracionDeposito;
+using GrupoA.PampazonSA.AdministracionDeposito.GenerarOrdenSeleccion;
+using GrupoA.PampazonSA.AdministracionDeposito.RegistrarOrdenPreparacion;
+>>>>>>> Stashed changes
 using OrdenesPreparacion;
 namespace GrupoA.PampazonSA.AdministracionDeposito
 {
@@ -15,6 +21,15 @@ namespace GrupoA.PampazonSA.AdministracionDeposito
             Application.Run(new FrmMenuPrincipal());
             //Application.Run(new FrmRegistrarOrdenPreparacion());
 
+<<<<<<< Updated upstream
     }
+=======
+            // Inicia el menú principal por defecto
+            Application.Run(new MenuPrincipalForm());
+
+            Application.Run(new RegistrarOrdenPreparacionForm());
+
+        }
+>>>>>>> Stashed changes
     }
 }
