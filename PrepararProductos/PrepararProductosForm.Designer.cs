@@ -2,15 +2,8 @@
 {
     partial class PrepararProductosForm
     {
-        /// <summary>
-        /// Required designer variable.
-        /// </summary>
         private System.ComponentModel.IContainer components = null;
 
-        /// <summary>
-        /// Clean up any resources being used.
-        /// </summary>
-        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
         protected override void Dispose(bool disposing)
         {
             if (disposing && (components != null))
@@ -22,268 +15,244 @@
 
         #region Windows Form Designer generated code
 
-        /// <summary>
-        /// Required method for Designer support - do not modify
-        /// the contents of this method with the code editor.
-        /// </summary>
         private void InitializeComponent()
         {
-            lblTituloOS = new Label();
-            listViewProductos = new ListView();
-            columnHeader4 = new ColumnHeader();
-            columnHeader5 = new ColumnHeader();
-            columnHeader6 = new ColumnHeader();
-            columnHeader7 = new ColumnHeader();
-            lblTituloOP = new Label();
-            listViewOP = new ListView();
-            columnHeader1 = new ColumnHeader();
-            columnHeader2 = new ColumnHeader();
-            columnHeader3 = new ColumnHeader();
-            columnHeader8 = new ColumnHeader();
-            btnFinalizarPicking = new Button();
-            btnCierreSeleccion = new Button();
-            listViewOS = new ListView();
-            columnHeader9 = new ColumnHeader();
-            columnHeader10 = new ColumnHeader();
-            columnHeader11 = new ColumnHeader();
-            btnRefrescar = new Button();
-            lblTituloNoHayOS = new Label();
-            SuspendLayout();
-            // 
-            // lblTituloOS
-            // 
-            lblTituloOS.AutoSize = true;
-            lblTituloOS.Location = new Point(10, 7);
-            lblTituloOS.Margin = new Padding(2, 0, 2, 0);
-            lblTituloOS.Name = "lblTituloOS";
-            lblTituloOS.Size = new Size(152, 20);
-            lblTituloOS.TabIndex = 0;
-            lblTituloOS.Text = "Ordenes de Selección";
-            // 
-            // listViewProductos
-            // 
-            listViewProductos.Columns.AddRange(new ColumnHeader[] { columnHeader4, columnHeader5, columnHeader6, columnHeader7 });
-            listViewProductos.HeaderStyle = ColumnHeaderStyle.Nonclickable;
-            listViewProductos.Location = new Point(532, 268);
-            listViewProductos.Margin = new Padding(2, 2, 2, 2);
-            listViewProductos.MultiSelect = false;
-            listViewProductos.Name = "listViewProductos";
-            listViewProductos.Size = new Size(494, 304);
-            listViewProductos.TabIndex = 3;
-            listViewProductos.UseCompatibleStateImageBehavior = false;
-            listViewProductos.View = View.Details;
-            listViewProductos.SelectedIndexChanged += listViewProductos_SelectedIndexChanged;
-            // 
-            // columnHeader4
-            // 
-            columnHeader4.Text = "SKU";
-            // 
-            // columnHeader5
-            // 
-            columnHeader5.Text = "Descripción";
-            columnHeader5.Width = 130;
-            // 
-            // columnHeader6
-            // 
-            columnHeader6.Text = "Cantidad";
-            columnHeader6.TextAlign = HorizontalAlignment.Right;
-            columnHeader6.Width = 80;
-            // 
-            // columnHeader7
-            // 
-            columnHeader7.Text = "Posición en Racks";
-            columnHeader7.TextAlign = HorizontalAlignment.Center;
-            columnHeader7.Width = 130;
-            // 
-            // lblTituloOP
-            // 
-            lblTituloOP.AutoSize = true;
-            lblTituloOP.Location = new Point(10, 246);
-            lblTituloOP.Margin = new Padding(2, 0, 2, 0);
-            lblTituloOP.Name = "lblTituloOP";
-            lblTituloOP.Size = new Size(401, 20);
-            lblTituloOP.TabIndex = 0;
-            lblTituloOP.Text = "Ordenes de preparación vinculadas a la orden de Selección";
-            // 
-            // listViewOP
-            // 
-            listViewOP.Columns.AddRange(new ColumnHeader[] { columnHeader1, columnHeader2, columnHeader3, columnHeader8 });
-            listViewOP.Location = new Point(10, 268);
-            listViewOP.Margin = new Padding(2, 2, 2, 2);
-            listViewOP.MultiSelect = false;
-            listViewOP.Name = "listViewOP";
-            listViewOP.Size = new Size(518, 304);
-            listViewOP.TabIndex = 6;
-            listViewOP.UseCompatibleStateImageBehavior = false;
-            listViewOP.View = View.Details;
-            listViewOP.SelectedIndexChanged += listViewOP_SelectedIndexChanged;
-            // 
-            // columnHeader1
-            // 
-            columnHeader1.Text = "Nro Orden";
-            columnHeader1.Width = 130;
-            // 
-            // columnHeader2
-            // 
-            columnHeader2.Text = "Cliente";
-            columnHeader2.Width = 130;
-            // 
-            // columnHeader3
-            // 
-            columnHeader3.Text = "Fecha/Hora";
-            columnHeader3.TextAlign = HorizontalAlignment.Center;
-            columnHeader3.Width = 130;
-            // 
-            // columnHeader8
-            // 
-            columnHeader8.Text = "Estado";
-            columnHeader8.TextAlign = HorizontalAlignment.Center;
-            columnHeader8.Width = 130;
-            // 
-            // btnFinalizarPicking
-            // 
-            btnFinalizarPicking.Enabled = false;
-            btnFinalizarPicking.Location = new Point(532, 576);
-            btnFinalizarPicking.Margin = new Padding(2, 2, 2, 2);
-            btnFinalizarPicking.Name = "btnFinalizarPicking";
-            btnFinalizarPicking.Size = new Size(493, 27);
-            btnFinalizarPicking.TabIndex = 5;
-            btnFinalizarPicking.Text = "Entregar en Preparación";
-            btnFinalizarPicking.UseVisualStyleBackColor = true;
-            btnFinalizarPicking.Click += btnFinalizarPicking_Click;
-            // 
-            // btnCierreSeleccion
-            // 
-            btnCierreSeleccion.Enabled = false;
-            btnCierreSeleccion.Location = new Point(10, 179);
-            btnCierreSeleccion.Margin = new Padding(2, 2, 2, 2);
-            btnCierreSeleccion.Name = "btnCierreSeleccion";
-            btnCierreSeleccion.Size = new Size(243, 27);
-            btnCierreSeleccion.TabIndex = 8;
-            btnCierreSeleccion.Text = "Cerrar Orden de Selección";
-            btnCierreSeleccion.UseVisualStyleBackColor = true;
-            btnCierreSeleccion.Click += btnCierreSeleccion_Click;
-            // 
+            this.lblDeposito = new System.Windows.Forms.Label();
+            this.btnActualizar = new System.Windows.Forms.Button();
+            this.grpOS = new System.Windows.Forms.GroupBox();
+            this.lblNoHayOS = new System.Windows.Forms.Label();
+            this.listViewOS = new System.Windows.Forms.ListView();
+            this.colOsNumero = new System.Windows.Forms.ColumnHeader();
+            this.colOsFecha = new System.Windows.Forms.ColumnHeader();
+            this.colOsOrdenes = new System.Windows.Forms.ColumnHeader();
+            this.colOsLineas = new System.Windows.Forms.ColumnHeader();
+            this.grpDetalle = new System.Windows.Forms.GroupBox();
+            this.listViewDetalle = new System.Windows.Forms.ListView();
+            this.colDetPosicion = new System.Windows.Forms.ColumnHeader();
+            this.colDetCliente = new System.Windows.Forms.ColumnHeader();
+            this.colDetSku = new System.Windows.Forms.ColumnHeader();
+            this.colDetDescripcion = new System.Windows.Forms.ColumnHeader();
+            this.colDetCantidad = new System.Windows.Forms.ColumnHeader();
+            this.colDetUnidad = new System.Windows.Forms.ColumnHeader();
+            this.btnConfirmar = new System.Windows.Forms.Button();
+            this.btnCancelar = new System.Windows.Forms.Button();
+            this.grpOS.SuspendLayout();
+            this.grpDetalle.SuspendLayout();
+            this.SuspendLayout();
+            //
+            // lblDeposito
+            //
+            this.lblDeposito.AutoSize = true;
+            this.lblDeposito.Location = new System.Drawing.Point(12, 17);
+            this.lblDeposito.Name = "lblDeposito";
+            this.lblDeposito.Size = new System.Drawing.Size(96, 15);
+            this.lblDeposito.TabIndex = 0;
+            this.lblDeposito.Text = "Depósito: [DEPOSITO]";
+            //
+            // btnActualizar
+            //
+            this.btnActualizar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnActualizar.Location = new System.Drawing.Point(742, 11);
+            this.btnActualizar.Name = "btnActualizar";
+            this.btnActualizar.Size = new System.Drawing.Size(130, 27);
+            this.btnActualizar.TabIndex = 1;
+            this.btnActualizar.Text = "Actualizar lista";
+            this.btnActualizar.UseVisualStyleBackColor = true;
+            this.btnActualizar.Click += new System.EventHandler(this.btnActualizar_Click);
+            //
+            // grpOS
+            //
+            this.grpOS.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
+            this.grpOS.Controls.Add(this.lblNoHayOS);
+            this.grpOS.Controls.Add(this.listViewOS);
+            this.grpOS.Location = new System.Drawing.Point(12, 46);
+            this.grpOS.Name = "grpOS";
+            this.grpOS.Size = new System.Drawing.Size(860, 180);
+            this.grpOS.TabIndex = 2;
+            this.grpOS.TabStop = false;
+            this.grpOS.Text = "Órdenes de selección pendientes";
+            //
+            // lblNoHayOS
+            //
+            this.lblNoHayOS.AutoSize = true;
+            this.lblNoHayOS.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
+            this.lblNoHayOS.ForeColor = System.Drawing.Color.DodgerBlue;
+            this.lblNoHayOS.Location = new System.Drawing.Point(10, 154);
+            this.lblNoHayOS.Name = "lblNoHayOS";
+            this.lblNoHayOS.Size = new System.Drawing.Size(290, 15);
+            this.lblNoHayOS.TabIndex = 1;
+            this.lblNoHayOS.Text = "NO HAY ÓRDENES DE SELECCIÓN PENDIENTES";
+            this.lblNoHayOS.Visible = false;
+            //
             // listViewOS
-            // 
-            listViewOS.Columns.AddRange(new ColumnHeader[] { columnHeader9, columnHeader10, columnHeader11 });
-            listViewOS.Location = new Point(10, 30);
-            listViewOS.Margin = new Padding(2, 2, 2, 2);
-            listViewOS.Name = "listViewOS";
-            listViewOS.Size = new Size(1015, 146);
-            listViewOS.TabIndex = 9;
-            listViewOS.UseCompatibleStateImageBehavior = false;
-            listViewOS.View = View.Details;
-            listViewOS.SelectedIndexChanged += listViewOS_SelectedIndexChanged;
-            // 
-            // columnHeader9
-            // 
-            columnHeader9.Text = "Nro Orden";
-            columnHeader9.Width = 130;
-            // 
-            // columnHeader10
-            // 
-            columnHeader10.Text = "Fecha/Hora";
-            columnHeader10.Width = 130;
-            // 
-            // columnHeader11
-            // 
-            columnHeader11.Text = "Estado";
-            columnHeader11.Width = 130;
-            // 
-            // btnRefrescar
-            // 
-            btnRefrescar.Location = new Point(742, 179);
-            btnRefrescar.Margin = new Padding(2, 2, 2, 2);
-            btnRefrescar.Name = "btnRefrescar";
-            btnRefrescar.Size = new Size(282, 27);
-            btnRefrescar.TabIndex = 10;
-            btnRefrescar.Text = "Refrescar Lista de Ordenes de Selección";
-            btnRefrescar.UseVisualStyleBackColor = true;
-            btnRefrescar.Click += btnRefrescar_Click;
-            // 
-            // lblTituloNoHayOS
-            // 
-            lblTituloNoHayOS.AutoSize = true;
-            lblTituloNoHayOS.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
-            lblTituloNoHayOS.ForeColor = Color.DodgerBlue;
-            lblTituloNoHayOS.Location = new Point(695, 7);
-            lblTituloNoHayOS.Margin = new Padding(2, 0, 2, 0);
-            lblTituloNoHayOS.Name = "lblTituloNoHayOS";
-            lblTituloNoHayOS.Size = new Size(337, 20);
-            lblTituloNoHayOS.TabIndex = 0;
-            lblTituloNoHayOS.Text = "NO HAY ORDENES DE SELECCION PENDIENTES";
-            lblTituloNoHayOS.Visible = false;
-            // 
+            //
+            this.listViewOS.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
+            this.listViewOS.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.colOsNumero,
+            this.colOsFecha,
+            this.colOsOrdenes,
+            this.colOsLineas});
+            this.listViewOS.FullRowSelect = true;
+            this.listViewOS.GridLines = false;
+            this.listViewOS.HideSelection = false;
+            this.listViewOS.Location = new System.Drawing.Point(10, 22);
+            this.listViewOS.MultiSelect = false;
+            this.listViewOS.Name = "listViewOS";
+            this.listViewOS.Size = new System.Drawing.Size(840, 126);
+            this.listViewOS.TabIndex = 0;
+            this.listViewOS.UseCompatibleStateImageBehavior = false;
+            this.listViewOS.View = System.Windows.Forms.View.Details;
+            this.listViewOS.SelectedIndexChanged += new System.EventHandler(this.listViewOS_SelectedIndexChanged);
+            //
+            // colOsNumero
+            //
+            this.colOsNumero.Text = "Nº OS";
+            this.colOsNumero.Width = 110;
+            //
+            // colOsFecha
+            //
+            this.colOsFecha.Text = "Fecha emisión";
+            this.colOsFecha.Width = 130;
+            //
+            // colOsOrdenes
+            //
+            this.colOsOrdenes.Text = "Órdenes de preparación";
+            this.colOsOrdenes.Width = 470;
+            //
+            // colOsLineas
+            //
+            this.colOsLineas.Text = "Líneas";
+            this.colOsLineas.Width = 80;
+            //
+            // grpDetalle
+            //
+            this.grpDetalle.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
+            this.grpDetalle.Controls.Add(this.listViewDetalle);
+            this.grpDetalle.Location = new System.Drawing.Point(12, 236);
+            this.grpDetalle.Name = "grpDetalle";
+            this.grpDetalle.Size = new System.Drawing.Size(860, 290);
+            this.grpDetalle.TabIndex = 3;
+            this.grpDetalle.TabStop = false;
+            this.grpDetalle.Text = "Mercadería a retirar del almacén";
+            //
+            // listViewDetalle
+            //
+            this.listViewDetalle.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
+            this.listViewDetalle.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.colDetPosicion,
+            this.colDetCliente,
+            this.colDetSku,
+            this.colDetDescripcion,
+            this.colDetCantidad,
+            this.colDetUnidad});
+            this.listViewDetalle.FullRowSelect = true;
+            this.listViewDetalle.HideSelection = false;
+            this.listViewDetalle.Location = new System.Drawing.Point(10, 22);
+            this.listViewDetalle.MultiSelect = false;
+            this.listViewDetalle.Name = "listViewDetalle";
+            this.listViewDetalle.Size = new System.Drawing.Size(840, 258);
+            this.listViewDetalle.TabIndex = 0;
+            this.listViewDetalle.UseCompatibleStateImageBehavior = false;
+            this.listViewDetalle.View = System.Windows.Forms.View.Details;
+            //
+            // colDetPosicion
+            //
+            this.colDetPosicion.Text = "Posición (X-Y-Z)";
+            this.colDetPosicion.Width = 110;
+            //
+            // colDetCliente
+            //
+            this.colDetCliente.Text = "Cliente";
+            this.colDetCliente.Width = 160;
+            //
+            // colDetSku
+            //
+            this.colDetSku.Text = "SKU";
+            this.colDetSku.Width = 100;
+            //
+            // colDetDescripcion
+            //
+            this.colDetDescripcion.Text = "Descripción";
+            this.colDetDescripcion.Width = 270;
+            //
+            // colDetCantidad
+            //
+            this.colDetCantidad.Text = "Cantidad";
+            this.colDetCantidad.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.colDetCantidad.Width = 80;
+            //
+            // colDetUnidad
+            //
+            this.colDetUnidad.Text = "Unidad";
+            this.colDetUnidad.Width = 80;
+            //
+            // btnConfirmar
+            //
+            this.btnConfirmar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnConfirmar.Enabled = false;
+            this.btnConfirmar.Location = new System.Drawing.Point(542, 538);
+            this.btnConfirmar.Name = "btnConfirmar";
+            this.btnConfirmar.Size = new System.Drawing.Size(230, 30);
+            this.btnConfirmar.TabIndex = 4;
+            this.btnConfirmar.Text = "Confirmar entrega a Preparación";
+            this.btnConfirmar.UseVisualStyleBackColor = true;
+            this.btnConfirmar.Click += new System.EventHandler(this.btnConfirmar_Click);
+            //
+            // btnCancelar
+            //
+            this.btnCancelar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnCancelar.Location = new System.Drawing.Point(782, 538);
+            this.btnCancelar.Name = "btnCancelar";
+            this.btnCancelar.Size = new System.Drawing.Size(90, 30);
+            this.btnCancelar.TabIndex = 5;
+            this.btnCancelar.Text = "Cancelar";
+            this.btnCancelar.UseVisualStyleBackColor = true;
+            this.btnCancelar.Click += new System.EventHandler(this.btnCancelar_Click);
+            //
             // PrepararProductosForm
-            // 
-            AutoScaleDimensions = new SizeF(8F, 20F);
-            AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1034, 614);
-            Controls.Add(btnRefrescar);
-            Controls.Add(listViewOS);
-            Controls.Add(btnCierreSeleccion);
-            Controls.Add(listViewOP);
-            Controls.Add(btnFinalizarPicking);
-            Controls.Add(listViewProductos);
-            Controls.Add(lblTituloOP);
-            Controls.Add(lblTituloNoHayOS);
-            Controls.Add(lblTituloOS);
-            Margin = new Padding(2, 2, 2, 2);
-            MaximizeBox = false;
-            MinimizeBox = false;
-            Name = "PrepararProductosForm";
-            Text = "Preparar Productos";
-            Load += PrepararProductosForm_Load;
-            ResumeLayout(false);
-            PerformLayout();
+            //
+            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.CancelButton = this.btnCancelar;
+            this.ClientSize = new System.Drawing.Size(884, 580);
+            this.Controls.Add(this.btnCancelar);
+            this.Controls.Add(this.btnConfirmar);
+            this.Controls.Add(this.grpDetalle);
+            this.Controls.Add(this.grpOS);
+            this.Controls.Add(this.btnActualizar);
+            this.Controls.Add(this.lblDeposito);
+            this.MinimumSize = new System.Drawing.Size(700, 480);
+            this.Name = "PrepararProductosForm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.Text = "Registrar Picking - Pampazon S.A.";
+            this.Load += new System.EventHandler(this.PrepararProductosForm_Load);
+            this.grpOS.ResumeLayout(false);
+            this.grpOS.PerformLayout();
+            this.grpDetalle.ResumeLayout(false);
+            this.ResumeLayout(false);
+            this.PerformLayout();
         }
 
         #endregion
 
-        private Label lblTituloOS;
-
-        private void PrepararProductosForm_Load(object sender, EventArgs e)
-        {
-
-            listViewOS.View = View.Details;
-            listViewOS.FullRowSelect = true;
-            listViewOS.GridLines = true;
-
-            listViewOP.View = View.Details;
-            listViewOP.FullRowSelect = true;
-            listViewOP.GridLines = true;
-            
-            listViewProductos.View = View.Details;
-            listViewProductos.FullRowSelect = true;
-            listViewProductos.GridLines = true;
-
-            AjustarColumnasFormulario();
-
-            // Inicializar modelo y bindear datos
-            InitializeModelBindings();
-
-        }
-
-
-        private ListView listViewProductos;
-        private ColumnHeader columnHeader4;
-        private ColumnHeader columnHeader5;
-        private ColumnHeader columnHeader6;
-        private ColumnHeader columnHeader7;
-        private Label lblTituloOP;
-        private ListView listViewOP;
-        private ColumnHeader columnHeader1;
-        private ColumnHeader columnHeader2;
-        private ColumnHeader columnHeader3;
-        private Button btnFinalizarPicking;
-        private ColumnHeader columnHeader8;
-        private Button btnCierreSeleccion;
-        private ListView listViewOS;
-        private ColumnHeader columnHeader9;
-        private ColumnHeader columnHeader10;
-        private ColumnHeader columnHeader11;
-        private Button btnRefrescar;
-        private Label lblTituloNoHayOS;
+        private System.Windows.Forms.Label lblDeposito;
+        private System.Windows.Forms.Button btnActualizar;
+        private System.Windows.Forms.GroupBox grpOS;
+        private System.Windows.Forms.Label lblNoHayOS;
+        private System.Windows.Forms.ListView listViewOS;
+        private System.Windows.Forms.ColumnHeader colOsNumero;
+        private System.Windows.Forms.ColumnHeader colOsFecha;
+        private System.Windows.Forms.ColumnHeader colOsOrdenes;
+        private System.Windows.Forms.ColumnHeader colOsLineas;
+        private System.Windows.Forms.GroupBox grpDetalle;
+        private System.Windows.Forms.ListView listViewDetalle;
+        private System.Windows.Forms.ColumnHeader colDetPosicion;
+        private System.Windows.Forms.ColumnHeader colDetCliente;
+        private System.Windows.Forms.ColumnHeader colDetSku;
+        private System.Windows.Forms.ColumnHeader colDetDescripcion;
+        private System.Windows.Forms.ColumnHeader colDetCantidad;
+        private System.Windows.Forms.ColumnHeader colDetUnidad;
+        private System.Windows.Forms.Button btnConfirmar;
+        private System.Windows.Forms.Button btnCancelar;
     }
 }

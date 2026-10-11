@@ -4,227 +4,195 @@ using System.Linq;
 
 namespace GrupoA.PampazonSA.AdministracionDeposito.PrepararProductos
 {
-    // Modelo sencillo: OrdenSeleccion -> varias OrdenPreparacion -> varios Producto
-    // Nivel: junior. Solo datos, sin referencias a controles de UI.
+    // Modelo de la pantalla de picking (Almacén).
+    // La Orden de Selección ya viene consolidada desde "Generar Orden de Selección":
+    // una línea por producto y posición, con la suma de las órdenes de preparación incluidas.
+    // Almacén retira esa mercadería, la entrega a Preparación y da la OS por cumplida.
     public class PrepararProductosModelo
     {
+        // Depósito del operador (en el sistema real sale de la sesión / configuración del puesto).
+        public string Deposito { get; private set; }
+
         public List<OrdenSeleccion> OrdenesSeleccion { get; } = new List<OrdenSeleccion>();
+
+        // Stock del almacén por posición y SKU (solo lo necesario para descontar al cumplir la OS).
+        public List<StockPosicion> Stock { get; } = new List<StockPosicion>();
 
         public PrepararProductosModelo()
         {
+            Deposito = "GBA";
             CargarDatosPrueba();
         }
 
-        // Expose lookup helpers for the UI layer
-        public OrdenPreparacion GetOrdenPreparacionById(string opId)
+        // OS que Almacén todavía tiene que preparar, de la más vieja a la más nueva.
+        public List<OrdenSeleccion> GetOrdenesPendientes()
         {
-            return FindOrdenPreparacion(opId);
+            return OrdenesSeleccion
+                .Where(os => os.Estado == EstadoOrdenSeleccion.Pendiente)
+                .OrderBy(os => os.FechaEmision)
+                .ToList();
         }
 
-        public OrdenSeleccion GetOrdenSeleccionById(string osId)
+        public OrdenSeleccion GetOrdenSeleccion(string osId)
         {
             if (osId == null) return null;
             return OrdenesSeleccion.FirstOrDefault(os => os.Id == osId);
         }
 
-        // Datos de prueba simples para prototipo
-        public void CargarDatosPrueba()
+        // Detalle a retirar, ordenado por posición para hacer el recorrido de una sola vez.
+        public List<LineaPicking> GetLineasOrdenadas(string osId)
         {
-            OrdenesSeleccion.Clear();
-
-            var os1 = new OrdenSeleccion("OS-000001", "Orden seleccion 1");
-            os1.OrdenesPreparacion.Add(new OrdenPreparacion("OP-0000001", "Cliente A", "SELECCIONADA"));
-            os1.OrdenesPreparacion.Add(new OrdenPreparacion("OP-0000002", "Cliente B", "SELECCIONADA"));
-
-            var os2 = new OrdenSeleccion("OS-000002", "Orden seleccion 2");
-            os2.OrdenesPreparacion.Add(new OrdenPreparacion("OP-0000003", "Cliente C", "SELECCIONADA"));
-            os2.OrdenesPreparacion.Add(new OrdenPreparacion("OP-0000004", "Cliente D", "SELECCIONADA"));
-
-            // Productos asociados (simples)
-            os1.OrdenesPreparacion[0].Productos.AddRange(new[] {
-                new Producto("SKU-0000001","Teclado",10,"X0-Y1-Z2"),
-                new Producto("SKU-0000002","Mouse",10,"X3-Y4-Z5"),
-                new Producto("SKU-0000003","Usb",10,"X6-Y7-Z8")
-            });
-
-            os1.OrdenesPreparacion[1].Productos.AddRange(new[] {
-                new Producto("SKU-0000004","Monitor",5,"X9-Y12-Z22"),
-                new Producto("SKU-0000005","Motherboard",2,"X20-Y21-Z22")
-            });
-
-            os2.OrdenesPreparacion[0].Productos.AddRange(new[] {
-                new Producto("SKU-0000006","CPU AMD",3,"X30-Y51-Z42")
-            });
-
-            os2.OrdenesPreparacion[1].Productos.AddRange(new[] {
-                new Producto("SKU-0000007","CPU INTEL",1,"X40-Y41-Z42"),
-                new Producto("SKU-0000008","Fuente X Watts",2,"X40-Y41-Z82")
-            });
-
-            OrdenesSeleccion.Add(os1);
-            OrdenesSeleccion.Add(os2);
+            var os = GetOrdenSeleccion(osId);
+            if (os == null) return new List<LineaPicking>();
+            return os.Lineas.OrderBy(l => l.Posicion).ToList();
         }
 
-        // Selecciona todas las OPs que estén en estado SELECCIONADA
-        public void SeleccionarTodasOrdenesPendientes()
+        // Almacén confirma que entregó la mercadería a Preparación:
+        // la OS pasa a Cumplida y se descuenta el stock del almacén.
+        // Las órdenes de preparación NO cambian de estado: siguen "En preparación"
+        // hasta que se empaquetan (pantalla Empaquetar).
+        // Devuelve null si salió bien, o el motivo por el que no se pudo confirmar.
+        public string ConfirmarEntregaAPreparacion(string osId)
         {
-            foreach (var op in OrdenesSeleccion.SelectMany(os => os.OrdenesPreparacion))
+            var os = GetOrdenSeleccion(osId);
+            if (os == null)
+                return "La orden de selección no existe.";
+
+            if (os.Estado == EstadoOrdenSeleccion.Cumplida)
+                return "La orden de selección " + os.Id + " ya está cumplida.";
+
+            // Primero se valida todo, después se descuenta: o se descuenta todo o nada.
+            var faltantes = new List<string>();
+            foreach (var linea in os.Lineas)
             {
-                if (string.Equals(op.Estado, "SELECCIONADA", StringComparison.OrdinalIgnoreCase))
+                var stock = BuscarStock(linea.Posicion, linea.Sku);
+                int disponible = stock == null ? 0 : stock.Cantidad;
+                if (disponible < linea.Cantidad)
                 {
-                    op.IsSelected = true;
+                    faltantes.Add("- " + linea.Sku + " en " + linea.Posicion +
+                                  ": se necesitan " + linea.Cantidad + ", hay " + disponible);
                 }
             }
-        }
 
-        // Limpia selección de todas las OPs
-        public void LimpiarSeleccionDeOrdenesPendientes()
-        {
-            foreach (var op in OrdenesSeleccion.SelectMany(os => os.OrdenesPreparacion))
+            if (faltantes.Count > 0)
             {
-                op.IsSelected = false;
+                return "No hay stock suficiente en el almacén para:\n" + string.Join("\n", faltantes);
             }
-        }
 
-        // Finalizar picking para una OP (pasa SELECCIONADA -> PREPARADA) y actualiza su OS
-        public bool FinalizarPicking(string opId)
-        {
-            var (op, _) = FindOrdenPreparacionWithParent(opId);
-            if (op == null) return false;
-            if (!string.Equals(op.Estado, "SELECCIONADA", StringComparison.OrdinalIgnoreCase)) return false;
-            op.Estado = "PREPARADA";
-
-            // Note: Do not auto-mark the parent OS as CUMPLIDA here.
-            // The UI/user must explicitly close the OrdenSeleccion when ready.
-
-            return true;
-        }
-
-        // Cambia estado manualmente (útil para pruebas)
-        public bool CambiarEstadoOp(string opId, string nuevoEstado)
-        {
-            var op = FindOrdenPreparacion(opId);
-            if (op == null) return false;
-            op.Estado = nuevoEstado ?? op.Estado;
-            return true;
-        }
-
-        // Valida si todas las OPs (en todas las OS) están PREPARADA
-        public bool ValidarTodosCumplidos()
-        {
-            var allOps = OrdenesSeleccion.SelectMany(os => os.OrdenesPreparacion).ToList();
-            if (allOps.Count == 0) return false;
-            return allOps.All(op => string.Equals(op.Estado?.Trim(), "PREPARADA", StringComparison.OrdinalIgnoreCase));
-        }
-
-        // Obtener productos asociados a una OP
-        public List<Producto> GetProductosParaOp(string opId)
-        {
-            var op = FindOrdenPreparacion(opId);
-            if (op == null) return new List<Producto>();
-            return op.Productos.Select(p => new Producto(p.Sku, p.Nombre, p.Cantidad, p.Ubicacion)).ToList();
-        }
-
-        // Alterna la selección de una OP
-        public bool ToggleSeleccionOp(string opId)
-        {
-            var op = FindOrdenPreparacion(opId);
-            if (op == null) return false;
-            op.IsSelected = !op.IsSelected;
-            return true;
-        }
-
-        // Helper: buscar OP
-        private OrdenPreparacion FindOrdenPreparacion(string opId)
-        {
-            if (opId == null) return null;
-            foreach (var os in OrdenesSeleccion)
+            foreach (var linea in os.Lineas)
             {
-                var op = os.OrdenesPreparacion.FirstOrDefault(x => x.Id == opId);
-                if (op != null) return op;
+                BuscarStock(linea.Posicion, linea.Sku).Cantidad -= linea.Cantidad;
             }
+
+            os.Estado = EstadoOrdenSeleccion.Cumplida;
             return null;
         }
 
-        // Helper: buscar OP y su OS padre
-        private (OrdenPreparacion op, OrdenSeleccion parent) FindOrdenPreparacionWithParent(string opId)
+        private StockPosicion BuscarStock(string posicion, string sku)
         {
-            if (opId == null) return (null, null);
-            foreach (var os in OrdenesSeleccion)
+            return Stock.FirstOrDefault(s => s.Posicion == posicion && s.Sku == sku);
+        }
+
+        // Datos de prueba para el prototipo (mismos ejemplos que el resto de las pantallas).
+        private void CargarDatosPrueba()
+        {
+            OrdenesSeleccion.Clear();
+            Stock.Clear();
+
+            var os32 = new OrdenSeleccion
             {
-                var op = os.OrdenesPreparacion.FirstOrDefault(x => x.Id == opId);
-                if (op != null) return (op, os);
-            }
-            return (null, null);
+                Id = "OS-000032",
+                FechaEmision = new DateTime(2026, 10, 9, 9, 30, 0),
+                Estado = EstadoOrdenSeleccion.Pendiente
+            };
+            os32.OrdenesPreparacion.AddRange(new[] { "OP-000141", "OP-000142", "OP-000143" });
+            os32.Lineas.AddRange(new[]
+            {
+                new LineaPicking { Posicion = "12-43-2", Cliente = "Mercadito S.A.", Sku = "CEM-50",   Descripcion = "Bolsa de cemento x 50 kg",      Cantidad = 4, Unidad = "Unidad" },
+                new LineaPicking { Posicion = "12-44-1", Cliente = "Mercadito S.A.", Sku = "CAL-25",   Descripcion = "Bolsa de cal hidratada x 25 kg", Cantidad = 5, Unidad = "Unidad" },
+                new LineaPicking { Posicion = "03-10-3", Cliente = "MundoFOX S.A.",  Sku = "TV-55-4K", Descripcion = "Smart TV 55\" 4K",               Cantidad = 4, Unidad = "Palet" }
+            });
+
+            var os33 = new OrdenSeleccion
+            {
+                Id = "OS-000033",
+                FechaEmision = new DateTime(2026, 10, 9, 15, 0, 0),
+                Estado = EstadoOrdenSeleccion.Pendiente
+            };
+            os33.OrdenesPreparacion.AddRange(new[] { "OP-000146", "OP-000147" });
+            os33.Lineas.AddRange(new[]
+            {
+                new LineaPicking { Posicion = "05-02-1", Cliente = "Mercadito S.A.", Sku = "TEJ-COL",  Descripcion = "Teja colonial",       Cantidad = 120, Unidad = "Unidad" },
+                new LineaPicking { Posicion = "07-11-2", Cliente = "MundoFOX S.A.",  Sku = "HEL-300",  Descripcion = "Heladera 300 litros", Cantidad = 2,   Unidad = "Unidad" }
+            });
+
+            // OS pensada para probar el rechazo por falta de stock (pide 10 y en la posición hay 3).
+            var os34 = new OrdenSeleccion
+            {
+                Id = "OS-000034",
+                FechaEmision = new DateTime(2026, 10, 10, 9, 0, 0),
+                Estado = EstadoOrdenSeleccion.Pendiente
+            };
+            os34.OrdenesPreparacion.Add("OP-000150");
+            os34.Lineas.Add(new LineaPicking { Posicion = "09-01-1", Cliente = "MundoFOX S.A.", Sku = "MIC-20", Descripcion = "Microondas 20 litros", Cantidad = 10, Unidad = "Unidad" });
+
+            // OS ya cumplida: no tiene que aparecer en la lista.
+            var os31 = new OrdenSeleccion
+            {
+                Id = "OS-000031",
+                FechaEmision = new DateTime(2026, 10, 8, 9, 0, 0),
+                Estado = EstadoOrdenSeleccion.Cumplida
+            };
+            os31.OrdenesPreparacion.Add("OP-000138");
+            os31.Lineas.Add(new LineaPicking { Posicion = "12-43-2", Cliente = "Mercadito S.A.", Sku = "CEM-50", Descripcion = "Bolsa de cemento x 50 kg", Cantidad = 10, Unidad = "Unidad" });
+
+            OrdenesSeleccion.AddRange(new[] { os31, os32, os33, os34 });
+
+            Stock.AddRange(new[]
+            {
+                new StockPosicion { Posicion = "12-43-2", Sku = "CEM-50",   Cantidad = 1000 },
+                new StockPosicion { Posicion = "12-44-1", Sku = "CAL-25",   Cantidad = 340 },
+                new StockPosicion { Posicion = "03-10-3", Sku = "TV-55-4K", Cantidad = 12 },
+                new StockPosicion { Posicion = "05-02-1", Sku = "TEJ-COL",  Cantidad = 500 },
+                new StockPosicion { Posicion = "07-11-2", Sku = "HEL-300",  Cantidad = 8 },
+                new StockPosicion { Posicion = "09-01-1", Sku = "MIC-20",   Cantidad = 3 }
+            });
         }
+    }
 
-        // Cierra una OrdenSeleccion si todas sus OrdenPreparacion están PREPARADA.
-        // Devuelve true si la operación tuvo efecto (OS marcada como CUMPLIDA).
-        public bool CerrarOrdenSeleccion(string osId)
-        {
-            if (osId == null) return false;
-            var os = OrdenesSeleccion.FirstOrDefault(x => x.Id == osId);
-            if (os == null) return false;
-
-            // Si ya está cumplida no hacemos nada
-            if (string.Equals(os.Estado, "CUMPLIDA", StringComparison.OrdinalIgnoreCase)) return false;
-
-            // Solo se puede cerrar si todas las OP están en estado PREPARADA
-            var todasPickeadas = os.OrdenesPreparacion.All(o => string.Equals(o.Estado, "PREPARADA", StringComparison.OrdinalIgnoreCase));
-            if (!todasPickeadas) return false;
-
-            os.Estado = "CUMPLIDA";
-            return true;
-        }
+    public enum EstadoOrdenSeleccion
+    {
+        Pendiente,
+        Cumplida
     }
 
     public class OrdenSeleccion
     {
         public string Id { get; set; }
-        public string Descripcion { get; set; }
-        // Estados: PENDIENTE (inicial), CUMPLIDA
-        public string Estado { get; set; }
-        public List<OrdenPreparacion> OrdenesPreparacion { get; } = new List<OrdenPreparacion>();
+        public DateTime FechaEmision { get; set; }
+        public EstadoOrdenSeleccion Estado { get; set; }
 
-        public OrdenSeleccion(string id, string descripcion)
-        {
-            Id = id;
-            Descripcion = descripcion;
-            Estado = "PENDIENTE";
-        }
+        // Números de las órdenes de preparación agrupadas en esta OS (solo para mostrar).
+        public List<string> OrdenesPreparacion { get; } = new List<string>();
+
+        // Detalle consolidado: una línea por producto y posición.
+        public List<LineaPicking> Lineas { get; } = new List<LineaPicking>();
     }
 
-    public class OrdenPreparacion
+    public class LineaPicking
     {
-        public string Id { get; set; }
+        public string Posicion { get; set; }   // X-Y-Z, por ejemplo 12-43-2
         public string Cliente { get; set; }
-        // Estados: SELECCIONADA (inicial), PREPARADA
-        public string Estado { get; set; }
-        public bool IsSelected { get; set; }
-        public List<Producto> Productos { get; } = new List<Producto>();
-
-        public OrdenPreparacion(string id, string cliente, string estado)
-        {
-            Id = id;
-            Cliente = cliente;
-            Estado = estado;
-            IsSelected = false;
-        }
+        public string Sku { get; set; }
+        public string Descripcion { get; set; }
+        public int Cantidad { get; set; }
+        public string Unidad { get; set; }     // "Unidad" (fulfillment) o "Palet" (palet cerrado)
     }
 
-    public class Producto
+    public class StockPosicion
     {
+        public string Posicion { get; set; }
         public string Sku { get; set; }
-        public string Nombre { get; set; }
-        public decimal Cantidad { get; set; }
-        public string Ubicacion { get; set; }
-
-        public Producto(string sku, string nombre, decimal cantidad, string ubicacion)
-        {
-            Sku = sku;
-            Nombre = nombre;
-            Cantidad = cantidad;
-            Ubicacion = ubicacion;
-        }
+        public int Cantidad { get; set; }
     }
 }
