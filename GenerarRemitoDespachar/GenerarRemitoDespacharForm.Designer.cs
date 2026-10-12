@@ -38,13 +38,18 @@
             btnConfirmarDespacho = new Button();
             btnCancelar = new Button();
             grpTransportista = new GroupBox();
+            label2 = new Label();
             label1 = new Label();
             txtDni = new TextBox();
             btnBuscarOrdenes = new Button();
             lblDni = new Label();
             lblDepósito = new Label();
             DepositoLbl = new Label();
-            label2 = new Label();
+            button1 = new Button();
+            label3 = new Label();
+            label4 = new Label();
+            label5 = new Label();
+            label6 = new Label();
             grpOrdenesPendientes.SuspendLayout();
             grpTransportista.SuspendLayout();
             SuspendLayout();
@@ -56,12 +61,13 @@
             grpOrdenesPendientes.Controls.Add(lblTotalBultos);
             grpOrdenesPendientes.Controls.Add(lvwOrdenes);
             grpOrdenesPendientes.Font = new Font("Segoe UI", 9F);
-            grpOrdenesPendientes.Location = new Point(12, 177);
+            grpOrdenesPendientes.ImeMode = ImeMode.NoControl;
+            grpOrdenesPendientes.Location = new Point(12, 164);
             grpOrdenesPendientes.Name = "grpOrdenesPendientes";
             grpOrdenesPendientes.Size = new Size(740, 351);
             grpOrdenesPendientes.TabIndex = 0;
             grpOrdenesPendientes.TabStop = false;
-            grpOrdenesPendientes.Text = "Órdenes de entrega pendientes del transportista";
+            grpOrdenesPendientes.Text = "Órdenes de Preparación";
             grpOrdenesPendientes.Enter += grpOrdenesPendientes_Enter;
             // 
             // lblTotalBultosValor
@@ -118,17 +124,17 @@
             // btnConfirmarDespacho
             // 
             btnConfirmarDespacho.AutoSize = true;
-            btnConfirmarDespacho.Location = new Point(342, 555);
+            btnConfirmarDespacho.Location = new Point(12, 524);
             btnConfirmarDespacho.Name = "btnConfirmarDespacho";
-            btnConfirmarDespacho.Size = new Size(258, 39);
+            btnConfirmarDespacho.Size = new Size(740, 39);
             btnConfirmarDespacho.TabIndex = 4;
-            btnConfirmarDespacho.Text = "Confirmar despacho y emitir remito";
+            btnConfirmarDespacho.Text = "Generar remito";
             btnConfirmarDespacho.UseVisualStyleBackColor = true;
             btnConfirmarDespacho.Click += btnConfirmarDespacho_Click;
             // 
             // btnCancelar
             // 
-            btnCancelar.Location = new Point(623, 555);
+            btnCancelar.Location = new Point(638, 648);
             btnCancelar.Name = "btnCancelar";
             btnCancelar.Size = new Size(123, 39);
             btnCancelar.TabIndex = 5;
@@ -144,13 +150,23 @@
             grpTransportista.Controls.Add(btnBuscarOrdenes);
             grpTransportista.Controls.Add(lblDni);
             grpTransportista.Font = new Font("Segoe UI", 9F);
-            grpTransportista.Location = new Point(12, 48);
+            grpTransportista.Location = new Point(12, 45);
             grpTransportista.Name = "grpTransportista";
             grpTransportista.Size = new Size(740, 113);
             grpTransportista.TabIndex = 2;
             grpTransportista.TabStop = false;
             grpTransportista.Text = "Identificación del transportista";
             grpTransportista.Enter += groupBox2_Enter;
+            // 
+            // label2
+            // 
+            label2.Font = new Font("Segoe UI", 9F);
+            label2.Location = new Point(405, 53);
+            label2.Name = "label2";
+            label2.Size = new Size(86, 23);
+            label2.TabIndex = 8;
+            label2.Text = "_____________-";
+            label2.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // label1
             // 
@@ -211,21 +227,66 @@
             DepositoLbl.TabIndex = 8;
             DepositoLbl.Text = "[DEPOSITO]";
             // 
-            // label2
+            // button1
             // 
-            label2.Font = new Font("Segoe UI", 9F);
-            label2.Location = new Point(405, 53);
-            label2.Name = "label2";
-            label2.Size = new Size(86, 23);
-            label2.TabIndex = 8;
-            label2.Text = "_____________-";
-            label2.TextAlign = ContentAlignment.MiddleLeft;
+            button1.AutoSize = true;
+            button1.Location = new Point(333, 648);
+            button1.Name = "button1";
+            button1.Size = new Size(299, 39);
+            button1.TabIndex = 9;
+            button1.Text = "Confirmar Entrega (remito firmado)";
+            button1.UseVisualStyleBackColor = true;
+            // 
+            // label3
+            // 
+            label3.AutoSize = true;
+            label3.Location = new Point(107, 589);
+            label3.Name = "label3";
+            label3.Size = new Size(71, 20);
+            label3.TabIndex = 11;
+            label3.Text = "[REMITO]";
+            // 
+            // label4
+            // 
+            label4.AutoSize = true;
+            label4.Font = new Font("Segoe UI", 9F);
+            label4.Location = new Point(12, 589);
+            label4.Name = "label4";
+            label4.Size = new Size(89, 20);
+            label4.TabIndex = 10;
+            label4.Text = "Nro Remito:";
+            label4.TextAlign = ContentAlignment.MiddleLeft;
+            // 
+            // label5
+            // 
+            label5.AutoSize = true;
+            label5.Location = new Point(396, 589);
+            label5.Name = "label5";
+            label5.Size = new Size(179, 20);
+            label5.TabIndex = 13;
+            label5.Text = "Espera firma transportista";
+            // 
+            // label6
+            // 
+            label6.AutoSize = true;
+            label6.Font = new Font("Segoe UI", 9F);
+            label6.Location = new Point(333, 589);
+            label6.Name = "label6";
+            label6.Size = new Size(57, 20);
+            label6.TabIndex = 12;
+            label6.Text = "Estado:";
+            label6.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // GenerarRemitoDespacharForm
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1082, 603);
+            ClientSize = new Size(1082, 709);
+            Controls.Add(label5);
+            Controls.Add(label6);
+            Controls.Add(label3);
+            Controls.Add(label4);
+            Controls.Add(button1);
             Controls.Add(DepositoLbl);
             Controls.Add(lblDepósito);
             Controls.Add(grpTransportista);
@@ -263,5 +324,10 @@
         private Label DepositoLbl;
         private Label label1;
         private Label label2;
+        private Button button1;
+        private Label label3;
+        private Label label4;
+        private Label label5;
+        private Label label6;
     }
 }

@@ -34,6 +34,8 @@
             label3 = new Label();
             cmbOrden = new ComboBox();
             groupBox2 = new GroupBox();
+            label6 = new Label();
+            label2 = new Label();
             lstProductos = new ListView();
             columnHeader1 = new ColumnHeader();
             columnHeader2 = new ColumnHeader();
@@ -45,8 +47,6 @@
             DepositoLbl = new Label();
             label4 = new Label();
             PuestoLbl = new Label();
-            label2 = new Label();
-            label6 = new Label();
             grpOrden.SuspendLayout();
             groupBox2.SuspendLayout();
             SuspendLayout();
@@ -131,6 +131,26 @@
             groupBox2.TabStop = false;
             groupBox2.Text = "Productos a empaquetar";
             groupBox2.UseWaitCursor = true;
+            // 
+            // label6
+            // 
+            label6.AutoSize = true;
+            label6.Location = new Point(716, 336);
+            label6.Name = "label6";
+            label6.Size = new Size(28, 20);
+            label6.TabIndex = 14;
+            label6.Text = "[X]";
+            label6.UseWaitCursor = true;
+            // 
+            // label2
+            // 
+            label2.AutoSize = true;
+            label2.Location = new Point(620, 336);
+            label2.Name = "label2";
+            label2.Size = new Size(90, 20);
+            label2.TabIndex = 13;
+            label2.Text = "Total Bultos:";
+            label2.UseWaitCursor = true;
             // 
             // lstProductos
             // 
@@ -218,7 +238,7 @@
             // label4
             // 
             label4.AutoSize = true;
-            label4.Location = new Point(217, 23);
+            label4.Location = new Point(191, 23);
             label4.Name = "label4";
             label4.Size = new Size(56, 20);
             label4.TabIndex = 15;
@@ -227,29 +247,11 @@
             // PuestoLbl
             // 
             PuestoLbl.AutoSize = true;
-            PuestoLbl.Location = new Point(279, 23);
+            PuestoLbl.Location = new Point(253, 23);
             PuestoLbl.Name = "PuestoLbl";
             PuestoLbl.Size = new Size(71, 20);
             PuestoLbl.TabIndex = 16;
             PuestoLbl.Text = "[PUESTO]";
-            // 
-            // label2
-            // 
-            label2.AutoSize = true;
-            label2.Location = new Point(620, 336);
-            label2.Name = "label2";
-            label2.Size = new Size(90, 20);
-            label2.TabIndex = 13;
-            label2.Text = "Total Bultos:";
-            // 
-            // label6
-            // 
-            label6.AutoSize = true;
-            label6.Location = new Point(716, 336);
-            label6.Name = "label6";
-            label6.Size = new Size(28, 20);
-            label6.TabIndex = 14;
-            label6.Text = "[X]";
             // 
             // EmpaquetarProductosForm
             // 

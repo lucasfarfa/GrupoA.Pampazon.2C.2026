@@ -186,21 +186,24 @@
             // 
             // listView1
             // 
-            listView1.Columns.AddRange(new ColumnHeader[] { columnHeader1, columnHeader2, columnHeader3, columnHeader4 });
-            listView1.Location = new Point(6, 26);
+            listView1.Columns.AddRange(new ColumnHeader[] { columnHeader2, columnHeader1, columnHeader3, columnHeader4 });
+            listView1.Location = new Point(8, 26);
             listView1.Name = "listView1";
             listView1.Size = new Size(922, 121);
             listView1.TabIndex = 0;
             listView1.UseCompatibleStateImageBehavior = false;
             listView1.View = View.Details;
+            listView1.SelectedIndexChanged += listView1_SelectedIndexChanged;
             // 
             // columnHeader1
             // 
+            columnHeader1.DisplayIndex = 0;
             columnHeader1.Text = "SKU";
             columnHeader1.Width = 80;
             // 
             // columnHeader2
             // 
+            columnHeader2.DisplayIndex = 1;
             columnHeader2.Text = "Posicion XYZ";
             columnHeader2.Width = 150;
             // 

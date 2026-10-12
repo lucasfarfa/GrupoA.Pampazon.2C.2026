@@ -44,7 +44,7 @@
             // 
             // btnGenerarOrden
             // 
-            btnGenerarOrden.Location = new Point(378, 622);
+            btnGenerarOrden.Location = new Point(378, 531);
             btnGenerarOrden.Name = "btnGenerarOrden";
             btnGenerarOrden.Size = new Size(199, 49);
             btnGenerarOrden.TabIndex = 3;
@@ -57,7 +57,7 @@
             listView1.Columns.AddRange(new ColumnHeader[] { columnHeader1, columnHeader2, columnHeader5, columnHeader7 });
             listView1.Location = new Point(9, 33);
             listView1.Name = "listView1";
-            listView1.Size = new Size(684, 451);
+            listView1.Size = new Size(684, 363);
             listView1.TabIndex = 14;
             listView1.UseCompatibleStateImageBehavior = false;
             listView1.View = View.Details;
@@ -78,7 +78,7 @@
             // 
             // columnHeader7
             // 
-            columnHeader7.Text = "Fecha Preparación";
+            columnHeader7.Text = "Fecha Entrega";
             columnHeader7.Width = 140;
             // 
             // label3
@@ -92,7 +92,7 @@
             // 
             // button3
             // 
-            button3.Location = new Point(583, 622);
+            button3.Location = new Point(583, 531);
             button3.Name = "button3";
             button3.Size = new Size(131, 49);
             button3.TabIndex = 32;
@@ -101,7 +101,7 @@
             // 
             // btnActualizarListas
             // 
-            btnActualizarListas.Location = new Point(9, 490);
+            btnActualizarListas.Location = new Point(9, 402);
             btnActualizarListas.Name = "btnActualizarListas";
             btnActualizarListas.Size = new Size(684, 38);
             btnActualizarListas.TabIndex = 33;
@@ -123,7 +123,7 @@
             groupBox1.Controls.Add(btnActualizarListas);
             groupBox1.Location = new Point(12, 70);
             groupBox1.Name = "groupBox1";
-            groupBox1.Size = new Size(702, 534);
+            groupBox1.Size = new Size(702, 455);
             groupBox1.TabIndex = 35;
             groupBox1.TabStop = false;
             groupBox1.Text = "Ordenes preparadas sin orden de entrega";
@@ -132,7 +132,7 @@
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(726, 683);
+            ClientSize = new Size(726, 604);
             Controls.Add(groupBox1);
             Controls.Add(button3);
             Controls.Add(btnGenerarOrden);
