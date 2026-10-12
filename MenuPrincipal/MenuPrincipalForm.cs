@@ -12,7 +12,7 @@ public partial class MenuPrincipalForm : Form
     {
         InitializeComponent();
 
-        cboDeposito.SelectedIndex = 0;
+        //cboDeposito.SelectedIndex = 0;
     }
 
     private void cboDeposito_SelectedIndexChanged(object sender, EventArgs e)

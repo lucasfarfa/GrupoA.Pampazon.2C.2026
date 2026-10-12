@@ -67,7 +67,7 @@
             grpOrdenesPendientes.Size = new Size(740, 351);
             grpOrdenesPendientes.TabIndex = 0;
             grpOrdenesPendientes.TabStop = false;
-            grpOrdenesPendientes.Text = "Órdenes de Preparación";
+            grpOrdenesPendientes.Text = "Órdenes de Entrega";
             grpOrdenesPendientes.Enter += grpOrdenesPendientes_Enter;
             // 
             // lblTotalBultosValor
@@ -108,7 +108,7 @@
             // 
             // ColNOp
             // 
-            ColNOp.Text = "N°OP";
+            ColNOp.Text = "N°OE";
             ColNOp.Width = 80;
             // 
             // ColCliente
@@ -152,7 +152,7 @@
             grpTransportista.Font = new Font("Segoe UI", 9F);
             grpTransportista.Location = new Point(12, 45);
             grpTransportista.Name = "grpTransportista";
-            grpTransportista.Size = new Size(740, 113);
+            grpTransportista.Size = new Size(740, 91);
             grpTransportista.TabIndex = 2;
             grpTransportista.TabStop = false;
             grpTransportista.Text = "Identificación del transportista";
@@ -188,7 +188,7 @@
             // 
             // btnBuscarOrdenes
             // 
-            btnBuscarOrdenes.Location = new Point(571, 40);
+            btnBuscarOrdenes.Location = new Point(571, 30);
             btnBuscarOrdenes.Name = "btnBuscarOrdenes";
             btnBuscarOrdenes.Size = new Size(153, 48);
             btnBuscarOrdenes.TabIndex = 6;
@@ -230,11 +230,11 @@
             // button1
             // 
             button1.AutoSize = true;
-            button1.Location = new Point(333, 648);
+            button1.Location = new Point(112, 648);
             button1.Name = "button1";
-            button1.Size = new Size(299, 39);
+            button1.Size = new Size(520, 39);
             button1.TabIndex = 9;
-            button1.Text = "Confirmar Entrega (remito firmado)";
+            button1.Text = "Confirmar Entrega (remito firmado) SE HABILITA LUEGO DE EMITIR REMITO";
             button1.UseVisualStyleBackColor = true;
             // 
             // label3

@@ -33,12 +33,15 @@
             columnHeader1 = new ColumnHeader();
             columnHeader2 = new ColumnHeader();
             columnHeader5 = new ColumnHeader();
+            Transportista = new ColumnHeader();
             columnHeader7 = new ColumnHeader();
             label3 = new Label();
             button3 = new Button();
-            btnActualizarListas = new Button();
             label5 = new Label();
             groupBox1 = new GroupBox();
+            button1 = new Button();
+            button2 = new Button();
+            button4 = new Button();
             groupBox1.SuspendLayout();
             SuspendLayout();
             // 
@@ -54,7 +57,7 @@
             // 
             // listView1
             // 
-            listView1.Columns.AddRange(new ColumnHeader[] { columnHeader1, columnHeader2, columnHeader5, columnHeader7 });
+            listView1.Columns.AddRange(new ColumnHeader[] { columnHeader1, columnHeader2, columnHeader5, Transportista, columnHeader7 });
             listView1.Location = new Point(9, 33);
             listView1.Name = "listView1";
             listView1.Size = new Size(684, 363);
@@ -75,6 +78,11 @@
             // 
             columnHeader5.Text = "Bultos";
             columnHeader5.Width = 70;
+            // 
+            // Transportista
+            // 
+            Transportista.Text = "Transportista";
+            Transportista.Width = 100;
             // 
             // columnHeader7
             // 
@@ -99,15 +107,6 @@
             button3.Text = "Cancelar";
             button3.UseVisualStyleBackColor = true;
             // 
-            // btnActualizarListas
-            // 
-            btnActualizarListas.Location = new Point(9, 402);
-            btnActualizarListas.Name = "btnActualizarListas";
-            btnActualizarListas.Size = new Size(684, 38);
-            btnActualizarListas.TabIndex = 33;
-            btnActualizarListas.Text = "Actualizar lista";
-            btnActualizarListas.UseVisualStyleBackColor = true;
-            // 
             // label5
             // 
             label5.AutoSize = true;
@@ -119,14 +118,44 @@
             // 
             // groupBox1
             // 
+            groupBox1.Controls.Add(button4);
+            groupBox1.Controls.Add(button2);
+            groupBox1.Controls.Add(button1);
             groupBox1.Controls.Add(listView1);
-            groupBox1.Controls.Add(btnActualizarListas);
             groupBox1.Location = new Point(12, 70);
             groupBox1.Name = "groupBox1";
             groupBox1.Size = new Size(702, 455);
             groupBox1.TabIndex = 35;
             groupBox1.TabStop = false;
             groupBox1.Text = "Ordenes preparadas sin orden de entrega";
+            // 
+            // button1
+            // 
+            button1.Location = new Point(9, 411);
+            button1.Name = "button1";
+            button1.Size = new Size(216, 38);
+            button1.TabIndex = 34;
+            button1.Text = "Agregar";
+            button1.UseVisualStyleBackColor = true;
+            button1.Click += button1_Click_1;
+            // 
+            // button2
+            // 
+            button2.Location = new Point(231, 411);
+            button2.Name = "button2";
+            button2.Size = new Size(222, 38);
+            button2.TabIndex = 35;
+            button2.Text = "Quitar";
+            button2.UseVisualStyleBackColor = true;
+            // 
+            // button4
+            // 
+            button4.Location = new Point(459, 411);
+            button4.Name = "button4";
+            button4.Size = new Size(234, 38);
+            button4.TabIndex = 36;
+            button4.Text = "Actualizar";
+            button4.UseVisualStyleBackColor = true;
             // 
             // btnCancelar
             // 
@@ -155,8 +184,11 @@
         private ColumnHeader columnHeader7;
         private Label label3;
         private Button button3;
-        private Button btnActualizarListas;
         private Label label5;
         private GroupBox groupBox1;
+        private ColumnHeader Transportista;
+        private Button button1;
+        private Button button4;
+        private Button button2;
     }
 }
