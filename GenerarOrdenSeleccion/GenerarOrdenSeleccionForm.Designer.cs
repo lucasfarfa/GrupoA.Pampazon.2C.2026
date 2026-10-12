@@ -31,16 +31,20 @@
             label1 = new Label();
             ActualizarBtn = new Button();
             groupBox1 = new GroupBox();
-            AgregarTodoBtn = new Button();
-            AgregarOPSeleccionadasBtn = new Button();
+            button2 = new Button();
+            button1 = new Button();
+            listView2 = new ListView();
+            columnHeader5 = new ColumnHeader();
+            columnHeader6 = new ColumnHeader();
+            columnHeader7 = new ColumnHeader();
+            columnHeader8 = new ColumnHeader();
             OPPendientesListView = new ListView();
             NumeroOpCol = new ColumnHeader();
             ClienteCol = new ColumnHeader();
             FechaRecepCol = new ColumnHeader();
+            Fecha = new ColumnHeader();
             ModalidadCol = new ColumnHeader();
             groupBox2 = new GroupBox();
-            QuitarTodoBtn = new Button();
-            QuitarOrdenesBtn = new Button();
             listView1 = new ListView();
             columnHeader1 = new ColumnHeader();
             columnHeader2 = new ColumnHeader();
@@ -48,8 +52,6 @@
             columnHeader4 = new ColumnHeader();
             CencelarBtn = new Button();
             GenerarOSBtn = new Button();
-            label2 = new Label();
-            NroOSLabel = new Label();
             DepositoLbl = new Label();
             groupBox1.SuspendLayout();
             groupBox2.SuspendLayout();
@@ -67,49 +69,81 @@
             // 
             // ActualizarBtn
             // 
-            ActualizarBtn.Location = new Point(680, 12);
+            ActualizarBtn.Location = new Point(519, 241);
             ActualizarBtn.Name = "ActualizarBtn";
-            ActualizarBtn.Size = new Size(108, 37);
+            ActualizarBtn.Size = new Size(411, 37);
             ActualizarBtn.TabIndex = 2;
-            ActualizarBtn.Text = "Actualizar";
+            ActualizarBtn.Text = "Actualizar Ordenes Pendientes";
             ActualizarBtn.UseVisualStyleBackColor = true;
             // 
             // groupBox1
             // 
-            groupBox1.Controls.Add(AgregarTodoBtn);
-            groupBox1.Controls.Add(AgregarOPSeleccionadasBtn);
+            groupBox1.Controls.Add(button2);
+            groupBox1.Controls.Add(button1);
+            groupBox1.Controls.Add(listView2);
+            groupBox1.Controls.Add(ActualizarBtn);
             groupBox1.Controls.Add(OPPendientesListView);
             groupBox1.Location = new Point(12, 66);
             groupBox1.Name = "groupBox1";
-            groupBox1.Size = new Size(776, 230);
+            groupBox1.Size = new Size(936, 284);
             groupBox1.TabIndex = 3;
             groupBox1.TabStop = false;
             groupBox1.Text = "Ordenes de Preparación Pendientes";
             // 
-            // AgregarTodoBtn
+            // button2
             // 
-            AgregarTodoBtn.Location = new Point(391, 177);
-            AgregarTodoBtn.Name = "AgregarTodoBtn";
-            AgregarTodoBtn.Size = new Size(379, 37);
-            AgregarTodoBtn.TabIndex = 5;
-            AgregarTodoBtn.Text = "Agregar todo";
-            AgregarTodoBtn.UseVisualStyleBackColor = true;
+            button2.Location = new Point(261, 241);
+            button2.Name = "button2";
+            button2.Size = new Size(252, 37);
+            button2.TabIndex = 8;
+            button2.Text = "Quitar Orden";
+            button2.UseVisualStyleBackColor = true;
             // 
-            // AgregarOPSeleccionadasBtn
+            // button1
             // 
-            AgregarOPSeleccionadasBtn.Location = new Point(6, 177);
-            AgregarOPSeleccionadasBtn.Name = "AgregarOPSeleccionadasBtn";
-            AgregarOPSeleccionadasBtn.Size = new Size(379, 37);
-            AgregarOPSeleccionadasBtn.TabIndex = 4;
-            AgregarOPSeleccionadasBtn.Text = "Agregar ordenes seleccionadas";
-            AgregarOPSeleccionadasBtn.UseVisualStyleBackColor = true;
+            button1.Location = new Point(6, 241);
+            button1.Name = "button1";
+            button1.Size = new Size(249, 37);
+            button1.TabIndex = 7;
+            button1.Text = "Agregar Orden";
+            button1.UseVisualStyleBackColor = true;
+            // 
+            // listView2
+            // 
+            listView2.Columns.AddRange(new ColumnHeader[] { columnHeader5, columnHeader6, columnHeader7, columnHeader8 });
+            listView2.Location = new Point(519, 26);
+            listView2.Name = "listView2";
+            listView2.Size = new Size(409, 209);
+            listView2.TabIndex = 6;
+            listView2.UseCompatibleStateImageBehavior = false;
+            listView2.View = View.Details;
+            // 
+            // columnHeader5
+            // 
+            columnHeader5.Text = "SKU";
+            columnHeader5.Width = 80;
+            // 
+            // columnHeader6
+            // 
+            columnHeader6.Text = "Posición XYZ";
+            columnHeader6.Width = 100;
+            // 
+            // columnHeader7
+            // 
+            columnHeader7.Text = "Descripcion";
+            columnHeader7.Width = 130;
+            // 
+            // columnHeader8
+            // 
+            columnHeader8.Text = "Cantidad";
+            columnHeader8.Width = 130;
             // 
             // OPPendientesListView
             // 
-            OPPendientesListView.Columns.AddRange(new ColumnHeader[] { NumeroOpCol, ClienteCol, FechaRecepCol, ModalidadCol });
+            OPPendientesListView.Columns.AddRange(new ColumnHeader[] { NumeroOpCol, ClienteCol, FechaRecepCol, Fecha, ModalidadCol });
             OPPendientesListView.Location = new Point(6, 26);
             OPPendientesListView.Name = "OPPendientesListView";
-            OPPendientesListView.Size = new Size(764, 121);
+            OPPendientesListView.Size = new Size(507, 209);
             OPPendientesListView.TabIndex = 0;
             OPPendientesListView.UseCompatibleStateImageBehavior = false;
             OPPendientesListView.View = View.Details;
@@ -118,119 +152,85 @@
             // NumeroOpCol
             // 
             NumeroOpCol.Text = "N° OP";
-            NumeroOpCol.Width = 80;
+            NumeroOpCol.Width = 70;
             // 
             // ClienteCol
             // 
             ClienteCol.Text = "Cliente";
-            ClienteCol.Width = 150;
+            ClienteCol.Width = 100;
             // 
             // FechaRecepCol
             // 
             FechaRecepCol.Text = "Fecha Recepción";
-            FechaRecepCol.Width = 130;
+            FechaRecepCol.Width = 120;
+            // 
+            // Fecha
+            // 
+            Fecha.Text = "Fecha Entrega";
+            Fecha.Width = 120;
             // 
             // ModalidadCol
             // 
             ModalidadCol.Text = "Modalidad";
-            ModalidadCol.Width = 130;
+            ModalidadCol.Width = 100;
             // 
             // groupBox2
             // 
-            groupBox2.Controls.Add(QuitarTodoBtn);
-            groupBox2.Controls.Add(QuitarOrdenesBtn);
             groupBox2.Controls.Add(listView1);
-            groupBox2.Location = new Point(12, 315);
+            groupBox2.Location = new Point(12, 356);
             groupBox2.Name = "groupBox2";
-            groupBox2.Size = new Size(776, 220);
+            groupBox2.Size = new Size(936, 167);
             groupBox2.TabIndex = 4;
             groupBox2.TabStop = false;
-            groupBox2.Text = "Ordenes de Preparación Seleccionadas";
-            // 
-            // QuitarTodoBtn
-            // 
-            QuitarTodoBtn.Location = new Point(391, 177);
-            QuitarTodoBtn.Name = "QuitarTodoBtn";
-            QuitarTodoBtn.Size = new Size(379, 37);
-            QuitarTodoBtn.TabIndex = 5;
-            QuitarTodoBtn.Text = "Quitar todo";
-            QuitarTodoBtn.UseVisualStyleBackColor = true;
-            // 
-            // QuitarOrdenesBtn
-            // 
-            QuitarOrdenesBtn.Location = new Point(6, 177);
-            QuitarOrdenesBtn.Name = "QuitarOrdenesBtn";
-            QuitarOrdenesBtn.Size = new Size(379, 37);
-            QuitarOrdenesBtn.TabIndex = 4;
-            QuitarOrdenesBtn.Text = "Quitar ordenes seleccionadas";
-            QuitarOrdenesBtn.UseVisualStyleBackColor = true;
+            groupBox2.Text = "Resumen consolidado de Productos";
             // 
             // listView1
             // 
             listView1.Columns.AddRange(new ColumnHeader[] { columnHeader1, columnHeader2, columnHeader3, columnHeader4 });
             listView1.Location = new Point(6, 26);
             listView1.Name = "listView1";
-            listView1.Size = new Size(764, 121);
+            listView1.Size = new Size(922, 121);
             listView1.TabIndex = 0;
             listView1.UseCompatibleStateImageBehavior = false;
             listView1.View = View.Details;
             // 
             // columnHeader1
             // 
-            columnHeader1.Text = "N° OP";
+            columnHeader1.Text = "SKU";
             columnHeader1.Width = 80;
             // 
             // columnHeader2
             // 
-            columnHeader2.Text = "Cliente";
+            columnHeader2.Text = "Posicion XYZ";
             columnHeader2.Width = 150;
             // 
             // columnHeader3
             // 
-            columnHeader3.Text = "Fecha Recepción";
+            columnHeader3.Text = "Descripcion";
             columnHeader3.Width = 130;
             // 
             // columnHeader4
             // 
-            columnHeader4.Text = "Modalidad";
+            columnHeader4.Text = "Cantidad";
             columnHeader4.Width = 130;
             // 
             // CencelarBtn
             // 
-            CencelarBtn.Location = new Point(680, 554);
+            CencelarBtn.Location = new Point(846, 553);
             CencelarBtn.Name = "CencelarBtn";
-            CencelarBtn.Size = new Size(102, 37);
+            CencelarBtn.Size = new Size(102, 48);
             CencelarBtn.TabIndex = 5;
             CencelarBtn.Text = "Cancelar";
             CencelarBtn.UseVisualStyleBackColor = true;
             // 
             // GenerarOSBtn
             // 
-            GenerarOSBtn.Location = new Point(403, 554);
+            GenerarOSBtn.Location = new Point(569, 553);
             GenerarOSBtn.Name = "GenerarOSBtn";
-            GenerarOSBtn.Size = new Size(271, 37);
+            GenerarOSBtn.Size = new Size(271, 48);
             GenerarOSBtn.TabIndex = 6;
             GenerarOSBtn.Text = "Generar Orden de Selección";
             GenerarOSBtn.UseVisualStyleBackColor = true;
-            // 
-            // label2
-            // 
-            label2.AutoSize = true;
-            label2.Location = new Point(12, 562);
-            label2.Name = "label2";
-            label2.Size = new Size(191, 20);
-            label2.TabIndex = 7;
-            label2.Text = "Nro de Orden de Selección:";
-            // 
-            // NroOSLabel
-            // 
-            NroOSLabel.AutoSize = true;
-            NroOSLabel.BorderStyle = BorderStyle.Fixed3D;
-            NroOSLabel.Location = new Point(209, 562);
-            NroOSLabel.Name = "NroOSLabel";
-            NroOSLabel.Size = new Size(101, 22);
-            NroOSLabel.TabIndex = 8;
-            NroOSLabel.Text = "XXXXXXXXXX";
             // 
             // DepositoLbl
             // 
@@ -246,15 +246,12 @@
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             CancelButton = CencelarBtn;
-            ClientSize = new Size(800, 603);
+            ClientSize = new Size(969, 628);
             Controls.Add(DepositoLbl);
-            Controls.Add(NroOSLabel);
-            Controls.Add(label2);
             Controls.Add(GenerarOSBtn);
             Controls.Add(CencelarBtn);
             Controls.Add(groupBox2);
             Controls.Add(groupBox1);
-            Controls.Add(ActualizarBtn);
             Controls.Add(label1);
             FormBorderStyle = FormBorderStyle.FixedDialog;
             Name = "GenerarOrdenSeleccionForm";
@@ -270,15 +267,11 @@
         private Button ActualizarBtn;
         private GroupBox groupBox1;
         private ListView OPPendientesListView;
-        private Button AgregarTodoBtn;
-        private Button AgregarOPSeleccionadasBtn;
         private ColumnHeader NumeroOpCol;
         private ColumnHeader ClienteCol;
         private ColumnHeader FechaRecepCol;
         private ColumnHeader ModalidadCol;
         private GroupBox groupBox2;
-        private Button QuitarTodoBtn;
-        private Button QuitarOrdenesBtn;
         private ListView listView1;
         private ColumnHeader columnHeader1;
         private ColumnHeader columnHeader2;
@@ -286,8 +279,14 @@
         private ColumnHeader columnHeader4;
         private Button CencelarBtn;
         private Button GenerarOSBtn;
-        private Label label2;
-        private Label NroOSLabel;
         private Label DepositoLbl;
+        private ListView listView2;
+        private ColumnHeader columnHeader5;
+        private ColumnHeader columnHeader6;
+        private ColumnHeader columnHeader7;
+        private ColumnHeader columnHeader8;
+        private Button button1;
+        private Button button2;
+        private ColumnHeader Fecha;
     }
 }

@@ -11,14 +11,14 @@
         /// Clean up any resources being used.
         /// </summary>
         /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing && (components != null))
-            {
-                components.Dispose();
-            }
-            base.Dispose(disposing);
-        }
+        //protected override void Dispose(bool disposing)
+        //{
+        //    if (disposing && (components != null))
+        //    {
+        //        components.Dispose();
+        //    }
+        //    base.Dispose(disposing);
+        //}
 
         #region Windows Form Designer generated code
 
@@ -41,8 +41,6 @@
             gbTransportista = new GroupBox();
             lblDni = new Label();
             txtDni = new TextBox();
-            lblPatente = new Label();
-            txtPatente = new TextBox();
             gbProductos = new GroupBox();
             lblSku = new Label();
             cboSku = new ComboBox();
@@ -57,6 +55,10 @@
             btnQuitar = new Button();
             btnRegistrar = new Button();
             btnCancelar = new Button();
+            label1 = new Label();
+            textBox1 = new TextBox();
+            label2 = new Label();
+            textBox2 = new TextBox();
             gbDatosOrden.SuspendLayout();
             gbTransportista.SuspendLayout();
             gbProductos.SuspendLayout();
@@ -86,9 +88,9 @@
             lblCliente.AutoSize = true;
             lblCliente.Location = new Point(15, 34);
             lblCliente.Name = "lblCliente";
-            lblCliente.Size = new Size(65, 20);
+            lblCliente.Size = new Size(55, 20);
             lblCliente.TabIndex = 0;
-            lblCliente.Text = "Cliente *";
+            lblCliente.Text = "Cliente";
             // 
             // cboCliente
             // 
@@ -114,7 +116,7 @@
             txtCuit.Location = new Point(120, 65);
             txtCuit.Name = "txtCuit";
             txtCuit.ReadOnly = true;
-            txtCuit.Size = new Size(180, 27);
+            txtCuit.Size = new Size(240, 27);
             txtCuit.TabIndex = 4;
             txtCuit.TabStop = false;
             // 
@@ -123,9 +125,9 @@
             lblDeposito.AutoSize = true;
             lblDeposito.Location = new Point(15, 104);
             lblDeposito.Name = "lblDeposito";
-            lblDeposito.Size = new Size(80, 20);
+            lblDeposito.Size = new Size(70, 20);
             lblDeposito.TabIndex = 5;
-            lblDeposito.Text = "Depósito *";
+            lblDeposito.Text = "Depósito";
             // 
             // cboDeposito
             // 
@@ -142,9 +144,9 @@
             lblModalidad.AutoSize = true;
             lblModalidad.Location = new Point(15, 139);
             lblModalidad.Name = "lblModalidad";
-            lblModalidad.Size = new Size(92, 20);
+            lblModalidad.Size = new Size(82, 20);
             lblModalidad.TabIndex = 8;
-            lblModalidad.Text = "Modalidad *";
+            lblModalidad.Text = "Modalidad";
             // 
             // rbFulfillment
             // 
@@ -168,13 +170,13 @@
             // 
             // gbTransportista
             // 
+            gbTransportista.Controls.Add(textBox2);
+            gbTransportista.Controls.Add(label2);
             gbTransportista.Controls.Add(lblDni);
             gbTransportista.Controls.Add(txtDni);
-            gbTransportista.Controls.Add(lblPatente);
-            gbTransportista.Controls.Add(txtPatente);
             gbTransportista.Location = new Point(544, 12);
             gbTransportista.Name = "gbTransportista";
-            gbTransportista.Size = new Size(484, 175);
+            gbTransportista.Size = new Size(484, 124);
             gbTransportista.TabIndex = 1;
             gbTransportista.TabStop = false;
             gbTransportista.Text = "Transportista autorizado";
@@ -184,36 +186,19 @@
             lblDni.AutoSize = true;
             lblDni.Location = new Point(15, 34);
             lblDni.Name = "lblDni";
-            lblDni.Size = new Size(45, 20);
+            lblDni.Size = new Size(35, 20);
             lblDni.TabIndex = 0;
-            lblDni.Text = "DNI *";
+            lblDni.Text = "DNI";
+            lblDni.Click += lblDni_Click;
             // 
             // txtDni
             // 
-            txtDni.Location = new Point(100, 30);
+            txtDni.Location = new Point(133, 34);
             txtDni.MaxLength = 8;
             txtDni.Name = "txtDni";
             txtDni.Size = new Size(200, 27);
             txtDni.TabIndex = 1;
             txtDni.KeyPress += SoloDigitos_KeyPress;
-            // 
-            // lblPatente
-            // 
-            lblPatente.AutoSize = true;
-            lblPatente.Location = new Point(15, 69);
-            lblPatente.Name = "lblPatente";
-            lblPatente.Size = new Size(68, 20);
-            lblPatente.TabIndex = 3;
-            lblPatente.Text = "Patente *";
-            // 
-            // txtPatente
-            // 
-            txtPatente.CharacterCasing = CharacterCasing.Upper;
-            txtPatente.Location = new Point(100, 65);
-            txtPatente.MaxLength = 7;
-            txtPatente.Name = "txtPatente";
-            txtPatente.Size = new Size(200, 27);
-            txtPatente.TabIndex = 4;
             // 
             // gbProductos
             // 
@@ -371,12 +356,48 @@
             btnCancelar.UseVisualStyleBackColor = true;
             btnCancelar.Click += btnCancelar_Click;
             // 
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.Location = new Point(544, 153);
+            label1.Name = "label1";
+            label1.Size = new Size(112, 20);
+            label1.TabIndex = 0;
+            label1.Text = "Fecha de Retiro";
+            // 
+            // textBox1
+            // 
+            textBox1.Location = new Point(677, 149);
+            textBox1.MaxLength = 8;
+            textBox1.Name = "textBox1";
+            textBox1.Size = new Size(200, 27);
+            textBox1.TabIndex = 1;
+            // 
+            // label2
+            // 
+            label2.AutoSize = true;
+            label2.Location = new Point(15, 84);
+            label2.Name = "label2";
+            label2.Size = new Size(64, 20);
+            label2.TabIndex = 2;
+            label2.Text = "Nombre";
+            // 
+            // textBox2
+            // 
+            textBox2.Location = new Point(133, 81);
+            textBox2.MaxLength = 8;
+            textBox2.Name = "textBox2";
+            textBox2.Size = new Size(200, 27);
+            textBox2.TabIndex = 3;
+            // 
             // RegistrarOrdenPreparacionForm
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1040, 550);
+            Controls.Add(textBox1);
             Controls.Add(btnCancelar);
+            Controls.Add(label1);
             Controls.Add(btnRegistrar);
             Controls.Add(gbProductos);
             Controls.Add(gbTransportista);
@@ -396,6 +417,7 @@
             gbProductos.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)dgvProductos).EndInit();
             ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion
@@ -413,8 +435,6 @@
         private GroupBox gbTransportista;
         private Label lblDni;
         private TextBox txtDni;
-        private Label lblPatente;
-        private TextBox txtPatente;
         private GroupBox gbProductos;
         private Label lblSku;
         private ComboBox cboSku;
@@ -433,5 +453,9 @@
         private Button btnQuitar;
         private Button btnRegistrar;
         private Button btnCancelar;
+        private Label label1;
+        private TextBox textBox1;
+        private TextBox textBox2;
+        private Label label2;
     }
 }

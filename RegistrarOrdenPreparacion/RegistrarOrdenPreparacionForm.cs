@@ -22,9 +22,7 @@ namespace GrupoA.PampazonSA.AdministracionDeposito.RegistrarOrdenPreparacion
             InitializeComponent();
         }
 
-        // ===============================================================
-        // CARGA INICIAL
-        // ===============================================================
+   
         private void RegistrarOrdenPreparacionForm_Load(object sender, EventArgs e)
         {
             _cargando = true;
@@ -42,10 +40,6 @@ namespace GrupoA.PampazonSA.AdministracionDeposito.RegistrarOrdenPreparacion
             ActualizarProductosDisponibles();
         }
 
-        // ===============================================================
-        // 1.1 CLIENTE  /  1.2 DEPÓSITO
-        // Al cambiar alguno, los SKU y el stock disponible son otros: se quitan los productos ya cargados.
-        // ===============================================================
         private void cboCliente_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (_cargando) return;
@@ -93,7 +87,7 @@ namespace GrupoA.PampazonSA.AdministracionDeposito.RegistrarOrdenPreparacion
             _cargando = false;
         }
 
-        // Carga los SKU del cliente en ese depósito. Si falta cliente o depósito, bloquea la carga de productos.
+        
         private void ActualizarProductosDisponibles()
         {
             _cargando = true;
@@ -118,9 +112,7 @@ namespace GrupoA.PampazonSA.AdministracionDeposito.RegistrarOrdenPreparacion
             _cargando = false;
         }
 
-        // ===============================================================
-        // 1.6 SKU: al elegirlo se muestran su descripción y el stock disponible
-        // ===============================================================
+         
         private void cboSku_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (_cargando) return;
@@ -138,58 +130,27 @@ namespace GrupoA.PampazonSA.AdministracionDeposito.RegistrarOrdenPreparacion
             }
         }
 
-        // ===============================================================
-        // 1.6 y 1.7: AGREGAR producto a la grilla
-        // ===============================================================
+         
         private void btnAgregar_Click(object sender, EventArgs e)
         {
-            // 1.6 SKU
+            
             if (cboSku.SelectedItem is not ProductoStock producto)
             {
                 Advertir("Seleccione el SKU del producto.", cboSku);
                 return;
             }
 
-            // 1.7 Cantidad: entero mayor a cero
-            if (!int.TryParse(txtCantidad.Text.Trim(), out int cantidad) || cantidad <= 0)
-            {
-                Advertir("La cantidad debe ser un número entero mayor a cero.", txtCantidad);
-                return;
-            }
+            
 
-            // La cantidad (sumada a la que ya está en la grilla) no puede superar el disponible
-            var existente = _lineas.FirstOrDefault(l => l.Sku == producto.Sku);
-            int total = cantidad + (existente?.Cantidad ?? 0);
-            if (total > producto.Disponible)
-            {
-                Advertir($"Stock insuficiente para {producto.Sku}: solicitado {total}, disponible {producto.Disponible}.", txtCantidad);
-                return;
-            }
 
-            if (existente != null)
-            {
-                existente.Cantidad = total;      // el SKU ya estaba: se suma la cantidad
-                _lineas.ResetBindings();
-            }
-            else
-            {
-                _lineas.Add(new LineaOrden
-                {
-                    Sku = producto.Sku,
-                    Descripcion = producto.Descripcion,
-                    Cantidad = cantidad,
-                    Disponible = producto.Disponible
-                });
-            }
+           
 
             cboSku.SelectedIndex = -1;
             txtCantidad.Clear();
             cboSku.Focus();
         }
 
-        // ===============================================================
-        // QUITAR SELECCIONADO
-        // ===============================================================
+        
         private void btnQuitar_Click(object sender, EventArgs e)
         {
             if (dgvProductos.SelectedRows.Count == 0)
@@ -201,77 +162,49 @@ namespace GrupoA.PampazonSA.AdministracionDeposito.RegistrarOrdenPreparacion
             _lineas.RemoveAt(dgvProductos.SelectedRows[0].Index);
         }
 
-        // ===============================================================
-        // REGISTRAR OP
-        // ===============================================================
+       
         private void btnRegistrar_Click(object sender, EventArgs e)
         {
-            // 1.1 Cliente
+        
             if (cboCliente.SelectedItem is not ClienteOrden cliente)
             {
                 Advertir("Seleccione el cliente.", cboCliente);
                 return;
             }
 
-            // 1.2 Depósito
+      
             if (cboDeposito.SelectedItem is not string deposito)
             {
                 Advertir("Seleccione el depósito.", cboDeposito);
                 return;
             }
 
-            // 1.3 Modalidad
-            string modalidad = rbFulfillment.Checked ? "Fulfillment"
-                             : rbPaletCerrado.Checked ? "Palet cerrado"
-                             : null;
-            if (modalidad == null)
-            {
-                Advertir("Seleccione la modalidad: Fulfillment o Palet cerrado.", rbFulfillment);
-                return;
-            }
+         
+      
 
-            // 1.4 DNI del transportista
+           
             if (!RegistrarOrdenPreparacionModelo.DniValido(txtDni.Text))
             {
                 Advertir("Ingrese un DNI válido (7 u 8 dígitos).", txtDni);
                 return;
             }
 
-            // 1.5 Patente
-            if (!RegistrarOrdenPreparacionModelo.PatenteValida(txtPatente.Text))
-            {
-                Advertir("Ingrese una patente válida (por ejemplo AB123CD o ABC123).", txtPatente);
-                return;
-            }
+          
 
-            // Al menos un producto
             if (_lineas.Count == 0)
             {
                 Advertir("Agregue al menos un producto a preparar.", cboSku);
                 return;
             }
 
-            string numero;
-            try
-            {
-                numero = _modelo.RegistrarOrden(cliente, deposito, modalidad, txtDni.Text, txtPatente.Text, _lineas);
-            }
-            catch (InvalidOperationException ex)
-            {
-                // Por ejemplo, otra orden comprometió el stock mientras se cargaba ésta
-                Advertir(ex.Message, cboSku);
-                return;
-            }
+          
 
-            MessageBox.Show($"La orden de preparación {numero} fue registrada en estado Pendiente.",
-                Text, MessageBoxButtons.OK, MessageBoxIcon.Information);
+            
 
             LimpiarFormulario();
         }
 
-        // ===============================================================
-        // CANCELAR / CERRAR
-        // ===============================================================
+
         private void btnCancelar_Click(object sender, EventArgs e)
         {
             Close();     // la confirmación está en FormClosing
@@ -287,10 +220,6 @@ namespace GrupoA.PampazonSA.AdministracionDeposito.RegistrarOrdenPreparacion
             if (respuesta == DialogResult.No)
                 e.Cancel = true;     // se queda en la pantalla con sus datos
         }
-
-        // ===============================================================
-        // AUXILIARES
-        // ===============================================================
         private void SoloDigitos_KeyPress(object sender, KeyPressEventArgs e)
         {
             if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
@@ -302,8 +231,7 @@ namespace GrupoA.PampazonSA.AdministracionDeposito.RegistrarOrdenPreparacion
             || cboDeposito.SelectedIndex >= 0
             || rbFulfillment.Checked
             || rbPaletCerrado.Checked
-            || !string.IsNullOrWhiteSpace(txtDni.Text)
-            || !string.IsNullOrWhiteSpace(txtPatente.Text)
+            || !string.IsNullOrWhiteSpace(txtDni.Text) 
             || _lineas.Count > 0;
 
         private void LimpiarFormulario()
@@ -318,7 +246,7 @@ namespace GrupoA.PampazonSA.AdministracionDeposito.RegistrarOrdenPreparacion
             rbFulfillment.Checked = false;
             rbPaletCerrado.Checked = false;
             txtDni.Clear();
-            txtPatente.Clear();
+          //  txtPatente.Clear();
             _lineas.Clear();
 
             _cargando = false;
@@ -330,6 +258,11 @@ namespace GrupoA.PampazonSA.AdministracionDeposito.RegistrarOrdenPreparacion
         {
             MessageBox.Show(mensaje, Text, MessageBoxButtons.OK, MessageBoxIcon.Warning);
             foco?.Focus();
+        }
+
+        private void lblDni_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
