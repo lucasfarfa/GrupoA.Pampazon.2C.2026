@@ -1,14 +1,14 @@
-﻿namespace AdministracionDeposito
+﻿namespace GrupoA.PampazonSA.AdministracionDeposito.GenerarRemitoDespachar
 {
     partial class GenerarRemitoDespacharForm
     {
         /// <summary>
-        ///  Required designer variable.
+        /// Required designer variable.
         /// </summary>
         private System.ComponentModel.IContainer components = null;
 
         /// <summary>
-        ///  Clean up any resources being used.
+        /// Clean up any resources being used.
         /// </summary>
         /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
         protected override void Dispose(bool disposing)
@@ -23,311 +23,337 @@
         #region Windows Form Designer generated code
 
         /// <summary>
-        ///  Required method for Designer support - do not modify
-        ///  the contents of this method with the code editor.
+        /// Required method for Designer support - do not modify
+        /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent()
         {
-            grpOrdenesPendientes = new GroupBox();
-            lblTotalBultosValor = new Label();
-            lblTotalBultos = new Label();
-            lvwOrdenes = new ListView();
-            ColNOp = new ColumnHeader();
-            ColCliente = new ColumnHeader();
-            ColBultos = new ColumnHeader();
-            btnConfirmarDespacho = new Button();
-            btnCancelar = new Button();
-            grpTransportista = new GroupBox();
-            label2 = new Label();
             label1 = new Label();
-            txtDni = new TextBox();
-            btnBuscarOrdenes = new Button();
-            lblDni = new Label();
-            lblDepósito = new Label();
-            DepositoLbl = new Label();
+            label2 = new Label();
+            groupBox1 = new GroupBox();
             button1 = new Button();
-            label3 = new Label();
-            label4 = new Label();
             label5 = new Label();
-            label6 = new Label();
-            grpOrdenesPendientes.SuspendLayout();
-            grpTransportista.SuspendLayout();
+            label4 = new Label();
+            textBox1 = new TextBox();
+            label3 = new Label();
+            groupBox2 = new GroupBox();
+            button4 = new Button();
+            button2 = new Button();
+            listView1 = new ListView();
+            columnHeader1 = new ColumnHeader();
+            columnHeader2 = new ColumnHeader();
+            columnHeader3 = new ColumnHeader();
+            columnHeader4 = new ColumnHeader();
+            groupBox3 = new GroupBox();
+            button3 = new Button();
+            listView2 = new ListView();
+            columnHeader5 = new ColumnHeader();
+            columnHeader6 = new ColumnHeader();
+            columnHeader8 = new ColumnHeader();
+            groupBox4 = new GroupBox();
+            button5 = new Button();
+            listView3 = new ListView();
+            columnHeader7 = new ColumnHeader();
+            columnHeader9 = new ColumnHeader();
+            columnHeader10 = new ColumnHeader();
+            columnHeader11 = new ColumnHeader();
+            button6 = new Button();
+            groupBox1.SuspendLayout();
+            groupBox2.SuspendLayout();
+            groupBox3.SuspendLayout();
+            groupBox4.SuspendLayout();
             SuspendLayout();
-            // 
-            // grpOrdenesPendientes
-            // 
-            grpOrdenesPendientes.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
-            grpOrdenesPendientes.Controls.Add(lblTotalBultosValor);
-            grpOrdenesPendientes.Controls.Add(lblTotalBultos);
-            grpOrdenesPendientes.Controls.Add(lvwOrdenes);
-            grpOrdenesPendientes.Font = new Font("Segoe UI", 9F);
-            grpOrdenesPendientes.ImeMode = ImeMode.NoControl;
-            grpOrdenesPendientes.Location = new Point(12, 164);
-            grpOrdenesPendientes.Name = "grpOrdenesPendientes";
-            grpOrdenesPendientes.Size = new Size(740, 351);
-            grpOrdenesPendientes.TabIndex = 0;
-            grpOrdenesPendientes.TabStop = false;
-            grpOrdenesPendientes.Text = "Órdenes de Entrega";
-            grpOrdenesPendientes.Enter += grpOrdenesPendientes_Enter;
-            // 
-            // lblTotalBultosValor
-            // 
-            lblTotalBultosValor.Font = new Font("Segoe UI", 9F);
-            lblTotalBultosValor.ForeColor = SystemColors.ControlText;
-            lblTotalBultosValor.ImageAlign = ContentAlignment.MiddleRight;
-            lblTotalBultosValor.Location = new Point(615, 325);
-            lblTotalBultosValor.Name = "lblTotalBultosValor";
-            lblTotalBultosValor.Size = new Size(102, 23);
-            lblTotalBultosValor.TabIndex = 10;
-            lblTotalBultosValor.Text = "9";
-            lblTotalBultosValor.TextAlign = ContentAlignment.MiddleRight;
-            // 
-            // lblTotalBultos
-            // 
-            lblTotalBultos.Font = new Font("Segoe UI", 9F);
-            lblTotalBultos.Location = new Point(507, 325);
-            lblTotalBultos.Name = "lblTotalBultos";
-            lblTotalBultos.Size = new Size(102, 23);
-            lblTotalBultos.TabIndex = 9;
-            lblTotalBultos.Text = "Total bultos:";
-            lblTotalBultos.TextAlign = ContentAlignment.MiddleRight;
-            // 
-            // lvwOrdenes
-            // 
-            lvwOrdenes.Columns.AddRange(new ColumnHeader[] { ColNOp, ColCliente, ColBultos });
-            lvwOrdenes.Font = new Font("Segoe UI", 9F);
-            lvwOrdenes.FullRowSelect = true;
-            lvwOrdenes.Location = new Point(10, 26);
-            lvwOrdenes.MultiSelect = false;
-            lvwOrdenes.Name = "lvwOrdenes";
-            lvwOrdenes.Size = new Size(714, 285);
-            lvwOrdenes.TabIndex = 0;
-            lvwOrdenes.UseCompatibleStateImageBehavior = false;
-            lvwOrdenes.View = View.Details;
-            lvwOrdenes.SelectedIndexChanged += lvwOrdenes_SelectedIndexChanged;
-            // 
-            // ColNOp
-            // 
-            ColNOp.Text = "N°OE";
-            ColNOp.Width = 80;
-            // 
-            // ColCliente
-            // 
-            ColCliente.Text = "Cliente";
-            ColCliente.Width = 400;
-            // 
-            // ColBultos
-            // 
-            ColBultos.Text = "Bultos";
-            ColBultos.TextAlign = HorizontalAlignment.Right;
-            // 
-            // btnConfirmarDespacho
-            // 
-            btnConfirmarDespacho.AutoSize = true;
-            btnConfirmarDespacho.Location = new Point(12, 524);
-            btnConfirmarDespacho.Name = "btnConfirmarDespacho";
-            btnConfirmarDespacho.Size = new Size(740, 39);
-            btnConfirmarDespacho.TabIndex = 4;
-            btnConfirmarDespacho.Text = "Generar remito";
-            btnConfirmarDespacho.UseVisualStyleBackColor = true;
-            btnConfirmarDespacho.Click += btnConfirmarDespacho_Click;
-            // 
-            // btnCancelar
-            // 
-            btnCancelar.Location = new Point(638, 648);
-            btnCancelar.Name = "btnCancelar";
-            btnCancelar.Size = new Size(123, 39);
-            btnCancelar.TabIndex = 5;
-            btnCancelar.Text = "Cancelar";
-            btnCancelar.UseVisualStyleBackColor = true;
-            // 
-            // grpTransportista
-            // 
-            grpTransportista.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
-            grpTransportista.Controls.Add(label2);
-            grpTransportista.Controls.Add(label1);
-            grpTransportista.Controls.Add(txtDni);
-            grpTransportista.Controls.Add(btnBuscarOrdenes);
-            grpTransportista.Controls.Add(lblDni);
-            grpTransportista.Font = new Font("Segoe UI", 9F);
-            grpTransportista.Location = new Point(12, 45);
-            grpTransportista.Name = "grpTransportista";
-            grpTransportista.Size = new Size(740, 91);
-            grpTransportista.TabIndex = 2;
-            grpTransportista.TabStop = false;
-            grpTransportista.Text = "Identificación del transportista";
-            grpTransportista.Enter += groupBox2_Enter;
-            // 
-            // label2
-            // 
-            label2.Font = new Font("Segoe UI", 9F);
-            label2.Location = new Point(405, 53);
-            label2.Name = "label2";
-            label2.Size = new Size(86, 23);
-            label2.TabIndex = 8;
-            label2.Text = "_____________-";
-            label2.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // label1
             // 
-            label1.Font = new Font("Segoe UI", 9F);
-            label1.Location = new Point(330, 53);
+            label1.AutoSize = true;
+            label1.Location = new Point(12, 9);
             label1.Name = "label1";
-            label1.Size = new Size(69, 23);
-            label1.TabIndex = 7;
-            label1.Text = "Nombre";
-            label1.TextAlign = ContentAlignment.MiddleLeft;
+            label1.Size = new Size(73, 20);
+            label1.TabIndex = 0;
+            label1.Text = "Depósito:";
             // 
-            // txtDni
+            // label2
             // 
-            txtDni.Location = new Point(57, 51);
-            txtDni.Name = "txtDni";
-            txtDni.Size = new Size(243, 27);
-            txtDni.TabIndex = 5;
-            txtDni.TextChanged += textBox3_TextChanged;
+            label2.AutoSize = true;
+            label2.Location = new Point(91, 9);
+            label2.Name = "label2";
+            label2.Size = new Size(38, 20);
+            label2.TabIndex = 1;
+            label2.Text = "GBA";
             // 
-            // btnBuscarOrdenes
+            // groupBox1
             // 
-            btnBuscarOrdenes.Location = new Point(571, 30);
-            btnBuscarOrdenes.Name = "btnBuscarOrdenes";
-            btnBuscarOrdenes.Size = new Size(153, 48);
-            btnBuscarOrdenes.TabIndex = 6;
-            btnBuscarOrdenes.Text = "Buscar órdenes";
-            btnBuscarOrdenes.UseVisualStyleBackColor = true;
-            btnBuscarOrdenes.Click += button2_Click;
-            // 
-            // lblDni
-            // 
-            lblDni.Font = new Font("Segoe UI", 9F);
-            lblDni.Location = new Point(10, 51);
-            lblDni.Name = "lblDni";
-            lblDni.Size = new Size(63, 23);
-            lblDni.TabIndex = 1;
-            lblDni.Text = "DNI";
-            lblDni.TextAlign = ContentAlignment.MiddleLeft;
-            // 
-            // lblDepósito
-            // 
-            lblDepósito.AutoSize = true;
-            lblDepósito.Font = new Font("Segoe UI", 9F);
-            lblDepósito.Location = new Point(12, 9);
-            lblDepósito.Name = "lblDepósito";
-            lblDepósito.Size = new Size(73, 20);
-            lblDepósito.TabIndex = 7;
-            lblDepósito.Text = "Depósito:";
-            lblDepósito.TextAlign = ContentAlignment.MiddleLeft;
-            lblDepósito.Click += lblDepósito_Click;
-            // 
-            // DepositoLbl
-            // 
-            DepositoLbl.AutoSize = true;
-            DepositoLbl.Location = new Point(91, 9);
-            DepositoLbl.Name = "DepositoLbl";
-            DepositoLbl.Size = new Size(87, 20);
-            DepositoLbl.TabIndex = 8;
-            DepositoLbl.Text = "[DEPOSITO]";
+            groupBox1.Controls.Add(button1);
+            groupBox1.Controls.Add(label5);
+            groupBox1.Controls.Add(label4);
+            groupBox1.Controls.Add(textBox1);
+            groupBox1.Controls.Add(label3);
+            groupBox1.Location = new Point(12, 46);
+            groupBox1.Name = "groupBox1";
+            groupBox1.Size = new Size(917, 80);
+            groupBox1.TabIndex = 2;
+            groupBox1.TabStop = false;
+            groupBox1.Text = "Identificar transportista";
             // 
             // button1
             // 
-            button1.AutoSize = true;
-            button1.Location = new Point(112, 648);
+            button1.Location = new Point(688, 25);
             button1.Name = "button1";
-            button1.Size = new Size(520, 39);
-            button1.TabIndex = 9;
-            button1.Text = "Confirmar Entrega (remito firmado) SE HABILITA LUEGO DE EMITIR REMITO";
+            button1.Size = new Size(220, 43);
+            button1.TabIndex = 5;
+            button1.Text = "Buscar órdenes";
             button1.UseVisualStyleBackColor = true;
-            // 
-            // label3
-            // 
-            label3.AutoSize = true;
-            label3.Location = new Point(107, 589);
-            label3.Name = "label3";
-            label3.Size = new Size(71, 20);
-            label3.TabIndex = 11;
-            label3.Text = "[REMITO]";
-            // 
-            // label4
-            // 
-            label4.AutoSize = true;
-            label4.Font = new Font("Segoe UI", 9F);
-            label4.Location = new Point(12, 589);
-            label4.Name = "label4";
-            label4.Size = new Size(89, 20);
-            label4.TabIndex = 10;
-            label4.Text = "Nro Remito:";
-            label4.TextAlign = ContentAlignment.MiddleLeft;
+            button1.Click += button1_Click;
             // 
             // label5
             // 
             label5.AutoSize = true;
-            label5.Location = new Point(396, 589);
+            label5.Location = new Point(324, 36);
             label5.Name = "label5";
-            label5.Size = new Size(179, 20);
-            label5.TabIndex = 13;
-            label5.Text = "Espera firma transportista";
+            label5.Size = new Size(153, 20);
+            label5.TabIndex = 4;
+            label5.Text = "[NOMBRE, APELLIDO]";
             // 
-            // label6
+            // label4
             // 
-            label6.AutoSize = true;
-            label6.Font = new Font("Segoe UI", 9F);
-            label6.Location = new Point(333, 589);
-            label6.Name = "label6";
-            label6.Size = new Size(57, 20);
-            label6.TabIndex = 12;
-            label6.Text = "Estado:";
-            label6.TextAlign = ContentAlignment.MiddleLeft;
+            label4.AutoSize = true;
+            label4.Location = new Point(251, 36);
+            label4.Name = "label4";
+            label4.Size = new Size(67, 20);
+            label4.TabIndex = 3;
+            label4.Text = "Nombre:";
+            // 
+            // textBox1
+            // 
+            textBox1.Location = new Point(50, 33);
+            textBox1.Name = "textBox1";
+            textBox1.Size = new Size(195, 27);
+            textBox1.TabIndex = 2;
+            // 
+            // label3
+            // 
+            label3.AutoSize = true;
+            label3.Location = new Point(6, 36);
+            label3.Name = "label3";
+            label3.Size = new Size(38, 20);
+            label3.TabIndex = 1;
+            label3.Text = "DNI:";
+            // 
+            // groupBox2
+            // 
+            groupBox2.Controls.Add(button4);
+            groupBox2.Controls.Add(button2);
+            groupBox2.Controls.Add(listView1);
+            groupBox2.Location = new Point(12, 132);
+            groupBox2.Name = "groupBox2";
+            groupBox2.Size = new Size(917, 216);
+            groupBox2.TabIndex = 3;
+            groupBox2.TabStop = false;
+            groupBox2.Text = "1. Ordenes de entrega pendientes de entrega";
+            // 
+            // button4
+            // 
+            button4.Location = new Point(460, 162);
+            button4.Name = "button4";
+            button4.Size = new Size(448, 43);
+            button4.TabIndex = 7;
+            button4.Text = "Quitar de remito";
+            button4.UseVisualStyleBackColor = true;
+            // 
+            // button2
+            // 
+            button2.Location = new Point(6, 162);
+            button2.Name = "button2";
+            button2.Size = new Size(448, 43);
+            button2.TabIndex = 6;
+            button2.Text = "Agregar a remito";
+            button2.UseVisualStyleBackColor = true;
+            // 
+            // listView1
+            // 
+            listView1.Columns.AddRange(new ColumnHeader[] { columnHeader1, columnHeader2, columnHeader3, columnHeader4 });
+            listView1.Location = new Point(6, 35);
+            listView1.Name = "listView1";
+            listView1.Size = new Size(902, 121);
+            listView1.TabIndex = 0;
+            listView1.UseCompatibleStateImageBehavior = false;
+            listView1.View = View.Details;
+            // 
+            // columnHeader1
+            // 
+            columnHeader1.Text = "Cliente";
+            columnHeader1.Width = 120;
+            // 
+            // columnHeader2
+            // 
+            columnHeader2.Text = "N° OE";
+            columnHeader2.Width = 100;
+            // 
+            // columnHeader3
+            // 
+            columnHeader3.Text = "Ordenes de preparación";
+            columnHeader3.Width = 200;
+            // 
+            // columnHeader4
+            // 
+            columnHeader4.Text = "Bultos";
+            // 
+            // groupBox3
+            // 
+            groupBox3.Controls.Add(button3);
+            groupBox3.Controls.Add(listView2);
+            groupBox3.Location = new Point(12, 354);
+            groupBox3.Name = "groupBox3";
+            groupBox3.Size = new Size(917, 216);
+            groupBox3.TabIndex = 4;
+            groupBox3.TabStop = false;
+            groupBox3.Text = "2. Remitos a emitir por cliente";
+            // 
+            // button3
+            // 
+            button3.Location = new Point(6, 162);
+            button3.Name = "button3";
+            button3.Size = new Size(902, 43);
+            button3.TabIndex = 7;
+            button3.Text = "Emitir remitos";
+            button3.UseVisualStyleBackColor = true;
+            // 
+            // listView2
+            // 
+            listView2.Columns.AddRange(new ColumnHeader[] { columnHeader5, columnHeader6, columnHeader8 });
+            listView2.Location = new Point(6, 35);
+            listView2.Name = "listView2";
+            listView2.Size = new Size(902, 121);
+            listView2.TabIndex = 0;
+            listView2.UseCompatibleStateImageBehavior = false;
+            listView2.View = View.Details;
+            // 
+            // columnHeader5
+            // 
+            columnHeader5.Text = "Cliente";
+            columnHeader5.Width = 120;
+            // 
+            // columnHeader6
+            // 
+            columnHeader6.Text = "OE incluidas";
+            columnHeader6.Width = 100;
+            // 
+            // columnHeader8
+            // 
+            columnHeader8.Text = "Bultos";
+            // 
+            // groupBox4
+            // 
+            groupBox4.Controls.Add(button5);
+            groupBox4.Controls.Add(listView3);
+            groupBox4.Location = new Point(12, 576);
+            groupBox4.Name = "groupBox4";
+            groupBox4.Size = new Size(917, 216);
+            groupBox4.TabIndex = 8;
+            groupBox4.TabStop = false;
+            groupBox4.Text = "3. Remitos pendiente de firma";
+            // 
+            // button5
+            // 
+            button5.Location = new Point(6, 162);
+            button5.Name = "button5";
+            button5.Size = new Size(902, 43);
+            button5.TabIndex = 7;
+            button5.Text = "Confirmar entrega y firma";
+            button5.UseVisualStyleBackColor = true;
+            // 
+            // listView3
+            // 
+            listView3.Columns.AddRange(new ColumnHeader[] { columnHeader7, columnHeader9, columnHeader10, columnHeader11 });
+            listView3.Location = new Point(6, 35);
+            listView3.Name = "listView3";
+            listView3.Size = new Size(902, 121);
+            listView3.TabIndex = 0;
+            listView3.UseCompatibleStateImageBehavior = false;
+            listView3.View = View.Details;
+            // 
+            // columnHeader7
+            // 
+            columnHeader7.Text = "N° Remito";
+            columnHeader7.Width = 120;
+            // 
+            // columnHeader9
+            // 
+            columnHeader9.Text = "OE incluidas";
+            columnHeader9.Width = 100;
+            // 
+            // columnHeader10
+            // 
+            columnHeader10.Text = "Bultos";
+            // 
+            // columnHeader11
+            // 
+            columnHeader11.Text = "Cliente";
+            // 
+            // button6
+            // 
+            button6.Location = new Point(703, 812);
+            button6.Name = "button6";
+            button6.Size = new Size(220, 43);
+            button6.TabIndex = 9;
+            button6.Text = "Cerrar";
+            button6.UseVisualStyleBackColor = true;
             // 
             // GenerarRemitoDespacharForm
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1082, 709);
-            Controls.Add(label5);
-            Controls.Add(label6);
-            Controls.Add(label3);
-            Controls.Add(label4);
-            Controls.Add(button1);
-            Controls.Add(DepositoLbl);
-            Controls.Add(lblDepósito);
-            Controls.Add(grpTransportista);
-            Controls.Add(btnCancelar);
-            Controls.Add(btnConfirmarDespacho);
-            Controls.Add(grpOrdenesPendientes);
-            MinimumSize = new Size(1100, 650);
+            ClientSize = new Size(941, 867);
+            Controls.Add(button6);
+            Controls.Add(groupBox4);
+            Controls.Add(groupBox3);
+            Controls.Add(groupBox2);
+            Controls.Add(groupBox1);
+            Controls.Add(label2);
+            Controls.Add(label1);
             Name = "GenerarRemitoDespacharForm";
-            StartPosition = FormStartPosition.CenterScreen;
-            Text = "Generar remito y despachar";
-            WindowState = FormWindowState.Maximized;
-            grpOrdenesPendientes.ResumeLayout(false);
-            grpTransportista.ResumeLayout(false);
-            grpTransportista.PerformLayout();
+            Text = "GenerarRemitoDespacharForm";
+            groupBox1.ResumeLayout(false);
+            groupBox1.PerformLayout();
+            groupBox2.ResumeLayout(false);
+            groupBox3.ResumeLayout(false);
+            groupBox4.ResumeLayout(false);
             ResumeLayout(false);
             PerformLayout();
         }
 
         #endregion
 
-        private GroupBox grpOrdenesPendientes;
-        private Button btnConfirmarDespacho;
-        private Button btnCancelar;
-        private ListView lvwOrdenes;
-        private ColumnHeader ColNOp;
-        private ColumnHeader ColBultos;
-        private ColumnHeader ColCliente;
-        private GroupBox grpTransportista;
-        private Label lblDni;
-        private TextBox txtDni;
-        private Button btnBuscarOrdenes;
-        private Label lblDepósito;
-        private Label lblTotalBultos;
-        private Label lblTotalBultosValor;
-        private Label DepositoLbl;
         private Label label1;
         private Label label2;
-        private Button button1;
+        private GroupBox groupBox1;
         private Label label3;
-        private Label label4;
+        private Button button1;
         private Label label5;
-        private Label label6;
+        private Label label4;
+        private TextBox textBox1;
+        private GroupBox groupBox2;
+        private Button button4;
+        private Button button2;
+        private ListView listView1;
+        private ColumnHeader columnHeader1;
+        private ColumnHeader columnHeader2;
+        private ColumnHeader columnHeader3;
+        private ColumnHeader columnHeader4;
+        private GroupBox groupBox3;
+        private Button button3;
+        private ListView listView2;
+        private ColumnHeader columnHeader5;
+        private ColumnHeader columnHeader6;
+        private ColumnHeader columnHeader8;
+        private GroupBox groupBox4;
+        private Button button5;
+        private ListView listView3;
+        private ColumnHeader columnHeader7;
+        private ColumnHeader columnHeader9;
+        private ColumnHeader columnHeader10;
+        private ColumnHeader columnHeader11;
+        private Button button6;
     }
 }
