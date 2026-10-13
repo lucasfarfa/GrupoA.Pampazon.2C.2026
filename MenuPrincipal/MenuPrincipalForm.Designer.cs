@@ -32,74 +32,81 @@ namespace OrdenesPreparacion
             // 
             // RegistrarOrdenPrepracionBtn
             // 
+            RegistrarOrdenPrepracionBtn.BackColor = Color.FromArgb(192, 255, 192);
             RegistrarOrdenPrepracionBtn.Location = new Point(88, 74);
             RegistrarOrdenPrepracionBtn.Name = "RegistrarOrdenPrepracionBtn";
             RegistrarOrdenPrepracionBtn.Size = new Size(324, 46);
             RegistrarOrdenPrepracionBtn.TabIndex = 3;
             RegistrarOrdenPrepracionBtn.Text = "Registrar Orden de Preparación";
-            RegistrarOrdenPrepracionBtn.UseVisualStyleBackColor = true;
+            RegistrarOrdenPrepracionBtn.UseVisualStyleBackColor = false;
             RegistrarOrdenPrepracionBtn.Click += btnValidarOrdenes_Click;
             // 
             // GenerarOrdenSeleccionBtn
             // 
+            GenerarOrdenSeleccionBtn.BackColor = Color.FromArgb(255, 255, 192);
             GenerarOrdenSeleccionBtn.Location = new Point(88, 136);
             GenerarOrdenSeleccionBtn.Name = "GenerarOrdenSeleccionBtn";
             GenerarOrdenSeleccionBtn.Size = new Size(324, 46);
             GenerarOrdenSeleccionBtn.TabIndex = 4;
             GenerarOrdenSeleccionBtn.Text = "Generar Orden de Selección";
-            GenerarOrdenSeleccionBtn.UseVisualStyleBackColor = true;
+            GenerarOrdenSeleccionBtn.UseVisualStyleBackColor = false;
             // 
             // PrepararProductosBtn
             // 
+            PrepararProductosBtn.BackColor = Color.FromArgb(192, 255, 192);
             PrepararProductosBtn.Location = new Point(88, 198);
             PrepararProductosBtn.Name = "PrepararProductosBtn";
             PrepararProductosBtn.Size = new Size(324, 46);
             PrepararProductosBtn.TabIndex = 5;
             PrepararProductosBtn.Text = "Preparar productos";
-            PrepararProductosBtn.UseVisualStyleBackColor = true;
+            PrepararProductosBtn.UseVisualStyleBackColor = false;
             PrepararProductosBtn.Click += btnPrepararProductos_Click;
             // 
             // EmpaquetarBtn
             // 
+            EmpaquetarBtn.BackColor = Color.FromArgb(255, 255, 192);
             EmpaquetarBtn.Location = new Point(88, 260);
             EmpaquetarBtn.Name = "EmpaquetarBtn";
             EmpaquetarBtn.Size = new Size(324, 46);
             EmpaquetarBtn.TabIndex = 6;
             EmpaquetarBtn.Text = "Empaquetar productos";
-            EmpaquetarBtn.UseVisualStyleBackColor = true;
+            EmpaquetarBtn.UseVisualStyleBackColor = false;
             // 
             // GenerarOrdenEntregaBtn
             // 
+            GenerarOrdenEntregaBtn.BackColor = Color.FromArgb(255, 192, 192);
             GenerarOrdenEntregaBtn.Location = new Point(88, 326);
             GenerarOrdenEntregaBtn.Name = "GenerarOrdenEntregaBtn";
             GenerarOrdenEntregaBtn.Size = new Size(324, 46);
             GenerarOrdenEntregaBtn.TabIndex = 7;
             GenerarOrdenEntregaBtn.Text = "Generar Orden de Entrega";
-            GenerarOrdenEntregaBtn.UseVisualStyleBackColor = true;
+            GenerarOrdenEntregaBtn.UseVisualStyleBackColor = false;
             GenerarOrdenEntregaBtn.Click += btnGenerarEntrega_Click;
             // 
             // GenerarRemitoDespachar
             // 
+            GenerarRemitoDespachar.BackColor = Color.FromArgb(255, 255, 192);
             GenerarRemitoDespachar.Location = new Point(88, 453);
             GenerarRemitoDespachar.Name = "GenerarRemitoDespachar";
             GenerarRemitoDespachar.Size = new Size(324, 46);
             GenerarRemitoDespachar.TabIndex = 8;
             GenerarRemitoDespachar.Text = "Generar remito y despachar";
-            GenerarRemitoDespachar.UseVisualStyleBackColor = true;
+            GenerarRemitoDespachar.UseVisualStyleBackColor = false;
             GenerarRemitoDespachar.Click += btnGenerarRemito_Click;
             // 
             // button1
             // 
+            button1.BackColor = Color.FromArgb(192, 255, 192);
             button1.Location = new Point(88, 391);
             button1.Name = "button1";
             button1.Size = new Size(324, 46);
             button1.TabIndex = 9;
             button1.Text = "Recepcionar Orden de Entrega";
-            button1.UseVisualStyleBackColor = true;
+            button1.UseVisualStyleBackColor = false;
             // 
             // MenuPrincipalForm
             // 
-            AutoScaleDimensions = new SizeF(9F, 23F);
+            AutoScaleDimensions = new SizeF(7F, 17F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(506, 554);
             Controls.Add(button1);

@@ -67,18 +67,18 @@
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new Point(12, 9);
+            label1.Location = new Point(10, 7);
             label1.Name = "label1";
-            label1.Size = new Size(73, 20);
+            label1.Size = new Size(57, 15);
             label1.TabIndex = 0;
             label1.Text = "Depósito:";
             // 
             // label2
             // 
             label2.AutoSize = true;
-            label2.Location = new Point(91, 9);
+            label2.Location = new Point(80, 7);
             label2.Name = "label2";
-            label2.Size = new Size(38, 20);
+            label2.Size = new Size(30, 15);
             label2.TabIndex = 1;
             label2.Text = "GBA";
             // 
@@ -89,18 +89,21 @@
             groupBox1.Controls.Add(label4);
             groupBox1.Controls.Add(textBox1);
             groupBox1.Controls.Add(label3);
-            groupBox1.Location = new Point(12, 46);
+            groupBox1.Location = new Point(10, 34);
+            groupBox1.Margin = new Padding(3, 2, 3, 2);
             groupBox1.Name = "groupBox1";
-            groupBox1.Size = new Size(917, 80);
+            groupBox1.Padding = new Padding(3, 2, 3, 2);
+            groupBox1.Size = new Size(802, 60);
             groupBox1.TabIndex = 2;
             groupBox1.TabStop = false;
             groupBox1.Text = "Identificar transportista";
             // 
             // button1
             // 
-            button1.Location = new Point(688, 25);
+            button1.Location = new Point(602, 19);
+            button1.Margin = new Padding(3, 2, 3, 2);
             button1.Name = "button1";
-            button1.Size = new Size(220, 43);
+            button1.Size = new Size(192, 32);
             button1.TabIndex = 5;
             button1.Text = "Buscar órdenes";
             button1.UseVisualStyleBackColor = true;
@@ -109,34 +112,35 @@
             // label5
             // 
             label5.AutoSize = true;
-            label5.Location = new Point(324, 36);
+            label5.Location = new Point(284, 27);
             label5.Name = "label5";
-            label5.Size = new Size(153, 20);
+            label5.Size = new Size(123, 15);
             label5.TabIndex = 4;
             label5.Text = "[NOMBRE, APELLIDO]";
             // 
             // label4
             // 
             label4.AutoSize = true;
-            label4.Location = new Point(251, 36);
+            label4.Location = new Point(220, 27);
             label4.Name = "label4";
-            label4.Size = new Size(67, 20);
+            label4.Size = new Size(54, 15);
             label4.TabIndex = 3;
             label4.Text = "Nombre:";
             // 
             // textBox1
             // 
-            textBox1.Location = new Point(50, 33);
+            textBox1.Location = new Point(44, 25);
+            textBox1.Margin = new Padding(3, 2, 3, 2);
             textBox1.Name = "textBox1";
-            textBox1.Size = new Size(195, 27);
+            textBox1.Size = new Size(171, 23);
             textBox1.TabIndex = 2;
             // 
             // label3
             // 
             label3.AutoSize = true;
-            label3.Location = new Point(6, 36);
+            label3.Location = new Point(5, 27);
             label3.Name = "label3";
-            label3.Size = new Size(38, 20);
+            label3.Size = new Size(30, 15);
             label3.TabIndex = 1;
             label3.Text = "DNI:";
             // 
@@ -145,37 +149,42 @@
             groupBox2.Controls.Add(button4);
             groupBox2.Controls.Add(button2);
             groupBox2.Controls.Add(listView1);
-            groupBox2.Location = new Point(12, 132);
+            groupBox2.Location = new Point(10, 99);
+            groupBox2.Margin = new Padding(3, 2, 3, 2);
             groupBox2.Name = "groupBox2";
-            groupBox2.Size = new Size(917, 216);
+            groupBox2.Padding = new Padding(3, 2, 3, 2);
+            groupBox2.Size = new Size(802, 162);
             groupBox2.TabIndex = 3;
             groupBox2.TabStop = false;
             groupBox2.Text = "1. Ordenes de entrega pendientes de entrega";
             // 
             // button4
             // 
-            button4.Location = new Point(460, 162);
+            button4.Location = new Point(402, 122);
+            button4.Margin = new Padding(3, 2, 3, 2);
             button4.Name = "button4";
-            button4.Size = new Size(448, 43);
+            button4.Size = new Size(392, 32);
             button4.TabIndex = 7;
-            button4.Text = "Quitar de remito";
+            button4.Text = "Deseleccionar";
             button4.UseVisualStyleBackColor = true;
             // 
             // button2
             // 
-            button2.Location = new Point(6, 162);
+            button2.Location = new Point(5, 122);
+            button2.Margin = new Padding(3, 2, 3, 2);
             button2.Name = "button2";
-            button2.Size = new Size(448, 43);
+            button2.Size = new Size(392, 32);
             button2.TabIndex = 6;
-            button2.Text = "Agregar a remito";
+            button2.Text = "Seleccionar ";
             button2.UseVisualStyleBackColor = true;
             // 
             // listView1
             // 
             listView1.Columns.AddRange(new ColumnHeader[] { columnHeader1, columnHeader2, columnHeader3, columnHeader4 });
-            listView1.Location = new Point(6, 35);
+            listView1.Location = new Point(5, 26);
+            listView1.Margin = new Padding(3, 2, 3, 2);
             listView1.Name = "listView1";
-            listView1.Size = new Size(902, 121);
+            listView1.Size = new Size(790, 92);
             listView1.TabIndex = 0;
             listView1.UseCompatibleStateImageBehavior = false;
             listView1.View = View.Details;
@@ -203,18 +212,21 @@
             // 
             groupBox3.Controls.Add(button3);
             groupBox3.Controls.Add(listView2);
-            groupBox3.Location = new Point(12, 354);
+            groupBox3.Location = new Point(10, 266);
+            groupBox3.Margin = new Padding(3, 2, 3, 2);
             groupBox3.Name = "groupBox3";
-            groupBox3.Size = new Size(917, 216);
+            groupBox3.Padding = new Padding(3, 2, 3, 2);
+            groupBox3.Size = new Size(802, 162);
             groupBox3.TabIndex = 4;
             groupBox3.TabStop = false;
-            groupBox3.Text = "2. Remitos a emitir por cliente";
+            groupBox3.Text = "2. Se emitirán los siguientes remitos:";
             // 
             // button3
             // 
-            button3.Location = new Point(6, 162);
+            button3.Location = new Point(5, 122);
+            button3.Margin = new Padding(3, 2, 3, 2);
             button3.Name = "button3";
-            button3.Size = new Size(902, 43);
+            button3.Size = new Size(789, 32);
             button3.TabIndex = 7;
             button3.Text = "Emitir remitos";
             button3.UseVisualStyleBackColor = true;
@@ -222,9 +234,10 @@
             // listView2
             // 
             listView2.Columns.AddRange(new ColumnHeader[] { columnHeader5, columnHeader6, columnHeader8 });
-            listView2.Location = new Point(6, 35);
+            listView2.Location = new Point(5, 26);
+            listView2.Margin = new Padding(3, 2, 3, 2);
             listView2.Name = "listView2";
-            listView2.Size = new Size(902, 121);
+            listView2.Size = new Size(790, 92);
             listView2.TabIndex = 0;
             listView2.UseCompatibleStateImageBehavior = false;
             listView2.View = View.Details;
@@ -247,18 +260,21 @@
             // 
             groupBox4.Controls.Add(button5);
             groupBox4.Controls.Add(listView3);
-            groupBox4.Location = new Point(12, 576);
+            groupBox4.Location = new Point(10, 432);
+            groupBox4.Margin = new Padding(3, 2, 3, 2);
             groupBox4.Name = "groupBox4";
-            groupBox4.Size = new Size(917, 216);
+            groupBox4.Padding = new Padding(3, 2, 3, 2);
+            groupBox4.Size = new Size(802, 162);
             groupBox4.TabIndex = 8;
             groupBox4.TabStop = false;
             groupBox4.Text = "3. Remitos pendiente de firma";
             // 
             // button5
             // 
-            button5.Location = new Point(6, 162);
+            button5.Location = new Point(5, 122);
+            button5.Margin = new Padding(3, 2, 3, 2);
             button5.Name = "button5";
-            button5.Size = new Size(902, 43);
+            button5.Size = new Size(789, 32);
             button5.TabIndex = 7;
             button5.Text = "Confirmar entrega y firma";
             button5.UseVisualStyleBackColor = true;
@@ -266,9 +282,10 @@
             // listView3
             // 
             listView3.Columns.AddRange(new ColumnHeader[] { columnHeader7, columnHeader9, columnHeader10, columnHeader11 });
-            listView3.Location = new Point(6, 35);
+            listView3.Location = new Point(5, 26);
+            listView3.Margin = new Padding(3, 2, 3, 2);
             listView3.Name = "listView3";
-            listView3.Size = new Size(902, 121);
+            listView3.Size = new Size(790, 92);
             listView3.TabIndex = 0;
             listView3.UseCompatibleStateImageBehavior = false;
             listView3.View = View.Details;
@@ -293,18 +310,19 @@
             // 
             // button6
             // 
-            button6.Location = new Point(703, 812);
+            button6.Location = new Point(615, 609);
+            button6.Margin = new Padding(3, 2, 3, 2);
             button6.Name = "button6";
-            button6.Size = new Size(220, 43);
+            button6.Size = new Size(192, 32);
             button6.TabIndex = 9;
             button6.Text = "Cerrar";
             button6.UseVisualStyleBackColor = true;
             // 
             // GenerarRemitoDespacharForm
             // 
-            AutoScaleDimensions = new SizeF(8F, 20F);
+            AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(941, 867);
+            ClientSize = new Size(823, 650);
             Controls.Add(button6);
             Controls.Add(groupBox4);
             Controls.Add(groupBox3);
@@ -312,8 +330,10 @@
             Controls.Add(groupBox1);
             Controls.Add(label2);
             Controls.Add(label1);
+            Margin = new Padding(3, 2, 3, 2);
             Name = "GenerarRemitoDespacharForm";
             Text = "GenerarRemitoDespacharForm";
+            Load += GenerarRemitoDespacharForm_Load;
             groupBox1.ResumeLayout(false);
             groupBox1.PerformLayout();
             groupBox2.ResumeLayout(false);
