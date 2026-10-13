@@ -40,14 +40,22 @@
             label5 = new Label();
             groupBox1 = new GroupBox();
             button1 = new Button();
-            button2 = new Button();
+            groupBox2 = new GroupBox();
             button4 = new Button();
+            listView2 = new ListView();
+            columnHeader3 = new ColumnHeader();
+            columnHeader4 = new ColumnHeader();
+            columnHeader6 = new ColumnHeader();
+            columnHeader8 = new ColumnHeader();
+            columnHeader9 = new ColumnHeader();
+            label1 = new Label();
             groupBox1.SuspendLayout();
+            groupBox2.SuspendLayout();
             SuspendLayout();
             // 
             // btnGenerarOrden
             // 
-            btnGenerarOrden.Location = new Point(378, 531);
+            btnGenerarOrden.Location = new Point(378, 662);
             btnGenerarOrden.Name = "btnGenerarOrden";
             btnGenerarOrden.Size = new Size(199, 49);
             btnGenerarOrden.TabIndex = 3;
@@ -60,7 +68,7 @@
             listView1.Columns.AddRange(new ColumnHeader[] { columnHeader1, columnHeader2, columnHeader5, Transportista, columnHeader7 });
             listView1.Location = new Point(9, 33);
             listView1.Name = "listView1";
-            listView1.Size = new Size(684, 363);
+            listView1.Size = new Size(684, 196);
             listView1.TabIndex = 14;
             listView1.UseCompatibleStateImageBehavior = false;
             listView1.View = View.Details;
@@ -100,7 +108,7 @@
             // 
             // button3
             // 
-            button3.Location = new Point(583, 531);
+            button3.Location = new Point(583, 662);
             button3.Name = "button3";
             button3.Size = new Size(131, 49);
             button3.TabIndex = 32;
@@ -118,50 +126,95 @@
             // 
             // groupBox1
             // 
-            groupBox1.Controls.Add(button4);
-            groupBox1.Controls.Add(button2);
             groupBox1.Controls.Add(button1);
             groupBox1.Controls.Add(listView1);
-            groupBox1.Location = new Point(12, 70);
+            groupBox1.Location = new Point(12, 53);
             groupBox1.Name = "groupBox1";
-            groupBox1.Size = new Size(702, 455);
+            groupBox1.Size = new Size(702, 282);
             groupBox1.TabIndex = 35;
             groupBox1.TabStop = false;
             groupBox1.Text = "Ordenes preparadas sin orden de entrega";
             // 
             // button1
             // 
-            button1.Location = new Point(9, 411);
+            button1.Location = new Point(6, 235);
             button1.Name = "button1";
-            button1.Size = new Size(216, 38);
+            button1.Size = new Size(687, 38);
             button1.TabIndex = 34;
             button1.Text = "Agregar";
             button1.UseVisualStyleBackColor = true;
             button1.Click += button1_Click_1;
             // 
-            // button2
+            // groupBox2
             // 
-            button2.Location = new Point(231, 411);
-            button2.Name = "button2";
-            button2.Size = new Size(222, 38);
-            button2.TabIndex = 35;
-            button2.Text = "Quitar";
-            button2.UseVisualStyleBackColor = true;
+            groupBox2.Controls.Add(button4);
+            groupBox2.Controls.Add(listView2);
+            groupBox2.Location = new Point(12, 341);
+            groupBox2.Name = "groupBox2";
+            groupBox2.Size = new Size(702, 282);
+            groupBox2.TabIndex = 36;
+            groupBox2.TabStop = false;
+            groupBox2.Text = "Detalle Orden de Entrega";
             // 
             // button4
             // 
-            button4.Location = new Point(459, 411);
+            button4.Location = new Point(6, 235);
             button4.Name = "button4";
-            button4.Size = new Size(234, 38);
-            button4.TabIndex = 36;
-            button4.Text = "Actualizar";
+            button4.Size = new Size(687, 38);
+            button4.TabIndex = 35;
+            button4.Text = "Quitar";
             button4.UseVisualStyleBackColor = true;
+            // 
+            // listView2
+            // 
+            listView2.Columns.AddRange(new ColumnHeader[] { columnHeader3, columnHeader4, columnHeader6, columnHeader8, columnHeader9 });
+            listView2.Location = new Point(9, 33);
+            listView2.Name = "listView2";
+            listView2.Size = new Size(684, 196);
+            listView2.TabIndex = 14;
+            listView2.UseCompatibleStateImageBehavior = false;
+            listView2.View = View.Details;
+            // 
+            // columnHeader3
+            // 
+            columnHeader3.Text = "N° OP";
+            // 
+            // columnHeader4
+            // 
+            columnHeader4.Text = "Cliente";
+            columnHeader4.Width = 70;
+            // 
+            // columnHeader6
+            // 
+            columnHeader6.Text = "Bultos";
+            columnHeader6.Width = 70;
+            // 
+            // columnHeader8
+            // 
+            columnHeader8.Text = "Transportista";
+            columnHeader8.Width = 100;
+            // 
+            // columnHeader9
+            // 
+            columnHeader9.Text = "Fecha Entrega";
+            columnHeader9.Width = 140;
+            // 
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.Location = new Point(18, 626);
+            label1.Name = "label1";
+            label1.Size = new Size(458, 20);
+            label1.TabIndex = 37;
+            label1.Text = "La OE solo puede agrupar órdenes del mismo cliente y transportista";
             // 
             // btnCancelar
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(726, 604);
+            ClientSize = new Size(726, 723);
+            Controls.Add(label1);
+            Controls.Add(groupBox2);
             Controls.Add(groupBox1);
             Controls.Add(button3);
             Controls.Add(btnGenerarOrden);
@@ -171,6 +224,7 @@
             Name = "btnCancelar";
             Text = "GenerarOrdenEntrega";
             groupBox1.ResumeLayout(false);
+            groupBox2.ResumeLayout(false);
             ResumeLayout(false);
             PerformLayout();
         }
@@ -188,7 +242,14 @@
         private GroupBox groupBox1;
         private ColumnHeader Transportista;
         private Button button1;
+        private GroupBox groupBox2;
         private Button button4;
-        private Button button2;
+        private ListView listView2;
+        private ColumnHeader columnHeader3;
+        private ColumnHeader columnHeader4;
+        private ColumnHeader columnHeader6;
+        private ColumnHeader columnHeader8;
+        private ColumnHeader columnHeader9;
+        private Label label1;
     }
 }
