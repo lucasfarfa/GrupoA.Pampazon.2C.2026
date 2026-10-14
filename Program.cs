@@ -19,7 +19,7 @@ namespace GrupoA.PampazonSA.AdministracionDeposito
 
             // Inicia el menú principal por defecto
             //Application.Run(new MenuPrincipalForm());
-            Application.Run(new PrepararProductosForm());
+            Application.Run(new GenerarOrdenSeleccionForm());
 
 
         }
