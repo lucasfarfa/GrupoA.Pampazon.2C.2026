@@ -2,484 +2,479 @@
 {
     partial class RegistrarOrdenPreparacionForm
     {
-        /// <summary>
-        /// Required designer variable.
-        /// </summary>
         private System.ComponentModel.IContainer components = null;
 
-        /// <summary>
-        /// Clean up any resources being used.
-        /// </summary>
-        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
-        //protected override void Dispose(bool disposing)
-        //{
-        //    if (disposing && (components != null))
-        //    {
-        //        components.Dispose();
-        //    }
-        //    base.Dispose(disposing);
-        //}
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing && (components != null))
+            {
+                components.Dispose();
+            }
+            base.Dispose(disposing);
+        }
 
         #region Windows Form Designer generated code
 
-        /// <summary>
-        /// Required method for Designer support - do not modify
-        /// the contents of this method with the code editor.
-        /// </summary>
         private void InitializeComponent()
         {
-            gbDatosOrden = new GroupBox();
-            lblCliente = new Label();
-            cboCliente = new ComboBox();
-            lblCuit = new Label();
-            txtCuit = new TextBox();
-            lblDeposito = new Label();
-            cboDeposito = new ComboBox();
-            lblModalidad = new Label();
-            rbFulfillment = new RadioButton();
+            groupBox1 = new GroupBox();
             rbPaletCerrado = new RadioButton();
-            gbTransportista = new GroupBox();
-            textBox2 = new TextBox();
+            rbFulfillment = new RadioButton();
+            label4 = new Label();
+            cboDeposito = new ComboBox();
+            label3 = new Label();
+            txtCuit = new TextBox();
             label2 = new Label();
-            lblDni = new Label();
-            txtDni = new TextBox();
-            gbProductos = new GroupBox();
-            lblSku = new Label();
-            cboSku = new ComboBox();
-            lblDescripcion = new Label();
-            txtDescripcion = new TextBox();
-            lblDisponible = new Label();
-            txtDisponible = new TextBox();
-            lblCantidad = new Label();
-            txtCantidad = new TextBox();
-            btnAgregar = new Button();
-            dgvProductos = new DataGridView();
-            btnQuitar = new Button();
-            btnRegistrar = new Button();
-            btnCancelar = new Button();
+            cboCliente = new ComboBox();
             label1 = new Label();
-            textBox1 = new TextBox();
-            gbDatosOrden.SuspendLayout();
-            gbTransportista.SuspendLayout();
-            gbProductos.SuspendLayout();
+            groupBox2 = new GroupBox();
+            txtFechaRetiro = new TextBox();
+            label7 = new Label();
+            txtNombreTransportista = new TextBox();
+            label6 = new Label();
+            txtDni = new TextBox();
+            label5 = new Label();
+            groupBox3 = new GroupBox();
+            btnAgregar = new Button();
+            txtCantidad = new TextBox();
+            label10 = new Label();
+            txtDisponible = new TextBox();
+            label9 = new Label();
+            txtDescripcion = new TextBox();
+            label8 = new Label();
+            cboSku = new ComboBox();
+            label11 = new Label();
+            dgvProductos = new DataGridView();
+            btnQuitarSeleccionado = new Button();
+            btnRegistrarOp = new Button();
+            btnCancelar = new Button();
+            colSku = new DataGridViewTextBoxColumn();
+            colDescripcion = new DataGridViewTextBoxColumn();
+            colCantidad = new DataGridViewTextBoxColumn();
+            groupBox1.SuspendLayout();
+            groupBox2.SuspendLayout();
+            groupBox3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dgvProductos).BeginInit();
             SuspendLayout();
             // 
-            // gbDatosOrden
+            // groupBox1
             // 
-            gbDatosOrden.Controls.Add(lblCliente);
-            gbDatosOrden.Controls.Add(cboCliente);
-            gbDatosOrden.Controls.Add(lblCuit);
-            gbDatosOrden.Controls.Add(txtCuit);
-            gbDatosOrden.Controls.Add(lblDeposito);
-            gbDatosOrden.Controls.Add(cboDeposito);
-            gbDatosOrden.Controls.Add(lblModalidad);
-            gbDatosOrden.Controls.Add(rbFulfillment);
-            gbDatosOrden.Controls.Add(rbPaletCerrado);
-            gbDatosOrden.Location = new Point(10, 9);
-            gbDatosOrden.Margin = new Padding(3, 2, 3, 2);
-            gbDatosOrden.Name = "gbDatosOrden";
-            gbDatosOrden.Padding = new Padding(3, 2, 3, 2);
-            gbDatosOrden.Size = new Size(455, 131);
-            gbDatosOrden.TabIndex = 0;
-            gbDatosOrden.TabStop = false;
-            gbDatosOrden.Text = "Datos de la orden";
-            // 
-            // lblCliente
-            // 
-            lblCliente.AutoSize = true;
-            lblCliente.Location = new Point(13, 26);
-            lblCliente.Name = "lblCliente";
-            lblCliente.Size = new Size(44, 15);
-            lblCliente.TabIndex = 0;
-            lblCliente.Text = "Cliente";
-            // 
-            // cboCliente
-            // 
-            cboCliente.DropDownStyle = ComboBoxStyle.DropDownList;
-            cboCliente.FormattingEnabled = true;
-            cboCliente.Location = new Point(105, 22);
-            cboCliente.Margin = new Padding(3, 2, 3, 2);
-            cboCliente.Name = "cboCliente";
-            cboCliente.Size = new Size(210, 23);
-            cboCliente.TabIndex = 1;
-            cboCliente.SelectedIndexChanged += cboCliente_SelectedIndexChanged;
-            // 
-            // lblCuit
-            // 
-            lblCuit.AutoSize = true;
-            lblCuit.Location = new Point(13, 52);
-            lblCuit.Name = "lblCuit";
-            lblCuit.Size = new Size(33, 15);
-            lblCuit.TabIndex = 3;
-            lblCuit.Text = "CUIT";
-            // 
-            // txtCuit
-            // 
-            txtCuit.Location = new Point(105, 49);
-            txtCuit.Margin = new Padding(3, 2, 3, 2);
-            txtCuit.Name = "txtCuit";
-            txtCuit.ReadOnly = true;
-            txtCuit.Size = new Size(210, 23);
-            txtCuit.TabIndex = 4;
-            txtCuit.TabStop = false;
-            // 
-            // lblDeposito
-            // 
-            lblDeposito.AutoSize = true;
-            lblDeposito.Location = new Point(13, 78);
-            lblDeposito.Name = "lblDeposito";
-            lblDeposito.Size = new Size(54, 15);
-            lblDeposito.TabIndex = 5;
-            lblDeposito.Text = "Depósito";
-            // 
-            // cboDeposito
-            // 
-            cboDeposito.DropDownStyle = ComboBoxStyle.DropDownList;
-            cboDeposito.FormattingEnabled = true;
-            cboDeposito.Location = new Point(105, 75);
-            cboDeposito.Margin = new Padding(3, 2, 3, 2);
-            cboDeposito.Name = "cboDeposito";
-            cboDeposito.Size = new Size(210, 23);
-            cboDeposito.TabIndex = 6;
-            cboDeposito.SelectedIndexChanged += cboDeposito_SelectedIndexChanged;
-            // 
-            // lblModalidad
-            // 
-            lblModalidad.AutoSize = true;
-            lblModalidad.Location = new Point(13, 104);
-            lblModalidad.Name = "lblModalidad";
-            lblModalidad.Size = new Size(64, 15);
-            lblModalidad.TabIndex = 8;
-            lblModalidad.Text = "Modalidad";
-            // 
-            // rbFulfillment
-            // 
-            rbFulfillment.AutoSize = true;
-            rbFulfillment.Location = new Point(105, 103);
-            rbFulfillment.Margin = new Padding(3, 2, 3, 2);
-            rbFulfillment.Name = "rbFulfillment";
-            rbFulfillment.Size = new Size(82, 19);
-            rbFulfillment.TabIndex = 9;
-            rbFulfillment.Text = "Fulfillment";
-            rbFulfillment.UseVisualStyleBackColor = true;
+            groupBox1.Controls.Add(rbPaletCerrado);
+            groupBox1.Controls.Add(rbFulfillment);
+            groupBox1.Controls.Add(label4);
+            groupBox1.Controls.Add(cboDeposito);
+            groupBox1.Controls.Add(label3);
+            groupBox1.Controls.Add(txtCuit);
+            groupBox1.Controls.Add(label2);
+            groupBox1.Controls.Add(cboCliente);
+            groupBox1.Controls.Add(label1);
+            groupBox1.Location = new Point(14, 16);
+            groupBox1.Margin = new Padding(3, 4, 3, 4);
+            groupBox1.Name = "groupBox1";
+            groupBox1.Padding = new Padding(3, 4, 3, 4);
+            groupBox1.Size = new Size(571, 200);
+            groupBox1.TabIndex = 0;
+            groupBox1.TabStop = false;
+            groupBox1.Text = "Datos de la orden";
             // 
             // rbPaletCerrado
             // 
             rbPaletCerrado.AutoSize = true;
-            rbPaletCerrado.Location = new Point(213, 103);
-            rbPaletCerrado.Margin = new Padding(3, 2, 3, 2);
+            rbPaletCerrado.Location = new Point(303, 153);
+            rbPaletCerrado.Margin = new Padding(3, 4, 3, 4);
             rbPaletCerrado.Name = "rbPaletCerrado";
-            rbPaletCerrado.Size = new Size(94, 19);
-            rbPaletCerrado.TabIndex = 10;
+            rbPaletCerrado.Size = new Size(117, 24);
+            rbPaletCerrado.TabIndex = 8;
+            rbPaletCerrado.TabStop = true;
             rbPaletCerrado.Text = "Palet cerrado";
             rbPaletCerrado.UseVisualStyleBackColor = true;
             // 
-            // gbTransportista
+            // rbFulfillment
             // 
-            gbTransportista.Controls.Add(textBox2);
-            gbTransportista.Controls.Add(label2);
-            gbTransportista.Controls.Add(lblDni);
-            gbTransportista.Controls.Add(txtDni);
-            gbTransportista.Location = new Point(476, 9);
-            gbTransportista.Margin = new Padding(3, 2, 3, 2);
-            gbTransportista.Name = "gbTransportista";
-            gbTransportista.Padding = new Padding(3, 2, 3, 2);
-            gbTransportista.Size = new Size(424, 93);
-            gbTransportista.TabIndex = 1;
-            gbTransportista.TabStop = false;
-            gbTransportista.Text = "Transportista autorizado";
+            rbFulfillment.AutoSize = true;
+            rbFulfillment.Location = new Point(171, 153);
+            rbFulfillment.Margin = new Padding(3, 4, 3, 4);
+            rbFulfillment.Name = "rbFulfillment";
+            rbFulfillment.Size = new Size(100, 24);
+            rbFulfillment.TabIndex = 7;
+            rbFulfillment.TabStop = true;
+            rbFulfillment.Text = "Fulfillment";
+            rbFulfillment.UseVisualStyleBackColor = true;
             // 
-            // textBox2
+            // label4
             // 
-            textBox2.Location = new Point(116, 61);
-            textBox2.Margin = new Padding(3, 2, 3, 2);
-            textBox2.MaxLength = 8;
-            textBox2.Name = "textBox2";
-            textBox2.Size = new Size(176, 23);
-            textBox2.TabIndex = 3;
+            label4.AutoSize = true;
+            label4.Location = new Point(17, 153);
+            label4.Name = "label4";
+            label4.Size = new Size(82, 20);
+            label4.TabIndex = 6;
+            label4.Text = "Modalidad";
+            // 
+            // cboDeposito
+            // 
+            cboDeposito.FormattingEnabled = true;
+            cboDeposito.Location = new Point(171, 107);
+            cboDeposito.Margin = new Padding(3, 4, 3, 4);
+            cboDeposito.Name = "cboDeposito";
+            cboDeposito.Size = new Size(377, 28);
+            cboDeposito.TabIndex = 5;
+            cboDeposito.SelectedIndexChanged += cboDeposito_SelectedIndexChanged;
+            // 
+            // label3
+            // 
+            label3.AutoSize = true;
+            label3.Location = new Point(17, 111);
+            label3.Name = "label3";
+            label3.Size = new Size(70, 20);
+            label3.TabIndex = 4;
+            label3.Text = "Depósito";
+            // 
+            // txtCuit
+            // 
+            txtCuit.Location = new Point(171, 67);
+            txtCuit.Margin = new Padding(3, 4, 3, 4);
+            txtCuit.Name = "txtCuit";
+            txtCuit.ReadOnly = true;
+            txtCuit.Size = new Size(377, 27);
+            txtCuit.TabIndex = 3;
             // 
             // label2
             // 
             label2.AutoSize = true;
-            label2.Location = new Point(13, 63);
+            label2.Location = new Point(17, 71);
             label2.Name = "label2";
-            label2.Size = new Size(51, 15);
+            label2.Size = new Size(40, 20);
             label2.TabIndex = 2;
-            label2.Text = "Nombre";
+            label2.Text = "CUIT";
             // 
-            // lblDni
+            // cboCliente
             // 
-            lblDni.AutoSize = true;
-            lblDni.Location = new Point(13, 26);
-            lblDni.Name = "lblDni";
-            lblDni.Size = new Size(27, 15);
-            lblDni.TabIndex = 0;
-            lblDni.Text = "DNI";
-            lblDni.Click += lblDni_Click;
+            cboCliente.FormattingEnabled = true;
+            cboCliente.Location = new Point(171, 27);
+            cboCliente.Margin = new Padding(3, 4, 3, 4);
+            cboCliente.Name = "cboCliente";
+            cboCliente.Size = new Size(377, 28);
+            cboCliente.TabIndex = 1;
+            cboCliente.SelectedIndexChanged += cboCliente_SelectedIndexChanged;
+            // 
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.Location = new Point(17, 31);
+            label1.Name = "label1";
+            label1.Size = new Size(55, 20);
+            label1.TabIndex = 0;
+            label1.Text = "Cliente";
+            // 
+            // groupBox2
+            // 
+            groupBox2.Controls.Add(txtFechaRetiro);
+            groupBox2.Controls.Add(label7);
+            groupBox2.Controls.Add(txtNombreTransportista);
+            groupBox2.Controls.Add(label6);
+            groupBox2.Controls.Add(txtDni);
+            groupBox2.Controls.Add(label5);
+            groupBox2.Location = new Point(606, 16);
+            groupBox2.Margin = new Padding(3, 4, 3, 4);
+            groupBox2.Name = "groupBox2";
+            groupBox2.Padding = new Padding(3, 4, 3, 4);
+            groupBox2.Size = new Size(480, 200);
+            groupBox2.TabIndex = 1;
+            groupBox2.TabStop = false;
+            groupBox2.Text = "Transportista autorizado";
+            // 
+            // txtFechaRetiro
+            // 
+            txtFechaRetiro.Location = new Point(137, 120);
+            txtFechaRetiro.Margin = new Padding(3, 4, 3, 4);
+            txtFechaRetiro.Name = "txtFechaRetiro";
+            txtFechaRetiro.Size = new Size(314, 27);
+            txtFechaRetiro.TabIndex = 5;
+            // 
+            // label7
+            // 
+            label7.AutoSize = true;
+            label7.Location = new Point(17, 124);
+            label7.Name = "label7";
+            label7.Size = new Size(112, 20);
+            label7.TabIndex = 4;
+            label7.Text = "Fecha de Retiro";
+            // 
+            // txtNombreTransportista
+            // 
+            txtNombreTransportista.Location = new Point(137, 73);
+            txtNombreTransportista.Margin = new Padding(3, 4, 3, 4);
+            txtNombreTransportista.Name = "txtNombreTransportista";
+            txtNombreTransportista.Size = new Size(314, 27);
+            txtNombreTransportista.TabIndex = 3;
+            // 
+            // label6
+            // 
+            label6.AutoSize = true;
+            label6.Location = new Point(17, 77);
+            label6.Name = "label6";
+            label6.Size = new Size(64, 20);
+            label6.TabIndex = 2;
+            label6.Text = "Nombre";
             // 
             // txtDni
             // 
-            txtDni.Location = new Point(116, 26);
-            txtDni.Margin = new Padding(3, 2, 3, 2);
-            txtDni.MaxLength = 8;
+            txtDni.Location = new Point(137, 27);
+            txtDni.Margin = new Padding(3, 4, 3, 4);
             txtDni.Name = "txtDni";
-            txtDni.Size = new Size(176, 23);
+            txtDni.Size = new Size(314, 27);
             txtDni.TabIndex = 1;
             txtDni.KeyPress += SoloDigitos_KeyPress;
             // 
-            // gbProductos
+            // label5
             // 
-            gbProductos.Controls.Add(lblSku);
-            gbProductos.Controls.Add(cboSku);
-            gbProductos.Controls.Add(lblDescripcion);
-            gbProductos.Controls.Add(txtDescripcion);
-            gbProductos.Controls.Add(lblDisponible);
-            gbProductos.Controls.Add(txtDisponible);
-            gbProductos.Controls.Add(lblCantidad);
-            gbProductos.Controls.Add(txtCantidad);
-            gbProductos.Controls.Add(btnAgregar);
-            gbProductos.Controls.Add(dgvProductos);
-            gbProductos.Controls.Add(btnQuitar);
-            gbProductos.Location = new Point(10, 150);
-            gbProductos.Margin = new Padding(3, 2, 3, 2);
-            gbProductos.Name = "gbProductos";
-            gbProductos.Padding = new Padding(3, 2, 3, 2);
-            gbProductos.Size = new Size(889, 214);
-            gbProductos.TabIndex = 2;
-            gbProductos.TabStop = false;
-            gbProductos.Text = "Productos a preparar";
+            label5.AutoSize = true;
+            label5.Location = new Point(17, 31);
+            label5.Name = "label5";
+            label5.Size = new Size(35, 20);
+            label5.TabIndex = 0;
+            label5.Text = "DNI";
             // 
-            // lblSku
+            // groupBox3
             // 
-            lblSku.AutoSize = true;
-            lblSku.Location = new Point(13, 26);
-            lblSku.Name = "lblSku";
-            lblSku.Size = new Size(28, 15);
-            lblSku.TabIndex = 0;
-            lblSku.Text = "SKU";
-            // 
-            // cboSku
-            // 
-            cboSku.DropDownStyle = ComboBoxStyle.DropDownList;
-            cboSku.Enabled = false;
-            cboSku.FormattingEnabled = true;
-            cboSku.Location = new Point(54, 22);
-            cboSku.Margin = new Padding(3, 2, 3, 2);
-            cboSku.Name = "cboSku";
-            cboSku.Size = new Size(119, 23);
-            cboSku.TabIndex = 1;
-            cboSku.SelectedIndexChanged += cboSku_SelectedIndexChanged;
-            // 
-            // lblDescripcion
-            // 
-            lblDescripcion.AutoSize = true;
-            lblDescripcion.Location = new Point(216, 26);
-            lblDescripcion.Name = "lblDescripcion";
-            lblDescripcion.Size = new Size(69, 15);
-            lblDescripcion.TabIndex = 3;
-            lblDescripcion.Text = "Descripción";
-            // 
-            // txtDescripcion
-            // 
-            txtDescripcion.Location = new Point(298, 22);
-            txtDescripcion.Margin = new Padding(3, 2, 3, 2);
-            txtDescripcion.Name = "txtDescripcion";
-            txtDescripcion.ReadOnly = true;
-            txtDescripcion.Size = new Size(167, 23);
-            txtDescripcion.TabIndex = 4;
-            txtDescripcion.TabStop = false;
-            // 
-            // lblDisponible
-            // 
-            lblDisponible.AutoSize = true;
-            lblDisponible.Location = new Point(473, 26);
-            lblDisponible.Name = "lblDisponible";
-            lblDisponible.Size = new Size(63, 15);
-            lblDisponible.TabIndex = 5;
-            lblDisponible.Text = "Disponible";
-            // 
-            // txtDisponible
-            // 
-            txtDisponible.Location = new Point(549, 22);
-            txtDisponible.Margin = new Padding(3, 2, 3, 2);
-            txtDisponible.Name = "txtDisponible";
-            txtDisponible.ReadOnly = true;
-            txtDisponible.Size = new Size(66, 23);
-            txtDisponible.TabIndex = 6;
-            txtDisponible.TabStop = false;
-            txtDisponible.TextAlign = HorizontalAlignment.Right;
-            // 
-            // lblCantidad
-            // 
-            lblCantidad.AutoSize = true;
-            lblCantidad.Location = new Point(623, 26);
-            lblCantidad.Name = "lblCantidad";
-            lblCantidad.Size = new Size(55, 15);
-            lblCantidad.TabIndex = 7;
-            lblCantidad.Text = "Cantidad";
-            // 
-            // txtCantidad
-            // 
-            txtCantidad.Enabled = false;
-            txtCantidad.Location = new Point(697, 22);
-            txtCantidad.Margin = new Padding(3, 2, 3, 2);
-            txtCantidad.MaxLength = 6;
-            txtCantidad.Name = "txtCantidad";
-            txtCantidad.Size = new Size(53, 23);
-            txtCantidad.TabIndex = 8;
-            txtCantidad.TextAlign = HorizontalAlignment.Right;
-            txtCantidad.KeyPress += SoloDigitos_KeyPress;
+            groupBox3.Controls.Add(btnAgregar);
+            groupBox3.Controls.Add(txtCantidad);
+            groupBox3.Controls.Add(label10);
+            groupBox3.Controls.Add(txtDisponible);
+            groupBox3.Controls.Add(label9);
+            groupBox3.Controls.Add(txtDescripcion);
+            groupBox3.Controls.Add(label8);
+            groupBox3.Controls.Add(cboSku);
+            groupBox3.Controls.Add(label11);
+            groupBox3.Controls.Add(dgvProductos);
+            groupBox3.Controls.Add(btnQuitarSeleccionado);
+            groupBox3.Location = new Point(14, 233);
+            groupBox3.Margin = new Padding(3, 4, 3, 4);
+            groupBox3.Name = "groupBox3";
+            groupBox3.Padding = new Padding(3, 4, 3, 4);
+            groupBox3.Size = new Size(1072, 373);
+            groupBox3.TabIndex = 2;
+            groupBox3.TabStop = false;
+            groupBox3.Text = "Productos a preparar";
             // 
             // btnAgregar
             // 
-            btnAgregar.Enabled = false;
-            btnAgregar.Location = new Point(792, 21);
-            btnAgregar.Margin = new Padding(3, 2, 3, 2);
+            btnAgregar.Location = new Point(966, 33);
+            btnAgregar.Margin = new Padding(3, 4, 3, 4);
             btnAgregar.Name = "btnAgregar";
-            btnAgregar.Size = new Size(84, 24);
+            btnAgregar.Size = new Size(86, 31);
             btnAgregar.TabIndex = 10;
             btnAgregar.Text = "Agregar";
             btnAgregar.UseVisualStyleBackColor = true;
             btnAgregar.Click += btnAgregar_Click;
             // 
+            // txtCantidad
+            // 
+            txtCantidad.Location = new Point(846, 33);
+            txtCantidad.Margin = new Padding(3, 4, 3, 4);
+            txtCantidad.Name = "txtCantidad";
+            txtCantidad.Size = new Size(91, 27);
+            txtCantidad.TabIndex = 9;
+            txtCantidad.KeyPress += SoloDigitos_KeyPress;
+            // 
+            // label10
+            // 
+            label10.AutoSize = true;
+            label10.Location = new Point(777, 37);
+            label10.Name = "label10";
+            label10.Size = new Size(69, 20);
+            label10.TabIndex = 8;
+            label10.Text = "Cantidad";
+            // 
+            // txtDisponible
+            // 
+            txtDisponible.Location = new Point(669, 33);
+            txtDisponible.Margin = new Padding(3, 4, 3, 4);
+            txtDisponible.Name = "txtDisponible";
+            txtDisponible.ReadOnly = true;
+            txtDisponible.Size = new Size(91, 27);
+            txtDisponible.TabIndex = 7;
+            // 
+            // label9
+            // 
+            label9.AutoSize = true;
+            label9.Location = new Point(589, 37);
+            label9.Name = "label9";
+            label9.Size = new Size(81, 20);
+            label9.TabIndex = 6;
+            label9.Text = "Disponible";
+            // 
+            // txtDescripcion
+            // 
+            txtDescripcion.Location = new Point(326, 33);
+            txtDescripcion.Margin = new Padding(3, 4, 3, 4);
+            txtDescripcion.Name = "txtDescripcion";
+            txtDescripcion.ReadOnly = true;
+            txtDescripcion.Size = new Size(245, 27);
+            txtDescripcion.TabIndex = 5;
+            // 
+            // label8
+            // 
+            label8.AutoSize = true;
+            label8.Location = new Point(240, 37);
+            label8.Name = "label8";
+            label8.Size = new Size(87, 20);
+            label8.TabIndex = 4;
+            label8.Text = "Descripción";
+            // 
+            // cboSku
+            // 
+            cboSku.FormattingEnabled = true;
+            cboSku.Location = new Point(57, 33);
+            cboSku.Margin = new Padding(3, 4, 3, 4);
+            cboSku.Name = "cboSku";
+            cboSku.Size = new Size(165, 28);
+            cboSku.TabIndex = 3;
+            cboSku.SelectedIndexChanged += cboSku_SelectedIndexChanged;
+            // 
+            // label11
+            // 
+            label11.AutoSize = true;
+            label11.Location = new Point(17, 37);
+            label11.Name = "label11";
+            label11.Size = new Size(36, 20);
+            label11.TabIndex = 2;
+            label11.Text = "SKU";
+            // 
             // dgvProductos
             // 
-            dgvProductos.AllowUserToAddRows = false;
-            dgvProductos.AllowUserToDeleteRows = false;
-            dgvProductos.AllowUserToResizeRows = false;
-            dgvProductos.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-            dgvProductos.BackgroundColor = SystemColors.Window;
-            dgvProductos.ColumnHeadersHeight = 29;
-            dgvProductos.Location = new Point(13, 54);
-            dgvProductos.Margin = new Padding(3, 2, 3, 2);
-            dgvProductos.MultiSelect = false;
+            dgvProductos.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dgvProductos.Columns.AddRange(new DataGridViewColumn[] { colSku, colDescripcion, colCantidad });
+            dgvProductos.Location = new Point(17, 80);
+            dgvProductos.Margin = new Padding(3, 4, 3, 4);
             dgvProductos.Name = "dgvProductos";
-            dgvProductos.ReadOnly = true;
-            dgvProductos.RowHeadersVisible = false;
             dgvProductos.RowHeadersWidth = 51;
-            dgvProductos.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dgvProductos.Size = new Size(863, 112);
-            dgvProductos.TabIndex = 11;
+            dgvProductos.RowTemplate.Height = 25;
+            dgvProductos.Size = new Size(1034, 233);
+            dgvProductos.TabIndex = 0;
+            dgvProductos.CellContentClick += dgvProductos_CellContentClick;
             // 
-            // btnQuitar
+            // btnQuitarSeleccionado
             // 
-            btnQuitar.Location = new Point(727, 173);
-            btnQuitar.Margin = new Padding(3, 2, 3, 2);
-            btnQuitar.Name = "btnQuitar";
-            btnQuitar.Size = new Size(149, 26);
-            btnQuitar.TabIndex = 12;
-            btnQuitar.Text = "Quitar seleccionado";
-            btnQuitar.UseVisualStyleBackColor = true;
-            btnQuitar.Click += btnQuitar_Click;
+            btnQuitarSeleccionado.Location = new Point(891, 327);
+            btnQuitarSeleccionado.Margin = new Padding(3, 4, 3, 4);
+            btnQuitarSeleccionado.Name = "btnQuitarSeleccionado";
+            btnQuitarSeleccionado.Size = new Size(160, 33);
+            btnQuitarSeleccionado.TabIndex = 1;
+            btnQuitarSeleccionado.Text = "Quitar seleccionado";
+            btnQuitarSeleccionado.UseVisualStyleBackColor = true;
+            btnQuitarSeleccionado.Click += btnQuitar_Click;
             // 
-            // btnRegistrar
+            // btnRegistrarOp
             // 
-            btnRegistrar.Location = new Point(670, 375);
-            btnRegistrar.Margin = new Padding(3, 2, 3, 2);
-            btnRegistrar.Name = "btnRegistrar";
-            btnRegistrar.Size = new Size(114, 28);
-            btnRegistrar.TabIndex = 3;
-            btnRegistrar.Text = "Registrar OP";
-            btnRegistrar.UseVisualStyleBackColor = true;
-            btnRegistrar.Click += btnRegistrar_Click;
+            btnRegistrarOp.Location = new Point(874, 620);
+            btnRegistrarOp.Margin = new Padding(3, 4, 3, 4);
+            btnRegistrarOp.Name = "btnRegistrarOp";
+            btnRegistrarOp.Size = new Size(109, 40);
+            btnRegistrarOp.TabIndex = 3;
+            btnRegistrarOp.Text = "Registrar OP";
+            btnRegistrarOp.UseVisualStyleBackColor = true;
+            btnRegistrarOp.Click += btnRegistrar_Click;
             // 
             // btnCancelar
             // 
-            btnCancelar.Location = new Point(793, 375);
-            btnCancelar.Margin = new Padding(3, 2, 3, 2);
+            btnCancelar.Location = new Point(994, 620);
+            btnCancelar.Margin = new Padding(3, 4, 3, 4);
             btnCancelar.Name = "btnCancelar";
-            btnCancelar.Size = new Size(107, 28);
+            btnCancelar.Size = new Size(91, 40);
             btnCancelar.TabIndex = 4;
             btnCancelar.Text = "Cancelar";
             btnCancelar.UseVisualStyleBackColor = true;
             btnCancelar.Click += btnCancelar_Click;
             // 
-            // label1
+            // colSku
             // 
-            label1.AutoSize = true;
-            label1.Location = new Point(476, 115);
-            label1.Name = "label1";
-            label1.Size = new Size(88, 15);
-            label1.TabIndex = 0;
-            label1.Text = "Fecha de Retiro";
+            colSku.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            colSku.DataPropertyName = "Sku";
+            colSku.HeaderText = "Sku";
+            colSku.MinimumWidth = 6;
+            colSku.Name = "colSku";
             // 
-            // textBox1
+            // colDescripcion
             // 
-            textBox1.Location = new Point(592, 112);
-            textBox1.Margin = new Padding(3, 2, 3, 2);
-            textBox1.MaxLength = 8;
-            textBox1.Name = "textBox1";
-            textBox1.Size = new Size(176, 23);
-            textBox1.TabIndex = 1;
+            colDescripcion.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            colDescripcion.DataPropertyName = "Descripcion";
+            colDescripcion.HeaderText = "Descripcion";
+            colDescripcion.MinimumWidth = 6;
+            colDescripcion.Name = "colDescripcion";
+            // 
+            // colCantidad
+            // 
+            colCantidad.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            colCantidad.DataPropertyName = "Cantidad";
+            colCantidad.HeaderText = "Cantidad";
+            colCantidad.MinimumWidth = 6;
+            colCantidad.Name = "colCantidad";
             // 
             // RegistrarOrdenPreparacionForm
             // 
-            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(910, 412);
-            Controls.Add(textBox1);
+            ClientSize = new Size(1103, 677);
             Controls.Add(btnCancelar);
-            Controls.Add(label1);
-            Controls.Add(btnRegistrar);
-            Controls.Add(gbProductos);
-            Controls.Add(gbTransportista);
-            Controls.Add(gbDatosOrden);
+            Controls.Add(btnRegistrarOp);
+            Controls.Add(groupBox3);
+            Controls.Add(groupBox2);
+            Controls.Add(groupBox1);
             FormBorderStyle = FormBorderStyle.FixedDialog;
-            Margin = new Padding(3, 2, 3, 2);
+            Margin = new Padding(3, 4, 3, 4);
             MaximizeBox = false;
+            MinimizeBox = false;
             Name = "RegistrarOrdenPreparacionForm";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Registrar Orden de Preparación - Pampazon S.A.";
             FormClosing += RegistrarOrdenPreparacionForm_FormClosing;
             Load += RegistrarOrdenPreparacionForm_Load;
-            gbDatosOrden.ResumeLayout(false);
-            gbDatosOrden.PerformLayout();
-            gbTransportista.ResumeLayout(false);
-            gbTransportista.PerformLayout();
-            gbProductos.ResumeLayout(false);
-            gbProductos.PerformLayout();
+            groupBox1.ResumeLayout(false);
+            groupBox1.PerformLayout();
+            groupBox2.ResumeLayout(false);
+            groupBox2.PerformLayout();
+            groupBox3.ResumeLayout(false);
+            groupBox3.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)dgvProductos).EndInit();
             ResumeLayout(false);
-            PerformLayout();
         }
 
         #endregion
 
-        private GroupBox gbDatosOrden;
-        private Label lblCliente;
+        private GroupBox groupBox1;
+        private Label label1;
         private ComboBox cboCliente;
-        private Label lblCuit;
         private TextBox txtCuit;
-        private Label lblDeposito;
+        private Label label2;
         private ComboBox cboDeposito;
-        private Label lblModalidad;
+        private Label label3;
+        private Label label4;
         private RadioButton rbFulfillment;
         private RadioButton rbPaletCerrado;
-        private GroupBox gbTransportista;
-        private Label lblDni;
+        private GroupBox groupBox2;
+        private Label label5;
         private TextBox txtDni;
-        private GroupBox gbProductos;
-        private Label lblSku;
-        private ComboBox cboSku;
-        private Label lblDescripcion;
-        private TextBox txtDescripcion;
-        private Label lblDisponible;
-        private TextBox txtDisponible;
-        private Label lblCantidad;
-        private TextBox txtCantidad;
-        private Button btnAgregar;
+        private TextBox txtNombreTransportista;
+        private Label label6;
+        private TextBox txtFechaRetiro;
+        private Label label7;
+        private GroupBox groupBox3;
         private DataGridView dgvProductos;
+        private Button btnQuitarSeleccionado;
+        private ComboBox cboSku;
+        private Label label11;
+        private TextBox txtDescripcion;
+        private Label label8;
+        private TextBox txtDisponible;
+        private Label label9;
+        private TextBox txtCantidad;
+        private Label label10;
+        private Button btnAgregar;
+        private Button btnRegistrarOp;
+        private Button btnCancelar;
         private DataGridViewTextBoxColumn colSku;
         private DataGridViewTextBoxColumn colDescripcion;
         private DataGridViewTextBoxColumn colCantidad;
-        private DataGridViewTextBoxColumn colDisponible;
-        private Button btnQuitar;
-        private Button btnRegistrar;
-        private Button btnCancelar;
-        private Label label1;
-        private TextBox textBox1;
-        private TextBox textBox2;
-        private Label label2;
     }
 }

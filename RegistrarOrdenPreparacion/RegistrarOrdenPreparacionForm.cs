@@ -22,7 +22,6 @@ namespace GrupoA.PampazonSA.AdministracionDeposito.RegistrarOrdenPreparacion
             InitializeComponent();
         }
 
-   
         private void RegistrarOrdenPreparacionForm_Load(object sender, EventArgs e)
         {
             _cargando = true;
@@ -87,7 +86,6 @@ namespace GrupoA.PampazonSA.AdministracionDeposito.RegistrarOrdenPreparacion
             _cargando = false;
         }
 
-        
         private void ActualizarProductosDisponibles()
         {
             _cargando = true;
@@ -112,7 +110,6 @@ namespace GrupoA.PampazonSA.AdministracionDeposito.RegistrarOrdenPreparacion
             _cargando = false;
         }
 
-         
         private void cboSku_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (_cargando) return;
@@ -130,27 +127,54 @@ namespace GrupoA.PampazonSA.AdministracionDeposito.RegistrarOrdenPreparacion
             }
         }
 
-         
         private void btnAgregar_Click(object sender, EventArgs e)
         {
-            
             if (cboSku.SelectedItem is not ProductoStock producto)
             {
                 Advertir("Seleccione el SKU del producto.", cboSku);
                 return;
             }
 
-            
+            if (!int.TryParse(txtCantidad.Text, out int cantidad) || cantidad <= 0)
+            {
+                Advertir("Ingrese una cantidad válida mayor a cero.", txtCantidad);
+                return;
+            }
 
+            if (cantidad > producto.Disponible)
+            {
+                Advertir("La cantidad ingresada supera el stock disponible.", txtCantidad);
+                return;
+            }
 
-           
+            // Verificar si el producto ya fue agregado a la grilla
+            var lineaExistente = _lineas.FirstOrDefault(l => l.Sku == producto.Sku);
+            if (lineaExistente != null)
+            {
+                if (lineaExistente.Cantidad + cantidad > producto.Disponible)
+                {
+                    Advertir("La cantidad total acumulada supera el stock disponible.", txtCantidad);
+                    return;
+                }
+                lineaExistente.Cantidad += cantidad;
+                dgvProductos.Refresh();
+            }
+            else
+            {
+                _lineas.Add(new LineaOrden
+                {
+                    Sku = producto.Sku,
+                    Descripcion = producto.Descripcion,
+                    Cantidad = cantidad,
+                    Disponible = producto.Disponible
+                });
+            }
 
             cboSku.SelectedIndex = -1;
             txtCantidad.Clear();
             cboSku.Focus();
         }
 
-        
         private void btnQuitar_Click(object sender, EventArgs e)
         {
             if (dgvProductos.SelectedRows.Count == 0)
@@ -162,34 +186,25 @@ namespace GrupoA.PampazonSA.AdministracionDeposito.RegistrarOrdenPreparacion
             _lineas.RemoveAt(dgvProductos.SelectedRows[0].Index);
         }
 
-       
         private void btnRegistrar_Click(object sender, EventArgs e)
         {
-        
             if (cboCliente.SelectedItem is not ClienteOrden cliente)
             {
                 Advertir("Seleccione el cliente.", cboCliente);
                 return;
             }
 
-      
             if (cboDeposito.SelectedItem is not string deposito)
             {
                 Advertir("Seleccione el depósito.", cboDeposito);
                 return;
             }
 
-         
-      
-
-           
             if (!RegistrarOrdenPreparacionModelo.DniValido(txtDni.Text))
             {
                 Advertir("Ingrese un DNI válido (7 u 8 dígitos).", txtDni);
                 return;
             }
-
-          
 
             if (_lineas.Count == 0)
             {
@@ -197,13 +212,8 @@ namespace GrupoA.PampazonSA.AdministracionDeposito.RegistrarOrdenPreparacion
                 return;
             }
 
-          
-
-            
-
             LimpiarFormulario();
         }
-
 
         private void btnCancelar_Click(object sender, EventArgs e)
         {
@@ -220,6 +230,7 @@ namespace GrupoA.PampazonSA.AdministracionDeposito.RegistrarOrdenPreparacion
             if (respuesta == DialogResult.No)
                 e.Cancel = true;     // se queda en la pantalla con sus datos
         }
+
         private void SoloDigitos_KeyPress(object sender, KeyPressEventArgs e)
         {
             if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
@@ -231,7 +242,7 @@ namespace GrupoA.PampazonSA.AdministracionDeposito.RegistrarOrdenPreparacion
             || cboDeposito.SelectedIndex >= 0
             || rbFulfillment.Checked
             || rbPaletCerrado.Checked
-            || !string.IsNullOrWhiteSpace(txtDni.Text) 
+            || !string.IsNullOrWhiteSpace(txtDni.Text)
             || _lineas.Count > 0;
 
         private void LimpiarFormulario()
@@ -246,7 +257,6 @@ namespace GrupoA.PampazonSA.AdministracionDeposito.RegistrarOrdenPreparacion
             rbFulfillment.Checked = false;
             rbPaletCerrado.Checked = false;
             txtDni.Clear();
-          //  txtPatente.Clear();
             _lineas.Clear();
 
             _cargando = false;
@@ -261,6 +271,20 @@ namespace GrupoA.PampazonSA.AdministracionDeposito.RegistrarOrdenPreparacion
         }
 
         private void lblDni_Click(object sender, EventArgs e)
+        {
+        }
+
+        private void btnQuitarSeleccionado_Click(object sender, EventArgs e)
+        {
+            btnQuitar_Click(sender, e);
+        }
+
+        private void btnRegistrarOp_Click(object sender, EventArgs e)
+        {
+            btnRegistrar_Click(sender, e);
+        }
+
+        private void dgvProductos_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
 
         }

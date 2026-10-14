@@ -2,15 +2,8 @@
 {
     partial class GenerarRemitoDespacharForm
     {
-        /// <summary>
-        /// Required designer variable.
-        /// </summary>
         private System.ComponentModel.IContainer components = null;
 
-        /// <summary>
-        /// Clean up any resources being used.
-        /// </summary>
-        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
         protected override void Dispose(bool disposing)
         {
             if (disposing && (components != null))
@@ -22,10 +15,6 @@
 
         #region Windows Form Designer generated code
 
-        /// <summary>
-        /// Required method for Designer support - do not modify
-        /// the contents of this method with the code editor.
-        /// </summary>
         private void InitializeComponent()
         {
             label1 = new Label();
@@ -53,10 +42,7 @@
             groupBox4 = new GroupBox();
             button5 = new Button();
             listView3 = new ListView();
-            columnHeader7 = new ColumnHeader();
-            columnHeader9 = new ColumnHeader();
-            columnHeader10 = new ColumnHeader();
-            columnHeader11 = new ColumnHeader();
+            columnHeaderRemito = new ColumnHeader();
             button6 = new Button();
             groupBox1.SuspendLayout();
             groupBox2.SuspendLayout();
@@ -207,6 +193,7 @@
             // columnHeader4
             // 
             columnHeader4.Text = "Bultos";
+            columnHeader4.Width = 80;
             // 
             // groupBox3
             // 
@@ -255,6 +242,7 @@
             // columnHeader8
             // 
             columnHeader8.Text = "Bultos";
+            columnHeader8.Width = 80;
             // 
             // groupBox4
             // 
@@ -281,7 +269,7 @@
             // 
             // listView3
             // 
-            listView3.Columns.AddRange(new ColumnHeader[] { columnHeader7, columnHeader9, columnHeader10, columnHeader11 });
+            listView3.Columns.AddRange(new ColumnHeader[] { columnHeaderRemito });
             listView3.Location = new Point(5, 26);
             listView3.Margin = new Padding(3, 2, 3, 2);
             listView3.Name = "listView3";
@@ -290,23 +278,10 @@
             listView3.UseCompatibleStateImageBehavior = false;
             listView3.View = View.Details;
             // 
-            // columnHeader7
+            // columnHeaderRemito
             // 
-            columnHeader7.Text = "N° Remito";
-            columnHeader7.Width = 120;
-            // 
-            // columnHeader9
-            // 
-            columnHeader9.Text = "OE incluidas";
-            columnHeader9.Width = 100;
-            // 
-            // columnHeader10
-            // 
-            columnHeader10.Text = "Bultos";
-            // 
-            // columnHeader11
-            // 
-            columnHeader11.Text = "Cliente";
+            columnHeaderRemito.Text = "N° Remito";
+            columnHeaderRemito.Width = 775;
             // 
             // button6
             // 
@@ -330,9 +305,13 @@
             Controls.Add(groupBox1);
             Controls.Add(label2);
             Controls.Add(label1);
+            FormBorderStyle = FormBorderStyle.FixedDialog;
+            MaximizeBox = false;
+            MinimizeBox = false;
             Margin = new Padding(3, 2, 3, 2);
             Name = "GenerarRemitoDespacharForm";
-            Text = "GenerarRemitoDespacharForm";
+            StartPosition = FormStartPosition.CenterScreen;
+            Text = "Generar remito y despachar";
             Load += GenerarRemitoDespacharForm_Load;
             groupBox1.ResumeLayout(false);
             groupBox1.PerformLayout();
@@ -370,10 +349,7 @@
         private GroupBox groupBox4;
         private Button button5;
         private ListView listView3;
-        private ColumnHeader columnHeader7;
-        private ColumnHeader columnHeader9;
-        private ColumnHeader columnHeader10;
-        private ColumnHeader columnHeader11;
+        private ColumnHeader columnHeaderRemito;
         private Button button6;
     }
 }
