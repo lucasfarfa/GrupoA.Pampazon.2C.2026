@@ -47,10 +47,7 @@ namespace GrupoA.PampazonSA.AdministracionDeposito.GenerarOrdenEntrega
                 lvPendientes.Items.Add(item);
             }
 
-            lblInstruccion.Text = lvPendientes.Items.Count == 0
-                ? "No hay órdenes preparadas pendientes de orden de entrega."
-                : "Marque los grupos de OP para los que desea generar una orden de entrega.";
-
+           
             ActualizarBotonGenerar();
         }
 

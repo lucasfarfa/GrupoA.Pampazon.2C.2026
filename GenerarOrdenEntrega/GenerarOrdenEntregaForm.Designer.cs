@@ -21,7 +21,6 @@
             colPenTransportista = new ColumnHeader();
             colPenFechaRetiro = new ColumnHeader();
             colPenCantidadOP = new ColumnHeader();
-            lblInstruccion = new Label();
             btnGenerarOrden = new Button();
             btnCerrar = new Button();
             gbPendientes.SuspendLayout();
@@ -30,13 +29,14 @@
             // gbPendientes
             // 
             gbPendientes.Controls.Add(lvPendientes);
-            gbPendientes.Controls.Add(lblInstruccion);
-            gbPendientes.Location = new Point(12, 12);
+            gbPendientes.Location = new Point(14, 16);
+            gbPendientes.Margin = new Padding(3, 4, 3, 4);
             gbPendientes.Name = "gbPendientes";
-            gbPendientes.Size = new Size(676, 235);
+            gbPendientes.Padding = new Padding(3, 4, 3, 4);
+            gbPendientes.Size = new Size(773, 313);
             gbPendientes.TabIndex = 0;
             gbPendientes.TabStop = false;
-            gbPendientes.Text = "Órdenes preparadas sin orden de entrega (por cliente, transportista y fecha de retiro)";
+            gbPendientes.Text = "Órdenes preparadas sin orden de entrega";
             // 
             // lvPendientes
             // 
@@ -44,10 +44,10 @@
             lvPendientes.Columns.AddRange(new ColumnHeader[] { colPenCliente, colPenTransportista, colPenFechaRetiro, colPenCantidadOP });
             lvPendientes.FullRowSelect = true;
             lvPendientes.GridLines = true;
-            lvPendientes.HideSelection = false;
-            lvPendientes.Location = new Point(12, 24);
+            lvPendientes.Location = new Point(14, 32);
+            lvPendientes.Margin = new Padding(3, 4, 3, 4);
             lvPendientes.Name = "lvPendientes";
-            lvPendientes.Size = new Size(652, 160);
+            lvPendientes.Size = new Size(745, 262);
             lvPendientes.TabIndex = 0;
             lvPendientes.UseCompatibleStateImageBehavior = false;
             lvPendientes.View = View.Details;
@@ -73,21 +73,13 @@
             colPenCantidadOP.Text = "Cantidad OP";
             colPenCantidadOP.Width = 120;
             // 
-            // lblInstruccion
-            // 
-            lblInstruccion.AutoSize = true;
-            lblInstruccion.Location = new Point(12, 198);
-            lblInstruccion.Name = "lblInstruccion";
-            lblInstruccion.Size = new Size(330, 15);
-            lblInstruccion.TabIndex = 1;
-            lblInstruccion.Text = "Marque los grupos de OP para los que desea generar una orden.";
-            // 
             // btnGenerarOrden
             // 
             btnGenerarOrden.Enabled = false;
-            btnGenerarOrden.Location = new Point(500, 258);
+            btnGenerarOrden.Location = new Point(452, 351);
+            btnGenerarOrden.Margin = new Padding(3, 4, 3, 4);
             btnGenerarOrden.Name = "btnGenerarOrden";
-            btnGenerarOrden.Size = new Size(188, 32);
+            btnGenerarOrden.Size = new Size(215, 43);
             btnGenerarOrden.TabIndex = 1;
             btnGenerarOrden.Text = "Generar Orden de Entrega";
             btnGenerarOrden.UseVisualStyleBackColor = true;
@@ -95,9 +87,10 @@
             // 
             // btnCerrar
             // 
-            btnCerrar.Location = new Point(12, 258);
+            btnCerrar.Location = new Point(673, 351);
+            btnCerrar.Margin = new Padding(3, 4, 3, 4);
             btnCerrar.Name = "btnCerrar";
-            btnCerrar.Size = new Size(100, 32);
+            btnCerrar.Size = new Size(114, 43);
             btnCerrar.TabIndex = 2;
             btnCerrar.Text = "Cerrar";
             btnCerrar.UseVisualStyleBackColor = true;
@@ -105,13 +98,14 @@
             // 
             // GenerarOrdenEntregaForm
             // 
-            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(700, 305);
+            ClientSize = new Size(800, 407);
             Controls.Add(btnCerrar);
             Controls.Add(btnGenerarOrden);
             Controls.Add(gbPendientes);
             FormBorderStyle = FormBorderStyle.FixedDialog;
+            Margin = new Padding(3, 4, 3, 4);
             MaximizeBox = false;
             MinimizeBox = false;
             Name = "GenerarOrdenEntregaForm";
@@ -119,7 +113,6 @@
             Text = "Generar Orden de Entrega";
             Load += GenerarOrdenEntregaForm_Load;
             gbPendientes.ResumeLayout(false);
-            gbPendientes.PerformLayout();
             ResumeLayout(false);
         }
 
@@ -130,7 +123,6 @@
         private ColumnHeader colPenTransportista;
         private ColumnHeader colPenFechaRetiro;
         private ColumnHeader colPenCantidadOP;
-        private Label lblInstruccion;
         private Button btnGenerarOrden;
         private Button btnCerrar;
     }

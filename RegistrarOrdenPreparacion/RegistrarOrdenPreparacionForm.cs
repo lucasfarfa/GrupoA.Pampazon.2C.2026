@@ -33,7 +33,7 @@ namespace GrupoA.PampazonSA.AdministracionDeposito.RegistrarOrdenPreparacion
             cboDeposito.DataSource = _modelo.ObtenerDepositos();
             cboDeposito.SelectedIndex = -1;
 
-            dgvProductos.DataSource = _lineas;
+          
 
             _cargando = false;
             ActualizarProductosDisponibles();
@@ -103,7 +103,7 @@ namespace GrupoA.PampazonSA.AdministracionDeposito.RegistrarOrdenPreparacion
                 cboSku.Enabled = txtCantidad.Enabled = btnAgregar.Enabled = false;
             }
 
-            txtDescripcion.Clear();
+            
             txtDisponible.Clear();
             txtCantidad.Clear();
 
@@ -116,13 +116,13 @@ namespace GrupoA.PampazonSA.AdministracionDeposito.RegistrarOrdenPreparacion
 
             if (cboSku.SelectedItem is ProductoStock producto)
             {
-                txtDescripcion.Text = producto.Descripcion;
+                
                 txtDisponible.Text = producto.Disponible.ToString();
                 txtCantidad.Focus();
             }
             else
             {
-                txtDescripcion.Clear();
+                
                 txtDisponible.Clear();
             }
         }
@@ -157,7 +157,7 @@ namespace GrupoA.PampazonSA.AdministracionDeposito.RegistrarOrdenPreparacion
                     return;
                 }
                 lineaExistente.Cantidad += cantidad;
-                dgvProductos.Refresh();
+               
             }
             else
             {
@@ -175,16 +175,7 @@ namespace GrupoA.PampazonSA.AdministracionDeposito.RegistrarOrdenPreparacion
             cboSku.Focus();
         }
 
-        private void btnQuitar_Click(object sender, EventArgs e)
-        {
-            if (dgvProductos.SelectedRows.Count == 0)
-            {
-                Advertir("Seleccione en la grilla el producto que desea quitar.", dgvProductos);
-                return;
-            }
-
-            _lineas.RemoveAt(dgvProductos.SelectedRows[0].Index);
-        }
+        
 
         private void btnRegistrar_Click(object sender, EventArgs e)
         {
@@ -274,10 +265,7 @@ namespace GrupoA.PampazonSA.AdministracionDeposito.RegistrarOrdenPreparacion
         {
         }
 
-        private void btnQuitarSeleccionado_Click(object sender, EventArgs e)
-        {
-            btnQuitar_Click(sender, e);
-        }
+       
 
         private void btnRegistrarOp_Click(object sender, EventArgs e)
         {
@@ -285,6 +273,11 @@ namespace GrupoA.PampazonSA.AdministracionDeposito.RegistrarOrdenPreparacion
         }
 
         private void dgvProductos_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
+        private void listView1_SelectedIndexChanged(object sender, EventArgs e)
         {
 
         }

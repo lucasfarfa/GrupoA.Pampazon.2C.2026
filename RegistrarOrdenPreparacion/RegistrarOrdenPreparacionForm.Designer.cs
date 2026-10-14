@@ -40,21 +40,17 @@
             label10 = new Label();
             txtDisponible = new TextBox();
             label9 = new Label();
-            txtDescripcion = new TextBox();
-            label8 = new Label();
             cboSku = new ComboBox();
             label11 = new Label();
-            dgvProductos = new DataGridView();
             btnQuitarSeleccionado = new Button();
             btnRegistrarOp = new Button();
             btnCancelar = new Button();
-            colSku = new DataGridViewTextBoxColumn();
-            colDescripcion = new DataGridViewTextBoxColumn();
-            colCantidad = new DataGridViewTextBoxColumn();
+            listView1 = new ListView();
+            columnHeader1 = new ColumnHeader();
+            columnHeader3 = new ColumnHeader();
             groupBox1.SuspendLayout();
             groupBox2.SuspendLayout();
             groupBox3.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)dgvProductos).BeginInit();
             SuspendLayout();
             // 
             // groupBox1
@@ -72,7 +68,7 @@
             groupBox1.Margin = new Padding(3, 4, 3, 4);
             groupBox1.Name = "groupBox1";
             groupBox1.Padding = new Padding(3, 4, 3, 4);
-            groupBox1.Size = new Size(571, 200);
+            groupBox1.Size = new Size(447, 200);
             groupBox1.TabIndex = 0;
             groupBox1.TabStop = false;
             groupBox1.Text = "Datos de la orden";
@@ -80,7 +76,7 @@
             // rbPaletCerrado
             // 
             rbPaletCerrado.AutoSize = true;
-            rbPaletCerrado.Location = new Point(303, 153);
+            rbPaletCerrado.Location = new Point(302, 149);
             rbPaletCerrado.Margin = new Padding(3, 4, 3, 4);
             rbPaletCerrado.Name = "rbPaletCerrado";
             rbPaletCerrado.Size = new Size(117, 24);
@@ -92,7 +88,7 @@
             // rbFulfillment
             // 
             rbFulfillment.AutoSize = true;
-            rbFulfillment.Location = new Point(171, 153);
+            rbFulfillment.Location = new Point(171, 149);
             rbFulfillment.Margin = new Padding(3, 4, 3, 4);
             rbFulfillment.Name = "rbFulfillment";
             rbFulfillment.Size = new Size(100, 24);
@@ -116,7 +112,7 @@
             cboDeposito.Location = new Point(171, 107);
             cboDeposito.Margin = new Padding(3, 4, 3, 4);
             cboDeposito.Name = "cboDeposito";
-            cboDeposito.Size = new Size(377, 28);
+            cboDeposito.Size = new Size(248, 28);
             cboDeposito.TabIndex = 5;
             cboDeposito.SelectedIndexChanged += cboDeposito_SelectedIndexChanged;
             // 
@@ -135,7 +131,7 @@
             txtCuit.Margin = new Padding(3, 4, 3, 4);
             txtCuit.Name = "txtCuit";
             txtCuit.ReadOnly = true;
-            txtCuit.Size = new Size(377, 27);
+            txtCuit.Size = new Size(248, 27);
             txtCuit.TabIndex = 3;
             // 
             // label2
@@ -153,7 +149,7 @@
             cboCliente.Location = new Point(171, 27);
             cboCliente.Margin = new Padding(3, 4, 3, 4);
             cboCliente.Name = "cboCliente";
-            cboCliente.Size = new Size(377, 28);
+            cboCliente.Size = new Size(248, 28);
             cboCliente.TabIndex = 1;
             cboCliente.SelectedIndexChanged += cboCliente_SelectedIndexChanged;
             // 
@@ -168,33 +164,31 @@
             // 
             // groupBox2
             // 
-            groupBox2.Controls.Add(txtFechaRetiro);
-            groupBox2.Controls.Add(label7);
             groupBox2.Controls.Add(txtNombreTransportista);
             groupBox2.Controls.Add(label6);
             groupBox2.Controls.Add(txtDni);
             groupBox2.Controls.Add(label5);
-            groupBox2.Location = new Point(606, 16);
+            groupBox2.Location = new Point(488, 16);
             groupBox2.Margin = new Padding(3, 4, 3, 4);
             groupBox2.Name = "groupBox2";
             groupBox2.Padding = new Padding(3, 4, 3, 4);
-            groupBox2.Size = new Size(480, 200);
+            groupBox2.Size = new Size(419, 135);
             groupBox2.TabIndex = 1;
             groupBox2.TabStop = false;
             groupBox2.Text = "Transportista autorizado";
             // 
             // txtFechaRetiro
             // 
-            txtFechaRetiro.Location = new Point(137, 120);
+            txtFechaRetiro.Location = new Point(625, 174);
             txtFechaRetiro.Margin = new Padding(3, 4, 3, 4);
             txtFechaRetiro.Name = "txtFechaRetiro";
-            txtFechaRetiro.Size = new Size(314, 27);
+            txtFechaRetiro.Size = new Size(272, 27);
             txtFechaRetiro.TabIndex = 5;
             // 
             // label7
             // 
             label7.AutoSize = true;
-            label7.Location = new Point(17, 124);
+            label7.Location = new Point(488, 181);
             label7.Name = "label7";
             label7.Size = new Size(112, 20);
             label7.TabIndex = 4;
@@ -205,7 +199,7 @@
             txtNombreTransportista.Location = new Point(137, 73);
             txtNombreTransportista.Margin = new Padding(3, 4, 3, 4);
             txtNombreTransportista.Name = "txtNombreTransportista";
-            txtNombreTransportista.Size = new Size(314, 27);
+            txtNombreTransportista.Size = new Size(272, 27);
             txtNombreTransportista.TabIndex = 3;
             // 
             // label6
@@ -222,7 +216,7 @@
             txtDni.Location = new Point(137, 27);
             txtDni.Margin = new Padding(3, 4, 3, 4);
             txtDni.Name = "txtDni";
-            txtDni.Size = new Size(314, 27);
+            txtDni.Size = new Size(272, 27);
             txtDni.TabIndex = 1;
             txtDni.KeyPress += SoloDigitos_KeyPress;
             // 
@@ -237,32 +231,30 @@
             // 
             // groupBox3
             // 
+            groupBox3.Controls.Add(listView1);
             groupBox3.Controls.Add(btnAgregar);
             groupBox3.Controls.Add(txtCantidad);
             groupBox3.Controls.Add(label10);
             groupBox3.Controls.Add(txtDisponible);
             groupBox3.Controls.Add(label9);
-            groupBox3.Controls.Add(txtDescripcion);
-            groupBox3.Controls.Add(label8);
             groupBox3.Controls.Add(cboSku);
             groupBox3.Controls.Add(label11);
-            groupBox3.Controls.Add(dgvProductos);
             groupBox3.Controls.Add(btnQuitarSeleccionado);
             groupBox3.Location = new Point(14, 233);
             groupBox3.Margin = new Padding(3, 4, 3, 4);
             groupBox3.Name = "groupBox3";
             groupBox3.Padding = new Padding(3, 4, 3, 4);
-            groupBox3.Size = new Size(1072, 373);
+            groupBox3.Size = new Size(893, 373);
             groupBox3.TabIndex = 2;
             groupBox3.TabStop = false;
             groupBox3.Text = "Productos a preparar";
             // 
             // btnAgregar
             // 
-            btnAgregar.Location = new Point(966, 33);
+            btnAgregar.Location = new Point(767, 28);
             btnAgregar.Margin = new Padding(3, 4, 3, 4);
             btnAgregar.Name = "btnAgregar";
-            btnAgregar.Size = new Size(86, 31);
+            btnAgregar.Size = new Size(116, 36);
             btnAgregar.TabIndex = 10;
             btnAgregar.Text = "Agregar";
             btnAgregar.UseVisualStyleBackColor = true;
@@ -270,7 +262,7 @@
             // 
             // txtCantidad
             // 
-            txtCantidad.Location = new Point(846, 33);
+            txtCantidad.Location = new Point(559, 34);
             txtCantidad.Margin = new Padding(3, 4, 3, 4);
             txtCantidad.Name = "txtCantidad";
             txtCantidad.Size = new Size(91, 27);
@@ -280,7 +272,7 @@
             // label10
             // 
             label10.AutoSize = true;
-            label10.Location = new Point(777, 37);
+            label10.Location = new Point(490, 38);
             label10.Name = "label10";
             label10.Size = new Size(69, 20);
             label10.TabIndex = 8;
@@ -288,7 +280,7 @@
             // 
             // txtDisponible
             // 
-            txtDisponible.Location = new Point(669, 33);
+            txtDisponible.Location = new Point(365, 34);
             txtDisponible.Margin = new Padding(3, 4, 3, 4);
             txtDisponible.Name = "txtDisponible";
             txtDisponible.ReadOnly = true;
@@ -298,29 +290,11 @@
             // label9
             // 
             label9.AutoSize = true;
-            label9.Location = new Point(589, 37);
+            label9.Location = new Point(278, 38);
             label9.Name = "label9";
             label9.Size = new Size(81, 20);
             label9.TabIndex = 6;
             label9.Text = "Disponible";
-            // 
-            // txtDescripcion
-            // 
-            txtDescripcion.Location = new Point(326, 33);
-            txtDescripcion.Margin = new Padding(3, 4, 3, 4);
-            txtDescripcion.Name = "txtDescripcion";
-            txtDescripcion.ReadOnly = true;
-            txtDescripcion.Size = new Size(245, 27);
-            txtDescripcion.TabIndex = 5;
-            // 
-            // label8
-            // 
-            label8.AutoSize = true;
-            label8.Location = new Point(240, 37);
-            label8.Name = "label8";
-            label8.Size = new Size(87, 20);
-            label8.TabIndex = 4;
-            label8.Text = "Descripción";
             // 
             // cboSku
             // 
@@ -341,36 +315,23 @@
             label11.TabIndex = 2;
             label11.Text = "SKU";
             // 
-            // dgvProductos
-            // 
-            dgvProductos.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dgvProductos.Columns.AddRange(new DataGridViewColumn[] { colSku, colDescripcion, colCantidad });
-            dgvProductos.Location = new Point(17, 80);
-            dgvProductos.Margin = new Padding(3, 4, 3, 4);
-            dgvProductos.Name = "dgvProductos";
-            dgvProductos.RowHeadersWidth = 51;
-            dgvProductos.RowTemplate.Height = 25;
-            dgvProductos.Size = new Size(1034, 233);
-            dgvProductos.TabIndex = 0;
-            dgvProductos.CellContentClick += dgvProductos_CellContentClick;
-            // 
             // btnQuitarSeleccionado
             // 
-            btnQuitarSeleccionado.Location = new Point(891, 327);
+            btnQuitarSeleccionado.Location = new Point(723, 332);
             btnQuitarSeleccionado.Margin = new Padding(3, 4, 3, 4);
             btnQuitarSeleccionado.Name = "btnQuitarSeleccionado";
             btnQuitarSeleccionado.Size = new Size(160, 33);
             btnQuitarSeleccionado.TabIndex = 1;
             btnQuitarSeleccionado.Text = "Quitar seleccionado";
             btnQuitarSeleccionado.UseVisualStyleBackColor = true;
-            btnQuitarSeleccionado.Click += btnQuitar_Click;
+            
             // 
             // btnRegistrarOp
             // 
-            btnRegistrarOp.Location = new Point(874, 620);
+            btnRegistrarOp.Location = new Point(613, 624);
             btnRegistrarOp.Margin = new Padding(3, 4, 3, 4);
             btnRegistrarOp.Name = "btnRegistrarOp";
-            btnRegistrarOp.Size = new Size(109, 40);
+            btnRegistrarOp.Size = new Size(197, 40);
             btnRegistrarOp.TabIndex = 3;
             btnRegistrarOp.Text = "Registrar OP";
             btnRegistrarOp.UseVisualStyleBackColor = true;
@@ -378,7 +339,7 @@
             // 
             // btnCancelar
             // 
-            btnCancelar.Location = new Point(994, 620);
+            btnCancelar.Location = new Point(816, 624);
             btnCancelar.Margin = new Padding(3, 4, 3, 4);
             btnCancelar.Name = "btnCancelar";
             btnCancelar.Size = new Size(91, 40);
@@ -387,36 +348,35 @@
             btnCancelar.UseVisualStyleBackColor = true;
             btnCancelar.Click += btnCancelar_Click;
             // 
-            // colSku
+            // listView1
             // 
-            colSku.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-            colSku.DataPropertyName = "Sku";
-            colSku.HeaderText = "Sku";
-            colSku.MinimumWidth = 6;
-            colSku.Name = "colSku";
+            listView1.Columns.AddRange(new ColumnHeader[] { columnHeader1, columnHeader3 });
+            listView1.Location = new Point(18, 85);
+            listView1.Name = "listView1";
+            listView1.Size = new Size(865, 235);
+            listView1.TabIndex = 11;
+            listView1.UseCompatibleStateImageBehavior = false;
+            listView1.View = View.Details;
+            listView1.SelectedIndexChanged += listView1_SelectedIndexChanged;
             // 
-            // colDescripcion
+            // columnHeader1
             // 
-            colDescripcion.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-            colDescripcion.DataPropertyName = "Descripcion";
-            colDescripcion.HeaderText = "Descripcion";
-            colDescripcion.MinimumWidth = 6;
-            colDescripcion.Name = "colDescripcion";
+            columnHeader1.Text = "SKU";
+            columnHeader1.Width = 100;
             // 
-            // colCantidad
+            // columnHeader3
             // 
-            colCantidad.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-            colCantidad.DataPropertyName = "Cantidad";
-            colCantidad.HeaderText = "Cantidad";
-            colCantidad.MinimumWidth = 6;
-            colCantidad.Name = "colCantidad";
+            columnHeader3.Text = "Cantidad";
+            columnHeader3.Width = 120;
             // 
             // RegistrarOrdenPreparacionForm
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1103, 677);
+            ClientSize = new Size(929, 677);
+            Controls.Add(txtFechaRetiro);
             Controls.Add(btnCancelar);
+            Controls.Add(label7);
             Controls.Add(btnRegistrarOp);
             Controls.Add(groupBox3);
             Controls.Add(groupBox2);
@@ -436,8 +396,8 @@
             groupBox2.PerformLayout();
             groupBox3.ResumeLayout(false);
             groupBox3.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)dgvProductos).EndInit();
             ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion
@@ -460,12 +420,9 @@
         private TextBox txtFechaRetiro;
         private Label label7;
         private GroupBox groupBox3;
-        private DataGridView dgvProductos;
         private Button btnQuitarSeleccionado;
         private ComboBox cboSku;
         private Label label11;
-        private TextBox txtDescripcion;
-        private Label label8;
         private TextBox txtDisponible;
         private Label label9;
         private TextBox txtCantidad;
@@ -473,8 +430,8 @@
         private Button btnAgregar;
         private Button btnRegistrarOp;
         private Button btnCancelar;
-        private DataGridViewTextBoxColumn colSku;
-        private DataGridViewTextBoxColumn colDescripcion;
-        private DataGridViewTextBoxColumn colCantidad;
+        private ListView listView1;
+        private ColumnHeader columnHeader1;
+        private ColumnHeader columnHeader3;
     }
 }
