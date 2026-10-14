@@ -1,3 +1,4 @@
+using GrupoA.PampazonSA.AdministracionDeposito.CU04EmpaquetarProductos;
 using GrupoA.PampazonSA.AdministracionDeposito.GenerarOrdenEntrega;
 using GrupoA.PampazonSA.AdministracionDeposito.GenerarOrdenSeleccion;
 using GrupoA.PampazonSA.AdministracionDeposito.PrepararProductos;
@@ -19,7 +20,7 @@ namespace GrupoA.PampazonSA.AdministracionDeposito
 
             // Inicia el menú principal por defecto
             //Application.Run(new MenuPrincipalForm());
-            Application.Run(new GenerarOrdenSeleccionForm());
+            Application.Run(new EmpaquetarProductosForm());
 
 
         }
