@@ -28,6 +28,8 @@ namespace OrdenesPreparacion
             GenerarOrdenEntregaBtn = new Button();
             GenerarRemitoDespachar = new Button();
             button1 = new Button();
+            cboDeposito = new ComboBox();
+            label3 = new Label();
             SuspendLayout();
             // 
             // RegistrarOrdenPrepracionBtn
@@ -43,7 +45,7 @@ namespace OrdenesPreparacion
             // 
             // GenerarOrdenSeleccionBtn
             // 
-            GenerarOrdenSeleccionBtn.BackColor = Color.FromArgb(255, 255, 192);
+            GenerarOrdenSeleccionBtn.BackColor = Color.FromArgb(192, 255, 192);
             GenerarOrdenSeleccionBtn.Location = new Point(88, 136);
             GenerarOrdenSeleccionBtn.Name = "GenerarOrdenSeleccionBtn";
             GenerarOrdenSeleccionBtn.Size = new Size(324, 46);
@@ -63,7 +65,7 @@ namespace OrdenesPreparacion
             // 
             // EmpaquetarBtn
             // 
-            EmpaquetarBtn.BackColor = Color.FromArgb(255, 255, 192);
+            EmpaquetarBtn.BackColor = Color.FromArgb(192, 255, 192);
             EmpaquetarBtn.Location = new Point(88, 260);
             EmpaquetarBtn.Name = "EmpaquetarBtn";
             EmpaquetarBtn.Size = new Size(324, 46);
@@ -73,7 +75,7 @@ namespace OrdenesPreparacion
             // 
             // GenerarOrdenEntregaBtn
             // 
-            GenerarOrdenEntregaBtn.BackColor = Color.FromArgb(255, 192, 192);
+            GenerarOrdenEntregaBtn.BackColor = Color.FromArgb(192, 255, 192);
             GenerarOrdenEntregaBtn.Location = new Point(88, 326);
             GenerarOrdenEntregaBtn.Name = "GenerarOrdenEntregaBtn";
             GenerarOrdenEntregaBtn.Size = new Size(324, 46);
@@ -103,11 +105,30 @@ namespace OrdenesPreparacion
             button1.Text = "Recepcionar Orden de Entrega";
             button1.UseVisualStyleBackColor = false;
             // 
+            // cboDeposito
+            // 
+            cboDeposito.FormattingEnabled = true;
+            cboDeposito.Location = new Point(204, 24);
+            cboDeposito.Name = "cboDeposito";
+            cboDeposito.Size = new Size(218, 25);
+            cboDeposito.TabIndex = 11;
+            // 
+            // label3
+            // 
+            label3.AutoSize = true;
+            label3.Location = new Point(69, 27);
+            label3.Name = "label3";
+            label3.Size = new Size(64, 19);
+            label3.TabIndex = 10;
+            label3.Text = "Depósito";
+            // 
             // MenuPrincipalForm
             // 
-            AutoScaleDimensions = new SizeF(9F, 23F);
+            AutoScaleDimensions = new SizeF(7F, 17F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(506, 554);
+            Controls.Add(cboDeposito);
+            Controls.Add(label3);
             Controls.Add(button1);
             Controls.Add(GenerarRemitoDespachar);
             Controls.Add(GenerarOrdenEntregaBtn);
@@ -123,6 +144,7 @@ namespace OrdenesPreparacion
             Text = "Administración de Depósito";
             Load += MenuPrincipalForm_Load;
             ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion
@@ -133,5 +155,7 @@ namespace OrdenesPreparacion
         private System.Windows.Forms.Button GenerarOrdenEntregaBtn;
         private System.Windows.Forms.Button GenerarRemitoDespachar;
         private Button button1;
+        private ComboBox cboDeposito;
+        private Label label3;
     }
 }

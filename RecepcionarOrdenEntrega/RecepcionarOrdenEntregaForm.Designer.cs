@@ -45,9 +45,11 @@
             // 
             groupBox1.Controls.Add(lvOEEmitidas);
             groupBox1.Controls.Add(btnConfirmar);
-            groupBox1.Location = new Point(11, 12);
+            groupBox1.Location = new Point(10, 9);
+            groupBox1.Margin = new Padding(3, 2, 3, 2);
             groupBox1.Name = "groupBox1";
-            groupBox1.Size = new Size(776, 505);
+            groupBox1.Padding = new Padding(3, 2, 3, 2);
+            groupBox1.Size = new Size(679, 379);
             groupBox1.TabIndex = 0;
             groupBox1.TabStop = false;
             groupBox1.Text = "Órdenes de Entrega emitidas";
@@ -55,9 +57,10 @@
             // lvOEEmitidas
             // 
             lvOEEmitidas.Columns.AddRange(new ColumnHeader[] { NOECol, TransportistaCol, ClienteCol, EmisionCol, CantOPCol });
-            lvOEEmitidas.Location = new Point(11, 27);
+            lvOEEmitidas.Location = new Point(10, 20);
+            lvOEEmitidas.Margin = new Padding(3, 2, 3, 2);
             lvOEEmitidas.Name = "lvOEEmitidas";
-            lvOEEmitidas.Size = new Size(750, 417);
+            lvOEEmitidas.Size = new Size(657, 314);
             lvOEEmitidas.TabIndex = 0;
             lvOEEmitidas.UseCompatibleStateImageBehavior = false;
             lvOEEmitidas.View = View.Details;
@@ -89,39 +92,43 @@
             // 
             // btnConfirmar
             // 
-            btnConfirmar.Location = new Point(11, 450);
+            btnConfirmar.Location = new Point(10, 338);
+            btnConfirmar.Margin = new Padding(3, 2, 3, 2);
             btnConfirmar.Name = "btnConfirmar";
-            btnConfirmar.Size = new Size(750, 43);
+            btnConfirmar.Size = new Size(656, 32);
             btnConfirmar.TabIndex = 2;
             btnConfirmar.Text = "Confirmar recepción en Despacho";
             btnConfirmar.UseVisualStyleBackColor = true;
             // 
             // btnCancelar
             // 
-            btnCancelar.Location = new Point(677, 523);
+            btnCancelar.Location = new Point(592, 392);
+            btnCancelar.Margin = new Padding(3, 2, 3, 2);
             btnCancelar.Name = "btnCancelar";
-            btnCancelar.Size = new Size(112, 43);
+            btnCancelar.Size = new Size(98, 32);
             btnCancelar.TabIndex = 5;
             btnCancelar.Text = "Cancelar";
             btnCancelar.UseVisualStyleBackColor = true;
             // 
             // btnActualizar
             // 
-            btnActualizar.Location = new Point(550, 523);
+            btnActualizar.Location = new Point(481, 392);
+            btnActualizar.Margin = new Padding(3, 2, 3, 2);
             btnActualizar.Name = "btnActualizar";
-            btnActualizar.Size = new Size(112, 43);
+            btnActualizar.Size = new Size(98, 32);
             btnActualizar.TabIndex = 6;
             btnActualizar.Text = "Actualizar";
             btnActualizar.UseVisualStyleBackColor = true;
             // 
             // RecepcionarOrdenEntregaForm
             // 
-            AutoScaleDimensions = new SizeF(8F, 20F);
+            AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(800, 576);
+            ClientSize = new Size(700, 432);
             Controls.Add(btnActualizar);
             Controls.Add(btnCancelar);
             Controls.Add(groupBox1);
+            Margin = new Padding(3, 2, 3, 2);
             Name = "RecepcionarOrdenEntregaForm";
             Text = "RecepcionarOrdenEntregaForm";
             groupBox1.ResumeLayout(false);
