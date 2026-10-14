@@ -60,7 +60,7 @@ namespace OrdenesPreparacion
             PrepararProductosBtn.TabIndex = 5;
             PrepararProductosBtn.Text = "Preparar productos";
             PrepararProductosBtn.UseVisualStyleBackColor = false;
-            PrepararProductosBtn.Click += btnPrepararProductos_Click;
+            /*PrepararProductosBtn.Click += btnPrepararProductos_Click;*/
             // 
             // EmpaquetarBtn
             // 

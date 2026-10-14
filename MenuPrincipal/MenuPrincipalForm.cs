@@ -29,11 +29,13 @@ public partial class MenuPrincipalForm : Form
     {
 
     }
-
+    /*
     private void btnPrepararProductos_Click(object sender, EventArgs e)
     {
         new PrepararProductosForm().ShowDialog();
     }
+
+    */
 
     private void btnValidarOrdenes_Click(object sender, EventArgs e)
     {

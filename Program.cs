@@ -1,3 +1,4 @@
+using GrupoA.PampazonSA.AdministracionDeposito.GenerarOrdenEntrega;
 using GrupoA.PampazonSA.AdministracionDeposito.GenerarOrdenSeleccion;
 using OrdenesPreparacion;
 
@@ -16,8 +17,10 @@ namespace GrupoA.PampazonSA.AdministracionDeposito
             ApplicationConfiguration.Initialize();
 
             // Inicia el menú principal por defecto
-            Application.Run(new MenuPrincipalForm());
-       
+            //Application.Run(new MenuPrincipalForm());
+            Application.Run(new GenerarOrdenEntregaForm());
+
+
         }
     }
 }

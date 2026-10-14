@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Windows.Forms;
-
+/*
 namespace GrupoA.PampazonSA.AdministracionDeposito.PrepararProductos
 {
     // Pantalla 3 - Registrar picking.
@@ -123,4 +123,4 @@ namespace GrupoA.PampazonSA.AdministracionDeposito.PrepararProductos
             Close();
         }
     }
-}
+}*/
