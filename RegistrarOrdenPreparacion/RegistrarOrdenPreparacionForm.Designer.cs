@@ -35,6 +35,7 @@
             txtFechaRetiro = new TextBox();
             label7 = new Label();
             groupBox3 = new GroupBox();
+            lblDisponible = new Label();
             listDetalleAgregado = new ListView();
             columnSKU = new ColumnHeader();
             columnCantidad = new ColumnHeader();
@@ -47,7 +48,7 @@
             btnQuitarSeleccionado = new Button();
             btnRegistrarOp = new Button();
             btnCancelar = new Button();
-            lblDisponible = new Label();
+            columnDescripcion = new ColumnHeader();
             groupBox1.SuspendLayout();
             groupBox2.SuspendLayout();
             groupBox3.SuspendLayout();
@@ -249,9 +250,18 @@
             groupBox3.TabStop = false;
             groupBox3.Text = "Productos a preparar";
             // 
+            // lblDisponible
+            // 
+            lblDisponible.AutoSize = true;
+            lblDisponible.Location = new Point(428, 37);
+            lblDisponible.Name = "lblDisponible";
+            lblDisponible.Size = new Size(54, 20);
+            lblDisponible.TabIndex = 9;
+            lblDisponible.Text = "XXXXX";
+            // 
             // listDetalleAgregado
             // 
-            listDetalleAgregado.Columns.AddRange(new ColumnHeader[] { columnSKU, columnCantidad });
+            listDetalleAgregado.Columns.AddRange(new ColumnHeader[] { columnSKU, columnDescripcion, columnCantidad });
             listDetalleAgregado.Location = new Point(18, 85);
             listDetalleAgregado.Name = "listDetalleAgregado";
             listDetalleAgregado.Size = new Size(865, 235);
@@ -283,7 +293,7 @@
             // 
             // txtCantidad
             // 
-            txtCantidad.Location = new Point(559, 34);
+            txtCantidad.Location = new Point(622, 33);
             txtCantidad.Margin = new Padding(3, 4, 3, 4);
             txtCantidad.Name = "txtCantidad";
             txtCantidad.Size = new Size(91, 27);
@@ -293,7 +303,7 @@
             // label10
             // 
             label10.AutoSize = true;
-            label10.Location = new Point(490, 38);
+            label10.Location = new Point(553, 37);
             label10.Name = "label10";
             label10.Size = new Size(69, 20);
             label10.TabIndex = 8;
@@ -302,7 +312,7 @@
             // label9
             // 
             label9.AutoSize = true;
-            label9.Location = new Point(278, 38);
+            label9.Location = new Point(341, 37);
             label9.Name = "label9";
             label9.Size = new Size(81, 20);
             label9.TabIndex = 6;
@@ -359,14 +369,11 @@
             btnCancelar.UseVisualStyleBackColor = true;
             btnCancelar.Click += btnCancelar_Click;
             // 
-            // lblDisponible
+            // columnDescripcion
             // 
-            lblDisponible.AutoSize = true;
-            lblDisponible.Location = new Point(365, 38);
-            lblDisponible.Name = "lblDisponible";
-            lblDisponible.Size = new Size(54, 20);
-            lblDisponible.TabIndex = 9;
-            lblDisponible.Text = "XXXXX";
+            columnDescripcion.DisplayIndex = 2;
+            columnDescripcion.Text = "Descripción";
+            columnDescripcion.Width = 200;
             // 
             // RegistrarOrdenPreparacionForm
             // 
@@ -432,5 +439,6 @@
         private ColumnHeader columnSKU;
         private ColumnHeader columnCantidad;
         private Label lblDisponible;
+        private ColumnHeader columnDescripcion;
     }
 }

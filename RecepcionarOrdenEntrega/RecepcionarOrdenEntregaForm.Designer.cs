@@ -36,19 +36,18 @@
             EmisionCol = new ColumnHeader();
             CantOPCol = new ColumnHeader();
             btnConfirmar = new Button();
-            label1 = new Label();
-            lblDeposito = new Label();
             btnCancelar = new Button();
-            btnActualizarOr = new Button();
+            btnActualizar = new Button();
             groupBox1.SuspendLayout();
             SuspendLayout();
             // 
             // groupBox1
             // 
             groupBox1.Controls.Add(lvOEEmitidas);
-            groupBox1.Location = new Point(11, 57);
+            groupBox1.Controls.Add(btnConfirmar);
+            groupBox1.Location = new Point(11, 12);
             groupBox1.Name = "groupBox1";
-            groupBox1.Size = new Size(776, 459);
+            groupBox1.Size = new Size(776, 505);
             groupBox1.TabIndex = 0;
             groupBox1.TabStop = false;
             groupBox1.Text = "Órdenes de Entrega emitidas";
@@ -90,31 +89,12 @@
             // 
             // btnConfirmar
             // 
-            btnConfirmar.Location = new Point(411, 523);
+            btnConfirmar.Location = new Point(11, 450);
             btnConfirmar.Name = "btnConfirmar";
-            btnConfirmar.Size = new Size(258, 43);
+            btnConfirmar.Size = new Size(750, 43);
             btnConfirmar.TabIndex = 2;
             btnConfirmar.Text = "Confirmar recepción en Despacho";
             btnConfirmar.UseVisualStyleBackColor = true;
-            // 
-            // label1
-            // 
-            label1.AutoSize = true;
-            label1.Location = new Point(11, 9);
-            label1.Name = "label1";
-            label1.Size = new Size(73, 20);
-            label1.TabIndex = 3;
-            label1.Text = "Depósito:";
-            // 
-            // lblDeposito
-            // 
-            lblDeposito.AutoSize = true;
-            lblDeposito.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            lblDeposito.Location = new Point(91, 9);
-            lblDeposito.Name = "lblDeposito";
-            lblDeposito.Size = new Size(51, 20);
-            lblDeposito.TabIndex = 4;
-            lblDeposito.Text = "[XXX]";
             // 
             // btnCancelar
             // 
@@ -125,31 +105,27 @@
             btnCancelar.Text = "Cancelar";
             btnCancelar.UseVisualStyleBackColor = true;
             // 
-            // btnActualizarOr
+            // btnActualizar
             // 
-            btnActualizarOr.Location = new Point(627, 9);
-            btnActualizarOr.Name = "btnActualizarOr";
-            btnActualizarOr.Size = new Size(161, 43);
-            btnActualizarOr.TabIndex = 6;
-            btnActualizarOr.Text = "Actualizar Ordenes";
-            btnActualizarOr.UseVisualStyleBackColor = true;
+            btnActualizar.Location = new Point(550, 523);
+            btnActualizar.Name = "btnActualizar";
+            btnActualizar.Size = new Size(112, 43);
+            btnActualizar.TabIndex = 6;
+            btnActualizar.Text = "Actualizar";
+            btnActualizar.UseVisualStyleBackColor = true;
             // 
             // RecepcionarOrdenEntregaForm
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 576);
-            Controls.Add(btnActualizarOr);
+            Controls.Add(btnActualizar);
             Controls.Add(btnCancelar);
-            Controls.Add(lblDeposito);
-            Controls.Add(label1);
-            Controls.Add(btnConfirmar);
             Controls.Add(groupBox1);
             Name = "RecepcionarOrdenEntregaForm";
             Text = "RecepcionarOrdenEntregaForm";
             groupBox1.ResumeLayout(false);
             ResumeLayout(false);
-            PerformLayout();
         }
 
         #endregion
@@ -161,10 +137,8 @@
         private ColumnHeader ClienteCol;
         private ColumnHeader EmisionCol;
         private Button btnConfirmar;
-        private Label label1;
-        private Label lblDeposito;
         private Button btnCancelar;
-        private Button btnActualizarOr;
         private ColumnHeader CantOPCol;
+        private Button btnActualizar;
     }
 }

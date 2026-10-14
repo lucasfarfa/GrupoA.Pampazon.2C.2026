@@ -27,18 +27,16 @@
             lblFechaHasta = new Label();
             dtpFechaHasta = new DateTimePicker();
             lblModalidad = new Label();
-            txtModalidad = new TextBox();
             btnBuscar = new Button();
             groupBox1 = new GroupBox();
             OPPendientesListView = new ListView();
             NumeroOpCol = new ColumnHeader();
             ClienteCol = new ColumnHeader();
-            FechaRecepCol = new ColumnHeader();
             FechaEntregaCol = new ColumnHeader();
             ModalidadCol = new ColumnHeader();
+            btnAgregarTodo = new Button();
             btnAgregar = new Button();
             btnQuitar = new Button();
-            btnAgregarTodo = new Button();
             btnQuitarTodo = new Button();
             groupBox2 = new GroupBox();
             listViewResumen = new ListView();
@@ -46,6 +44,11 @@
             colResCantidad = new ColumnHeader();
             GenerarOSBtn = new Button();
             CencelarBtn = new Button();
+            label2 = new Label();
+            comboModalidad = new ComboBox();
+            comboPrioridad = new ComboBox();
+            btnLimpiarFiltros = new Button();
+            PrioridadCol = new ColumnHeader();
             groupBoxFiltros.SuspendLayout();
             groupBox1.SuspendLayout();
             groupBox2.SuspendLayout();
@@ -71,6 +74,10 @@
             // 
             // groupBoxFiltros
             // 
+            groupBoxFiltros.Controls.Add(btnLimpiarFiltros);
+            groupBoxFiltros.Controls.Add(comboPrioridad);
+            groupBoxFiltros.Controls.Add(comboModalidad);
+            groupBoxFiltros.Controls.Add(label2);
             groupBoxFiltros.Controls.Add(lblCliente);
             groupBoxFiltros.Controls.Add(txtCliente);
             groupBoxFiltros.Controls.Add(lblFechaDesde);
@@ -78,13 +85,12 @@
             groupBoxFiltros.Controls.Add(lblFechaHasta);
             groupBoxFiltros.Controls.Add(dtpFechaHasta);
             groupBoxFiltros.Controls.Add(lblModalidad);
-            groupBoxFiltros.Controls.Add(txtModalidad);
             groupBoxFiltros.Controls.Add(btnBuscar);
             groupBoxFiltros.Location = new Point(14, 56);
             groupBoxFiltros.Margin = new Padding(3, 4, 3, 4);
             groupBoxFiltros.Name = "groupBoxFiltros";
             groupBoxFiltros.Padding = new Padding(3, 4, 3, 4);
-            groupBoxFiltros.Size = new Size(1271, 91);
+            groupBoxFiltros.Size = new Size(1271, 109);
             groupBoxFiltros.TabIndex = 2;
             groupBoxFiltros.TabStop = false;
             groupBoxFiltros.Text = "Filtros de búsqueda ";
@@ -100,7 +106,7 @@
             // 
             // txtCliente
             // 
-            txtCliente.Location = new Point(74, 31);
+            txtCliente.Location = new Point(17, 59);
             txtCliente.Margin = new Padding(3, 4, 3, 4);
             txtCliente.Name = "txtCliente";
             txtCliente.Size = new Size(182, 27);
@@ -127,7 +133,7 @@
             // lblFechaHasta
             // 
             lblFechaHasta.AutoSize = true;
-            lblFechaHasta.Location = new Point(508, 35);
+            lblFechaHasta.Location = new Point(270, 68);
             lblFechaHasta.Name = "lblFechaHasta";
             lblFechaHasta.Size = new Size(89, 20);
             lblFechaHasta.TabIndex = 4;
@@ -136,7 +142,7 @@
             // dtpFechaHasta
             // 
             dtpFechaHasta.Format = DateTimePickerFormat.Short;
-            dtpFechaHasta.Location = new Point(603, 31);
+            dtpFechaHasta.Location = new Point(369, 66);
             dtpFechaHasta.Margin = new Padding(3, 4, 3, 4);
             dtpFechaHasta.Name = "dtpFechaHasta";
             dtpFechaHasta.Size = new Size(125, 27);
@@ -145,28 +151,20 @@
             // lblModalidad
             // 
             lblModalidad.AutoSize = true;
-            lblModalidad.Location = new Point(749, 35);
+            lblModalidad.Location = new Point(612, 35);
             lblModalidad.Name = "lblModalidad";
-            lblModalidad.Size = new Size(82, 20);
+            lblModalidad.Size = new Size(85, 20);
             lblModalidad.TabIndex = 6;
-            lblModalidad.Text = "Modalidad";
-            // 
-            // txtModalidad
-            // 
-            txtModalidad.Location = new Point(829, 31);
-            txtModalidad.Margin = new Padding(3, 4, 3, 4);
-            txtModalidad.Name = "txtModalidad";
-            txtModalidad.Size = new Size(171, 27);
-            txtModalidad.TabIndex = 7;
+            lblModalidad.Text = "Modalidad:";
             // 
             // btnBuscar
             // 
-            btnBuscar.Location = new Point(1023, 28);
+            btnBuscar.Location = new Point(1047, 23);
             btnBuscar.Margin = new Padding(3, 4, 3, 4);
             btnBuscar.Name = "btnBuscar";
-            btnBuscar.Size = new Size(114, 35);
+            btnBuscar.Size = new Size(208, 35);
             btnBuscar.TabIndex = 8;
-            btnBuscar.Text = "Filtrar / Buscar";
+            btnBuscar.Text = "Buscar";
             btnBuscar.UseVisualStyleBackColor = true;
             // 
             // groupBox1
@@ -176,7 +174,7 @@
             groupBox1.Controls.Add(btnAgregar);
             groupBox1.Controls.Add(btnQuitar);
             groupBox1.Controls.Add(btnQuitarTodo);
-            groupBox1.Location = new Point(14, 155);
+            groupBox1.Location = new Point(15, 173);
             groupBox1.Margin = new Padding(3, 4, 3, 4);
             groupBox1.Name = "groupBox1";
             groupBox1.Padding = new Padding(3, 4, 3, 4);
@@ -188,13 +186,13 @@
             // OPPendientesListView
             // 
             OPPendientesListView.CheckBoxes = true;
-            OPPendientesListView.Columns.AddRange(new ColumnHeader[] { NumeroOpCol, ClienteCol, FechaRecepCol, FechaEntregaCol, ModalidadCol });
+            OPPendientesListView.Columns.AddRange(new ColumnHeader[] { NumeroOpCol, ClienteCol, FechaEntregaCol, ModalidadCol, PrioridadCol });
             OPPendientesListView.FullRowSelect = true;
             OPPendientesListView.GridLines = true;
             OPPendientesListView.Location = new Point(17, 32);
             OPPendientesListView.Margin = new Padding(3, 4, 3, 4);
             OPPendientesListView.Name = "OPPendientesListView";
-            OPPendientesListView.Size = new Size(983, 212);
+            OPPendientesListView.Size = new Size(631, 212);
             OPPendientesListView.TabIndex = 0;
             OPPendientesListView.UseCompatibleStateImageBehavior = false;
             OPPendientesListView.View = View.Details;
@@ -209,11 +207,6 @@
             ClienteCol.Text = "Cliente";
             ClienteCol.Width = 150;
             // 
-            // FechaRecepCol
-            // 
-            FechaRecepCol.Text = "Fecha Recepción";
-            FechaRecepCol.Width = 130;
-            // 
             // FechaEntregaCol
             // 
             FechaEntregaCol.Text = "Fecha Entrega";
@@ -224,49 +217,49 @@
             ModalidadCol.Text = "Modalidad";
             ModalidadCol.Width = 130;
             // 
+            // btnAgregarTodo
+            // 
+            btnAgregarTodo.Location = new Point(670, 147);
+            btnAgregarTodo.Margin = new Padding(3, 4, 3, 4);
+            btnAgregarTodo.Name = "btnAgregarTodo";
+            btnAgregarTodo.Size = new Size(579, 40);
+            btnAgregarTodo.TabIndex = 3;
+            btnAgregarTodo.Text = "Agregar Todo";
+            btnAgregarTodo.UseVisualStyleBackColor = true;
+            // 
             // btnAgregar
             // 
-            btnAgregar.Location = new Point(1032, 32);
+            btnAgregar.Location = new Point(670, 32);
             btnAgregar.Margin = new Padding(3, 4, 3, 4);
             btnAgregar.Name = "btnAgregar";
-            btnAgregar.Size = new Size(217, 40);
+            btnAgregar.Size = new Size(579, 40);
             btnAgregar.TabIndex = 1;
             btnAgregar.Text = "Agregar Seleccionadas";
             btnAgregar.UseVisualStyleBackColor = true;
             // 
             // btnQuitar
             // 
-            btnQuitar.Location = new Point(1032, 90);
+            btnQuitar.Location = new Point(670, 90);
             btnQuitar.Margin = new Padding(3, 4, 3, 4);
             btnQuitar.Name = "btnQuitar";
-            btnQuitar.Size = new Size(217, 40);
+            btnQuitar.Size = new Size(579, 40);
             btnQuitar.TabIndex = 2;
             btnQuitar.Text = "Quitar Seleccionadas";
             btnQuitar.UseVisualStyleBackColor = true;
             // 
-            // btnAgregarTodo
-            // 
-            btnAgregarTodo.Location = new Point(1032, 147);
-            btnAgregarTodo.Margin = new Padding(3, 4, 3, 4);
-            btnAgregarTodo.Name = "btnAgregarTodo";
-            btnAgregarTodo.Size = new Size(217, 40);
-            btnAgregarTodo.TabIndex = 3;
-            btnAgregarTodo.Text = "Agregar Todo";
-            btnAgregarTodo.UseVisualStyleBackColor = true;
-            // 
             // btnQuitarTodo
             // 
-            btnQuitarTodo.Location = new Point(1032, 204);
+            btnQuitarTodo.Location = new Point(670, 204);
             btnQuitarTodo.Margin = new Padding(3, 4, 3, 4);
             btnQuitarTodo.Name = "btnQuitarTodo";
-            btnQuitarTodo.Size = new Size(217, 40);
+            btnQuitarTodo.Size = new Size(579, 40);
             btnQuitarTodo.TabIndex = 4;
             btnQuitarTodo.Text = "Quitar Todo";
             // 
             // groupBox2
             // 
             groupBox2.Controls.Add(listViewResumen);
-            groupBox2.Location = new Point(14, 429);
+            groupBox2.Location = new Point(14, 441);
             groupBox2.Margin = new Padding(3, 4, 3, 4);
             groupBox2.Name = "groupBox2";
             groupBox2.Padding = new Padding(3, 4, 3, 4);
@@ -318,6 +311,48 @@
             CencelarBtn.Text = "Cancelar";
             CencelarBtn.UseVisualStyleBackColor = true;
             // 
+            // label2
+            // 
+            label2.AutoSize = true;
+            label2.Location = new Point(612, 66);
+            label2.Name = "label2";
+            label2.Size = new Size(73, 20);
+            label2.TabIndex = 9;
+            label2.Text = "Prioridad:";
+            // 
+            // comboModalidad
+            // 
+            comboModalidad.FormattingEnabled = true;
+            comboModalidad.Items.AddRange(new object[] { "Fullfilment", "Palet cerrado" });
+            comboModalidad.Location = new Point(718, 31);
+            comboModalidad.Name = "comboModalidad";
+            comboModalidad.Size = new Size(204, 28);
+            comboModalidad.TabIndex = 10;
+            // 
+            // comboPrioridad
+            // 
+            comboPrioridad.FormattingEnabled = true;
+            comboPrioridad.Items.AddRange(new object[] { "Alta", "Media", "Baja" });
+            comboPrioridad.Location = new Point(718, 66);
+            comboPrioridad.Name = "comboPrioridad";
+            comboPrioridad.Size = new Size(204, 28);
+            comboPrioridad.TabIndex = 11;
+            // 
+            // btnLimpiarFiltros
+            // 
+            btnLimpiarFiltros.Location = new Point(1047, 64);
+            btnLimpiarFiltros.Margin = new Padding(3, 4, 3, 4);
+            btnLimpiarFiltros.Name = "btnLimpiarFiltros";
+            btnLimpiarFiltros.Size = new Size(208, 35);
+            btnLimpiarFiltros.TabIndex = 12;
+            btnLimpiarFiltros.Text = "Limpiar filtros";
+            btnLimpiarFiltros.UseVisualStyleBackColor = true;
+            // 
+            // PrioridadCol
+            // 
+            PrioridadCol.Text = "Prioridad";
+            PrioridadCol.Width = 100;
+            // 
             // GenerarOrdenSeleccionForm
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
@@ -358,13 +393,11 @@
         private Label lblFechaHasta;
         private DateTimePicker dtpFechaHasta;
         private Label lblModalidad;
-        private TextBox txtModalidad;
         private Button btnBuscar;
         private GroupBox groupBox1;
         private ListView OPPendientesListView;
         private ColumnHeader NumeroOpCol;
         private ColumnHeader ClienteCol;
-        private ColumnHeader FechaRecepCol;
         private ColumnHeader FechaEntregaCol;
         private ColumnHeader ModalidadCol;
         private Button btnAgregar;
@@ -377,5 +410,10 @@
         private ColumnHeader colResCantidad;
         private Button GenerarOSBtn;
         private Button CencelarBtn;
+        private Label label2;
+        private Button btnLimpiarFiltros;
+        private ComboBox comboPrioridad;
+        private ComboBox comboModalidad;
+        private ColumnHeader PrioridadCol;
     }
 }

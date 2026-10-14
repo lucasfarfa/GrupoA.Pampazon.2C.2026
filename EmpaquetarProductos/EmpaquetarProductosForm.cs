@@ -31,8 +31,7 @@ namespace GrupoA.PampazonSA.AdministracionDeposito.CU04EmpaquetarProductos
 
         private void EmpaquetarProductosForm_Load(object sender, EventArgs e)
         {
-            DepositoLbl.Text = "GBA";
-            PuestoLbl.Text = "Puesto 01";
+          
             MostrarSiguienteOrdenFIFO();
         }
 

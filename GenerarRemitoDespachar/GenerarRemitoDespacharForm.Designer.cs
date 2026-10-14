@@ -17,8 +17,6 @@
 
         private void InitializeComponent()
         {
-            label1 = new Label();
-            lblDeposito = new Label();
             groupBox1 = new GroupBox();
             btnBuscarOrdenes = new Button();
             lblNombreTransportista = new Label();
@@ -49,24 +47,6 @@
             groupBox4.SuspendLayout();
             SuspendLayout();
             // 
-            // label1
-            // 
-            label1.AutoSize = true;
-            label1.Location = new Point(11, 9);
-            label1.Name = "label1";
-            label1.Size = new Size(73, 20);
-            label1.TabIndex = 0;
-            label1.Text = "Depósito:";
-            // 
-            // lblDeposito
-            // 
-            lblDeposito.AutoSize = true;
-            lblDeposito.Location = new Point(91, 9);
-            lblDeposito.Name = "lblDeposito";
-            lblDeposito.Size = new Size(38, 20);
-            lblDeposito.TabIndex = 1;
-            lblDeposito.Text = "GBA";
-            // 
             // groupBox1
             // 
             groupBox1.Controls.Add(btnBuscarOrdenes);
@@ -74,7 +54,7 @@
             groupBox1.Controls.Add(label4);
             groupBox1.Controls.Add(textDNITransportista);
             groupBox1.Controls.Add(label3);
-            groupBox1.Location = new Point(11, 45);
+            groupBox1.Location = new Point(11, 12);
             groupBox1.Name = "groupBox1";
             groupBox1.Size = new Size(917, 80);
             groupBox1.TabIndex = 2;
@@ -130,7 +110,7 @@
             groupBox2.Controls.Add(btnDeseleccionar);
             groupBox2.Controls.Add(btnSeleccionar);
             groupBox2.Controls.Add(lvOEPendientesEntrega);
-            groupBox2.Location = new Point(11, 132);
+            groupBox2.Location = new Point(11, 98);
             groupBox2.Name = "groupBox2";
             groupBox2.Size = new Size(917, 216);
             groupBox2.TabIndex = 3;
@@ -189,7 +169,7 @@
             // 
             groupBox3.Controls.Add(btnEmitirRemitos);
             groupBox3.Controls.Add(lvRemitosEmitir);
-            groupBox3.Location = new Point(11, 355);
+            groupBox3.Location = new Point(12, 320);
             groupBox3.Name = "groupBox3";
             groupBox3.Size = new Size(917, 216);
             groupBox3.TabIndex = 4;
@@ -229,7 +209,7 @@
             // 
             groupBox4.Controls.Add(btnConfirmarEntregaFirma);
             groupBox4.Controls.Add(lvRemitosPendientesFirma);
-            groupBox4.Location = new Point(11, 576);
+            groupBox4.Location = new Point(12, 542);
             groupBox4.Name = "groupBox4";
             groupBox4.Size = new Size(917, 216);
             groupBox4.TabIndex = 8;
@@ -262,7 +242,7 @@
             // 
             // btnCancelar
             // 
-            btnCancelar.Location = new Point(703, 812);
+            btnCancelar.Location = new Point(709, 773);
             btnCancelar.Name = "btnCancelar";
             btnCancelar.Size = new Size(219, 43);
             btnCancelar.TabIndex = 9;
@@ -273,14 +253,12 @@
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(941, 867);
+            ClientSize = new Size(941, 825);
             Controls.Add(btnCancelar);
             Controls.Add(groupBox4);
             Controls.Add(groupBox3);
             Controls.Add(groupBox2);
             Controls.Add(groupBox1);
-            Controls.Add(lblDeposito);
-            Controls.Add(label1);
             FormBorderStyle = FormBorderStyle.FixedDialog;
             MaximizeBox = false;
             MinimizeBox = false;
@@ -294,13 +272,9 @@
             groupBox3.ResumeLayout(false);
             groupBox4.ResumeLayout(false);
             ResumeLayout(false);
-            PerformLayout();
         }
 
         #endregion
-
-        private Label label1;
-        private Label lblDeposito;
         private GroupBox groupBox1;
         private Label label3;
         private Button btnBuscarOrdenes;
