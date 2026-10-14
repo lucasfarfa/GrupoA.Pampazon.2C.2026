@@ -23,31 +23,31 @@
             label4 = new Label();
             cboDeposito = new ComboBox();
             label3 = new Label();
-            txtCuit = new TextBox();
+            txtCuitCliente = new TextBox();
             label2 = new Label();
             cboCliente = new ComboBox();
             label1 = new Label();
             groupBox2 = new GroupBox();
-            txtFechaRetiro = new TextBox();
-            label7 = new Label();
             txtNombreTransportista = new TextBox();
             label6 = new Label();
-            txtDni = new TextBox();
+            txtDniTransportista = new TextBox();
             label5 = new Label();
+            txtFechaRetiro = new TextBox();
+            label7 = new Label();
             groupBox3 = new GroupBox();
+            listDetalleAgregado = new ListView();
+            columnSKU = new ColumnHeader();
+            columnCantidad = new ColumnHeader();
             btnAgregar = new Button();
             txtCantidad = new TextBox();
             label10 = new Label();
-            txtDisponible = new TextBox();
             label9 = new Label();
             cboSku = new ComboBox();
             label11 = new Label();
             btnQuitarSeleccionado = new Button();
             btnRegistrarOp = new Button();
             btnCancelar = new Button();
-            listView1 = new ListView();
-            columnHeader1 = new ColumnHeader();
-            columnHeader3 = new ColumnHeader();
+            lblDisponible = new Label();
             groupBox1.SuspendLayout();
             groupBox2.SuspendLayout();
             groupBox3.SuspendLayout();
@@ -60,7 +60,7 @@
             groupBox1.Controls.Add(label4);
             groupBox1.Controls.Add(cboDeposito);
             groupBox1.Controls.Add(label3);
-            groupBox1.Controls.Add(txtCuit);
+            groupBox1.Controls.Add(txtCuitCliente);
             groupBox1.Controls.Add(label2);
             groupBox1.Controls.Add(cboCliente);
             groupBox1.Controls.Add(label1);
@@ -125,14 +125,14 @@
             label3.TabIndex = 4;
             label3.Text = "Depósito";
             // 
-            // txtCuit
+            // txtCuitCliente
             // 
-            txtCuit.Location = new Point(171, 67);
-            txtCuit.Margin = new Padding(3, 4, 3, 4);
-            txtCuit.Name = "txtCuit";
-            txtCuit.ReadOnly = true;
-            txtCuit.Size = new Size(248, 27);
-            txtCuit.TabIndex = 3;
+            txtCuitCliente.Location = new Point(171, 67);
+            txtCuitCliente.Margin = new Padding(3, 4, 3, 4);
+            txtCuitCliente.Name = "txtCuitCliente";
+            txtCuitCliente.ReadOnly = true;
+            txtCuitCliente.Size = new Size(248, 27);
+            txtCuitCliente.TabIndex = 3;
             // 
             // label2
             // 
@@ -166,7 +166,7 @@
             // 
             groupBox2.Controls.Add(txtNombreTransportista);
             groupBox2.Controls.Add(label6);
-            groupBox2.Controls.Add(txtDni);
+            groupBox2.Controls.Add(txtDniTransportista);
             groupBox2.Controls.Add(label5);
             groupBox2.Location = new Point(488, 16);
             groupBox2.Margin = new Padding(3, 4, 3, 4);
@@ -176,23 +176,6 @@
             groupBox2.TabIndex = 1;
             groupBox2.TabStop = false;
             groupBox2.Text = "Transportista autorizado";
-            // 
-            // txtFechaRetiro
-            // 
-            txtFechaRetiro.Location = new Point(625, 174);
-            txtFechaRetiro.Margin = new Padding(3, 4, 3, 4);
-            txtFechaRetiro.Name = "txtFechaRetiro";
-            txtFechaRetiro.Size = new Size(272, 27);
-            txtFechaRetiro.TabIndex = 5;
-            // 
-            // label7
-            // 
-            label7.AutoSize = true;
-            label7.Location = new Point(488, 181);
-            label7.Name = "label7";
-            label7.Size = new Size(112, 20);
-            label7.TabIndex = 4;
-            label7.Text = "Fecha de Retiro";
             // 
             // txtNombreTransportista
             // 
@@ -211,14 +194,14 @@
             label6.TabIndex = 2;
             label6.Text = "Nombre";
             // 
-            // txtDni
+            // txtDniTransportista
             // 
-            txtDni.Location = new Point(137, 27);
-            txtDni.Margin = new Padding(3, 4, 3, 4);
-            txtDni.Name = "txtDni";
-            txtDni.Size = new Size(272, 27);
-            txtDni.TabIndex = 1;
-            txtDni.KeyPress += SoloDigitos_KeyPress;
+            txtDniTransportista.Location = new Point(137, 27);
+            txtDniTransportista.Margin = new Padding(3, 4, 3, 4);
+            txtDniTransportista.Name = "txtDniTransportista";
+            txtDniTransportista.Size = new Size(272, 27);
+            txtDniTransportista.TabIndex = 1;
+            txtDniTransportista.KeyPress += SoloDigitos_KeyPress;
             // 
             // label5
             // 
@@ -229,13 +212,30 @@
             label5.TabIndex = 0;
             label5.Text = "DNI";
             // 
+            // txtFechaRetiro
+            // 
+            txtFechaRetiro.Location = new Point(625, 174);
+            txtFechaRetiro.Margin = new Padding(3, 4, 3, 4);
+            txtFechaRetiro.Name = "txtFechaRetiro";
+            txtFechaRetiro.Size = new Size(272, 27);
+            txtFechaRetiro.TabIndex = 5;
+            // 
+            // label7
+            // 
+            label7.AutoSize = true;
+            label7.Location = new Point(488, 181);
+            label7.Name = "label7";
+            label7.Size = new Size(112, 20);
+            label7.TabIndex = 4;
+            label7.Text = "Fecha de Retiro";
+            // 
             // groupBox3
             // 
-            groupBox3.Controls.Add(listView1);
+            groupBox3.Controls.Add(lblDisponible);
+            groupBox3.Controls.Add(listDetalleAgregado);
             groupBox3.Controls.Add(btnAgregar);
             groupBox3.Controls.Add(txtCantidad);
             groupBox3.Controls.Add(label10);
-            groupBox3.Controls.Add(txtDisponible);
             groupBox3.Controls.Add(label9);
             groupBox3.Controls.Add(cboSku);
             groupBox3.Controls.Add(label11);
@@ -248,6 +248,27 @@
             groupBox3.TabIndex = 2;
             groupBox3.TabStop = false;
             groupBox3.Text = "Productos a preparar";
+            // 
+            // listDetalleAgregado
+            // 
+            listDetalleAgregado.Columns.AddRange(new ColumnHeader[] { columnSKU, columnCantidad });
+            listDetalleAgregado.Location = new Point(18, 85);
+            listDetalleAgregado.Name = "listDetalleAgregado";
+            listDetalleAgregado.Size = new Size(865, 235);
+            listDetalleAgregado.TabIndex = 11;
+            listDetalleAgregado.UseCompatibleStateImageBehavior = false;
+            listDetalleAgregado.View = View.Details;
+            listDetalleAgregado.SelectedIndexChanged += listView1_SelectedIndexChanged;
+            // 
+            // columnSKU
+            // 
+            columnSKU.Text = "SKU";
+            columnSKU.Width = 100;
+            // 
+            // columnCantidad
+            // 
+            columnCantidad.Text = "Cantidad";
+            columnCantidad.Width = 120;
             // 
             // btnAgregar
             // 
@@ -277,15 +298,6 @@
             label10.Size = new Size(69, 20);
             label10.TabIndex = 8;
             label10.Text = "Cantidad";
-            // 
-            // txtDisponible
-            // 
-            txtDisponible.Location = new Point(365, 34);
-            txtDisponible.Margin = new Padding(3, 4, 3, 4);
-            txtDisponible.Name = "txtDisponible";
-            txtDisponible.ReadOnly = true;
-            txtDisponible.Size = new Size(91, 27);
-            txtDisponible.TabIndex = 7;
             // 
             // label9
             // 
@@ -324,7 +336,6 @@
             btnQuitarSeleccionado.TabIndex = 1;
             btnQuitarSeleccionado.Text = "Quitar seleccionado";
             btnQuitarSeleccionado.UseVisualStyleBackColor = true;
-            
             // 
             // btnRegistrarOp
             // 
@@ -348,26 +359,14 @@
             btnCancelar.UseVisualStyleBackColor = true;
             btnCancelar.Click += btnCancelar_Click;
             // 
-            // listView1
+            // lblDisponible
             // 
-            listView1.Columns.AddRange(new ColumnHeader[] { columnHeader1, columnHeader3 });
-            listView1.Location = new Point(18, 85);
-            listView1.Name = "listView1";
-            listView1.Size = new Size(865, 235);
-            listView1.TabIndex = 11;
-            listView1.UseCompatibleStateImageBehavior = false;
-            listView1.View = View.Details;
-            listView1.SelectedIndexChanged += listView1_SelectedIndexChanged;
-            // 
-            // columnHeader1
-            // 
-            columnHeader1.Text = "SKU";
-            columnHeader1.Width = 100;
-            // 
-            // columnHeader3
-            // 
-            columnHeader3.Text = "Cantidad";
-            columnHeader3.Width = 120;
+            lblDisponible.AutoSize = true;
+            lblDisponible.Location = new Point(365, 38);
+            lblDisponible.Name = "lblDisponible";
+            lblDisponible.Size = new Size(54, 20);
+            lblDisponible.TabIndex = 9;
+            lblDisponible.Text = "XXXXX";
             // 
             // RegistrarOrdenPreparacionForm
             // 
@@ -405,7 +404,7 @@
         private GroupBox groupBox1;
         private Label label1;
         private ComboBox cboCliente;
-        private TextBox txtCuit;
+        private TextBox txtCuitCliente;
         private Label label2;
         private ComboBox cboDeposito;
         private Label label3;
@@ -414,7 +413,7 @@
         private RadioButton rbPaletCerrado;
         private GroupBox groupBox2;
         private Label label5;
-        private TextBox txtDni;
+        private TextBox txtDniTransportista;
         private TextBox txtNombreTransportista;
         private Label label6;
         private TextBox txtFechaRetiro;
@@ -423,15 +422,15 @@
         private Button btnQuitarSeleccionado;
         private ComboBox cboSku;
         private Label label11;
-        private TextBox txtDisponible;
         private Label label9;
         private TextBox txtCantidad;
         private Label label10;
         private Button btnAgregar;
         private Button btnRegistrarOp;
         private Button btnCancelar;
-        private ListView listView1;
-        private ColumnHeader columnHeader1;
-        private ColumnHeader columnHeader3;
+        private ListView listDetalleAgregado;
+        private ColumnHeader columnSKU;
+        private ColumnHeader columnCantidad;
+        private Label lblDisponible;
     }
 }

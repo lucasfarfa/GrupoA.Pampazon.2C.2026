@@ -60,7 +60,6 @@ namespace OrdenesPreparacion
             PrepararProductosBtn.TabIndex = 5;
             PrepararProductosBtn.Text = "Preparar productos";
             PrepararProductosBtn.UseVisualStyleBackColor = false;
-            /*PrepararProductosBtn.Click += btnPrepararProductos_Click;*/
             // 
             // EmpaquetarBtn
             // 
@@ -85,7 +84,7 @@ namespace OrdenesPreparacion
             // 
             // GenerarRemitoDespachar
             // 
-            GenerarRemitoDespachar.BackColor = Color.FromArgb(255, 255, 192);
+            GenerarRemitoDespachar.BackColor = Color.FromArgb(192, 255, 192);
             GenerarRemitoDespachar.Location = new Point(88, 453);
             GenerarRemitoDespachar.Name = "GenerarRemitoDespachar";
             GenerarRemitoDespachar.Size = new Size(324, 46);
@@ -106,7 +105,7 @@ namespace OrdenesPreparacion
             // 
             // MenuPrincipalForm
             // 
-            AutoScaleDimensions = new SizeF(7F, 17F);
+            AutoScaleDimensions = new SizeF(9F, 23F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(506, 554);
             Controls.Add(button1);

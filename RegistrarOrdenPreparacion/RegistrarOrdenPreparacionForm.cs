@@ -50,7 +50,7 @@ namespace GrupoA.PampazonSA.AdministracionDeposito.RegistrarOrdenPreparacion
             }
 
             _idxCliente = cboCliente.SelectedIndex;
-            txtCuit.Text = cboCliente.SelectedItem is ClienteOrden cliente ? cliente.Cuit : "";
+            txtCuitCliente.Text = cboCliente.SelectedItem is ClienteOrden cliente ? cliente.Cuit : "";
             _lineas.Clear();
             ActualizarProductosDisponibles();
         }
@@ -104,7 +104,7 @@ namespace GrupoA.PampazonSA.AdministracionDeposito.RegistrarOrdenPreparacion
             }
 
             
-            txtDisponible.Clear();
+            
             txtCantidad.Clear();
 
             _cargando = false;
@@ -117,13 +117,13 @@ namespace GrupoA.PampazonSA.AdministracionDeposito.RegistrarOrdenPreparacion
             if (cboSku.SelectedItem is ProductoStock producto)
             {
                 
-                txtDisponible.Text = producto.Disponible.ToString();
+                //txtDisponible.Text = producto.Disponible.ToString();
                 txtCantidad.Focus();
             }
             else
             {
                 
-                txtDisponible.Clear();
+                //txtDisponible.Clear();
             }
         }
 
@@ -191,9 +191,9 @@ namespace GrupoA.PampazonSA.AdministracionDeposito.RegistrarOrdenPreparacion
                 return;
             }
 
-            if (!RegistrarOrdenPreparacionModelo.DniValido(txtDni.Text))
+            if (!RegistrarOrdenPreparacionModelo.DniValido(txtDniTransportista.Text))
             {
-                Advertir("Ingrese un DNI válido (7 u 8 dígitos).", txtDni);
+                Advertir("Ingrese un DNI válido (7 u 8 dígitos).", txtDniTransportista);
                 return;
             }
 
@@ -233,7 +233,7 @@ namespace GrupoA.PampazonSA.AdministracionDeposito.RegistrarOrdenPreparacion
             || cboDeposito.SelectedIndex >= 0
             || rbFulfillment.Checked
             || rbPaletCerrado.Checked
-            || !string.IsNullOrWhiteSpace(txtDni.Text)
+            || !string.IsNullOrWhiteSpace(txtDniTransportista.Text)
             || _lineas.Count > 0;
 
         private void LimpiarFormulario()
@@ -244,10 +244,10 @@ namespace GrupoA.PampazonSA.AdministracionDeposito.RegistrarOrdenPreparacion
             cboDeposito.SelectedIndex = -1;
             _idxCliente = -1;
             _idxDeposito = -1;
-            txtCuit.Clear();
+            txtCuitCliente.Clear();
             rbFulfillment.Checked = false;
             rbPaletCerrado.Checked = false;
-            txtDni.Clear();
+            txtDniTransportista.Clear();
             _lineas.Clear();
 
             _cargando = false;

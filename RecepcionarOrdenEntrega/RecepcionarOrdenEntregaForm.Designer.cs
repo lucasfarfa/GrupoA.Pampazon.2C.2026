@@ -29,129 +29,122 @@
         private void InitializeComponent()
         {
             groupBox1 = new GroupBox();
-            listView1 = new ListView();
-            columnHeader3 = new ColumnHeader();
-            columnHeader4 = new ColumnHeader();
-            columnHeader5 = new ColumnHeader();
-            columnHeader6 = new ColumnHeader();
-            columnHeader1 = new ColumnHeader();
-            button1 = new Button();
+            lvOEEmitidas = new ListView();
+            NOECol = new ColumnHeader();
+            TransportistaCol = new ColumnHeader();
+            ClienteCol = new ColumnHeader();
+            EmisionCol = new ColumnHeader();
+            CantOPCol = new ColumnHeader();
+            btnConfirmar = new Button();
             label1 = new Label();
-            label2 = new Label();
-            button2 = new Button();
-            button3 = new Button();
+            lblDeposito = new Label();
+            btnCancelar = new Button();
+            btnActualizarOr = new Button();
             groupBox1.SuspendLayout();
             SuspendLayout();
             // 
             // groupBox1
             // 
-            groupBox1.Controls.Add(listView1);
-            groupBox1.Location = new Point(10, 43);
-            groupBox1.Margin = new Padding(3, 2, 3, 2);
+            groupBox1.Controls.Add(lvOEEmitidas);
+            groupBox1.Location = new Point(11, 57);
             groupBox1.Name = "groupBox1";
-            groupBox1.Padding = new Padding(3, 2, 3, 2);
-            groupBox1.Size = new Size(679, 344);
+            groupBox1.Size = new Size(776, 459);
             groupBox1.TabIndex = 0;
             groupBox1.TabStop = false;
             groupBox1.Text = "Órdenes de Entrega emitidas";
             // 
-            // listView1
+            // lvOEEmitidas
             // 
-            listView1.Columns.AddRange(new ColumnHeader[] { columnHeader3, columnHeader4, columnHeader5, columnHeader6, columnHeader1 });
-            listView1.Location = new Point(10, 20);
-            listView1.Margin = new Padding(3, 2, 3, 2);
-            listView1.Name = "listView1";
-            listView1.Size = new Size(657, 314);
-            listView1.TabIndex = 0;
-            listView1.UseCompatibleStateImageBehavior = false;
-            listView1.View = View.Details;
+            lvOEEmitidas.Columns.AddRange(new ColumnHeader[] { NOECol, TransportistaCol, ClienteCol, EmisionCol, CantOPCol });
+            lvOEEmitidas.Location = new Point(11, 27);
+            lvOEEmitidas.Name = "lvOEEmitidas";
+            lvOEEmitidas.Size = new Size(750, 417);
+            lvOEEmitidas.TabIndex = 0;
+            lvOEEmitidas.UseCompatibleStateImageBehavior = false;
+            lvOEEmitidas.View = View.Details;
             // 
-            // columnHeader3
+            // NOECol
             // 
-            columnHeader3.Text = "N° OE";
-            columnHeader3.Width = 100;
+            NOECol.Text = "N° OE";
+            NOECol.Width = 100;
             // 
-            // columnHeader4
+            // TransportistaCol
             // 
-            columnHeader4.Text = "Transportista";
-            columnHeader4.Width = 120;
+            TransportistaCol.Text = "Transportista";
+            TransportistaCol.Width = 120;
             // 
-            // columnHeader5
+            // ClienteCol
             // 
-            columnHeader5.Text = "Cliente";
-            columnHeader5.Width = 100;
+            ClienteCol.Text = "Cliente";
+            ClienteCol.Width = 100;
             // 
-            // columnHeader6
+            // EmisionCol
             // 
-            columnHeader6.Text = "Fecha Emisión";
-            columnHeader6.Width = 120;
+            EmisionCol.Text = "Fecha Emisión";
+            EmisionCol.Width = 120;
             // 
-            // columnHeader1
+            // CantOPCol
             // 
-            columnHeader1.Text = "N° OP que contiene";
-            columnHeader1.Width = 250;
+            CantOPCol.Text = "N° OP que contiene";
+            CantOPCol.Width = 250;
             // 
-            // button1
+            // btnConfirmar
             // 
-            button1.Location = new Point(360, 392);
-            button1.Margin = new Padding(3, 2, 3, 2);
-            button1.Name = "button1";
-            button1.Size = new Size(226, 32);
-            button1.TabIndex = 2;
-            button1.Text = "Confirmar recepción en Despacho";
-            button1.UseVisualStyleBackColor = true;
+            btnConfirmar.Location = new Point(411, 523);
+            btnConfirmar.Name = "btnConfirmar";
+            btnConfirmar.Size = new Size(258, 43);
+            btnConfirmar.TabIndex = 2;
+            btnConfirmar.Text = "Confirmar recepción en Despacho";
+            btnConfirmar.UseVisualStyleBackColor = true;
             // 
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new Point(10, 7);
+            label1.Location = new Point(11, 9);
             label1.Name = "label1";
-            label1.Size = new Size(57, 15);
+            label1.Size = new Size(73, 20);
             label1.TabIndex = 3;
             label1.Text = "Depósito:";
             // 
-            // label2
+            // lblDeposito
             // 
-            label2.AutoSize = true;
-            label2.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label2.Location = new Point(80, 7);
-            label2.Name = "label2";
-            label2.Size = new Size(39, 15);
-            label2.TabIndex = 4;
-            label2.Text = "[XXX]";
+            lblDeposito.AutoSize = true;
+            lblDeposito.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lblDeposito.Location = new Point(91, 9);
+            lblDeposito.Name = "lblDeposito";
+            lblDeposito.Size = new Size(51, 20);
+            lblDeposito.TabIndex = 4;
+            lblDeposito.Text = "[XXX]";
             // 
-            // button2
+            // btnCancelar
             // 
-            button2.Location = new Point(592, 392);
-            button2.Margin = new Padding(3, 2, 3, 2);
-            button2.Name = "button2";
-            button2.Size = new Size(98, 32);
-            button2.TabIndex = 5;
-            button2.Text = "Cancelar";
-            button2.UseVisualStyleBackColor = true;
+            btnCancelar.Location = new Point(677, 523);
+            btnCancelar.Name = "btnCancelar";
+            btnCancelar.Size = new Size(112, 43);
+            btnCancelar.TabIndex = 5;
+            btnCancelar.Text = "Cancelar";
+            btnCancelar.UseVisualStyleBackColor = true;
             // 
-            // button3
+            // btnActualizarOr
             // 
-            button3.Location = new Point(549, 7);
-            button3.Margin = new Padding(3, 2, 3, 2);
-            button3.Name = "button3";
-            button3.Size = new Size(141, 32);
-            button3.TabIndex = 6;
-            button3.Text = "Actualizar Ordenes";
-            button3.UseVisualStyleBackColor = true;
+            btnActualizarOr.Location = new Point(627, 9);
+            btnActualizarOr.Name = "btnActualizarOr";
+            btnActualizarOr.Size = new Size(161, 43);
+            btnActualizarOr.TabIndex = 6;
+            btnActualizarOr.Text = "Actualizar Ordenes";
+            btnActualizarOr.UseVisualStyleBackColor = true;
             // 
             // RecepcionarOrdenEntregaForm
             // 
-            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(700, 432);
-            Controls.Add(button3);
-            Controls.Add(button2);
-            Controls.Add(label2);
+            ClientSize = new Size(800, 576);
+            Controls.Add(btnActualizarOr);
+            Controls.Add(btnCancelar);
+            Controls.Add(lblDeposito);
             Controls.Add(label1);
-            Controls.Add(button1);
+            Controls.Add(btnConfirmar);
             Controls.Add(groupBox1);
-            Margin = new Padding(3, 2, 3, 2);
             Name = "RecepcionarOrdenEntregaForm";
             Text = "RecepcionarOrdenEntregaForm";
             groupBox1.ResumeLayout(false);
@@ -162,16 +155,16 @@
         #endregion
 
         private GroupBox groupBox1;
-        private ListView listView1;
-        private ColumnHeader columnHeader3;
-        private ColumnHeader columnHeader4;
-        private ColumnHeader columnHeader5;
-        private ColumnHeader columnHeader6;
-        private Button button1;
+        private ListView lvOEEmitidas;
+        private ColumnHeader NOECol;
+        private ColumnHeader TransportistaCol;
+        private ColumnHeader ClienteCol;
+        private ColumnHeader EmisionCol;
+        private Button btnConfirmar;
         private Label label1;
-        private Label label2;
-        private Button button2;
-        private Button button3;
-        private ColumnHeader columnHeader1;
+        private Label lblDeposito;
+        private Button btnCancelar;
+        private Button btnActualizarOr;
+        private ColumnHeader CantOPCol;
     }
 }
