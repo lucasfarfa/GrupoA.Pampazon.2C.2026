@@ -29,6 +29,9 @@
             CantidadCol = new ColumnHeader();
             btnEmpaquetar = new Button();
             btnCancelar = new Button();
+            columnSKU = new ColumnHeader();
+            colDescripcion = new ColumnHeader();
+            colCantidad = new ColumnHeader();
             grpOrden.SuspendLayout();
             groupBox2.SuspendLayout();
             SuspendLayout();
@@ -122,6 +125,7 @@
             // 
             // lstProductos
             // 
+            lstProductos.Columns.AddRange(new ColumnHeader[] { columnSKU, colDescripcion, colCantidad });
             lstProductos.FullRowSelect = true;
             lstProductos.HeaderStyle = ColumnHeaderStyle.Nonclickable;
             lstProductos.Location = new Point(9, 24);
@@ -162,6 +166,21 @@
             btnCancelar.Text = "Cancelar";
             btnCancelar.UseVisualStyleBackColor = false;
             btnCancelar.Click += btnCancelar_Click;
+            // 
+            // columnSKU
+            // 
+            columnSKU.Text = "SKU";
+            columnSKU.Width = 100;
+            // 
+            // colDescripcion
+            // 
+            colDescripcion.Text = "Descripcion";
+            colDescripcion.Width = 200;
+            // 
+            // colCantidad
+            // 
+            colCantidad.Text = "Cantidad";
+            colCantidad.Width = 80;
             // 
             // EmpaquetarProductosForm
             // 
@@ -205,5 +224,8 @@
         private Button btnCancelar;
         private Label lblModalidad;
         private Label lblNroOrden;
+        private ColumnHeader columnSKU;
+        private ColumnHeader colDescripcion;
+        private ColumnHeader colCantidad;
     }
 }
