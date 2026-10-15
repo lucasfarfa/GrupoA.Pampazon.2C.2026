@@ -49,7 +49,8 @@
             }
         };
 
-        private static int _ultimoNroOP = 103;
+        // Las OP 104 a 109 ya existen en las pantallas siguientes del circuito: la nueva OP arranca en 110.
+        private static int _ultimoNroOP = 109;
 
         // Orden que se está cargando en la pantalla.
         private Cliente? _cliente;
