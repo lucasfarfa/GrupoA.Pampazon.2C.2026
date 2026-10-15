@@ -52,6 +52,7 @@ namespace OrdenesPreparacion
             GenerarOrdenSeleccionBtn.TabIndex = 4;
             GenerarOrdenSeleccionBtn.Text = "Generar Orden de Selección";
             GenerarOrdenSeleccionBtn.UseVisualStyleBackColor = false;
+            GenerarOrdenSeleccionBtn.Click += btnGenerarOrdenSeleccion_Click;
             // 
             // PrepararProductosBtn
             // 
@@ -62,6 +63,7 @@ namespace OrdenesPreparacion
             PrepararProductosBtn.TabIndex = 5;
             PrepararProductosBtn.Text = "Preparar productos";
             PrepararProductosBtn.UseVisualStyleBackColor = false;
+            PrepararProductosBtn.Click += btnPrepararProductos_Click;
             // 
             // EmpaquetarBtn
             // 
@@ -72,6 +74,7 @@ namespace OrdenesPreparacion
             EmpaquetarBtn.TabIndex = 6;
             EmpaquetarBtn.Text = "Empaquetar productos";
             EmpaquetarBtn.UseVisualStyleBackColor = false;
+            EmpaquetarBtn.Click += btnEmpaquetar_Click;
             // 
             // GenerarOrdenEntregaBtn
             // 
@@ -104,6 +107,7 @@ namespace OrdenesPreparacion
             button1.TabIndex = 9;
             button1.Text = "Recepcionar Orden de Entrega";
             button1.UseVisualStyleBackColor = false;
+            button1.Click += button1_Click;
             // 
             // cboDeposito
             // 
