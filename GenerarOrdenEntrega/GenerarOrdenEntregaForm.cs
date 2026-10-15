@@ -16,6 +16,8 @@ namespace GrupoA.PampazonSA.AdministracionDeposito.GenerarOrdenEntrega
             public int CantidadOP { get; set; }
         }
 
+
+        // REVISAR NOMBRES
         private static readonly List<GrupoOP> _pendientes = new List<GrupoOP>
         {
             new GrupoOP { Cliente = "Juan Perez", Transportista = "La Sosa S.A.",  FechaRetiro = DateTime.Today,            CantidadOP = 500 },
