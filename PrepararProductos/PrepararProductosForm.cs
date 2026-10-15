@@ -55,7 +55,12 @@ namespace GrupoA.PampazonSA.AdministracionDeposito.PrepararProductos
                 var pendientes = _modelo.GetOrdenesPendientes();
 
                 listViewDetalle.Items.Clear();
-
+                if (pendientes != null && pendientes.Count == 0)
+                {
+                    MessageBox.Show("No hay órdenes de selección pendientes para la modalidad seleccionada.",
+                        "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    return;
+                }
                 foreach (var os in pendientes)
                 {
                     foreach(var op in os.Lineas.Where(w => w.Modalidad.Equals(modalidad)))
@@ -110,7 +115,7 @@ namespace GrupoA.PampazonSA.AdministracionDeposito.PrepararProductos
         private void comboOrdenSeleccion_SelectedIndexChanged(object sender, EventArgs e)
         {
             // cargar la lista de OS en base al tipo de Orden (item del combo box)
-            // "Fullfilment" / "Palet cerrado"
+            // "Fulfillment" / "Palet cerrado"
             RefrescarOrdenesSeleccion();
         }
 
