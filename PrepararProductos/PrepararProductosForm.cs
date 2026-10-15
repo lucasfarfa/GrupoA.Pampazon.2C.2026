@@ -47,7 +47,8 @@
             // CU-03, 11 a 14
             if (!_modelo.ConfirmarEntrega(nro)) return;
 
-            MessageBox.Show("Entrega a Preparación registrada", Text);
+            //MessageBox.Show("Entrega a Preparación registrada", Text);
+            MessageBox.Show("La OS " + nro + " quedó Cumplida. Se descontó el stock de almacén.", Text);
             RefrescarListas();
         }
 
