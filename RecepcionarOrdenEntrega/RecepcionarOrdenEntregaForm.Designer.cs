@@ -99,6 +99,7 @@
             btnConfirmar.TabIndex = 2;
             btnConfirmar.Text = "Confirmar recepción en Despacho";
             btnConfirmar.UseVisualStyleBackColor = true;
+            btnConfirmar.Click += btnConfirmar_Click;
             // 
             // btnCancelar
             // 
@@ -109,6 +110,7 @@
             btnCancelar.TabIndex = 5;
             btnCancelar.Text = "Cancelar";
             btnCancelar.UseVisualStyleBackColor = true;
+            btnCancelar.Click += btnCancelar_Click;
             // 
             // btnActualizar
             // 
@@ -119,6 +121,7 @@
             btnActualizar.TabIndex = 6;
             btnActualizar.Text = "Actualizar";
             btnActualizar.UseVisualStyleBackColor = true;
+            btnActualizar.Click += btnActualizar_Click;
             // 
             // RecepcionarOrdenEntregaForm
             // 
@@ -131,6 +134,7 @@
             Margin = new Padding(3, 2, 3, 2);
             Name = "RecepcionarOrdenEntregaForm";
             Text = "RecepcionarOrdenEntregaForm";
+            Load += RecepcionarOrdenEntregaForm_Load;
             groupBox1.ResumeLayout(false);
             ResumeLayout(false);
         }
