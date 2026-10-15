@@ -149,6 +149,7 @@
             Name = "PrepararProductosForm";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Preparar Productos - Pampazon S.A.";
+            FormClosing += PrepararProductosForm_FormClosing;
             Load += PrepararProductosForm_Load;
             grpDetalle.ResumeLayout(false);
             ResumeLayout(false);
