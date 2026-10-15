@@ -1,123 +1,82 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Windows.Forms;
-
 namespace GrupoA.PampazonSA.AdministracionDeposito.CU04EmpaquetarProductos
 {
     public partial class EmpaquetarProductosForm : Form
     {
-        private class OrdenPreparacionItem
-        {
-            public string NumeroOrden { get; set; }
-            public string Modalidad { get; set; }
-            public List<ProductoItem> Productos { get; set; } = new List<ProductoItem>();
-        }
-
-        private class ProductoItem
-        {
-            public string Sku { get; set; }
-            public string Descripcion { get; set; }
-            public int Cantidad { get; set; }
-        }
-
-        private Queue<OrdenPreparacionItem> _colaFifo;
-        private OrdenPreparacionItem _ordenActual;
+        private EmpaquetarProductosModelo _modelo = new EmpaquetarProductosModelo();
 
         public EmpaquetarProductosForm()
         {
             InitializeComponent();
-            CargarDatosPrueba();
         }
 
         private void EmpaquetarProductosForm_Load(object sender, EventArgs e)
         {
-          
-            MostrarSiguienteOrdenFIFO();
+            MostrarOrdenAsignada();
         }
 
-        private void CargarDatosPrueba()
+        // Asigna la siguiente OP por FIFO y muestra sus datos (CU-04, pasos 2 y 3).
+        private void MostrarOrdenAsignada()
         {
-            _colaFifo = new Queue<OrdenPreparacionItem>();
-
-            _colaFifo.Enqueue(new OrdenPreparacionItem
+            if (!_modelo.AsignarSiguienteOrden(out OrdenPreparacion? orden))
             {
-                NumeroOrden = "OP-000141",
-                Modalidad = "Fulfillment",
-                Productos = new List<ProductoItem>
-                {
-                    new ProductoItem { Sku = "CEM-50", Descripcion = "Bolsa de cemento x 50 kg", Cantidad = 4 },
-                    new ProductoItem { Sku = "CAL-25", Descripcion = "Bolsa de cal hidratada x 25 kg", Cantidad = 5 }
-                }
-            });
+                // CU-04, exc. 2.2.
+                lblNroOrden.Text = "";
+                lblModalidad.Text = "";
+                lblTotalBultos.Text = "";
+                btnEmpaquetar.Enabled = false;
+                RefrescarListas();
+                MessageBox.Show("No hay órdenes para empaquetar", Text);
+                return;
+            }
 
-            _colaFifo.Enqueue(new OrdenPreparacionItem
-            {
-                NumeroOrden = "OP-000142",
-                Modalidad = "Pallets",
-                Productos = new List<ProductoItem>
-                {
-                    new ProductoItem { Sku = "TV-55-4K", Descripcion = "Smart TV 55\" 4K", Cantidad = 2 }
-                }
-            });
+            lblNroOrden.Text = orden!.NroOP;
+            lblModalidad.Text = orden.Modalidad;
+            lblTotalBultos.Text = _modelo.TotalBultos.ToString();
+            btnEmpaquetar.Enabled = true;
+            RefrescarListas();
         }
 
-        private void MostrarSiguienteOrdenFIFO()
+        // Vuelve a cargar los productos de la OP asignada con lo que tiene el modelo.
+        private void RefrescarListas()
         {
             lstProductos.Items.Clear();
 
-            if (_colaFifo.Count > 0)
+            foreach (var producto in _modelo.ObtenerProductosAsignados())
             {
-                // Toma automáticamente la siguiente orden en la fila (FIFO) sin dejar que el usuario elija[cite: 3]
-                _ordenActual = _colaFifo.Dequeue();
-
-                txtNumeroOrden.Text = _ordenActual.NumeroOrden;
-                textModalidad.Text = _ordenActual.Modalidad;
-
-                foreach (var prod in _ordenActual.Productos)
-                {
-                    var item = new ListViewItem(prod.Sku);
-                    item.SubItems.Add(prod.Descripcion);
-                    item.SubItems.Add(prod.Cantidad.ToString());
-                    lstProductos.Items.Add(item);
-                }
-
-                lblTotalBultos.Text = _ordenActual.Productos.Count.ToString();
-                btnEmpaquetar.Enabled = true;
-            }
-            else
-            {
-                _ordenActual = null;
-                txtNumeroOrden.Text = "[No hay más órdenes pendientes]";
-                textModalidad.Text = string.Empty;
-                lblTotalBultos.Text = "0";
-                btnEmpaquetar.Enabled = false;
-
-                MessageBox.Show("No quedan más órdenes de preparación pendientes de empaquetado.",
-                    "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                var item = new ListViewItem(new[] { producto.Sku, producto.Descripcion, producto.Cantidad.ToString() });
+                item.Tag = producto.Sku;
+                lstProductos.Items.Add(item);
             }
         }
 
+        // CU-04, pasos 5 a 10.
         private void btnEmpaquetar_Click(object sender, EventArgs e)
         {
-            if (_ordenActual == null) return;
-
-            var resultado = MessageBox.Show(
-                $"¿Confirma el empaquetado de la orden {_ordenActual.NumeroOrden}?",
-                "Confirmar Empaquetado", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-
-            if (resultado == DialogResult.Yes)
+            if (MessageBox.Show("¿Confirma el empaquetado de la OP N° " + _modelo.NroOPAsignada + " en " + _modelo.TotalBultos + " bultos?", Text,
+                    MessageBoxButtons.OKCancel, MessageBoxIcon.Question) != DialogResult.OK)
             {
-                MessageBox.Show($"La orden {_ordenActual.NumeroOrden} fue empaquetada con éxito.",
-                    "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
-                // Carga automáticamente la siguiente orden bajo el criterio FIFO
-                MostrarSiguienteOrdenFIFO();
+                return;
             }
+
+            if (!_modelo.ConfirmarEmpaquetado(out string nroOP)) return;
+
+            MessageBox.Show("Orden de preparación N° " + nroOP + " preparada", Text);
+            MostrarOrdenAsignada();
         }
 
         private void btnCancelar_Click(object sender, EventArgs e)
         {
             Close();
+        }
+
+        // Cubre tanto "Cancelar" como cerrar la ventana. La OP sigue En preparación y
+        // se vuelve a asignar al abrir la pantalla (CU-04, Salida).
+        private void EmpaquetarProductosForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (_modelo.HayOrdenAsignada)
+            {
+                MessageBox.Show("No se registró el empaquetado", Text);
+            }
         }
     }
 }

@@ -95,6 +95,7 @@
             OPPendientesListView.TabIndex = 0;
             OPPendientesListView.UseCompatibleStateImageBehavior = false;
             OPPendientesListView.View = View.Details;
+            OPPendientesListView.ItemCheck += OPPendientesListView_ItemCheck;
             // 
             // NumeroOpCol
             // 
@@ -124,6 +125,7 @@
             btnAgregarTodo.TabIndex = 3;
             btnAgregarTodo.Text = "Agregar Todo";
             btnAgregarTodo.UseVisualStyleBackColor = true;
+            btnAgregarTodo.Click += btnAgregarTodo_Click;
             // 
             // btnAgregar
             // 
@@ -133,6 +135,7 @@
             btnAgregar.TabIndex = 1;
             btnAgregar.Text = "Agregar Seleccionadas";
             btnAgregar.UseVisualStyleBackColor = true;
+            btnAgregar.Click += btnAgregar_Click;
             // 
             // btnQuitar
             // 
@@ -142,6 +145,7 @@
             btnQuitar.TabIndex = 2;
             btnQuitar.Text = "Quitar Seleccionadas";
             btnQuitar.UseVisualStyleBackColor = true;
+            btnQuitar.Click += btnQuitar_Click;
             // 
             // btnQuitarTodo
             // 
@@ -150,6 +154,7 @@
             btnQuitarTodo.Size = new Size(507, 30);
             btnQuitarTodo.TabIndex = 4;
             btnQuitarTodo.Text = "Quitar Todo";
+            btnQuitarTodo.Click += btnQuitarTodo_Click;
             // 
             // groupBox2
             // 
@@ -191,6 +196,7 @@
             GenerarOSBtn.TabIndex = 6;
             GenerarOSBtn.Text = "Generar Orden de Selección";
             GenerarOSBtn.UseVisualStyleBackColor = true;
+            GenerarOSBtn.Click += GenerarOSBtn_Click;
             // 
             // CencelarBtn
             // 
@@ -200,6 +206,7 @@
             CencelarBtn.TabIndex = 7;
             CencelarBtn.Text = "Cancelar";
             CencelarBtn.UseVisualStyleBackColor = true;
+            CencelarBtn.Click += CencelarBtn_Click;
             // 
             // btnBuscar
             // 
@@ -209,6 +216,7 @@
             btnBuscar.TabIndex = 8;
             btnBuscar.Text = "Buscar";
             btnBuscar.UseVisualStyleBackColor = true;
+            btnBuscar.Click += btnBuscar_Click;
             // 
             // lblModalidad
             // 
@@ -289,6 +297,7 @@
             btnLimpiarFiltros.TabIndex = 12;
             btnLimpiarFiltros.Text = "Limpiar filtros";
             btnLimpiarFiltros.UseVisualStyleBackColor = true;
+            btnLimpiarFiltros.Click += btnLimpiarFiltros_Click;
             // 
             // groupBoxFiltros
             // 
@@ -328,6 +337,8 @@
             Name = "GenerarOrdenSeleccionForm";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Generar Orden de Selección";
+            FormClosing += GenerarOrdenSeleccionForm_FormClosing;
+            Load += GenerarOrdenSeleccionForm_Load;
             groupBox1.ResumeLayout(false);
             groupBox2.ResumeLayout(false);
             groupBoxFiltros.ResumeLayout(false);

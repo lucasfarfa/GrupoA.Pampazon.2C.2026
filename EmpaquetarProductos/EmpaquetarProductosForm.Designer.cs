@@ -197,6 +197,7 @@
             Name = "EmpaquetarProductosForm";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Empaquetar Productos - Pampazon S.A";
+            FormClosing += EmpaquetarProductosForm_FormClosing;
             Load += EmpaquetarProductosForm_Load;
             grpOrden.ResumeLayout(false);
             grpOrden.PerformLayout();

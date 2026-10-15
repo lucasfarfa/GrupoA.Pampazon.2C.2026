@@ -1,14 +1,8 @@
-﻿using System;
-using System.Windows.Forms;
-
-namespace GrupoA.PampazonSA.AdministracionDeposito.PrepararProductos
+﻿namespace GrupoA.PampazonSA.AdministracionDeposito.PrepararProductos
 {
-    // Pantalla 3 - Registrar picking.
-    // Almacén elige una Orden de Selección pendiente, ve la mercadería consolidada a retirar
-    // (por posición) y confirma la entrega a Preparación: la OS queda Cumplida y se descuenta el stock.
     public partial class PrepararProductosForm : Form
     {
-        private PrepararProductosModelo _modelo;
+        private PrepararProductosModelo _modelo = new PrepararProductosModelo();
 
         public PrepararProductosForm()
         {
@@ -17,62 +11,87 @@ namespace GrupoA.PampazonSA.AdministracionDeposito.PrepararProductos
 
         private void PrepararProductosForm_Load(object sender, EventArgs e)
         {
-            InitializeModelBindings();
-        }
-
-        public void InitializeModelBindings()
-        {
-            if (_modelo == null) _modelo = new PrepararProductosModelo();
-
             lblDeposito.Text = "Depósito: " + _modelo.Deposito;
-            RefrescarOrdenesSeleccion();
+            RefrescarListas();
         }
 
-        private void RefrescarOrdenesSeleccion()
+        // CU-03, 3 y 4. La clave de la OS es el texto del ítem del combo.
+        private void comboOrdenSeleccion_SelectedIndexChanged(object? sender, EventArgs e)
         {
-            // Nota: Si en tu diseñador agregaste un ListView para las OS, puedes incluirlo aquí.
-            // Mantenemos la estructura limpia del detalle que tenías visualmente.
-            LimpiarDetalle();
+            if (comboOrdenSeleccion.SelectedItem is not string nro) return;
 
-            var pendientes = _modelo.GetOrdenesPendientes();
-            // Si manejas la lista de OS pendientes en otro control o combobox, lo puedes enlazar aquí.
-        }
+            if (!_modelo.SeleccionarOrden(nro)) return;
 
-        private void LimpiarDetalle()
-        {
-            listViewDetalle.Items.Clear();
-            grpDetalle.Text = "Mercadería a retirar del almacén";
-            btnConfirmar.Enabled = false;
+            RefrescarListas();
         }
 
         private void btnConfirmar_Click(object sender, EventArgs e)
         {
-            // Lógica de confirmación por ID de Orden de Selección seleccionado de prueba o interfaz
-            string osId = "OS-000032"; // Ejemplo base o tomado del control correspondiente
-
-            var respuesta = MessageBox.Show(
-                "¿Confirma que la mercadería de la " + osId + " fue entregada a Preparación?\n\n" +
-                "La orden quedará Cumplida y se descontará el stock del almacén.",
-                "Confirmar entrega", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-            if (respuesta != DialogResult.Yes) return;
-
-            var error = _modelo.ConfirmarEntregaAPreparacion(osId);
-            if (error != null)
+            // CU-03, 8.1
+            if (comboOrdenSeleccion.SelectedItem is not string nro)
             {
-                MessageBox.Show(error, "No se pudo confirmar la entrega",
-                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("Debe seleccionar una orden de selección", Text);
                 return;
             }
 
-            MessageBox.Show("La " + osId + " quedó Cumplida. Se descontó el stock del almacén.",
-                "Entrega confirmada", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            // CU-03, 9. Cancelar la pregunta no registra la entrega (CU-03, 10.1).
+            if (MessageBox.Show(
+                    "¿Confirma que entregó toda la mercadería de la OS N° " + nro + " a Preparación?",
+                    Text,
+                    MessageBoxButtons.OKCancel,
+                    MessageBoxIcon.Question) != DialogResult.OK)
+            {
+                return;
+            }
 
-            RefrescarOrdenesSeleccion();
+            // CU-03, 11 a 14
+            if (!_modelo.ConfirmarEntrega(nro)) return;
+
+            MessageBox.Show("Entrega a Preparación registrada", Text);
+            RefrescarListas();
         }
 
         private void btnCancelar_Click(object sender, EventArgs e)
         {
             Close();
+        }
+
+        // CU-03, Salida. Cubre "Cancelar" y cerrar la ventana con la X.
+        private void PrepararProductosForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            MessageBox.Show("No se registró la entrega a Preparación", Text);
+        }
+
+        private void RefrescarListas()
+        {
+            comboOrdenSeleccion.SelectedIndexChanged -= comboOrdenSeleccion_SelectedIndexChanged;
+
+            comboOrdenSeleccion.Items.Clear();
+            List<string> ordenes = _modelo.ObtenerOrdenesPendientes();
+            foreach (string nro in ordenes)
+                comboOrdenSeleccion.Items.Add(nro);
+
+            if (_modelo.ObtenerOrdenSeleccionada(out string nroSeleccionada))
+                comboOrdenSeleccion.SelectedItem = nroSeleccionada;
+
+            listViewDetalle.Items.Clear();
+            foreach (LineaMercaderia linea in _modelo.ObtenerLineas())
+            {
+                listViewDetalle.Items.Add(new ListViewItem(new[]
+                {
+                    linea.Posicion,
+                    linea.Sku,
+                    linea.Cantidad.ToString()
+                }));
+            }
+
+            btnConfirmar.Enabled = ordenes.Count > 0;
+
+            comboOrdenSeleccion.SelectedIndexChanged += comboOrdenSeleccion_SelectedIndexChanged;
+
+            // CU-03, 2.1
+            if (ordenes.Count == 0)
+                MessageBox.Show("No hay órdenes de selección pendientes", Text);
         }
     }
 }
