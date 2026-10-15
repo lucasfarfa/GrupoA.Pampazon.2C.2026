@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Proyecto
 
-Prototipo académico (Grupo A, 2C 2026) de un sistema de administración de depósito para "Pampazon S.A.". Es una aplicación de escritorio **WinForms** en C# (`net10.0-windows`, `Nullable` e `ImplicitUsings` habilitados). Todo el dominio, la UI y los comentarios están en español; mantener esa convención al nombrar clases, controles y mensajes.
+Prototipo académico (Grupo A, 2C 2026) de un sistema de administración de depósito para "Pampazon S.A.". Es una aplicación de escritorio **WinForms** en C# (`net10.0-windows`, `Nullable` e `ImplicitUsings` habilitados). Todo el dominio, la UI y los comentarios están en español; mantener esa convención al nombrar clases, controles y mensajes. Son prototipos de pantallas con datos inventados, no casos reales.
 
 ## Comandos
 
@@ -13,24 +13,52 @@ dotnet build GrupoA.PampazonSA.AdministracionDeposito.slnx
 dotnet run --project GrupoA.PampazonSA.AdministracionDeposito.csproj
 ```
 
-No hay proyecto de tests ni linter configurado. Los formularios se diseñan normalmente con el diseñador de Visual Studio.
+No hay proyecto de tests ni linter configurado. Las pruebas son manuales, siguiendo el plan de pruebas de cada pantalla.
 
 ## Arquitectura
 
-Un único proyecto. Cada **caso de uso** del depósito vive en su propia carpeta y namespace (`GrupoA.PampazonSA.AdministracionDeposito.<CasoDeUso>`), con este patrón:
+Un único proyecto. Cada **caso de uso** vive en su propia carpeta y namespace (`GrupoA.PampazonSA.AdministracionDeposito.<CasoDeUso>`):
 
-- `<CasoDeUso>Form.cs` — lógica de la pantalla (manejadores de eventos, binding a controles).
-- `<CasoDeUso>Form.Designer.cs` — generado por el diseñador de VS; no editarlo a mano salvo que sea imprescindible. Los controles tienen nombres descriptivos (p. ej. `cboCliente`, `NombreEmpleadoLabel`) que el código del Form referencia.
-- `<CasoDeUso>Modelo.cs` — lógica de negocio y **datos de prueba en memoria** (listas/diccionarios estáticos o cargados en el constructor). No hay base de datos ni persistencia: cada modelo es autosuficiente y define sus propias clases de dominio (a veces en el mismo archivo, a veces en archivos aparte dentro de la carpeta, p. ej. `GenerarRemitoDespachar/Remito.cs`).
-- El Form instancia su Modelo como campo (`private readonly XModelo _modelo = new();`) y le delega toda validación y cálculo; los métodos del modelo suelen devolver un `string` con el mensaje de error (o null/vacío si salió bien) para que el Form lo muestre en un `MessageBox`.
+- `<CasoDeUso>Form.cs` — la pantalla: validaciones de entrada y actualización de controles.
+- `<CasoDeUso>Form.Designer.cs` — generado por el diseñador de VS. Editarlo a mano solo para lo imprescindible (suscribir eventos `Click`, `FormClosing`, propiedades como `FullRowSelect`); si se borra un manejador del `.cs`, borrar también su suscripción acá o el diseñador falla.
+- `<CasoDeUso>Modelo.cs` — lógica de negocio y datos de prueba hardcodeados en memoria. Las clases de dominio de la pantalla van en archivos aparte dentro de la carpeta (p. ej. `GenerarRemitoDespachar/Remito.cs`). Los casos de uso no comparten modelo ni clases entre sí.
+- Documentación de la pantalla en la misma carpeta: el caso de uso (`CU-XX_<nombre>.md`) y el plan de pruebas (`Plan pruebas <nombre>.xlsx`).
 
-Los casos de uso no comparten modelo ni clases de dominio entre sí (p. ej. hay distintas representaciones de "orden" y "línea" por carpeta). El flujo del negocio es: Registrar Orden de Preparación → Generar Orden de Selección → Preparar Productos → Empaquetar Productos → Generar Orden de Entrega / Generar Remito y Despachar; además Recepcionar Orden de Entrega.
+`MenuPrincipalForm` tiene un botón por pantalla que la abre con `ShowDialog()`. `Program.cs` arranca directamente el formulario que se está probando; cambiar su `Application.Run(...)` según haga falta.
 
-`RegistrarOrdenPreparacion` y `PrepararProductos` son los casos más completos y sirven de referencia de estilo (por ejemplo, el flag `_cargando` para ignorar eventos de `SelectedIndexChanged` mientras se cargan combos, y `BindingList<T>` para grillas).
+## Forma de desarrollar (reglas del profesor)
+
+La referencia de este patrón es `GenerarRemitoDespachar`. Las pantallas más viejas (`RegistrarOrdenPreparacion`, `PrepararProductos`) usan otro estilo (validación en el modelo, métodos que devuelven `string` de error): no tomarlas como modelo.
+
+**Form**
+- Valida **todas** las entradas de datos (formato, campos vacíos, nada seleccionado en una lista, confirmaciones OK/Cancelar) antes de llamar al modelo.
+- Todo cambio se envía al modelo. El modelo responde `bool`: solo si devuelve `true` se actualiza la pantalla. Patrón: `if (!_modelo.Accion(...)) return;` y después refrescar.
+- Las listas se recargan siempre desde lo que devuelve el modelo (un método `RefrescarListas()`), no se agregan ni quitan ítems a mano.
+- **Nunca se envían controles al modelo** (ni `TextBox`, ni `DateTimePicker`, ni `ListViewItem`). Solo datos nativos (`int`, `string`, `DateTime`, `List<string>`) o clases que contengan solo esos tipos. Para identificar un ítem de un `ListView`, guardar su clave (`string`) en `item.Tag` y enviar esa clave.
+- **El único campo del form es `_modelo`.** No guardar estado de la pantalla en variables del form (p. ej. el DNI buscado o la selección): ese estado vive en el modelo. Las variables locales dentro de un método están bien.
+
+**Modelo**
+- No conoce WinForms. Expone métodos que devuelven `bool` (con `out` para los datos que el form necesita mostrar) y métodos `Obtener...()` que devuelven listas para cargar la pantalla.
+- Datos de prueba en campos `static` para que se mantengan entre aperturas de la pantalla; el estado propio de la pantalla (selección, entidad buscada) en campos de instancia.
+- Si un caso "no debería pasar nunca" en el prototipo, no inventar manejo: el modelo devuelve `false` y el form hace `return`.
+
+**Alcance**
+- Implementar solo lo pedido. No agregar mensajes, `Focus()`, limpiezas de controles ni validaciones que no estén en el CU o el plan de pruebas.
+- Lo que falte definir se marca con `// TODO` y `return`, sin inventar comportamiento.
+- Lo que el prototipo no hace a propósito (imprimir, usuarios, movimientos de stock, detalle de mercadería, etc.) **no** lleva TODO: se omite.
+- Los mensajes al usuario se copian textuales del plan de pruebas / CU.
+
+## CU, plan de pruebas y código alineados
+
+- Ante diferencias, **el plan de pruebas es la fuente de verdad**; después se ajustan el CU y el código para que digan lo mismo (pasos, excepciones, textos de mensajes y numeración).
+- Si se saca una prueba del plan (p. ej. por no ser reproducible en el prototipo), sacarla también del CU y del código.
+- Si el CU describe algo que la pantalla no tiene (p. ej. mostrar el depósito), se saca del CU o se agrega a la pantalla; no dejarlos distintos.
+- Los comentarios del código que citan pasos del CU (`// CU-07, 4.2`) deben actualizarse si cambia la numeración.
+- Los datos de prueba del modelo pueden diferir de los del plan (p. ej. otros nombres y DNI de transportistas); en ese caso la planilla se actualiza con los datos del modelo.
+- La planilla `.xlsx` la edita el usuario. Para leerla no hay `openpyxl` instalado: abrir el `.xlsx` como zip y parsear `xl/sharedStrings.xml` y `xl/worksheets/sheet*.xml` con la librería estándar de Python.
 
 ## Particularidades
 
-- `Program.cs` arranca directamente el formulario que se está desarrollando (hoy `RegistrarOrdenPreparacionForm`); el `MenuPrincipalForm` está comentado y sus botones aún no navegan. Cambiar el `Application.Run(...)` para probar otra pantalla.
 - `MenuPrincipal` usa el namespace `OrdenesPreparacion` (inconsistente con el resto) y `EmpaquetarProductos` usa `...CU04EmpaquetarProductos`.
 - La carpeta `.vs/` está versionada en git aunque figura en `.gitignore`; no agregar cambios de esos archivos en los commits.
 - Se trabaja con una rama por pantalla/prototipo (p. ej. `protitipo/generar-remito-despachar`) y PRs contra `main`.
