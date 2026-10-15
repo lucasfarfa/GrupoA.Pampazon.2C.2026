@@ -21,6 +21,9 @@ namespace GrupoA.PampazonSA.AdministracionDeposito.RegistrarOrdenPreparacion
                 cboDeposito.Items.Add(deposito);
 
             lblDisponible.Text = "";
+
+            // El DNI no admite más de 8 caracteres (prueba A.5).
+            txtDniTransportista.MaxLength = 8;
         }
 
         private void cboCliente_SelectedIndexChanged(object sender, EventArgs e)

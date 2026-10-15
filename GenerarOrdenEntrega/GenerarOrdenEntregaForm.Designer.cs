@@ -49,6 +49,7 @@
             lvPendientes.UseCompatibleStateImageBehavior = false;
             lvPendientes.View = View.Details;
             lvPendientes.ItemChecked += lvPendientes_ItemChecked;
+            lvPendientes.ItemSelectionChanged += lvPendientes_ItemSelectionChanged;
             // 
             // colPenCliente
             // 
