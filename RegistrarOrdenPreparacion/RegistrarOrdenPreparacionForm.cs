@@ -1,21 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Text;
-using System.Windows.Forms;
+﻿using System.Globalization;
+using System.Text.RegularExpressions;
 
 namespace GrupoA.PampazonSA.AdministracionDeposito.RegistrarOrdenPreparacion
 {
     public partial class RegistrarOrdenPreparacionForm : Form
     {
-        private readonly RegistrarOrdenPreparacionModelo _modelo = new RegistrarOrdenPreparacionModelo();
-        private readonly BindingList<LineaOrden> _lineas = new BindingList<LineaOrden>();
-
-        private bool _cargando;          // true = se están cargando los combos: se ignoran sus eventos
-        private int _idxCliente = -1;    // última selección aceptada de cada combo (para poder volver atrás)
-        private int _idxDeposito = -1;
+        private RegistrarOrdenPreparacionModelo _modelo = new RegistrarOrdenPreparacionModelo();
 
         public RegistrarOrdenPreparacionForm()
         {
@@ -24,262 +14,254 @@ namespace GrupoA.PampazonSA.AdministracionDeposito.RegistrarOrdenPreparacion
 
         private void RegistrarOrdenPreparacionForm_Load(object sender, EventArgs e)
         {
-            _cargando = true;
+            foreach (var cliente in _modelo.ObtenerClientes())
+                cboCliente.Items.Add(cliente);
 
-            cboCliente.DataSource = _modelo.ObtenerClientes();
-            cboCliente.DisplayMember = nameof(ClienteOrden.Nombre);
-            cboCliente.SelectedIndex = -1;
+            foreach (var deposito in _modelo.ObtenerDepositos())
+                cboDeposito.Items.Add(deposito);
 
-            cboDeposito.DataSource = _modelo.ObtenerDepositos();
-            cboDeposito.SelectedIndex = -1;
-
-          
-
-            _cargando = false;
-            ActualizarProductosDisponibles();
+            lblDisponible.Text = "";
         }
 
         private void cboCliente_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (_cargando) return;
+            // Al volver al cliente que ya tiene el modelo (cancelar el cambio o pantalla vacía) no hay nada que hacer.
+            if (cboCliente.SelectedItem is not string cliente || cliente == _modelo.ClienteSeleccionado) return;
 
-            if (!ConfirmarCambioConProductos())
+            if (!ConfirmarQuitarProductos())
             {
-                Restaurar(cboCliente, _idxCliente);
+                cboCliente.SelectedItem = _modelo.ClienteSeleccionado;
                 return;
             }
 
-            _idxCliente = cboCliente.SelectedIndex;
-            txtCuitCliente.Text = cboCliente.SelectedItem is ClienteOrden cliente ? cliente.Cuit : "";
-            _lineas.Clear();
-            ActualizarProductosDisponibles();
+            if (!_modelo.SeleccionarCliente(cliente, out string cuit)) return;
+
+            txtCuitCliente.Text = cuit;
+            CargarSkus();
+            RefrescarListas();
         }
 
         private void cboDeposito_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (_cargando) return;
+            if (cboDeposito.SelectedItem is not string deposito || deposito == _modelo.DepositoSeleccionado) return;
 
-            if (!ConfirmarCambioConProductos())
+            if (!ConfirmarQuitarProductos())
             {
-                Restaurar(cboDeposito, _idxDeposito);
+                cboDeposito.SelectedItem = _modelo.DepositoSeleccionado;
                 return;
             }
 
-            _idxDeposito = cboDeposito.SelectedIndex;
-            _lineas.Clear();
-            ActualizarProductosDisponibles();
+            if (!_modelo.SeleccionarDeposito(deposito)) return;
+
+            CargarSkus();
+            RefrescarListas();
         }
 
-        private bool ConfirmarCambioConProductos()
+        // CU-01, 17.7 a 17.9.
+        private bool ConfirmarQuitarProductos()
         {
-            if (_lineas.Count == 0) return true;
+            if (!_modelo.HayProductos) return true;
 
-            return MessageBox.Show(
-                "Al cambiar el cliente o el depósito se quitarán los productos agregados. ¿Desea continuar?",
-                Text, MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes;
+            return MessageBox.Show("Se quitarán los productos cargados. ¿Desea continuar?", Text,
+                MessageBoxButtons.OKCancel, MessageBoxIcon.Question) == DialogResult.OK;
         }
 
-        private void Restaurar(ComboBox combo, int indice)
+        // Carga en SKU los productos del cliente con stock en el depósito (CU-01, paso 6 y 6.1).
+        private void CargarSkus()
         {
-            _cargando = true;
-            combo.SelectedIndex = indice;
-            _cargando = false;
-        }
+            cboSku.Items.Clear();
+            lblDisponible.Text = "";
 
-        private void ActualizarProductosDisponibles()
-        {
-            _cargando = true;
+            List<string> skus = _modelo.ObtenerSkus();
+            foreach (var sku in skus)
+                cboSku.Items.Add(sku);
 
-            if (cboCliente.SelectedItem is ClienteOrden cliente && cboDeposito.SelectedItem is string deposito)
+            if (_modelo.ClienteSeleccionado != null && _modelo.DepositoSeleccionado != null && skus.Count == 0)
             {
-                cboSku.DataSource = _modelo.ObtenerProductos(cliente, deposito);
-                cboSku.DisplayMember = nameof(ProductoStock.Sku);
-                cboSku.SelectedIndex = -1;
-                cboSku.Enabled = txtCantidad.Enabled = btnAgregar.Enabled = true;
+                MessageBox.Show("El cliente no tiene mercadería en el depósito seleccionado", Text);
             }
-            else
-            {
-                cboSku.DataSource = null;
-                cboSku.Enabled = txtCantidad.Enabled = btnAgregar.Enabled = false;
-            }
-
-            
-            
-            txtCantidad.Clear();
-
-            _cargando = false;
         }
 
         private void cboSku_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (_cargando) return;
+            lblDisponible.Text = "";
+            if (cboSku.SelectedItem is not string sku) return;
 
-            if (cboSku.SelectedItem is ProductoStock producto)
-            {
-                
-                //txtDisponible.Text = producto.Disponible.ToString();
-                txtCantidad.Focus();
-            }
-            else
-            {
-                
-                //txtDisponible.Clear();
-            }
+            if (!_modelo.ObtenerDisponible(sku, out int disponible)) return;
+
+            lblDisponible.Text = disponible.ToString();
         }
 
         private void btnAgregar_Click(object sender, EventArgs e)
         {
-            if (cboSku.SelectedItem is not ProductoStock producto)
+            if (cboSku.SelectedItem is not string sku)
             {
-                Advertir("Seleccione el SKU del producto.", cboSku);
+                MessageBox.Show("Debe seleccionar un SKU", Text);
                 return;
             }
 
-            if (!int.TryParse(txtCantidad.Text, out int cantidad) || cantidad <= 0)
+            if (!int.TryParse(txtCantidad.Text.Trim(), out int cantidad) || cantidad <= 0)
             {
-                Advertir("Ingrese una cantidad válida mayor a cero.", txtCantidad);
+                MessageBox.Show("La cantidad debe ser un número entero mayor a cero", Text);
                 return;
             }
 
-            if (cantidad > producto.Disponible)
+            if (!_modelo.ObtenerDisponible(sku, out int disponible)) return;
+
+            if (cantidad > disponible)
             {
-                Advertir("La cantidad ingresada supera el stock disponible.", txtCantidad);
+                MessageBox.Show("La cantidad supera el disponible del SKU " + sku + ": " + disponible + " unidades", Text);
                 return;
             }
 
-            // Verificar si el producto ya fue agregado a la grilla
-            var lineaExistente = _lineas.FirstOrDefault(l => l.Sku == producto.Sku);
-            if (lineaExistente != null)
+            if (listDetalleAgregado.Items.Cast<ListViewItem>().Any(item => (string)item.Tag! == sku))
             {
-                if (lineaExistente.Cantidad + cantidad > producto.Disponible)
-                {
-                    Advertir("La cantidad total acumulada supera el stock disponible.", txtCantidad);
-                    return;
-                }
-                lineaExistente.Cantidad += cantidad;
-               
+                MessageBox.Show("El SKU ya está en la orden. Quítelo de la lista para cambiar la cantidad", Text);
+                return;
             }
-            else
-            {
-                _lineas.Add(new LineaOrden
-                {
-                    Sku = producto.Sku,
-                    Descripcion = producto.Descripcion,
-                    Cantidad = cantidad,
-                    Disponible = producto.Disponible
-                });
-            }
+
+            if (!_modelo.AgregarProducto(sku, cantidad)) return;
 
             cboSku.SelectedIndex = -1;
             txtCantidad.Clear();
-            cboSku.Focus();
+            RefrescarListas();
         }
 
-        
+        private void btnQuitarSeleccionado_Click(object sender, EventArgs e)
+        {
+            if (listDetalleAgregado.SelectedItems.Count == 0)
+            {
+                MessageBox.Show("Seleccione un producto de la lista", Text);
+                return;
+            }
+
+            List<string> skus = listDetalleAgregado.SelectedItems
+                .Cast<ListViewItem>()
+                .Select(item => (string)item.Tag!)
+                .ToList();
+
+            if (!_modelo.QuitarProductos(skus)) return;
+
+            RefrescarListas();
+        }
 
         private void btnRegistrar_Click(object sender, EventArgs e)
         {
-            if (cboCliente.SelectedItem is not ClienteOrden cliente)
+            string dni = txtDniTransportista.Text.Trim();
+            string nombre = txtNombreTransportista.Text.Trim();
+            string fecha = txtFechaRetiro.Text.Trim();
+
+            var faltantes = new List<string>();
+            if (cboCliente.SelectedIndex < 0) faltantes.Add("Cliente");
+            if (cboDeposito.SelectedIndex < 0) faltantes.Add("Depósito");
+            if (!rbFulfillment.Checked && !rbPaletCerrado.Checked) faltantes.Add("Modalidad");
+            if (dni == "") faltantes.Add("DNI");
+            if (nombre == "") faltantes.Add("Nombre del transportista");
+            if (fecha == "") faltantes.Add("Fecha de retiro");
+
+            if (faltantes.Count > 0)
             {
-                Advertir("Seleccione el cliente.", cboCliente);
+                MessageBox.Show("Debe completar: " + string.Join(", ", faltantes), Text);
                 return;
             }
 
-            if (cboDeposito.SelectedItem is not string deposito)
+            if (!Regex.IsMatch(dni, @"^\d{7,8}$"))
             {
-                Advertir("Seleccione el depósito.", cboDeposito);
+                MessageBox.Show("El DNI debe tener 7 u 8 dígitos numéricos", Text);
                 return;
             }
 
-            if (!RegistrarOrdenPreparacionModelo.DniValido(txtDniTransportista.Text))
+            if (!Regex.IsMatch(nombre, @"^[\p{L} '\-]+$"))
             {
-                Advertir("Ingrese un DNI válido (7 u 8 dígitos).", txtDniTransportista);
+                MessageBox.Show("El nombre solo admite letras, espacios, apóstrofos y guiones", Text);
                 return;
             }
 
-            if (_lineas.Count == 0)
+            if (!DateTime.TryParseExact(fecha, "dd/MM/yyyy", CultureInfo.InvariantCulture, DateTimeStyles.None, out DateTime fechaRetiro))
             {
-                Advertir("Agregue al menos un producto a preparar.", cboSku);
+                MessageBox.Show("Fecha inválida", Text);
                 return;
             }
 
-            LimpiarFormulario();
+            if (fechaRetiro < DateTime.Today)
+            {
+                MessageBox.Show("La fecha de retiro no puede ser anterior a hoy", Text);
+                return;
+            }
+
+            if (listDetalleAgregado.Items.Count == 0)
+            {
+                MessageBox.Show("Debe agregar al menos un producto", Text);
+                return;
+            }
+
+            if (MessageBox.Show("¿Confirma el registro de la orden de preparación?", Text,
+                    MessageBoxButtons.OKCancel, MessageBoxIcon.Question) != DialogResult.OK)
+            {
+                return;
+            }
+
+            string modalidad = rbFulfillment.Checked ? "Fulfillment" : "Palet cerrado";
+            if (!_modelo.Registrar(modalidad, dni, nombre, fechaRetiro, out string nroOP)) return;
+
+            MessageBox.Show("Orden de preparación N° " + nroOP + " registrada", Text);
+            VaciarPantalla();
+        }
+
+        // Vuelve a cargar la grilla "Productos a preparar" con lo que tiene el modelo.
+        private void RefrescarListas()
+        {
+            listDetalleAgregado.Items.Clear();
+
+            foreach (var linea in _modelo.ObtenerLineas())
+            {
+                var item = new ListViewItem(new[] { linea.Sku, linea.Descripcion, linea.Cantidad.ToString() });
+                item.Tag = linea.Sku;
+                listDetalleAgregado.Items.Add(item);
+            }
+        }
+
+        // Deja la pantalla vacía para una nueva orden (CU-01, paso 29). El modelo ya quedó vacío al registrar.
+        private void VaciarPantalla()
+        {
+            cboCliente.SelectedIndex = -1;
+            txtCuitCliente.Clear();
+            cboDeposito.SelectedIndex = -1;
+            rbFulfillment.Checked = false;
+            rbPaletCerrado.Checked = false;
+            txtDniTransportista.Clear();
+            txtNombreTransportista.Clear();
+            txtFechaRetiro.Clear();
+            txtCantidad.Clear();
+            CargarSkus();
+            RefrescarListas();
         }
 
         private void btnCancelar_Click(object sender, EventArgs e)
         {
-            Close();     // la confirmación está en FormClosing
+            Close();
         }
 
+        // Cubre tanto "Cancelar" como cerrar la ventana (CU-01, Salida).
         private void RegistrarOrdenPreparacionForm_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if (!HayDatosCargados()) return;
+            bool hayDatos = cboCliente.SelectedIndex >= 0
+                || cboDeposito.SelectedIndex >= 0
+                || rbFulfillment.Checked
+                || rbPaletCerrado.Checked
+                || txtDniTransportista.Text.Trim() != ""
+                || txtNombreTransportista.Text.Trim() != ""
+                || txtFechaRetiro.Text.Trim() != ""
+                || txtCantidad.Text.Trim() != ""
+                || listDetalleAgregado.Items.Count > 0;
 
-            var respuesta = MessageBox.Show("¿Desea salir? Se perderán los datos no confirmados.",
-                Text, MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            if (!hayDatos) return;
 
-            if (respuesta == DialogResult.No)
-                e.Cancel = true;     // se queda en la pantalla con sus datos
-        }
-
-        private void SoloDigitos_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
-                e.Handled = true;
-        }
-
-        private bool HayDatosCargados() =>
-            cboCliente.SelectedIndex >= 0
-            || cboDeposito.SelectedIndex >= 0
-            || rbFulfillment.Checked
-            || rbPaletCerrado.Checked
-            || !string.IsNullOrWhiteSpace(txtDniTransportista.Text)
-            || _lineas.Count > 0;
-
-        private void LimpiarFormulario()
-        {
-            _cargando = true;
-
-            cboCliente.SelectedIndex = -1;
-            cboDeposito.SelectedIndex = -1;
-            _idxCliente = -1;
-            _idxDeposito = -1;
-            txtCuitCliente.Clear();
-            rbFulfillment.Checked = false;
-            rbPaletCerrado.Checked = false;
-            txtDniTransportista.Clear();
-            _lineas.Clear();
-
-            _cargando = false;
-            ActualizarProductosDisponibles();
-            cboCliente.Focus();
-        }
-
-        private void Advertir(string mensaje, Control foco)
-        {
-            MessageBox.Show(mensaje, Text, MessageBoxButtons.OK, MessageBoxIcon.Warning);
-            foco?.Focus();
-        }
-
-        private void lblDni_Click(object sender, EventArgs e)
-        {
-        }
-
-       
-
-        private void btnRegistrarOp_Click(object sender, EventArgs e)
-        {
-            btnRegistrar_Click(sender, e);
-        }
-
-        private void dgvProductos_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-
-        }
-
-        private void listView1_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
+            if (MessageBox.Show("No se registró ninguna orden de preparación. ¿Desea salir?", Text,
+                    MessageBoxButtons.OKCancel, MessageBoxIcon.Question) != DialogResult.OK)
+            {
+                e.Cancel = true;
+            }
         }
     }
 }

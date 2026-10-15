@@ -1,29 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Windows.Forms;
-
-namespace GrupoA.PampazonSA.AdministracionDeposito.GenerarOrdenEntrega
+﻿namespace GrupoA.PampazonSA.AdministracionDeposito.GenerarOrdenEntrega
 {
     public partial class GenerarOrdenEntregaForm : Form
     {
-        private class GrupoOP
-        {
-            public string Cliente { get; set; }
-            public string Transportista { get; set; }
-            public DateTime FechaRetiro { get; set; }
-            public int CantidadOP { get; set; }
-        }
-
-        private static readonly List<GrupoOP> _pendientes = new List<GrupoOP>
-        {
-            new GrupoOP { Cliente = "Juan Perez", Transportista = "La Sosa S.A.",  FechaRetiro = DateTime.Today,            CantidadOP = 500 },
-            new GrupoOP { Cliente = "Lola Mem",   Transportista = "La Sosa S.A.",  FechaRetiro = DateTime.Today.AddDays(1), CantidadOP = 200 },
-            new GrupoOP { Cliente = "Loca Mem",   Transportista = "La Chara S.A.", FechaRetiro = DateTime.Today,            CantidadOP = 600 }
-        };
-
-        private static int _ultimoNumero = 0;
+        private GenerarOrdenEntregaModelo _modelo = new GenerarOrdenEntregaModelo();
 
         public GenerarOrdenEntregaForm()
         {
@@ -32,73 +11,64 @@ namespace GrupoA.PampazonSA.AdministracionDeposito.GenerarOrdenEntrega
 
         private void GenerarOrdenEntregaForm_Load(object sender, EventArgs e)
         {
-            CargarListas();
-        }
+            // La pantalla trae el botón deshabilitado: se habilita para poder avisar que no hay fila marcada (CU-05, 7.1).
+            btnGenerarOrden.Enabled = true;
+            RefrescarListas();
 
-        private void CargarListas()
-        {
-            lvPendientes.Items.Clear();
-            foreach (var grupo in _pendientes)
+            if (lvPendientes.Items.Count == 0)
             {
-                var item = new ListViewItem(grupo.Cliente) { Tag = grupo };
-                item.SubItems.Add(grupo.Transportista);
-                item.SubItems.Add(grupo.FechaRetiro.ToString("dd/MM/yyyy"));
-                item.SubItems.Add(grupo.CantidadOP.ToString());
-                lvPendientes.Items.Add(item);
+                MessageBox.Show("No hay órdenes preparadas pendientes de orden de entrega", Text);
             }
-
-           
-            ActualizarBotonGenerar();
         }
 
+        // Solo se puede marcar una fila: al marcar otra se desmarca la anterior (CU-05, paso 5).
         private void lvPendientes_ItemChecked(object sender, ItemCheckedEventArgs e)
         {
-            ActualizarBotonGenerar();
-        }
+            if (!e.Item.Checked) return;
 
-        private void ActualizarBotonGenerar()
-        {
-            btnGenerarOrden.Enabled = lvPendientes.CheckedItems.Count > 0;
+            foreach (var item in lvPendientes.CheckedItems.Cast<ListViewItem>().Where(item => item != e.Item).ToList())
+                item.Checked = false;
         }
 
         private void btnGenerarOrden_Click(object sender, EventArgs e)
         {
-            var elegidas = lvPendientes.CheckedItems
-                .Cast<ListViewItem>()
-                .Select(i => (GrupoOP)i.Tag)
-                .ToList();
-
-            if (elegidas.Count == 0)
+            if (lvPendientes.CheckedItems.Count == 0)
             {
-                MessageBox.Show("Marque al menos una fila para generar la orden de entrega.",
-                    Text, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("Debe seleccionar un grupo de órdenes", Text);
                 return;
             }
 
-            var mensajesNuevos = new List<string>();
-            foreach (var grupo in elegidas)
-            {
-                _ultimoNumero++;
-                string numeroOE = $"OE-{_ultimoNumero:000000}";
-                mensajesNuevos.Add($"{numeroOE} => {grupo.Cliente} | {grupo.Transportista} | {grupo.FechaRetiro:dd/MM/yyyy}");
+            var item = lvPendientes.CheckedItems[0];
+            string clave = (string)item.Tag!;
+            string cliente = item.SubItems[0].Text;
+            string transportista = item.SubItems[1].Text;
+            string fechaRetiro = item.SubItems[2].Text;
+            string cantidadOP = item.SubItems[3].Text;
 
-                _pendientes.Remove(grupo); // Se quita de pendientes
+            if (MessageBox.Show("¿Confirma la orden de entrega para " + cliente + ", transportista " + transportista +
+                    ", retiro " + fechaRetiro + ", con " + cantidadOP + " OP?", Text,
+                    MessageBoxButtons.OKCancel, MessageBoxIcon.Question) != DialogResult.OK)
+            {
+                return;
             }
 
-            CargarListas();
+            if (!_modelo.GenerarOrdenEntrega(clave, out string nroOE)) return;
 
-            var mensaje = new StringBuilder();
-            mensaje.AppendLine(mensajesNuevos.Count == 1
-                ? "Se generó 1 orden de entrega:"
-                : $"Se generaron {mensajesNuevos.Count} órdenes de entrega:");
-            mensaje.AppendLine();
+            MessageBox.Show("Orden de entrega N° " + nroOE + " generada", Text);
+            RefrescarListas();
+        }
 
-            foreach (var item in mensajesNuevos)
+        // Vuelve a cargar los grupos de OP Preparadas sin OE que tiene el modelo.
+        private void RefrescarListas()
+        {
+            lvPendientes.Items.Clear();
+
+            foreach (var grupo in _modelo.ObtenerGrupos())
             {
-                mensaje.AppendLine(item);
+                var item = new ListViewItem(new[] { grupo.Cliente, grupo.NombreTransportista, grupo.FechaRetiro.ToString("dd/MM/yyyy"), grupo.CantidadOP.ToString() });
+                item.Tag = grupo.Clave;
+                lvPendientes.Items.Add(item);
             }
-
-            MessageBox.Show(mensaje.ToString(), Text, MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         private void btnCerrar_Click(object sender, EventArgs e)

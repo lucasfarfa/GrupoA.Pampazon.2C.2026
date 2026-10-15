@@ -191,7 +191,6 @@
             txtDniTransportista.Name = "txtDniTransportista";
             txtDniTransportista.Size = new Size(238, 23);
             txtDniTransportista.TabIndex = 1;
-            txtDniTransportista.KeyPress += SoloDigitos_KeyPress;
             // 
             // label5
             // 
@@ -255,7 +254,6 @@
             listDetalleAgregado.TabIndex = 11;
             listDetalleAgregado.UseCompatibleStateImageBehavior = false;
             listDetalleAgregado.View = View.Details;
-            listDetalleAgregado.SelectedIndexChanged += listView1_SelectedIndexChanged;
             // 
             // columnSKU
             // 
@@ -288,7 +286,6 @@
             txtCantidad.Name = "txtCantidad";
             txtCantidad.Size = new Size(80, 23);
             txtCantidad.TabIndex = 9;
-            txtCantidad.KeyPress += SoloDigitos_KeyPress;
             // 
             // label10
             // 
@@ -334,6 +331,7 @@
             btnQuitarSeleccionado.TabIndex = 1;
             btnQuitarSeleccionado.Text = "Quitar seleccionado";
             btnQuitarSeleccionado.UseVisualStyleBackColor = true;
+            btnQuitarSeleccionado.Click += btnQuitarSeleccionado_Click;
             // 
             // btnRegistrarOp
             // 
