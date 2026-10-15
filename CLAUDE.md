@@ -20,15 +20,18 @@ No hay proyecto de tests ni linter configurado. Las pruebas son manuales, siguie
 Un único proyecto. Cada **caso de uso** vive en su propia carpeta y namespace (`GrupoA.PampazonSA.AdministracionDeposito.<CasoDeUso>`):
 
 - `<CasoDeUso>Form.cs` — la pantalla: validaciones de entrada y actualización de controles.
-- `<CasoDeUso>Form.Designer.cs` — generado por el diseñador de VS. Editarlo a mano solo para lo imprescindible (suscribir eventos `Click`, `FormClosing`, propiedades como `FullRowSelect`); si se borra un manejador del `.cs`, borrar también su suscripción acá o el diseñador falla.
+- `<CasoDeUso>Form.Designer.cs` — generado por el diseñador de VS. **Las pantallas no se modifican bajo ningún concepto**: no se cambian controles, textos, columnas, tamaños ni propiedades. El Designer solo se toca para suscribir eventos (líneas `+=`); si se borra un manejador del `.cs`, borrar también su suscripción acá o el diseñador falla. Si el CU o el plan piden algo que la pantalla no tiene, se ajustan el CU y el plan, nunca la pantalla.
 - `<CasoDeUso>Modelo.cs` — lógica de negocio y datos de prueba hardcodeados en memoria. Las clases de dominio de la pantalla van en archivos aparte dentro de la carpeta (p. ej. `GenerarRemitoDespachar/Remito.cs`). Los casos de uso no comparten modelo ni clases entre sí.
+- **Prohibido usar clases de otras carpetas.** Si hace falta una clase que ya existe en otro caso de uso (p. ej. `Transportista` o `Cliente` de `GenerarRemitoDespachar`), se crea de nuevo en la carpeta de la pantalla actual, con su namespace.
+- **Se trabaja exclusivamente en la pantalla indicada** por el usuario (su carpeta), salvo que diga lo contrario. No se tocan otras pantallas, ni el menú, ni `Program.cs`.
+- **El código previo de una pantalla no es confiable** (viene de otro desarrollador y de versiones preliminares): se revisa contra el CU y el plan y se reescribe si hace falta; no se toma como referencia.
 - Documentación de la pantalla en la misma carpeta: el caso de uso (`CU-XX_<nombre>.md`) y el plan de pruebas (`Plan pruebas <nombre>.xlsx`).
 
 `MenuPrincipalForm` tiene un botón por pantalla que la abre con `ShowDialog()`. `Program.cs` arranca directamente el formulario que se está probando; cambiar su `Application.Run(...)` según haga falta.
 
 ## Forma de desarrollar (reglas del profesor)
 
-La referencia de este patrón es `GenerarRemitoDespachar`. Las pantallas más viejas (`RegistrarOrdenPreparacion`, `PrepararProductos`) usan otro estilo (validación en el modelo, métodos que devuelven `string` de error): no tomarlas como modelo.
+La referencia de este patrón es `GenerarRemitoDespachar`: es **la** pantalla modelo del comportamiento form ↔ modelo que se busca. Ante cualquier duda de patrón (validaciones en el form, `if (!_modelo.X()) return;`, `RefrescarListas()`, `Tag` con la clave, `FormClosing`, estado en el modelo, datos `static`), se hace lo que hace esa pantalla. Las pantallas más viejas (`RegistrarOrdenPreparacion`, `PrepararProductos`) usan otro estilo (validación en el modelo, métodos que devuelven `string` de error): no tomarlas como modelo.
 
 **Form**
 - Valida **todas** las entradas de datos (formato, campos vacíos, nada seleccionado en una lista, confirmaciones OK/Cancelar) antes de llamar al modelo.
@@ -52,10 +55,11 @@ La referencia de este patrón es `GenerarRemitoDespachar`. Las pantallas más vi
 
 - Ante diferencias, **el plan de pruebas es la fuente de verdad**; después se ajustan el CU y el código para que digan lo mismo (pasos, excepciones, textos de mensajes y numeración).
 - Si se saca una prueba del plan (p. ej. por no ser reproducible en el prototipo), sacarla también del CU y del código.
-- Si el CU describe algo que la pantalla no tiene (p. ej. mostrar el depósito), se saca del CU o se agrega a la pantalla; no dejarlos distintos.
+- Si el CU describe algo que la pantalla no tiene (p. ej. mostrar el depósito), se saca o ajusta en el CU (la pantalla no se modifica); no dejarlos distintos.
 - Los comentarios del código que citan pasos del CU (`// CU-07, 4.2`) deben actualizarse si cambia la numeración.
 - Los datos de prueba del modelo pueden diferir de los del plan (p. ej. otros nombres y DNI de transportistas); en ese caso la planilla se actualiza con los datos del modelo.
 - La planilla `.xlsx` la edita el usuario. Para leerla no hay `openpyxl` instalado: abrir el `.xlsx` como zip y parsear `xl/sharedStrings.xml` y `xl/worksheets/sheet*.xml` con la librería estándar de Python.
+- El plan de pruebas tambien puede venir en formato markdown.
 
 ## Particularidades
 
