@@ -19,7 +19,7 @@ namespace GrupoA.PampazonSA.AdministracionDeposito.PrepararProductos
         public List<OrdenSeleccion> GetOrdenesPendientes()
         {
             return OrdenesSeleccion
-                .Where(os => os.Estado == EstadoOrdenSeleccion.Pendiente)
+                .Where(os => os.Estado.Equals(EstadoOrdenSeleccion.Pendiente))
                 .OrderBy(os => os.FechaEmision)
                 .ToList();
         }
@@ -91,9 +91,9 @@ namespace GrupoA.PampazonSA.AdministracionDeposito.PrepararProductos
             os32.OrdenesPreparacion.AddRange(new[] { "OP-000141", "OP-000142", "OP-000143" });
             os32.Lineas.AddRange(new[]
             {
-                new LineaPicking { Posicion = "12-43-2", Cliente = "Mercadito S.A.", Sku = "CEM-50",   Descripcion = "Bolsa de cemento x 50 kg",      Cantidad = 4, Unidad = "Unidad" },
-                new LineaPicking { Posicion = "12-44-1", Cliente = "Mercadito S.A.", Sku = "CAL-25",   Descripcion = "Bolsa de cal hidratada x 25 kg", Cantidad = 5, Unidad = "Unidad" },
-                new LineaPicking { Posicion = "03-10-3", Cliente = "MundoFOX S.A.",  Sku = "TV-55-4K", Descripcion = "Smart TV 55\" 4K",               Cantidad = 4, Unidad = "Palet" }
+                new LineaPicking { Posicion = "12-43-2", Cliente = "Mercadito S.A.", Sku = "CEM-50",   Descripcion = "Bolsa de cemento x 50 kg",      Cantidad = 4, Modalidad = "FulFillment" },
+                new LineaPicking { Posicion = "12-44-1", Cliente = "Mercadito S.A.", Sku = "CAL-25",   Descripcion = "Bolsa de cal hidratada x 25 kg", Cantidad = 5, Modalidad = "FulFillment" },
+                new LineaPicking { Posicion = "03-10-3", Cliente = "MundoFOX S.A.",  Sku = "TV-55-4K", Descripcion = "Smart TV 55\" 4K",               Cantidad = 4, Modalidad = "Palet Cerrado" }
             });
 
             OrdenesSeleccion.Add(os32);
@@ -129,7 +129,7 @@ namespace GrupoA.PampazonSA.AdministracionDeposito.PrepararProductos
         public string Sku { get; set; }
         public string Descripcion { get; set; }
         public int Cantidad { get; set; }
-        public string Unidad { get; set; }
+        public string Modalidad { get; set; }
     }
 
     public class StockPosicion

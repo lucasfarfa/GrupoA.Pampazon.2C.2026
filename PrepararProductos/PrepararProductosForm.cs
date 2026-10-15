@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Windows.Forms;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace GrupoA.PampazonSA.AdministracionDeposito.PrepararProductos
 {
@@ -18,6 +19,20 @@ namespace GrupoA.PampazonSA.AdministracionDeposito.PrepararProductos
         private void PrepararProductosForm_Load(object sender, EventArgs e)
         {
             InitializeModelBindings();
+            AjustarColumnasFormulario();
+        }
+
+        private void AjustarColumnasFormulario()
+        {
+
+            listViewDetalle.View = View.Details;
+            listViewDetalle.GridLines = true;
+
+            int anchoDisponibleDetalle = listViewDetalle.ClientSize.Width - 25;
+
+            listViewDetalle.Columns[0].Width = (int)(anchoDisponibleDetalle * 0.20);
+            listViewDetalle.Columns[1].Width = (int)(anchoDisponibleDetalle * 0.30);
+            listViewDetalle.Columns[2].Width = (int)(anchoDisponibleDetalle * 0.30);
         }
 
         public void InitializeModelBindings()
@@ -33,9 +48,26 @@ namespace GrupoA.PampazonSA.AdministracionDeposito.PrepararProductos
             // Nota: Si en tu diseñador agregaste un ListView para las OS, puedes incluirlo aquí.
             // Mantenemos la estructura limpia del detalle que tenías visualmente.
             LimpiarDetalle();
+            string modalidad = comboOrdenSeleccion.SelectedItem?.ToString();
+            if (!string.IsNullOrEmpty(modalidad))
+            {
+                // Si manejas la lista de OS pendientes en otro control o combobox, lo puedes enlazar aquí.
+                var pendientes = _modelo.GetOrdenesPendientes();
 
-            var pendientes = _modelo.GetOrdenesPendientes();
-            // Si manejas la lista de OS pendientes en otro control o combobox, lo puedes enlazar aquí.
+                listViewDetalle.Items.Clear();
+
+                foreach (var os in pendientes)
+                {
+                    foreach(var op in os.Lineas.Where(w => w.Modalidad.Equals(modalidad)))
+                    {
+                        var lvi = new ListViewItem(new string[] { op.Posicion, op.Sku, op.Cantidad.ToString() });
+                        listViewDetalle.Items.Add(lvi);
+                    }
+                }
+            }
+
+            // Habilitar el botón de cerrar SOLO si todas las OP de esta OS están PREPARADA y la OS aún no está CUMPLIDA
+            btnConfirmar.Enabled = listViewDetalle.Items.Count > 0;
         }
 
         private void LimpiarDetalle()
@@ -74,5 +106,13 @@ namespace GrupoA.PampazonSA.AdministracionDeposito.PrepararProductos
         {
             Close();
         }
+
+        private void comboOrdenSeleccion_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            // cargar la lista de OS en base al tipo de Orden (item del combo box)
+            // "Fullfilment" / "Palet cerrado"
+            RefrescarOrdenesSeleccion();
+        }
+
     }
 }
