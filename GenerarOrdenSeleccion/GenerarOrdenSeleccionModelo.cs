@@ -45,7 +45,12 @@ namespace GrupoA.PampazonSA.AdministracionDeposito.GenerarOrdenSeleccion
         // OP incluidas en la OS en armado.
         private readonly List<string> _incluidas = new List<string>();
 
-        public string Deposito { get; private set; } = "GBA";
+        public string Deposito { get; private set; }
+
+        public GenerarOrdenSeleccionModelo(string deposito)
+        {
+            Deposito = deposito;
+        }
 
         public List<OrdenPreparacion> OrdenesPreparacion => _ordenesPreparacion;
         public List<PosicionStock> Stock => _stock;

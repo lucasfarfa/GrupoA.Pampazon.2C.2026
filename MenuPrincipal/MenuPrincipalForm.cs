@@ -18,7 +18,14 @@ public partial class MenuPrincipalForm : Form
     {
         InitializeComponent();
 
-        //cboDeposito.SelectedIndex = 0;
+        cboDeposito.Items.AddRange(new object[] { "GBA (Gran Buenos Aires)", "ROS (Rosario)", "CBA (Córdoba)" });
+        cboDeposito.SelectedItem = "ROS (Rosario)";
+    }
+
+    // Depósito elegido en el combo; si no se eligió ninguno, ROS.
+    private string ObtenerDeposito()
+    {
+        return cboDeposito.Text.Trim() == "" ? "ROS (Rosario)" : cboDeposito.Text.Trim();
     }
 
     private void cboDeposito_SelectedIndexChanged(object sender, EventArgs e)
@@ -37,7 +44,7 @@ public partial class MenuPrincipalForm : Form
     }
     private void btnGenerarOrdenSeleccion_Click(object sender, EventArgs e)
     {
-        new GenerarOrdenSeleccionForm().ShowDialog();
+        new GenerarOrdenSeleccionForm(ObtenerDeposito()).ShowDialog();
     }
 
     private void btnPrepararProductos_Click(object sender, EventArgs e)

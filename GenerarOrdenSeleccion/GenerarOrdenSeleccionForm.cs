@@ -2,11 +2,13 @@ namespace GrupoA.PampazonSA.AdministracionDeposito.GenerarOrdenSeleccion
 {
     public partial class GenerarOrdenSeleccionForm : Form
     {
-        private GenerarOrdenSeleccionModelo _modelo = new GenerarOrdenSeleccionModelo();
+        private GenerarOrdenSeleccionModelo _modelo;
 
-        public GenerarOrdenSeleccionForm()
+        // El depósito llega elegido desde el menú principal.
+        public GenerarOrdenSeleccionForm(string deposito)
         {
             InitializeComponent();
+            _modelo = new GenerarOrdenSeleccionModelo(deposito);
         }
 
         // Muestra el depósito y las OP Pendientes recibidas hoy (CU-02, pasos 1 y 2).
