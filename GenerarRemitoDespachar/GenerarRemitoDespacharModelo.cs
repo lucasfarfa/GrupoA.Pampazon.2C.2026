@@ -21,21 +21,20 @@ namespace GrupoA.PampazonSA.AdministracionDeposito.GenerarRemitoDespachar
             new Transportista {DNI = "32321987", NombreApellido = "Daniel Baez" }
         };
 
-        // Datos del plan de pruebas, asignados a los transportistas del modelo:
-        // Jose Gomez = Juan Pérez del plan, Alejo Cisterna = Ana Gómez del plan, Daniel Baez = transportista extra.
+        // Datos de la situación de partida del plan de pruebas (hoja G).
         private static readonly List<OrdenDeEntrega> _ordenesEntrega = new List<OrdenDeEntrega>
         {
-            new OrdenDeEntrega { NroOE = "701", Cliente = "Mercadito S.A.", OrdenesPreparacion = "101, 102", Bultos = 14, DniTransportista = "24568779", Estado = PendienteEntrega },
-            new OrdenDeEntrega { NroOE = "704", Cliente = "Mercadito S.A.", OrdenesPreparacion = "105", Bultos = 2, DniTransportista = "24568779", Estado = PendienteEntrega },
+            new OrdenDeEntrega { NroOE = "701", Cliente = "Mercadito S.A.", OrdenesPreparacion = "101, 102", Bultos = 18, DniTransportista = "24568779", Estado = PendienteEntrega },
+            new OrdenDeEntrega { NroOE = "704", Cliente = "Mercadito S.A.", OrdenesPreparacion = "105", Bultos = 10, DniTransportista = "24568779", Estado = PendienteEntrega },
             new OrdenDeEntrega { NroOE = "702", Cliente = "MundoFOX S.R.L.", OrdenesPreparacion = "103", Bultos = 1, DniTransportista = "24568779", Estado = PendienteEntrega },
-            new OrdenDeEntrega { NroOE = "700", Cliente = "Ferretería Norte S.A.", OrdenesPreparacion = "100", Bultos = 4, DniTransportista = "20562667", Estado = RemitoEmitido },
-            new OrdenDeEntrega { NroOE = "703", Cliente = "Ferretería Norte S.A.", OrdenesPreparacion = "104", Bultos = 6, DniTransportista = "32321987", Estado = PendienteEntrega },
+            new OrdenDeEntrega { NroOE = "710", Cliente = "MundoFOX S.R.L.", OrdenesPreparacion = "110", Bultos = 1, DniTransportista = "20562667", Estado = RemitoEmitido },
+            new OrdenDeEntrega { NroOE = "703", Cliente = "Ferretería Norte S.A.", OrdenesPreparacion = "104", Bultos = 30, DniTransportista = "32321987", Estado = PendienteEntrega },
             new OrdenDeEntrega { NroOE = "705", Cliente = "Construcciones del Plata S.R.L.", OrdenesPreparacion = "106, 107", Bultos = 9, DniTransportista = "32321987", Estado = PendienteEntrega }
         };
 
         private static readonly List<Remito> _remitos = new List<Remito>
         {
-            new Remito { NroRemito = "R-410", Fecha = DateTime.Today.AddDays(-1), Cliente = "Ferretería Norte S.A.", DniTransportista = "20562667", NombreTransportista = "Alejo Cisterna", OrdenesEntrega = "700", OrdenesPreparacion = "100", TotalBultos = 4, Estado = Emitido }
+            new Remito { NroRemito = "R-410", Fecha = DateTime.Today.AddDays(-1), Cliente = "MundoFOX S.R.L.", DniTransportista = "20562667", NombreTransportista = "Alejo Cisterna", OrdenesEntrega = "710", OrdenesPreparacion = "110", TotalBultos = 1, Estado = Emitido }
         };
 
         // OP que pasaron a Despachada al confirmar la entrega.

@@ -57,8 +57,11 @@
         }
 
         // CU-03, Salida. Cubre "Cancelar" y cerrar la ventana con la X.
+        // Solo avisa si hay una OS elegida sin confirmar (prueba C.5, "antes de confirmar").
         private void PrepararProductosForm_FormClosing(object sender, FormClosingEventArgs e)
         {
+            if (!_modelo.ObtenerOrdenSeleccionada(out _)) return;
+
             MessageBox.Show("No se registró la entrega a Preparación", Text);
         }
 

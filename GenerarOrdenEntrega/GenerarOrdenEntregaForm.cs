@@ -30,6 +30,12 @@
                 item.Checked = false;
         }
 
+        // Seleccionar una fila también la marca, así la elección funciona con clic en la fila o en la casilla.
+        private void lvPendientes_ItemSelectionChanged(object sender, ListViewItemSelectionChangedEventArgs e)
+        {
+            if (e.IsSelected) e.Item.Checked = true;
+        }
+
         private void btnGenerarOrden_Click(object sender, EventArgs e)
         {
             if (lvPendientes.CheckedItems.Count == 0)
