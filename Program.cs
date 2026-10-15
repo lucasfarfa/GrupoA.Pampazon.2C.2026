@@ -3,7 +3,6 @@ using GrupoA.PampazonSA.AdministracionDeposito.GenerarOrdenEntrega;
 using GrupoA.PampazonSA.AdministracionDeposito.GenerarOrdenSeleccion;
 using GrupoA.PampazonSA.AdministracionDeposito.GenerarRemitoDespachar;
 using GrupoA.PampazonSA.AdministracionDeposito.PrepararProductos;
-using GrupoA.PampazonSA.AdministracionDeposito.RecepcionarOrdenEntrega;
 using GrupoA.PampazonSA.AdministracionDeposito.RegistrarOrdenPreparacion;
 using OrdenesPreparacion;
 
