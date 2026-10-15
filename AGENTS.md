@@ -1,4 +1,4 @@
-# CLAUDE.md
+# AGENTS.md
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
@@ -60,7 +60,7 @@ La referencia de este patrón es `GenerarRemitoDespachar`: es **la** pantalla mo
 - Los datos de prueba del modelo pueden diferir de los del plan (p. ej. otros nombres y DNI de transportistas); en ese caso la planilla se actualiza con los datos del modelo.
 - La planilla `.xlsx` la edita el usuario. Para leerla no hay `openpyxl` instalado: abrir el `.xlsx` como zip y parsear `xl/sharedStrings.xml` y `xl/worksheets/sheet*.xml` con la librería estándar de Python.
 - El plan de pruebas tambien puede venir en formato markdown.
-- `Plan_de_prueba_general.md` (en la raíz) reúne las hojas A a G y los datos base comunes. Leerlo para mantener la coherencia entre pantallas (qué estados deja la anterior y qué espera la siguiente). **No se modifica**: si el plan de una pantalla cambia o queda inconsistente con el general, avisar al programador (quien está usando Claude) que lo consulte con "LUCAS FARFALLINI".
+- `Plan_de_prueba_general.md` (en la raíz) reúne las hojas A a G y los datos base comunes. Leerlo para mantener la coherencia entre pantallas (qué estados deja la anterior y qué espera la siguiente). **No se modifica**: si el plan de una pantalla cambia o queda inconsistente con el general, avisar al programador (quien está usando Claude u otro Agente) que lo consulte con "LUCAS FARFALLINI".
 
 ## Particularidades
 
