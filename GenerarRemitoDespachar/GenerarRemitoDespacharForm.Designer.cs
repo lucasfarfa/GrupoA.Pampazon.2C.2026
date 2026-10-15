@@ -125,6 +125,7 @@
             btnDeseleccionar.TabIndex = 7;
             btnDeseleccionar.Text = "Deseleccionar";
             btnDeseleccionar.UseVisualStyleBackColor = true;
+            btnDeseleccionar.Click += btnDeseleccionar_Click;
             // 
             // btnSeleccionar
             // 
@@ -134,10 +135,12 @@
             btnSeleccionar.TabIndex = 6;
             btnSeleccionar.Text = "Seleccionar ";
             btnSeleccionar.UseVisualStyleBackColor = true;
+            btnSeleccionar.Click += btnSeleccionar_Click;
             // 
             // lvOEPendientesEntrega
             // 
             lvOEPendientesEntrega.Columns.AddRange(new ColumnHeader[] { colClientePendiente, colNOEPendiente, colOP, colBultos });
+            lvOEPendientesEntrega.FullRowSelect = true;
             lvOEPendientesEntrega.Location = new Point(6, 35);
             lvOEPendientesEntrega.Name = "lvOEPendientesEntrega";
             lvOEPendientesEntrega.Size = new Size(902, 121);
@@ -184,10 +187,12 @@
             btnEmitirRemitos.TabIndex = 7;
             btnEmitirRemitos.Text = "Emitir remitos";
             btnEmitirRemitos.UseVisualStyleBackColor = true;
+            btnEmitirRemitos.Click += btnEmitirRemitos_Click;
             // 
             // lvRemitosEmitir
             // 
             lvRemitosEmitir.Columns.AddRange(new ColumnHeader[] { colClienteEmitirRemito, colOEincluida });
+            lvRemitosEmitir.FullRowSelect = true;
             lvRemitosEmitir.Location = new Point(6, 35);
             lvRemitosEmitir.Name = "lvRemitosEmitir";
             lvRemitosEmitir.Size = new Size(902, 121);
@@ -224,10 +229,12 @@
             btnConfirmarEntregaFirma.TabIndex = 7;
             btnConfirmarEntregaFirma.Text = "Confirmar entrega y firma";
             btnConfirmarEntregaFirma.UseVisualStyleBackColor = true;
+            btnConfirmarEntregaFirma.Click += btnConfirmarEntregaFirma_Click;
             // 
             // lvRemitosPendientesFirma
             // 
             lvRemitosPendientesFirma.Columns.AddRange(new ColumnHeader[] { colNRemito });
+            lvRemitosPendientesFirma.FullRowSelect = true;
             lvRemitosPendientesFirma.Location = new Point(6, 35);
             lvRemitosPendientesFirma.Name = "lvRemitosPendientesFirma";
             lvRemitosPendientesFirma.Size = new Size(902, 121);
@@ -248,6 +255,7 @@
             btnCancelar.TabIndex = 9;
             btnCancelar.Text = "Cancelar";
             btnCancelar.UseVisualStyleBackColor = true;
+            btnCancelar.Click += btnCancelar_Click;
             // 
             // GenerarRemitoDespacharForm
             // 
@@ -265,7 +273,7 @@
             Name = "GenerarRemitoDespacharForm";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Generar remito y despachar";
-            Load += GenerarRemitoDespacharForm_Load;
+            FormClosing += GenerarRemitoDespacharForm_FormClosing;
             groupBox1.ResumeLayout(false);
             groupBox1.PerformLayout();
             groupBox2.ResumeLayout(false);
