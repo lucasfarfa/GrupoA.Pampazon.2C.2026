@@ -12,8 +12,7 @@ namespace GrupoA.PampazonSA.AdministracionDeposito.GenerarOrdenSeleccion
 
         private static readonly List<string> _modalidades = new List<string> { "Fulfillment", "Palet cerrado" };
 
-        // Estáticos: los datos se mantienen entre aperturas de la pantalla (exc. 2.1: OP ya pasadas a En preparación).
-        // Fechas relativas al día de hoy para que el plan de pruebas se pueda repetir cualquier día.
+        // Fechas relativas al día de hoy para que los datos sirvan cualquier día.
         private static readonly List<OrdenPreparacion> _ordenesPreparacion = new List<OrdenPreparacion>
         {
             new OrdenPreparacion { NroOP = "101", Cliente = "Mercadito S.A.", FechaRecepcion = DateTime.Today.AddHours(9), Modalidad = "Fulfillment", Estado = Pendiente,
@@ -52,47 +51,41 @@ namespace GrupoA.PampazonSA.AdministracionDeposito.GenerarOrdenSeleccion
             Deposito = deposito;
         }
 
-        public List<OrdenPreparacion> OrdenesPreparacion => _ordenesPreparacion;
-        public List<PosicionStock> Stock => _stock;
-        public List<OrdenSeleccion> OrdenesSeleccion => _ordenesSeleccion;
-
         public int CantidadIncluidas => _incluidas.Count;
 
-        public List<string> ObtenerModalidades()
-        {
-            return _modalidades.ToList();
-        }
+        public List<string> Modalidades => _modalidades.ToList();
 
-        // Devuelve true si hay al menos una OP Pendiente en el depósito (CU-02, exc. 2.1).
-        public bool HayOrdenesPendientes()
-        {
-            return OrdenesPreparacion.Any(op => op.Estado == Pendiente);
-        }
+        // Para avisar al abrir si no hay ninguna OP Pendiente (Any: ¿hay alguna OP en estado Pendiente?).
+        public bool HayOrdenesPendientes => _ordenesPreparacion.Any(op => op.Estado == Pendiente);
 
         // Guarda los filtros (ya validados por el form; null = sin límite en esa fecha) y
         // devuelve true si hay OP Pendientes que los cumplen.
-        public bool Filtrar(string cliente, DateTime? desde, DateTime? hasta, string modalidad, out List<OrdenPreparacion> ordenes)
+        public bool Filtrar(string cliente, DateTime? desde, DateTime? hasta, string modalidad)
         {
             _cliente = cliente;
             _desde = desde?.Date;
             _hasta = hasta?.Date;
             _modalidad = modalidad;
 
-            ordenes = ObtenerOrdenesFiltradas();
-            return ordenes.Count > 0;
+            return OrdenesFiltradas.Count > 0;
         }
 
-        // OP Pendientes que cumplen los filtros guardados, ordenadas por fecha de recepción (CU-02, paso 5).
-        public List<OrdenPreparacion> ObtenerOrdenesFiltradas()
+        // Filas de la grilla de OP: las Pendientes que cumplen los filtros guardados.
+        // Se queda con las que cumplen estado, cliente, fechas y modalidad (Where; un filtro vacío no filtra)
+        // y las ordena por fecha de recepción (OrderBy).
+        public List<OrdenPreparacion> OrdenesFiltradas
         {
-            return OrdenesPreparacion
-                .Where(op => op.Estado == Pendiente
-                    && op.Cliente.Contains(_cliente, StringComparison.OrdinalIgnoreCase)
-                    && (_desde == null || op.FechaRecepcion.Date >= _desde)
-                    && (_hasta == null || op.FechaRecepcion.Date <= _hasta)
-                    && (_modalidad == "" || op.Modalidad.Equals(_modalidad, StringComparison.OrdinalIgnoreCase)))
-                .OrderBy(op => op.FechaRecepcion)
-                .ToList();
+            get
+            {
+                return _ordenesPreparacion
+                    .Where(op => op.Estado == Pendiente
+                        && op.Cliente.Contains(_cliente, StringComparison.OrdinalIgnoreCase)
+                        && (_desde == null || op.FechaRecepcion.Date >= _desde)
+                        && (_hasta == null || op.FechaRecepcion.Date <= _hasta)
+                        && (_modalidad == "" || op.Modalidad.Equals(_modalidad, StringComparison.OrdinalIgnoreCase)))
+                    .OrderBy(op => op.FechaRecepcion)
+                    .ToList();
+            }
         }
 
         public bool EstaIncluida(string nroOP)
@@ -100,45 +93,54 @@ namespace GrupoA.PampazonSA.AdministracionDeposito.GenerarOrdenSeleccion
             return _incluidas.Contains(nroOP);
         }
 
-        // Devuelve true si todas las OP existen y siguen Pendientes. Las que ya estaban incluidas quedan igual.
+        // Incluye las OP elegidas en la OS que se está armando. Devuelve true si todas existen y siguen Pendientes.
         public bool IncluirOrdenes(List<string> nrosOP)
         {
             foreach (var nro in nrosOP)
             {
-                var op = OrdenesPreparacion.FirstOrDefault(o => o.NroOP == nro);
+                // Busca la OP con ese número, o null si no existe (FirstOrDefault).
+                var op = _ordenesPreparacion.FirstOrDefault(o => o.NroOP == nro);
                 if (op == null || op.Estado != Pendiente)
                     return false;
             }
 
+            // Agrega solo las que todavía no estaban incluidas (Where).
             _incluidas.AddRange(nrosOP.Where(nro => !_incluidas.Contains(nro)));
             return true;
         }
 
-        // Desmarca las OP incluidas de la lista; las que no estaban incluidas se ignoran (CU-02, exc. 9.2).
+        // Desmarca las OP elegidas de la OS que se está armando; las que no estaban incluidas se ignoran.
         public bool QuitarOrdenes(List<string> nrosOP)
         {
+            // Saca de las incluidas cada N° que esté en nrosOP; es lo mismo que RemoveAll(nro => nrosOP.Contains(nro)).
             _incluidas.RemoveAll(nrosOP.Contains);
             return true;
         }
 
-        public void QuitarTodas()
+        public bool QuitarTodas()
         {
             _incluidas.Clear();
+            return true;
         }
 
-        // Una línea por SKU con la cantidad total de las OP incluidas (CU-02, paso 8).
-        public List<LineaProducto> ObtenerResumenConsolidado()
+        // Filas de "Resumen consolidado de productos": una línea por SKU con la cantidad total de las OP incluidas.
+        // Toma las OP incluidas (Where), junta todos sus productos (SelectMany), los agrupa por SKU (GroupBy),
+        // los ordena por SKU (OrderBy) y de cada grupo arma una línea con la suma de cantidades (Select y Sum).
+        public List<LineaProducto> ResumenConsolidado
         {
-            return OrdenesPreparacion
-                .Where(op => _incluidas.Contains(op.NroOP))
-                .SelectMany(op => op.Productos)
-                .GroupBy(p => p.Sku)
-                .OrderBy(g => g.Key)
-                .Select(g => new LineaProducto { Sku = g.Key, Cantidad = g.Sum(p => p.Cantidad) })
-                .ToList();
+            get
+            {
+                return _ordenesPreparacion
+                    .Where(op => _incluidas.Contains(op.NroOP))
+                    .SelectMany(op => op.Productos)
+                    .GroupBy(p => p.Sku)
+                    .OrderBy(g => g.Key)
+                    .Select(g => new LineaProducto { Sku = g.Key, Cantidad = g.Sum(p => p.Cantidad) })
+                    .ToList();
+            }
         }
 
-        // Registra la OS Pendiente con el detalle por posición y pasa las OP a En preparación (CU-02, pasos 14 y 15).
+        // Genera la OS: la registra Pendiente con el detalle por posición y pasa sus OP a En preparación.
         public bool GenerarOrdenSeleccion(out string nroOS)
         {
             nroOS = "";
@@ -146,10 +148,11 @@ namespace GrupoA.PampazonSA.AdministracionDeposito.GenerarOrdenSeleccion
 
             // Si un SKU está en más de una posición, una línea por posición hasta cubrir la cantidad.
             var detalle = new List<LineaOrdenSeleccion>();
-            foreach (var linea in ObtenerResumenConsolidado())
+            foreach (var linea in ResumenConsolidado)
             {
                 int restante = linea.Cantidad;
-                foreach (var posicion in Stock.Where(s => s.Sku == linea.Sku && s.Cantidad > 0))
+                // Recorre las posiciones que tienen stock de ese SKU (Where).
+                foreach (var posicion in _stock.Where(s => s.Sku == linea.Sku && s.Cantidad > 0))
                 {
                     if (restante == 0) break;
 
@@ -164,7 +167,7 @@ namespace GrupoA.PampazonSA.AdministracionDeposito.GenerarOrdenSeleccion
             _ultimoNroOS++;
             nroOS = _ultimoNroOS.ToString();
 
-            OrdenesSeleccion.Add(new OrdenSeleccion
+            _ordenesSeleccion.Add(new OrdenSeleccion
             {
                 NroOS = nroOS,
                 Deposito = Deposito,
@@ -174,7 +177,8 @@ namespace GrupoA.PampazonSA.AdministracionDeposito.GenerarOrdenSeleccion
                 Detalle = detalle
             });
 
-            foreach (var op in OrdenesPreparacion.Where(o => _incluidas.Contains(o.NroOP)))
+            // Pasa a En preparación las OP incluidas en la OS (Where).
+            foreach (var op in _ordenesPreparacion.Where(o => _incluidas.Contains(o.NroOP)))
                 op.Estado = EnPreparacion;
 
             _incluidas.Clear();

@@ -7,8 +7,7 @@ namespace GrupoA.PampazonSA.AdministracionDeposito.RegistrarOrdenPreparacion
         public string CuitCliente { get; set; } = "";
         public string Deposito { get; set; } = "";
         public string Modalidad { get; set; } = "";
-        public string DniTransportista { get; set; } = "";
-        public string NombreTransportista { get; set; } = "";
+        public Transportista Transportista { get; set; } = new Transportista();
         public DateTime FechaRetiro { get; set; }
         public string Estado { get; set; } = "";
         public List<LineaOrden> Lineas { get; set; } = new List<LineaOrden>();

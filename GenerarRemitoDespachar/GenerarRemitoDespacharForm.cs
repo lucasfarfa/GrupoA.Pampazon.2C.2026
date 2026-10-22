@@ -18,7 +18,7 @@ namespace GrupoA.PampazonSA.AdministracionDeposito.GenerarRemitoDespachar
 
             // Cada búsqueda arranca de cero: se descarta la selección anterior y se vacían el nombre y las listas.
             lblNombreTransportista.Text = "";
-            _modelo.LimpiarBusqueda();
+            if (!_modelo.LimpiarBusqueda()) return;
             RefrescarListas();
 
             if (!Regex.IsMatch(dni, @"^\d{7,8}$"))
@@ -28,17 +28,17 @@ namespace GrupoA.PampazonSA.AdministracionDeposito.GenerarRemitoDespachar
             }
 
             // Un DNI sin transportista registrado no tiene documentos: mismo mensaje que sin OE (CU-07, 4.2).
-            if (!_modelo.BuscarTransportista(dni, out Transportista? transportista))
+            if (!_modelo.BuscarTransportista(dni, out Transportista? transportista) || transportista == null)
             {
                 MessageBox.Show("No hay órdenes de entrega pendientes para el DNI " + dni, Text);
                 return;
             }
 
-            lblNombreTransportista.Text = transportista!.NombreApellido;
+            lblNombreTransportista.Text = transportista.NombreApellido;
             RefrescarListas();
 
             // Si no tiene OE, igual quedan a la vista sus remitos pendientes de firma (CU-07, 4.3).
-            if (!_modelo.BuscarOrdenesPendientes(out _))
+            if (_modelo.OrdenesPendientes.Count == 0)
             {
                 MessageBox.Show("No hay órdenes de entrega pendientes para el DNI " + dni, Text);
             }
@@ -52,10 +52,12 @@ namespace GrupoA.PampazonSA.AdministracionDeposito.GenerarRemitoDespachar
                 return;
             }
 
-            List<string> nrosOE = lvOEPendientesEntrega.SelectedItems
-                .Cast<ListViewItem>()
-                .Select(item => (string)item.Tag!)
-                .ToList();
+            List<string> nrosOE = new List<string>();
+            foreach (ListViewItem item in lvOEPendientesEntrega.SelectedItems)
+            {
+                if (item.Tag == null) return;
+                nrosOE.Add((string)item.Tag);
+            }
 
             if (!_modelo.SeleccionarOrdenes(nrosOE)) return;
 
@@ -67,10 +69,12 @@ namespace GrupoA.PampazonSA.AdministracionDeposito.GenerarRemitoDespachar
         {
             if (lvRemitosEmitir.SelectedItems.Count == 0) return;
 
-            List<string> nrosOE = lvRemitosEmitir.SelectedItems
-                .Cast<ListViewItem>()
-                .SelectMany(item => (List<string>)item.Tag!)
-                .ToList();
+            List<string> nrosOE = new List<string>();
+            foreach (ListViewItem item in lvRemitosEmitir.SelectedItems)
+            {
+                if (item.Tag == null) return;
+                nrosOE.AddRange((List<string>)item.Tag);
+            }
 
             if (!_modelo.DeseleccionarOrdenes(nrosOE)) return;
 
@@ -105,10 +109,12 @@ namespace GrupoA.PampazonSA.AdministracionDeposito.GenerarRemitoDespachar
                 return;
             }
 
-            List<string> nrosRemito = lvRemitosPendientesFirma.SelectedItems
-                .Cast<ListViewItem>()
-                .Select(item => (string)item.Tag!)
-                .ToList();
+            List<string> nrosRemito = new List<string>();
+            foreach (ListViewItem item in lvRemitosPendientesFirma.SelectedItems)
+            {
+                if (item.Tag == null) return;
+                nrosRemito.Add((string)item.Tag);
+            }
 
             if (MessageBox.Show("¿Confirma la entrega de los remitos N° " + string.Join(", ", nrosRemito) + " con la copia firmada?", Text,
                     MessageBoxButtons.OKCancel, MessageBoxIcon.Question) != DialogResult.OK)
@@ -129,22 +135,21 @@ namespace GrupoA.PampazonSA.AdministracionDeposito.GenerarRemitoDespachar
             lvRemitosEmitir.Items.Clear();
             lvRemitosPendientesFirma.Items.Clear();
 
-            _modelo.BuscarOrdenesPendientes(out List<OrdenDeEntrega> ordenes);
-            foreach (var oe in ordenes)
+            foreach (var oe in _modelo.OrdenesPendientes)
             {
-                var item = new ListViewItem(new[] { oe.Cliente, oe.NroOE, oe.OrdenesPreparacion, oe.Bultos.ToString() });
+                var item = new ListViewItem(new[] { oe.Cliente, oe.NroOE, string.Join(", ", oe.NrosOP), oe.Bultos.ToString() });
                 item.Tag = oe.NroOE;
                 lvOEPendientesEntrega.Items.Add(item);
             }
 
-            foreach (var remito in _modelo.ObtenerRemitosAEmitir())
+            foreach (var remito in _modelo.RemitosAEmitir)
             {
                 var item = new ListViewItem(new[] { remito.Cliente, string.Join(", ", remito.NrosOE) });
                 item.Tag = remito.NrosOE;
                 lvRemitosEmitir.Items.Add(item);
             }
 
-            foreach (var remito in _modelo.ObtenerRemitosPendientesFirma())
+            foreach (var remito in _modelo.RemitosPendientesFirma)
             {
                 var item = new ListViewItem(remito.NroRemito);
                 item.Tag = remito.NroRemito;

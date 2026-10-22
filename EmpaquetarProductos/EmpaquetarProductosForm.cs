@@ -17,7 +17,7 @@ namespace GrupoA.PampazonSA.AdministracionDeposito.CU04EmpaquetarProductos
         // Asigna la siguiente OP por FIFO y muestra sus datos (CU-04, pasos 2 y 3).
         private void MostrarOrdenAsignada()
         {
-            if (!_modelo.AsignarSiguienteOrden(out OrdenPreparacion? orden))
+            if (!_modelo.AsignarSiguienteOrden(out OrdenPreparacion? orden) || orden == null)
             {
                 // CU-04, exc. 2.2.
                 lblNroOrden.Text = "";
@@ -29,7 +29,7 @@ namespace GrupoA.PampazonSA.AdministracionDeposito.CU04EmpaquetarProductos
                 return;
             }
 
-            lblNroOrden.Text = orden!.NroOP;
+            lblNroOrden.Text = orden.NroOP;
             lblModalidad.Text = orden.Modalidad;
             lblTotalBultos.Text = _modelo.TotalBultos.ToString();
             btnEmpaquetar.Enabled = true;
@@ -41,7 +41,7 @@ namespace GrupoA.PampazonSA.AdministracionDeposito.CU04EmpaquetarProductos
         {
             lstProductos.Items.Clear();
 
-            foreach (var producto in _modelo.ObtenerProductosAsignados())
+            foreach (var producto in _modelo.ProductosAsignados)
             {
                 var item = new ListViewItem(new[] { producto.Sku, producto.Descripcion, producto.Cantidad.ToString() });
                 item.Tag = producto.Sku;

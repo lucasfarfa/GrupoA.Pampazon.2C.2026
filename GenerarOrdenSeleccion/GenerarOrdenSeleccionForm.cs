@@ -17,18 +17,18 @@ namespace GrupoA.PampazonSA.AdministracionDeposito.GenerarOrdenSeleccion
             DepositoLbl.Text = _modelo.Deposito;
 
             comboModalidad.Items.Clear();
-            comboModalidad.Items.AddRange(_modelo.ObtenerModalidades().ToArray());
+            comboModalidad.Items.AddRange(_modelo.Modalidades.ToArray());
 
             dtpFechaDesde.Value = DateTime.Today;
             dtpFechaHasta.Value = DateTime.Today;
 
-            if (!_modelo.HayOrdenesPendientes())
+            if (!_modelo.HayOrdenesPendientes)
             {
                 MessageBox.Show("No hay órdenes de preparación pendientes", Text);
                 return;
             }
 
-            _modelo.Filtrar("", DateTime.Today, DateTime.Today, "", out _);
+            _modelo.Filtrar("", DateTime.Today, DateTime.Today, "");
             RefrescarListas();
         }
 
@@ -46,13 +46,14 @@ namespace GrupoA.PampazonSA.AdministracionDeposito.GenerarOrdenSeleccion
                 return;
             }
 
-            if (modalidad != "" && !_modelo.ObtenerModalidades().Any(m => m.Equals(modalidad, StringComparison.OrdinalIgnoreCase)))
+            // La modalidad escrita tiene que ser una de la lista, sin importar mayúsculas (Any: ¿coincide con alguna?).
+            if (modalidad != "" && !_modelo.Modalidades.Any(m => m.Equals(modalidad, StringComparison.OrdinalIgnoreCase)))
             {
                 MessageBox.Show("Modalidad inválida", Text);
                 return;
             }
 
-            bool hayOrdenes = _modelo.Filtrar(cliente, desde, hasta, modalidad, out _);
+            bool hayOrdenes = _modelo.Filtrar(cliente, desde, hasta, modalidad);
             RefrescarListas();
 
             if (!hayOrdenes)
@@ -71,7 +72,7 @@ namespace GrupoA.PampazonSA.AdministracionDeposito.GenerarOrdenSeleccion
             dtpFechaHasta.Value = DateTime.Today;
             dtpFechaHasta.Checked = true;
 
-            _modelo.Filtrar("", DateTime.Today, DateTime.Today, "", out _);
+            _modelo.Filtrar("", DateTime.Today, DateTime.Today, "");
             RefrescarListas();
         }
 
@@ -83,10 +84,12 @@ namespace GrupoA.PampazonSA.AdministracionDeposito.GenerarOrdenSeleccion
                 return;
             }
 
-            List<string> nrosOP = OPPendientesListView.SelectedItems
-                .Cast<ListViewItem>()
-                .Select(item => (string)item.Tag!)
-                .ToList();
+            List<string> nrosOP = new List<string>();
+            foreach (ListViewItem item in OPPendientesListView.SelectedItems)
+            {
+                if (item.Tag == null) return;
+                nrosOP.Add((string)item.Tag);
+            }
 
             if (!_modelo.IncluirOrdenes(nrosOP)) return;
 
@@ -95,10 +98,12 @@ namespace GrupoA.PampazonSA.AdministracionDeposito.GenerarOrdenSeleccion
 
         private void btnAgregarTodo_Click(object sender, EventArgs e)
         {
-            List<string> nrosOP = OPPendientesListView.Items
-                .Cast<ListViewItem>()
-                .Select(item => (string)item.Tag!)
-                .ToList();
+            List<string> nrosOP = new List<string>();
+            foreach (ListViewItem item in OPPendientesListView.Items)
+            {
+                if (item.Tag == null) return;
+                nrosOP.Add((string)item.Tag);
+            }
 
             if (!_modelo.IncluirOrdenes(nrosOP)) return;
 
@@ -110,10 +115,12 @@ namespace GrupoA.PampazonSA.AdministracionDeposito.GenerarOrdenSeleccion
         {
             if (OPPendientesListView.SelectedItems.Count == 0) return;
 
-            List<string> nrosOP = OPPendientesListView.SelectedItems
-                .Cast<ListViewItem>()
-                .Select(item => (string)item.Tag!)
-                .ToList();
+            List<string> nrosOP = new List<string>();
+            foreach (ListViewItem item in OPPendientesListView.SelectedItems)
+            {
+                if (item.Tag == null) return;
+                nrosOP.Add((string)item.Tag);
+            }
 
             if (!_modelo.QuitarOrdenes(nrosOP)) return;
 
@@ -122,14 +129,17 @@ namespace GrupoA.PampazonSA.AdministracionDeposito.GenerarOrdenSeleccion
 
         private void btnQuitarTodo_Click(object sender, EventArgs e)
         {
-            _modelo.QuitarTodas();
+            if (!_modelo.QuitarTodas()) return;
+
             RefrescarListas();
         }
 
         // El tilde indica OP incluida y lo decide el modelo: el usuario no puede tildar a mano.
         private void OPPendientesListView_ItemCheck(object sender, ItemCheckEventArgs e)
         {
-            string nroOP = (string)OPPendientesListView.Items[e.Index].Tag!;
+            ListViewItem item = OPPendientesListView.Items[e.Index];
+            if (item.Tag == null) return;
+            string nroOP = (string)item.Tag;
             e.NewValue = _modelo.EstaIncluida(nroOP) ? CheckState.Checked : CheckState.Unchecked;
         }
 
@@ -160,7 +170,7 @@ namespace GrupoA.PampazonSA.AdministracionDeposito.GenerarOrdenSeleccion
             OPPendientesListView.Items.Clear();
             listViewResumen.Items.Clear();
 
-            foreach (var op in _modelo.ObtenerOrdenesFiltradas())
+            foreach (var op in _modelo.OrdenesFiltradas)
             {
                 var item = new ListViewItem(new[] { op.NroOP, op.Cliente, op.FechaRecepcion.ToString("dd/MM/yyyy HH:mm"), op.Modalidad });
                 item.Tag = op.NroOP;
@@ -168,7 +178,7 @@ namespace GrupoA.PampazonSA.AdministracionDeposito.GenerarOrdenSeleccion
                 OPPendientesListView.Items.Add(item);
             }
 
-            foreach (var linea in _modelo.ObtenerResumenConsolidado())
+            foreach (var linea in _modelo.ResumenConsolidado)
             {
                 var item = new ListViewItem(new[] { linea.Sku, linea.Cantidad.ToString() });
                 item.Tag = linea.Sku;

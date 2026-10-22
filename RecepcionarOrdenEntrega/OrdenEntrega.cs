@@ -8,7 +8,7 @@ namespace GrupoA.PampazonSA.AdministracionDeposito.RecepcionarOrdenEntrega
         public string Cliente { get; set; } = "";
         public Transportista Transportista { get; set; } = new Transportista();
         public DateTime FechaEmision { get; set; }
-        public string OrdenesPreparacion { get; set; } = "";
+        public List<string> NrosOP { get; set; } = new List<string>();
         public int Bultos { get; set; }
 
         // Dónde está la mercadería: en Preparación hasta que Despacho confirma la recepción.
