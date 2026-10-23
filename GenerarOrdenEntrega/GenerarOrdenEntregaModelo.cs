@@ -88,7 +88,7 @@
                 Transportista = primera.Transportista,
                 FechaRetiro = primera.FechaRetiro,
                 // Una línea por OP con su N° y sus bultos (Select).
-                Lineas =ordenes.Select(op => new LineaOrdenEntrega { NroOP = op.NroOP, Bultos = op.Bultos }).ToList()
+                Lineas = ordenes.Select(op => new LineaOrdenEntrega { NroOP = op.NroOP, Bultos = op.Bultos }).ToList()
             });
 
             foreach (var op in ordenes)

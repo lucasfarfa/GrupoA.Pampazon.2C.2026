@@ -62,7 +62,7 @@
         public bool HayProductos => _lineas.Count > 0;
 
         // Nombres para la lista "Cliente": de cada cliente toma solo el nombre (Select).
-        public List<string> Clientes =>_clientes.Select(c => c.Nombre).ToList();
+        public List<string> Clientes => _clientes.Select(c => c.Nombre).ToList();
         public List<string> Depositos => _depositos.ToList();
 
         // Elige el cliente y devuelve su CUIT para mostrarlo. Cambiar el cliente vacía la lista de productos.

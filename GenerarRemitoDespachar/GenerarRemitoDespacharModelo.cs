@@ -47,7 +47,7 @@ namespace GrupoA.PampazonSA.AdministracionDeposito.GenerarRemitoDespachar
         public bool BuscarTransportista(string dni, out Transportista? transportista)
         {
             // Busca el transportista con ese DNI, o null si no hay ninguno (FirstOrDefault).
-            transportista =_transportistas.FirstOrDefault(t => t.DNI == dni);
+            transportista = _transportistas.FirstOrDefault(t => t.DNI == dni);
             _transportista = transportista;
             return transportista != null;
         }
@@ -82,7 +82,7 @@ namespace GrupoA.PampazonSA.AdministracionDeposito.GenerarRemitoDespachar
             foreach (var nro in nrosOE)
             {
                 // Busca la OE con ese número, o null si no existe (FirstOrDefault).
-                var oe =_ordenesEntrega.FirstOrDefault(o => o.NroOE == nro);
+                var oe = _ordenesEntrega.FirstOrDefault(o => o.NroOE == nro);
                 if (oe == null || oe.Estado != PendienteEntrega || _seleccionadas.Contains(nro))
                     return false;
             }
