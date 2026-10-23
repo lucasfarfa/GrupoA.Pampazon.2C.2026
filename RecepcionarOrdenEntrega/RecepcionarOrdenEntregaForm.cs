@@ -11,7 +11,7 @@
 
         private void RecepcionarOrdenEntregaForm_Load(object sender, EventArgs e)
         {
-            // La pantalla permite marcar varias filas: se selecciona una sola OE (CU-06, paso 4).
+            // La pantalla permite marcar varias filas: se selecciona una sola OE 
             lvOEEmitidas.MultiSelect = false;
             // Sin esto solo se selecciona haciendo clic sobre el N° OE.
             lvOEEmitidas.FullRowSelect = true;

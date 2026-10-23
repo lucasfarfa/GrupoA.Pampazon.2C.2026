@@ -23,7 +23,7 @@ namespace GrupoA.PampazonSA.AdministracionDeposito.GenerarOrdenSeleccion
                 Productos = new List<LineaProducto> { new LineaProducto { Sku = "ZAP-0042", Cantidad = 24 } } }
         };
 
-        // Registro de stock del depósito. CEM-50KG está en dos posiciones (CU-02, paso 14).
+        // Registro de stock del depósito. CEM-50KG está en dos posiciones
         private static readonly List<PosicionStock> _stock = new List<PosicionStock>
         {
             new PosicionStock { Sku = "CEM-50KG", Posicion = "12-43-2", Cantidad = 10 },
@@ -35,7 +35,7 @@ namespace GrupoA.PampazonSA.AdministracionDeposito.GenerarOrdenSeleccion
         private static readonly List<OrdenSeleccion> _ordenesSeleccion = new List<OrdenSeleccion>();
         private static int _ultimoNroOS = 300;
 
-        // Filtros aplicados con "Buscar"; al abrir, fechas en el día de hoy (CU-02, paso 2).
+        // Filtros aplicados con "Buscar"; al abrir, fechas en el día de hoy 
         private string _cliente = "";
         private DateTime? _desde = DateTime.Today;
         private DateTime? _hasta = DateTime.Today;

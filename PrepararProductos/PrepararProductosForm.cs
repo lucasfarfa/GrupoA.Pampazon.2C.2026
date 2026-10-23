@@ -19,7 +19,7 @@
                 MessageBox.Show("No hay órdenes de selección pendientes", Text);
         }
 
-        // CU-03, 3 y 4. La clave de la OS es el texto del ítem del combo.
+        //La clave de la OS es el texto del ítem del combo.
         private void comboOrdenSeleccion_SelectedIndexChanged(object? sender, EventArgs e)
         {
             if (comboOrdenSeleccion.SelectedItem is not string nro) return;
@@ -34,14 +34,14 @@
 
         private void btnConfirmar_Click(object sender, EventArgs e)
         {
-            // CU-03, 8.1
+            // 
             if (comboOrdenSeleccion.SelectedItem is not string nro)
             {
                 MessageBox.Show("Debe seleccionar una orden de selección", Text);
                 return;
             }
 
-            // CU-03, 9. Cancelar la pregunta no registra la entrega (CU-03, 10.1).
+            // Cancelar la pregunta no registra la entrega 
             if (MessageBox.Show(
                     "¿Confirma que entregó toda la mercadería de la OS N° " + nro + " a Preparación?",
                     Text,
@@ -51,13 +51,13 @@
                 return;
             }
 
-            // CU-03, 11 a 14
+            // 
             if (!_modelo.ConfirmarEntrega(nro)) return;
 
             MessageBox.Show("La OS " + nro + " quedó Cumplida. Se descontó el stock de almacén.", Text);
             RefrescarListas();
 
-            // CU-03, 2.1
+            // 
             if (_modelo.OrdenesPendientes.Count == 0)
                 MessageBox.Show("No hay órdenes de selección pendientes", Text);
         }
@@ -67,7 +67,7 @@
             Close();
         }
 
-        // CU-03, Salida. Cubre "Cancelar" y cerrar la ventana con la X.
+        // Salida. Cubre "Cancelar" y cerrar la ventana con la X.
         // Solo avisa si hay una OS elegida sin confirmar.
         private void PrepararProductosForm_FormClosing(object sender, FormClosingEventArgs e)
         {

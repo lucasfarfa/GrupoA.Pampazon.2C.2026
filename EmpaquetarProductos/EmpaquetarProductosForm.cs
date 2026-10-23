@@ -14,12 +14,12 @@ namespace GrupoA.PampazonSA.AdministracionDeposito.CU04EmpaquetarProductos
             MostrarOrdenAsignada();
         }
 
-        // Asigna la siguiente OP por FIFO y muestra sus datos (CU-04, pasos 2 y 3).
+        // Asigna la siguiente OP por FIFO y muestra sus datos 
         private void MostrarOrdenAsignada()
         {
             if (!_modelo.AsignarSiguienteOrden(out OrdenPreparacion? orden) || orden == null)
             {
-                // CU-04, exc. 2.2.
+                // 
                 lblNroOrden.Text = "";
                 lblModalidad.Text = "";
                 lblTotalBultos.Text = "";
@@ -49,7 +49,7 @@ namespace GrupoA.PampazonSA.AdministracionDeposito.CU04EmpaquetarProductos
             }
         }
 
-        // CU-04, pasos 5 a 10.
+        // 
         private void btnEmpaquetar_Click(object sender, EventArgs e)
         {
             if (MessageBox.Show("¿Confirma el empaquetado de la OP N° " + _modelo.NroOPAsignada + " en " + _modelo.TotalBultos + " bultos?", Text,
@@ -70,7 +70,7 @@ namespace GrupoA.PampazonSA.AdministracionDeposito.CU04EmpaquetarProductos
         }
 
         // Cubre tanto "Cancelar" como cerrar la ventana. La OP sigue En preparación y
-        // se vuelve a asignar al abrir la pantalla (CU-04, Salida).
+        // se vuelve a asignar al abrir la pantalla 
         private void EmpaquetarProductosForm_FormClosing(object sender, FormClosingEventArgs e)
         {
             if (_modelo.HayOrdenAsignada)

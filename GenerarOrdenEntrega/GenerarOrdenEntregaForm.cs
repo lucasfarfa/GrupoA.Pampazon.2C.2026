@@ -11,7 +11,7 @@
 
         private void GenerarOrdenEntregaForm_Load(object sender, EventArgs e)
         {
-            // La pantalla trae el botón deshabilitado: se habilita para poder avisar que no hay fila marcada (CU-05, 7.1).
+            // La pantalla trae el botón deshabilitado: se habilita para poder avisar que no hay fila marcada 
             btnGenerarOrden.Enabled = true;
             RefrescarListas();
 
