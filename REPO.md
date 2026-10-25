@@ -70,7 +70,7 @@ Estados de una **orden de preparación (OP)** a lo largo del circuito: Pendiente
 
 ## Menú principal (`MenuPrincipal`)
 
-Tiene un botón por pantalla y la abre con `ShowDialog()`. También tiene un combo de depósito (GBA, ROS, CBA; por defecto ROS) que solo se le pasa a *Generar Orden de Selección*. `MenuPrincipalModelo` está vacío.
+Tiene un botón por pantalla y la abre con `ShowDialog()`. También tiene un combo de depósito (GBA, ROS, CBA; por defecto ROS) que solo se le pasa a *Generar Orden de Selección*.
 
 ---
 

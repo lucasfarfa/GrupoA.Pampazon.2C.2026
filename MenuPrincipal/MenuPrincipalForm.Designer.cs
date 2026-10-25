@@ -2,7 +2,7 @@
 using System.Drawing;
 using System.Windows.Forms;
 
-namespace OrdenesPreparacion
+namespace GrupoA.PampazonSA.AdministracionDeposito.MenuPrincipal
 {
     partial class MenuPrincipalForm
     {
@@ -107,7 +107,7 @@ namespace OrdenesPreparacion
             button1.TabIndex = 9;
             button1.Text = "Recepcionar Orden de Entrega";
             button1.UseVisualStyleBackColor = false;
-            button1.Click += button1_Click;
+            button1.Click += btnRecepcionarOrdenEntrega_Click;
             // 
             // cboDeposito
             // 

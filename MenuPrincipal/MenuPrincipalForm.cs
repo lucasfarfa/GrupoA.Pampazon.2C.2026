@@ -6,10 +6,10 @@ using GrupoA.PampazonSA.AdministracionDeposito.PrepararProductos;
 using GrupoA.PampazonSA.AdministracionDeposito.RecepcionarOrdenEntrega;
 using GrupoA.PampazonSA.AdministracionDeposito.RegistrarOrdenPreparacion;
 
-namespace OrdenesPreparacion;
+namespace GrupoA.PampazonSA.AdministracionDeposito.MenuPrincipal;
 
 // Menú de inicio: el operador elige el depósito y la actividad a realizar.
-// Los controles están definidos en FrmMenuPrincipal.Designer.cs
+// Los controles están definidos en MenuPrincipalForm.Designer.cs
 public partial class MenuPrincipalForm : Form
 {
     public MenuPrincipalForm()
@@ -51,7 +51,7 @@ public partial class MenuPrincipalForm : Form
         new GenerarOrdenEntregaForm().ShowDialog();
     }
 
-    private void button1_Click(object sender, EventArgs e)
+    private void btnRecepcionarOrdenEntrega_Click(object sender, EventArgs e)
     {
         new RecepcionarOrdenEntregaForm().ShowDialog();
     }
