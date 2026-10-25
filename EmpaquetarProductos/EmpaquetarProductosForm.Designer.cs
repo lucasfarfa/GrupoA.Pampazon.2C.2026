@@ -210,17 +210,17 @@
 
         private GroupBox grpOrden;
         private Label label5;
-        private TextBox textModalidad;
+        // private TextBox textModalidad;
         private GroupBox groupBox2;
         private ListView lstProductos;
-        private ColumnHeader columnHeader1;
-        private ColumnHeader columnHeader2;
+        // private ColumnHeader columnHeader1;
+        // private ColumnHeader columnHeader2;
         private ColumnHeader CantidadCol;
         private Button btnEmpaquetar;
         private Label label3;
         private Label lblTotalBultos;
         private Label label2;
-        private TextBox txtNumeroOrden;
+        // private TextBox txtNumeroOrden;
         private Button btnCancelar;
         private Label lblModalidad;
         private Label lblNroOrden;
