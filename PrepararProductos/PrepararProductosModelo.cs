@@ -5,14 +5,13 @@
         private const string Pendiente = "Pendiente";
         private const string Cumplida = "Cumplida";
 
-        // Estáticos: los datos se mantienen entre aperturas de la pantalla (OS Cumplida, prueba C.2).
-        private static readonly List<OrdenSeleccion> _ordenes = new List<OrdenSeleccion>
+        private List<OrdenSeleccion> _ordenes = new List<OrdenSeleccion>
         {
             new OrdenSeleccion
             {
                 Nro = "501",
                 Estado = Pendiente,
-                OrdenesPreparacion = "101, 102",
+                NrosOP = new List<string> { "101", "102" },
                 Lineas =
                 {
                     new LineaMercaderia { Posicion = "12-43-2", Sku = "CEM-50KG", Cantidad = 10 },
@@ -24,7 +23,7 @@
             {
                 Nro = "502",
                 Estado = Pendiente,
-                OrdenesPreparacion = "103",
+                NrosOP = new List<string> { "103" },
                 Lineas =
                 {
                     new LineaMercaderia { Posicion = "12-05-1", Sku = "ZAP-0042", Cantidad = 24 }
@@ -32,7 +31,7 @@
             }
         };
 
-        private static readonly List<StockPosicion> _stock = new List<StockPosicion>
+        private List<StockPosicion> _stock = new List<StockPosicion>
         {
             new StockPosicion { Sku = "CEM-50KG", Posicion = "12-43-2", Cantidad = 10 },
             new StockPosicion { Sku = "CEM-50KG", Posicion = "12-44-1", Cantidad = 50 },
@@ -44,30 +43,34 @@
 
         public string Deposito => "GBA";
 
-        // CU-03, 2. OS Pendientes del depósito, por número.
-        public List<string> ObtenerOrdenesPendientes()
+        // Lista del combo "Orden de selección": N° de las OS Pendientes del depósito.
+        // Filtra las Pendientes (Where), las ordena por número (OrderBy) y toma solo el N° (Select).
+        public List<string> OrdenesPendientes
         {
-            return _ordenes
-                .Where(o => o.Estado == Pendiente)
-                .OrderBy(o => int.Parse(o.Nro))
-                .Select(o => o.Nro)
-                .ToList();
-        }
-
-        public bool ObtenerOrdenSeleccionada(out string nro)
-        {
-            var os = _ordenes.FirstOrDefault(o => o.Nro == _nroOsSeleccionada && o.Estado == Pendiente);
-            if (os == null)
+            get
             {
-                nro = "";
-                return false;
+                return _ordenes
+                    .Where(o => o.Estado == Pendiente)
+                    .OrderBy(o => int.Parse(o.Nro))
+                    .Select(o => o.Nro)
+                    .ToList();
             }
-
-            nro = os.Nro;
-            return true;
         }
 
-        // CU-03, 3. Deja elegida la OS si sigue Pendiente.
+        // N° de la OS elegida, para volver a marcarla en el combo; "" si no hay ninguna.
+        // Busca la OS elegida si sigue Pendiente, o null si no la encuentra (FirstOrDefault).
+        public string OrdenSeleccionada
+        {
+            get
+            {
+                var os = _ordenes.FirstOrDefault(o => o.Nro == _nroOsSeleccionada && o.Estado == Pendiente);
+                if (os == null) return "";
+                return os.Nro;
+            }
+        }
+
+        // Elige la OS para mostrar su detalle. Devuelve true si sigue Pendiente
+        // (Any: ¿hay alguna OS con ese N° en estado Pendiente?).
         public bool SeleccionarOrden(string nro)
         {
             if (!_ordenes.Any(o => o.Nro == nro && o.Estado == Pendiente))
@@ -77,27 +80,33 @@
             return true;
         }
 
-        // CU-03, 4 y 5. Líneas de la OS elegida, ordenadas por sector, posición y fila.
-        public List<LineaMercaderia> ObtenerLineas()
+        // Filas del detalle de la OS elegida, en el orden de recorrido del depósito: sector, posición y fila.
+        // Busca la OS elegida (FirstOrDefault) y ordena sus líneas por la posición X-Y-Z (OrderBy con ClaveRecorrido).
+        public List<LineaMercaderia> Lineas
         {
-            var os = _ordenes.FirstOrDefault(o => o.Nro == _nroOsSeleccionada && o.Estado == Pendiente);
-            if (os == null) return new List<LineaMercaderia>();
+            get
+            {
+                var os = _ordenes.FirstOrDefault(o => o.Nro == _nroOsSeleccionada && o.Estado == Pendiente);
+                if (os == null) return new List<LineaMercaderia>();
 
-            return os.Lineas
-                .OrderBy(l => ClaveRecorrido(l.Posicion))
-                .ToList();
+                return os.Lineas
+                    .OrderBy(l => ClaveRecorrido(l.Posicion))
+                    .ToList();
+            }
         }
 
-        // CU-03, 11 y 12. La OS pasa a Cumplida y se descuenta el stock de cada posición.
-        // Las OP no cambian de estado: siguen En preparación hasta CU-04.
+        // Registra la entrega a Preparación: la OS pasa a Cumplida y se descuenta el stock de cada posición.
+        // Las OP no cambian de estado: siguen En preparación hasta que se empaquetan.
         public bool ConfirmarEntrega(string nro)
         {
+            // Busca la OS si sigue Pendiente, o null si no (FirstOrDefault).
             var os = _ordenes.FirstOrDefault(o => o.Nro == nro && o.Estado == Pendiente);
             if (os == null) return false;
 
             var stocks = new List<StockPosicion>();
             foreach (var linea in os.Lineas)
             {
+                // Busca el stock de la posición y el SKU de la línea (FirstOrDefault).
                 var stock = _stock.FirstOrDefault(s => s.Posicion == linea.Posicion && s.Sku == linea.Sku);
                 if (stock == null) return false;
                 stocks.Add(stock);
@@ -115,7 +124,7 @@
         }
 
         // Posición X-Y-Z: sector, posición, fila.
-        private static (int Sector, int Posicion, int Fila) ClaveRecorrido(string posicion)
+        private (int Sector, int Posicion, int Fila) ClaveRecorrido(string posicion)
         {
             string[] partes = posicion.Split('-');
             return (int.Parse(partes[0]), int.Parse(partes[1]), int.Parse(partes[2]));

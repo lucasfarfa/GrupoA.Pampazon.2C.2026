@@ -5,8 +5,7 @@ namespace GrupoA.PampazonSA.AdministracionDeposito.GenerarOrdenEntrega
         public string NroOP { get; set; } = "";
         public string Deposito { get; set; } = "";
         public string Cliente { get; set; } = "";
-        public string DniTransportista { get; set; } = "";
-        public string NombreTransportista { get; set; } = "";
+        public Transportista Transportista { get; set; } = new Transportista();
         public DateTime FechaRetiro { get; set; }
         public int Bultos { get; set; }
         public string Estado { get; set; } = "";

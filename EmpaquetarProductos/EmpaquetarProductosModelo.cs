@@ -9,14 +9,13 @@ namespace GrupoA.PampazonSA.AdministracionDeposito.CU04EmpaquetarProductos
         private const string PaletCerrado = "Palet cerrado";
         private const string Fulfillment = "Fulfillment";
 
-        // Estáticos: los datos se mantienen entre aperturas de la pantalla (prueba D.6).
-        private static readonly List<OrdenSeleccion> _ordenesSeleccion = new List<OrdenSeleccion>
+        private List<OrdenSeleccion> _ordenesSeleccion = new List<OrdenSeleccion>
         {
             new OrdenSeleccion { NroOS = "501", Estado = Cumplida },
             new OrdenSeleccion { NroOS = "503", Estado = Pendiente }
         };
 
-        private static readonly List<OrdenPreparacion> _ordenesPreparacion = new List<OrdenPreparacion>
+        private List<OrdenPreparacion> _ordenesPreparacion = new List<OrdenPreparacion>
         {
             new OrdenPreparacion
             {
@@ -49,9 +48,17 @@ namespace GrupoA.PampazonSA.AdministracionDeposito.CU04EmpaquetarProductos
 
         public bool HayOrdenAsignada => _ordenAsignada != null;
 
-        public string NroOPAsignada => _ordenAsignada?.NroOP ?? "";
+        public string NroOPAsignada
+        {
+            get
+            {
+                if (_ordenAsignada == null) return "";
+                return _ordenAsignada.NroOP;
+            }
+        }
 
-        // Palet cerrado: un bulto (el palet). Fulfillment: un bulto por unidad (CU-04, paso 3).
+        // Total de bultos a mostrar. Palet cerrado: un bulto (el palet).
+        // Fulfillment: un bulto por unidad, o sea la suma de las cantidades de los productos (Sum).
         public int TotalBultos
         {
             get
@@ -62,8 +69,9 @@ namespace GrupoA.PampazonSA.AdministracionDeposito.CU04EmpaquetarProductos
             }
         }
 
-        // Asigna la OP más antigua por fecha de recepción (FIFO) En preparación y con su OS Cumplida (CU-04, paso 2).
-        // Devuelve false si no hay ninguna (CU-04, exc. 2.1).
+        // Asigna al puesto la próxima OP a empaquetar; devuelve false si no hay ninguna.
+        // Filtra las OP En preparación cuya OS esté Cumplida (Where + Any), las ordena de la más vieja a la más nueva
+        // por fecha de recepción (OrderBy, FIFO) y toma la primera, o null si no queda ninguna (FirstOrDefault).
         public bool AsignarSiguienteOrden(out OrdenPreparacion? orden)
         {
             orden = _ordenesPreparacion
@@ -75,9 +83,13 @@ namespace GrupoA.PampazonSA.AdministracionDeposito.CU04EmpaquetarProductos
             return orden != null;
         }
 
-        public List<ProductoOrden> ObtenerProductosAsignados()
+        public List<ProductoOrden> ProductosAsignados
         {
-            return _ordenAsignada?.Productos.ToList() ?? new List<ProductoOrden>();
+            get
+            {
+                if (_ordenAsignada == null) return new List<ProductoOrden>();
+                return _ordenAsignada.Productos.ToList();
+            }
         }
 
         // Registra la OP asignada como Preparada con sus bultos, fecha y hora (CU-04, paso 8).

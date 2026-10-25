@@ -4,8 +4,7 @@
     {
         private const string Pendiente = "Pendiente";
 
-        // Estáticos: los datos se mantienen entre aperturas de la pantalla (el disponible baja al registrar, prueba A.12).
-        private static readonly List<Cliente> _clientes = new List<Cliente>
+        private List<Cliente> _clientes = new List<Cliente>
         {
             new Cliente { Nombre = "Mercadito S.A.", Cuit = "30-71234567-8" },
             new Cliente { Nombre = "MundoFOX S.R.L.", Cuit = "30-70987654-3" },
@@ -13,10 +12,10 @@
             new Cliente { Nombre = "Construcciones del Plata S.R.L.", Cuit = "30-70555444-1" }
         };
 
-        private static readonly List<string> _depositos = new List<string> { "GBA", "ROS", "CBA", "MDZ" };
+        private List<string> _depositos = new List<string> { "GBA", "ROS", "CBA", "MDZ" };
 
         // Ningún cliente tiene mercadería fuera de GBA.
-        private static readonly List<Stock> _stock = new List<Stock>
+        private List<Stock> _stock = new List<Stock>
         {
             new Stock { CuitCliente = "30-71234567-8", Deposito = "GBA", Sku = "CEM-50KG", Descripcion = "Bolsa de cemento 50 kg", Cantidad = 60 },
             new Stock { CuitCliente = "30-71234567-8", Deposito = "GBA", Sku = "CAL-25KG", Descripcion = "Bolsa de cal 25 kg", Cantidad = 50 },
@@ -26,7 +25,7 @@
         };
 
         // OP Pendientes que comprometen stock: CEM-50KG 15, CAL-25KG 3 y ZAP-0042 24.
-        private static readonly List<OrdenPreparacion> _ordenes = new List<OrdenPreparacion>
+        private List<OrdenPreparacion> _ordenes = new List<OrdenPreparacion>
         {
             new OrdenPreparacion
             {
@@ -50,35 +49,32 @@
         };
 
         // Las OP 104 a 109 ya existen en las pantallas siguientes del circuito: la nueva OP arranca en 110.
-        private static int _ultimoNroOP = 109;
+        private int _ultimoNroOP = 109;
 
         // Orden que se está cargando en la pantalla.
         private Cliente? _cliente;
         private string? _deposito;
-        private readonly List<LineaOrden> _lineas = new List<LineaOrden>();
+        private string? _sku;
+        private List<LineaOrden> _lineas = new List<LineaOrden>();
 
         public string? ClienteSeleccionado => _cliente?.Nombre;
         public string? DepositoSeleccionado => _deposito;
         public bool HayProductos => _lineas.Count > 0;
 
-        public List<string> ObtenerClientes()
-        {
-            return _clientes.Select(c => c.Nombre).ToList();
-        }
+        // Nombres para la lista "Cliente": de cada cliente toma solo el nombre (Select).
+        public List<string> Clientes => _clientes.Select(c => c.Nombre).ToList();
+        public List<string> Depositos => _depositos.ToList();
 
-        public List<string> ObtenerDepositos()
-        {
-            return _depositos.ToList();
-        }
-
-        // Cambiar el cliente vacía la lista de productos (CU-01, 17.9).
+        // Elige el cliente y devuelve su CUIT para mostrarlo. Cambiar el cliente vacía la lista de productos.
         public bool SeleccionarCliente(string nombre, out string cuit)
         {
             cuit = "";
+            // Busca el cliente con ese nombre, o null si no existe (FirstOrDefault).
             var cliente = _clientes.FirstOrDefault(c => c.Nombre == nombre);
             if (cliente == null) return false;
 
             _cliente = cliente;
+            _sku = null;
             _lineas.Clear();
             cuit = cliente.Cuit;
             return true;
@@ -90,57 +86,75 @@
             if (!_depositos.Contains(deposito)) return false;
 
             _deposito = deposito;
+            _sku = null;
             _lineas.Clear();
             return true;
         }
 
-        // SKU que el cliente tiene en stock en el depósito elegidos (CU-01, paso 6).
-        public List<string> ObtenerSkus()
+        // SKU para la lista "SKU": los que el cliente tiene en stock en el depósito elegido.
+        // De cada registro de stock toma el SKU (Select) y los ordena alfabéticamente (OrderBy).
+        public List<string> Skus => StockDelCliente().Select(s => s.Sku).OrderBy(s => s).ToList();
+
+        // Elige el SKU para mostrar su disponible. Devuelve true si el cliente lo tiene en stock en el depósito
+        // (Any: ¿hay algún registro de stock con ese SKU?).
+        public bool SeleccionarSku(string sku)
         {
-            return StockDelCliente().Select(s => s.Sku).OrderBy(s => s).ToList();
+            if (!StockDelCliente().Any(s => s.Sku == sku)) return false;
+
+            _sku = sku;
+            return true;
         }
 
-        // Disponible = stock en almacén - cantidad comprometida por las OP Pendientes (CU-01, paso 11).
-        public bool ObtenerDisponible(string sku, out int disponible)
+        // Cantidad que se puede pedir del SKU elegido: stock en almacén menos lo comprometido por las OP Pendientes.
+        public int Disponible
         {
-            disponible = 0;
-            var stock = StockDelCliente().FirstOrDefault(s => s.Sku == sku);
+            get
+            {
+                // Busca el registro de stock del SKU elegido, o null si no hay (FirstOrDefault).
+                var stock = StockDelCliente().FirstOrDefault(s => s.Sku == _sku);
+                if (stock == null) return 0;
+
+                // De las OP Pendientes del cliente en el depósito (Where) junta todas sus líneas (SelectMany),
+                // se queda con las del SKU elegido (Where) y suma sus cantidades (Sum).
+                int comprometido = _ordenes
+                    .Where(o => o.CuitCliente == stock.CuitCliente && o.Deposito == stock.Deposito && o.Estado == Pendiente)
+                    .SelectMany(o => o.Lineas)
+                    .Where(l => l.Sku == _sku)
+                    .Sum(l => l.Cantidad);
+
+                return stock.Cantidad - comprometido;
+            }
+        }
+
+        // Para avisar si el SKU elegido ya está en "Productos a preparar" (Any: ¿hay alguna línea con ese SKU?).
+        public bool SkuYaAgregado => _lineas.Any(l => l.Sku == _sku);
+
+        // Agrega el SKU elegido a "Productos a preparar" y deja de tenerlo elegido.
+        // Devuelve true si hay un SKU elegido, no está en la orden y la cantidad no supera el disponible.
+        public bool AgregarProducto(int cantidad)
+        {
+            // Busca el registro de stock del SKU elegido para tomar su descripción (FirstOrDefault).
+            var stock = StockDelCliente().FirstOrDefault(s => s.Sku == _sku);
             if (stock == null) return false;
+            if (cantidad <= 0 || cantidad > Disponible || SkuYaAgregado) return false;
 
-            int comprometido = _ordenes
-                .Where(o => o.CuitCliente == stock.CuitCliente && o.Deposito == stock.Deposito && o.Estado == Pendiente)
-                .SelectMany(o => o.Lineas)
-                .Where(l => l.Sku == sku)
-                .Sum(l => l.Cantidad);
-
-            disponible = stock.Cantidad - comprometido;
+            _lineas.Add(new LineaOrden { Sku = stock.Sku, Descripcion = stock.Descripcion, Cantidad = cantidad });
+            _sku = null;
             return true;
         }
 
-        // Devuelve true si el SKU es del cliente en el depósito, no está en la orden y la cantidad no supera el disponible.
-        public bool AgregarProducto(string sku, int cantidad)
-        {
-            if (!ObtenerDisponible(sku, out int disponible)) return false;
-            if (cantidad <= 0 || cantidad > disponible || _lineas.Any(l => l.Sku == sku)) return false;
-
-            var stock = StockDelCliente().First(s => s.Sku == sku);
-            _lineas.Add(new LineaOrden { Sku = sku, Descripcion = stock.Descripcion, Cantidad = cantidad });
-            return true;
-        }
-
-        // Devuelve true si todos los SKU estaban en la orden.
+        // Saca de "Productos a preparar" los SKU elegidos. Devuelve true si todos estaban en la orden.
         public bool QuitarProductos(List<string> skus)
         {
+            // Si algún SKU de la lista (Any) no está entre las líneas cargadas (!Any), no se quita nada.
             if (skus.Any(sku => !_lineas.Any(l => l.Sku == sku))) return false;
 
+            // Borra las líneas cuyo SKU esté en la lista (RemoveAll).
             _lineas.RemoveAll(l => skus.Contains(l.Sku));
             return true;
         }
 
-        public List<LineaOrden> ObtenerLineas()
-        {
-            return _lineas.ToList();
-        }
+        public List<LineaOrden> Lineas => _lineas.ToList();
 
         // Registra la OP Pendiente con los productos cargados; al quedar Pendiente compromete su stock (CU-01, pasos 27 y 28).
         // Deja el modelo vacío para una nueva orden.
@@ -159,8 +173,7 @@
                 CuitCliente = _cliente.Cuit,
                 Deposito = _deposito,
                 Modalidad = modalidad,
-                DniTransportista = dni,
-                NombreTransportista = nombreTransportista,
+                Transportista = new Transportista { DNI = dni, NombreApellido = nombreTransportista },
                 FechaRetiro = fechaRetiro,
                 Estado = Pendiente,
                 Lineas = _lineas.ToList()
@@ -168,10 +181,12 @@
 
             _cliente = null;
             _deposito = null;
+            _sku = null;
             _lineas.Clear();
             return true;
         }
 
+        // Registros de stock del cliente elegido en el depósito elegido (Where).
         private List<Stock> StockDelCliente()
         {
             return _stock.Where(s => s.CuitCliente == _cliente?.Cuit && s.Deposito == _deposito).ToList();

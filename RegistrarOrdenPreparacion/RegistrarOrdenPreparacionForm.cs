@@ -14,15 +14,15 @@ namespace GrupoA.PampazonSA.AdministracionDeposito.RegistrarOrdenPreparacion
 
         private void RegistrarOrdenPreparacionForm_Load(object sender, EventArgs e)
         {
-            foreach (var cliente in _modelo.ObtenerClientes())
+            foreach (var cliente in _modelo.Clientes)
                 cboCliente.Items.Add(cliente);
 
-            foreach (var deposito in _modelo.ObtenerDepositos())
+            foreach (var deposito in _modelo.Depositos)
                 cboDeposito.Items.Add(deposito);
 
             lblDisponible.Text = "";
 
-            // El DNI no admite más de 8 caracteres (prueba A.5).
+            // El DNI no admite más de 8 caracteres.
             txtDniTransportista.MaxLength = 8;
         }
 
@@ -75,7 +75,7 @@ namespace GrupoA.PampazonSA.AdministracionDeposito.RegistrarOrdenPreparacion
             cboSku.Items.Clear();
             lblDisponible.Text = "";
 
-            List<string> skus = _modelo.ObtenerSkus();
+            List<string> skus = _modelo.Skus;
             foreach (var sku in skus)
                 cboSku.Items.Add(sku);
 
@@ -90,9 +90,9 @@ namespace GrupoA.PampazonSA.AdministracionDeposito.RegistrarOrdenPreparacion
             lblDisponible.Text = "";
             if (cboSku.SelectedItem is not string sku) return;
 
-            if (!_modelo.ObtenerDisponible(sku, out int disponible)) return;
+            if (!_modelo.SeleccionarSku(sku)) return;
 
-            lblDisponible.Text = disponible.ToString();
+            lblDisponible.Text = _modelo.Disponible.ToString();
         }
 
         private void btnAgregar_Click(object sender, EventArgs e)
@@ -109,21 +109,19 @@ namespace GrupoA.PampazonSA.AdministracionDeposito.RegistrarOrdenPreparacion
                 return;
             }
 
-            if (!_modelo.ObtenerDisponible(sku, out int disponible)) return;
-
-            if (cantidad > disponible)
+            if (cantidad > _modelo.Disponible)
             {
-                MessageBox.Show("La cantidad supera el disponible del SKU " + sku + ": " + disponible + " unidades", Text);
+                MessageBox.Show("La cantidad supera el disponible del SKU " + sku + ": " + _modelo.Disponible + " unidades", Text);
                 return;
             }
 
-            if (listDetalleAgregado.Items.Cast<ListViewItem>().Any(item => (string)item.Tag! == sku))
+            if (_modelo.SkuYaAgregado)
             {
                 MessageBox.Show("El SKU ya está en la orden. Quítelo de la lista para cambiar la cantidad", Text);
                 return;
             }
 
-            if (!_modelo.AgregarProducto(sku, cantidad)) return;
+            if (!_modelo.AgregarProducto(cantidad)) return;
 
             cboSku.SelectedIndex = -1;
             txtCantidad.Clear();
@@ -138,10 +136,12 @@ namespace GrupoA.PampazonSA.AdministracionDeposito.RegistrarOrdenPreparacion
                 return;
             }
 
-            List<string> skus = listDetalleAgregado.SelectedItems
-                .Cast<ListViewItem>()
-                .Select(item => (string)item.Tag!)
-                .ToList();
+            List<string> skus = new List<string>();
+            foreach (ListViewItem item in listDetalleAgregado.SelectedItems)
+            {
+                if (item.Tag == null) return;
+                skus.Add((string)item.Tag);
+            }
 
             if (!_modelo.QuitarProductos(skus)) return;
 
@@ -192,7 +192,7 @@ namespace GrupoA.PampazonSA.AdministracionDeposito.RegistrarOrdenPreparacion
                 return;
             }
 
-            if (listDetalleAgregado.Items.Count == 0)
+            if (!_modelo.HayProductos)
             {
                 MessageBox.Show("Debe agregar al menos un producto", Text);
                 return;
@@ -216,7 +216,7 @@ namespace GrupoA.PampazonSA.AdministracionDeposito.RegistrarOrdenPreparacion
         {
             listDetalleAgregado.Items.Clear();
 
-            foreach (var linea in _modelo.ObtenerLineas())
+            foreach (var linea in _modelo.Lineas)
             {
                 var item = new ListViewItem(new[] { linea.Sku, linea.Descripcion, linea.Cantidad.ToString() });
                 item.Tag = linea.Sku;

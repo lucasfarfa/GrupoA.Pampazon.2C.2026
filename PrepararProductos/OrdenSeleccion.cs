@@ -4,9 +4,9 @@ namespace GrupoA.PampazonSA.AdministracionDeposito.PrepararProductos
     {
         public string Nro { get; set; } = "";
         public string Estado { get; set; } = "";
-        public string OrdenesPreparacion { get; set; } = "";
+        public List<string> NrosOP { get; set; } = new List<string>();
         public DateTime? FechaHoraCumplida { get; set; }
-        public List<LineaMercaderia> Lineas { get; } = new List<LineaMercaderia>();
+        public List<LineaMercaderia> Lineas { get; set; } = new List<LineaMercaderia>();
     }
 
     internal class LineaMercaderia

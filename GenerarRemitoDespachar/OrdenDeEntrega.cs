@@ -1,16 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace GrupoA.PampazonSA.AdministracionDeposito.GenerarRemitoDespachar
+﻿namespace GrupoA.PampazonSA.AdministracionDeposito.GenerarRemitoDespachar
 {
     internal class OrdenDeEntrega
     {
-        public string NroOE {  get; set; }
-        public string Cliente { get; set; }
-        public string OrdenesPreparacion { get; set; }
+        public string NroOE { get; set; } = "";
+        public string Cliente { get; set; } = "";
+        public List<string> NrosOP { get; set; } = new List<string>();
         public int Bultos { get; set; }
-        public string DniTransportista { get; set; }
-        public string Estado { get; set; }
+        public Transportista Transportista { get; set; } = new Transportista();
+        public string Estado { get; set; } = "";
     }
 }

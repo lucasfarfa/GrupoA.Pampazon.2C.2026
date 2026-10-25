@@ -5,13 +5,11 @@ using GrupoA.PampazonSA.AdministracionDeposito.GenerarRemitoDespachar;
 using GrupoA.PampazonSA.AdministracionDeposito.PrepararProductos;
 using GrupoA.PampazonSA.AdministracionDeposito.RecepcionarOrdenEntrega;
 using GrupoA.PampazonSA.AdministracionDeposito.RegistrarOrdenPreparacion;
-using System;
-using System.Windows.Forms;
 
-namespace OrdenesPreparacion;
+namespace GrupoA.PampazonSA.AdministracionDeposito.MenuPrincipal;
 
 // Menú de inicio: el operador elige el depósito y la actividad a realizar.
-// Los controles están definidos en FrmMenuPrincipal.Designer.cs
+// Los controles están definidos en MenuPrincipalForm.Designer.cs
 public partial class MenuPrincipalForm : Form
 {
     public MenuPrincipalForm()
@@ -28,20 +26,6 @@ public partial class MenuPrincipalForm : Form
         return cboDeposito.Text.Trim() == "" ? "ROS (Rosario)" : cboDeposito.Text.Trim();
     }
 
-    private void cboDeposito_SelectedIndexChanged(object sender, EventArgs e)
-    {
-
-    }
-
-    private void lblDeposito_Click(object sender, EventArgs e)
-    {
-
-    }
-
-    private void MenuPrincipalForm_Load(object sender, EventArgs e)
-    {
-
-    }
     private void btnGenerarOrdenSeleccion_Click(object sender, EventArgs e)
     {
         new GenerarOrdenSeleccionForm(ObtenerDeposito()).ShowDialog();
@@ -67,7 +51,7 @@ public partial class MenuPrincipalForm : Form
         new GenerarOrdenEntregaForm().ShowDialog();
     }
 
-    private void button1_Click(object sender, EventArgs e)
+    private void btnRecepcionarOrdenEntrega_Click(object sender, EventArgs e)
     {
         new RecepcionarOrdenEntregaForm().ShowDialog();
     }

@@ -14,12 +14,11 @@ namespace GrupoA.PampazonSA.AdministracionDeposito.CU04EmpaquetarProductos
             MostrarOrdenAsignada();
         }
 
-        // Asigna la siguiente OP por FIFO y muestra sus datos (CU-04, pasos 2 y 3).
+        // Asigna la siguiente OP por FIFO y muestra sus datos 
         private void MostrarOrdenAsignada()
         {
-            if (!_modelo.AsignarSiguienteOrden(out OrdenPreparacion? orden))
+            if (!_modelo.AsignarSiguienteOrden(out OrdenPreparacion? orden) || orden == null)
             {
-                // CU-04, exc. 2.2.
                 lblNroOrden.Text = "";
                 lblModalidad.Text = "";
                 lblTotalBultos.Text = "";
@@ -29,7 +28,7 @@ namespace GrupoA.PampazonSA.AdministracionDeposito.CU04EmpaquetarProductos
                 return;
             }
 
-            lblNroOrden.Text = orden!.NroOP;
+            lblNroOrden.Text = orden.NroOP;
             lblModalidad.Text = orden.Modalidad;
             lblTotalBultos.Text = _modelo.TotalBultos.ToString();
             btnEmpaquetar.Enabled = true;
@@ -41,7 +40,7 @@ namespace GrupoA.PampazonSA.AdministracionDeposito.CU04EmpaquetarProductos
         {
             lstProductos.Items.Clear();
 
-            foreach (var producto in _modelo.ObtenerProductosAsignados())
+            foreach (var producto in _modelo.ProductosAsignados)
             {
                 var item = new ListViewItem(new[] { producto.Sku, producto.Descripcion, producto.Cantidad.ToString() });
                 item.Tag = producto.Sku;
@@ -49,7 +48,6 @@ namespace GrupoA.PampazonSA.AdministracionDeposito.CU04EmpaquetarProductos
             }
         }
 
-        // CU-04, pasos 5 a 10.
         private void btnEmpaquetar_Click(object sender, EventArgs e)
         {
             if (MessageBox.Show("¿Confirma el empaquetado de la OP N° " + _modelo.NroOPAsignada + " en " + _modelo.TotalBultos + " bultos?", Text,
@@ -69,8 +67,7 @@ namespace GrupoA.PampazonSA.AdministracionDeposito.CU04EmpaquetarProductos
             Close();
         }
 
-        // Cubre tanto "Cancelar" como cerrar la ventana. La OP sigue En preparación y
-        // se vuelve a asignar al abrir la pantalla (CU-04, Salida).
+        // Cubre tanto "Cancelar" como cerrar la ventana. La OP sigue En preparación.
         private void EmpaquetarProductosForm_FormClosing(object sender, FormClosingEventArgs e)
         {
             if (_modelo.HayOrdenAsignada)

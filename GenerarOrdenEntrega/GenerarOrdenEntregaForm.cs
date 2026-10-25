@@ -11,7 +11,7 @@
 
         private void GenerarOrdenEntregaForm_Load(object sender, EventArgs e)
         {
-            // La pantalla trae el botón deshabilitado: se habilita para poder avisar que no hay fila marcada (CU-05, 7.1).
+            // La pantalla trae el botón deshabilitado: se habilita para poder avisar que no hay fila marcada 
             btnGenerarOrden.Enabled = true;
             RefrescarListas();
 
@@ -21,11 +21,13 @@
             }
         }
 
-        // Solo se puede marcar una fila: al marcar otra se desmarca la anterior (CU-05, paso 5).
+        // Solo se puede marcar una fila: al marcar otra se desmarca la anterior.
         private void lvPendientes_ItemChecked(object sender, ItemCheckedEventArgs e)
         {
             if (!e.Item.Checked) return;
 
+            // Recorre las filas marcadas (Cast las trata como ListViewItem) salvo la recién marcada (Where);
+            // ToList hace una copia para poder desmarcarlas mientras se recorren.
             foreach (var item in lvPendientes.CheckedItems.Cast<ListViewItem>().Where(item => item != e.Item).ToList())
                 item.Checked = false;
         }
@@ -33,7 +35,7 @@
         // Seleccionar una fila también la marca, así la elección funciona con clic en la fila o en la casilla.
         private void lvPendientes_ItemSelectionChanged(object sender, ListViewItemSelectionChangedEventArgs e)
         {
-            if (e.IsSelected) e.Item.Checked = true;
+            if (e.IsSelected && e.Item != null) e.Item.Checked = true;
         }
 
         private void btnGenerarOrden_Click(object sender, EventArgs e)
@@ -44,15 +46,14 @@
                 return;
             }
 
-            var item = lvPendientes.CheckedItems[0];
-            string clave = (string)item.Tag!;
-            string cliente = item.SubItems[0].Text;
-            string transportista = item.SubItems[1].Text;
-            string fechaRetiro = item.SubItems[2].Text;
-            string cantidadOP = item.SubItems[3].Text;
+            ListViewItem item = lvPendientes.CheckedItems[0];
+            if (item.Tag == null) return;
+            string clave = (string)item.Tag;
 
-            if (MessageBox.Show("¿Confirma la orden de entrega para " + cliente + ", transportista " + transportista +
-                    ", retiro " + fechaRetiro + ", con " + cantidadOP + " OP?", Text,
+            if (!_modelo.ObtenerGrupo(clave, out GrupoOrdenes? grupo) || grupo == null) return;
+
+            if (MessageBox.Show("¿Confirma la orden de entrega para " + grupo.Cliente + ", transportista " + grupo.NombreTransportista +
+                    ", retiro " + grupo.FechaRetiro.ToString("dd/MM/yyyy") + ", con " + grupo.CantidadOP + " OP?", Text,
                     MessageBoxButtons.OKCancel, MessageBoxIcon.Question) != DialogResult.OK)
             {
                 return;
@@ -69,7 +70,7 @@
         {
             lvPendientes.Items.Clear();
 
-            foreach (var grupo in _modelo.ObtenerGrupos())
+            foreach (var grupo in _modelo.Grupos)
             {
                 var item = new ListViewItem(new[] { grupo.Cliente, grupo.NombreTransportista, grupo.FechaRetiro.ToString("dd/MM/yyyy"), grupo.CantidadOP.ToString() });
                 item.Tag = grupo.Clave;

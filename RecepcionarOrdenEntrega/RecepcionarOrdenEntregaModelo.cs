@@ -10,29 +10,31 @@
         // Depósito del operario.
         private const string Deposito = "GBA";
 
-        private static readonly Transportista _joseGomez = new Transportista { DNI = "24568779", NombreApellido = "Jose Gomez" };
-
-        // Estáticos: los datos se mantienen entre aperturas de la pantalla (caso F.2 sin OE Emitidas).
-        private static readonly List<OrdenEntrega> _ordenesEntrega = new List<OrdenEntrega>
+        private List<OrdenEntrega> _ordenesEntrega = new List<OrdenEntrega>
         {
-            new OrdenEntrega { NroOE = "700", Estado = PendienteEntrega, Deposito = "GBA", Cliente = "Mercadito S.A.", Transportista = _joseGomez, FechaEmision = new DateTime(2026, 10, 14), OrdenesPreparacion = "109", Bultos = 5, Ubicacion = Despacho, FechaRecepcion = new DateTime(2026, 10, 14) },
-            new OrdenEntrega { NroOE = "701", Estado = Emitida, Deposito = "GBA", Cliente = "Mercadito S.A.", Transportista = _joseGomez, FechaEmision = new DateTime(2026, 10, 14), OrdenesPreparacion = "101, 102", Bultos = 18, Ubicacion = Preparacion },
-            new OrdenEntrega { NroOE = "702", Estado = Emitida, Deposito = "GBA", Cliente = "MundoFOX S.R.L.", Transportista = _joseGomez, FechaEmision = new DateTime(2026, 10, 14), OrdenesPreparacion = "103", Bultos = 1, Ubicacion = Preparacion }
+            new OrdenEntrega { NroOE = "700", Estado = PendienteEntrega, Deposito = "GBA", Cliente = "Mercadito S.A.", Transportista = new Transportista { DNI = "24568779", NombreApellido = "Jose Gomez" }, FechaEmision = new DateTime(2026, 10, 14), NrosOP = new List<string> { "109" }, Bultos = 5, Ubicacion = Despacho, FechaRecepcion = new DateTime(2026, 10, 14) },
+            new OrdenEntrega { NroOE = "701", Estado = Emitida, Deposito = "GBA", Cliente = "Mercadito S.A.", Transportista = new Transportista { DNI = "24568779", NombreApellido = "Jose Gomez" }, FechaEmision = new DateTime(2026, 10, 14), NrosOP = new List<string> { "101", "102" }, Bultos = 18, Ubicacion = Preparacion },
+            new OrdenEntrega { NroOE = "702", Estado = Emitida, Deposito = "GBA", Cliente = "MundoFOX S.R.L.", Transportista = new Transportista { DNI = "24568779", NombreApellido = "Jose Gomez" }, FechaEmision = new DateTime(2026, 10, 14), NrosOP = new List<string> { "103" }, Bultos = 1, Ubicacion = Preparacion }
         };
 
-        // OE Emitidas del depósito (CU-06, paso 2).
-        public List<OrdenEntrega> ObtenerOrdenesEmitidas()
+        // Filas de "Órdenes de entrega emitidas": las OE Emitidas del depósito.
+        // Filtra por depósito y estado Emitida (Where) y las ordena por N° de OE (OrderBy).
+        public List<OrdenEntrega> OrdenesEmitidas
         {
-            return _ordenesEntrega
-                .Where(oe => oe.Deposito == Deposito && oe.Estado == Emitida)
-                .OrderBy(oe => oe.NroOE)
-                .ToList();
+            get
+            {
+                return _ordenesEntrega
+                    .Where(oe => oe.Deposito == Deposito && oe.Estado == Emitida)
+                    .OrderBy(oe => oe.NroOE)
+                    .ToList();
+            }
         }
 
-        // Registra la OE Pendiente de entrega y su mercadería en el depósito transitorio de Despacho (CU-06, pasos 9 y 10).
+        // Confirma que Despacho recibió la OE: pasa a Pendiente de entrega y su mercadería al depósito transitorio de Despacho.
         // Devuelve true si la OE existe y estaba Emitida.
         public bool ConfirmarRecepcion(string nroOE)
         {
+            // Busca la OE Emitida del depósito con ese N°, o null si no está (FirstOrDefault).
             var oe = _ordenesEntrega.FirstOrDefault(o => o.NroOE == nroOE && o.Deposito == Deposito && o.Estado == Emitida);
             if (oe == null) return false;
 
