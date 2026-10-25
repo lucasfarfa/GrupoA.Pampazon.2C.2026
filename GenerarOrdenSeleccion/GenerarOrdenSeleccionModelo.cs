@@ -30,10 +30,10 @@ namespace GrupoA.PampazonSA.AdministracionDeposito.GenerarOrdenSeleccion
         private List<OrdenSeleccion> _ordenesSeleccion = new List<OrdenSeleccion>();
         private int _ultimoNroOS = 300;
 
-        // Filtros aplicados con "Buscar"; al abrir, fechas en el día de hoy 
+        // Filtros aplicados con "Buscar"; al abrir, sin filtro de fechas.
         private string _cliente = "";
-        private DateTime? _desde = DateTime.Today;
-        private DateTime? _hasta = DateTime.Today;
+        private DateTime? _desde;
+        private DateTime? _hasta;
         private string _modalidad = "";
 
         // OP incluidas en la OS en armado.

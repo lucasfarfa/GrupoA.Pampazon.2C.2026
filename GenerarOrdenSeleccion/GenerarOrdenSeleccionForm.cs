@@ -11,7 +11,7 @@ namespace GrupoA.PampazonSA.AdministracionDeposito.GenerarOrdenSeleccion
             _modelo = new GenerarOrdenSeleccionModelo(deposito);
         }
 
-        // Muestra el depósito y las OP Pendientes recibidas hoy (CU-02, pasos 1 y 2).
+        // Muestra el depósito y todas las OP Pendientes: las fechas arrancan destildadas (CU-02, pasos 1 y 2).
         private void GenerarOrdenSeleccionForm_Load(object sender, EventArgs e)
         {
             DepositoLbl.Text = _modelo.Deposito;
@@ -20,7 +20,9 @@ namespace GrupoA.PampazonSA.AdministracionDeposito.GenerarOrdenSeleccion
             comboModalidad.Items.AddRange(_modelo.Modalidades.ToArray());
 
             dtpFechaDesde.Value = DateTime.Today;
+            dtpFechaDesde.Checked = false;
             dtpFechaHasta.Value = DateTime.Today;
+            dtpFechaHasta.Checked = false;
 
             if (!_modelo.HayOrdenesPendientes)
             {
@@ -28,7 +30,7 @@ namespace GrupoA.PampazonSA.AdministracionDeposito.GenerarOrdenSeleccion
                 return;
             }
 
-            _modelo.Filtrar("", DateTime.Today, DateTime.Today, "");
+            _modelo.Filtrar("", null, null, "");
             RefrescarListas();
         }
 
@@ -68,11 +70,11 @@ namespace GrupoA.PampazonSA.AdministracionDeposito.GenerarOrdenSeleccion
             txtCliente.Text = "";
             comboModalidad.Text = "";
             dtpFechaDesde.Value = DateTime.Today;
-            dtpFechaDesde.Checked = true;
+            dtpFechaDesde.Checked = false;
             dtpFechaHasta.Value = DateTime.Today;
-            dtpFechaHasta.Checked = true;
+            dtpFechaHasta.Checked = false;
 
-            _modelo.Filtrar("", DateTime.Today, DateTime.Today, "");
+            _modelo.Filtrar("", null, null, "");
             RefrescarListas();
         }
 
