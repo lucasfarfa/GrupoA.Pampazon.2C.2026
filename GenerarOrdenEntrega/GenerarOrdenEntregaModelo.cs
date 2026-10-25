@@ -10,28 +10,26 @@
         // Depósito del operario.
         private const string Deposito = "GBA";
 
-        private static readonly Transportista _joseGomez = new Transportista { DNI = "24568779", NombreApellido = "Jose Gomez" };
-
-        private static readonly List<OrdenPreparacion> _ordenesPreparacion = new List<OrdenPreparacion>
+        private List<OrdenPreparacion> _ordenesPreparacion = new List<OrdenPreparacion>
         {
-            new OrdenPreparacion { NroOP = "101", Deposito = "GBA", Cliente = "Mercadito S.A.", Transportista = _joseGomez, FechaRetiro = new DateTime(2026, 10, 20), Bultos = 10, Estado = Preparada },
-            new OrdenPreparacion { NroOP = "102", Deposito = "GBA", Cliente = "Mercadito S.A.", Transportista = _joseGomez, FechaRetiro = new DateTime(2026, 10, 20), Bultos = 8, Estado = Preparada },
-            new OrdenPreparacion { NroOP = "105", Deposito = "GBA", Cliente = "Mercadito S.A.", Transportista = _joseGomez, FechaRetiro = new DateTime(2026, 10, 21), Bultos = 10, Estado = Preparada },
-            new OrdenPreparacion { NroOP = "103", Deposito = "GBA", Cliente = "MundoFOX S.R.L.", Transportista = _joseGomez, FechaRetiro = new DateTime(2026, 10, 20), Bultos = 1, Estado = Preparada },
-            new OrdenPreparacion { NroOP = "109", Deposito = "GBA", Cliente = "Mercadito S.A.", Transportista = _joseGomez, FechaRetiro = new DateTime(2026, 10, 17), Bultos = 5, Estado = EnEntrega, NroOE = "700" }
+            new OrdenPreparacion { NroOP = "101", Deposito = "GBA", Cliente = "Mercadito S.A.", Transportista = new Transportista { DNI = "24568779", NombreApellido = "Jose Gomez" }, FechaRetiro = new DateTime(2026, 10, 20), Bultos = 10, Estado = Preparada },
+            new OrdenPreparacion { NroOP = "102", Deposito = "GBA", Cliente = "Mercadito S.A.", Transportista = new Transportista { DNI = "24568779", NombreApellido = "Jose Gomez" }, FechaRetiro = new DateTime(2026, 10, 20), Bultos = 8, Estado = Preparada },
+            new OrdenPreparacion { NroOP = "105", Deposito = "GBA", Cliente = "Mercadito S.A.", Transportista = new Transportista { DNI = "24568779", NombreApellido = "Jose Gomez" }, FechaRetiro = new DateTime(2026, 10, 21), Bultos = 10, Estado = Preparada },
+            new OrdenPreparacion { NroOP = "103", Deposito = "GBA", Cliente = "MundoFOX S.R.L.", Transportista = new Transportista { DNI = "24568779", NombreApellido = "Jose Gomez" }, FechaRetiro = new DateTime(2026, 10, 20), Bultos = 1, Estado = Preparada },
+            new OrdenPreparacion { NroOP = "109", Deposito = "GBA", Cliente = "Mercadito S.A.", Transportista = new Transportista { DNI = "24568779", NombreApellido = "Jose Gomez" }, FechaRetiro = new DateTime(2026, 10, 17), Bultos = 5, Estado = EnEntrega, NroOE = "700" }
         };
 
-        private static readonly List<OrdenEntrega> _ordenesEntrega = new List<OrdenEntrega>
+        private List<OrdenEntrega> _ordenesEntrega = new List<OrdenEntrega>
         {
             new OrdenEntrega
             {
                 NroOE = "700", Estado = PendienteEntrega, Deposito = "GBA", FechaEmision = new DateTime(2026, 10, 14),
-                Cliente = "Mercadito S.A.", Transportista = _joseGomez, FechaRetiro = new DateTime(2026, 10, 17),
+                Cliente = "Mercadito S.A.", Transportista = new Transportista { DNI = "24568779", NombreApellido = "Jose Gomez" }, FechaRetiro = new DateTime(2026, 10, 17),
                 Lineas = new List<LineaOrdenEntrega> { new LineaOrdenEntrega { NroOP = "109", Bultos = 5 } }
             }
         };
 
-        private static int _ultimoNroOE = 700;
+        private int _ultimoNroOE = 700;
 
         // Filas de "Órdenes preparadas sin orden de entrega": un grupo por cliente, transportista y fecha de retiro.
         // Agrupa las OP Preparadas sin OE por esa clave (GroupBy); de cada grupo toma los datos de la primera OP y
@@ -108,7 +106,7 @@
                 .ToList();
         }
 
-        private static string Clave(OrdenPreparacion op)
+        private string Clave(OrdenPreparacion op)
         {
             return op.Cliente + "|" + op.Transportista.DNI + "|" + op.FechaRetiro.ToString("yyyyMMdd");
         }

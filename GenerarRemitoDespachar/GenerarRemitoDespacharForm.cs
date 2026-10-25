@@ -162,8 +162,7 @@ namespace GrupoA.PampazonSA.AdministracionDeposito.GenerarRemitoDespachar
             Close();
         }
 
-        // Cubre tanto "Cancelar" como cerrar la ventana. Los remitos sin firmar quedan en el modelo
-        // y se ven al volver a buscar el mismo DNI (CU-07, 16.3).
+        // Cubre tanto "Cancelar" como cerrar la ventana.
         private void GenerarRemitoDespacharForm_FormClosing(object sender, FormClosingEventArgs e)
         {
             if (_modelo.HaySeleccion)

@@ -4,7 +4,7 @@
     {
         private const string Pendiente = "Pendiente";
 
-        private static readonly List<Cliente> _clientes = new List<Cliente>
+        private List<Cliente> _clientes = new List<Cliente>
         {
             new Cliente { Nombre = "Mercadito S.A.", Cuit = "30-71234567-8" },
             new Cliente { Nombre = "MundoFOX S.R.L.", Cuit = "30-70987654-3" },
@@ -12,10 +12,10 @@
             new Cliente { Nombre = "Construcciones del Plata S.R.L.", Cuit = "30-70555444-1" }
         };
 
-        private static readonly List<string> _depositos = new List<string> { "GBA", "ROS", "CBA", "MDZ" };
+        private List<string> _depositos = new List<string> { "GBA", "ROS", "CBA", "MDZ" };
 
         // Ningún cliente tiene mercadería fuera de GBA.
-        private static readonly List<Stock> _stock = new List<Stock>
+        private List<Stock> _stock = new List<Stock>
         {
             new Stock { CuitCliente = "30-71234567-8", Deposito = "GBA", Sku = "CEM-50KG", Descripcion = "Bolsa de cemento 50 kg", Cantidad = 60 },
             new Stock { CuitCliente = "30-71234567-8", Deposito = "GBA", Sku = "CAL-25KG", Descripcion = "Bolsa de cal 25 kg", Cantidad = 50 },
@@ -25,7 +25,7 @@
         };
 
         // OP Pendientes que comprometen stock: CEM-50KG 15, CAL-25KG 3 y ZAP-0042 24.
-        private static readonly List<OrdenPreparacion> _ordenes = new List<OrdenPreparacion>
+        private List<OrdenPreparacion> _ordenes = new List<OrdenPreparacion>
         {
             new OrdenPreparacion
             {
@@ -49,13 +49,13 @@
         };
 
         // Las OP 104 a 109 ya existen en las pantallas siguientes del circuito: la nueva OP arranca en 110.
-        private static int _ultimoNroOP = 109;
+        private int _ultimoNroOP = 109;
 
         // Orden que se está cargando en la pantalla.
         private Cliente? _cliente;
         private string? _deposito;
         private string? _sku;
-        private readonly List<LineaOrden> _lineas = new List<LineaOrden>();
+        private List<LineaOrden> _lineas = new List<LineaOrden>();
 
         public string? ClienteSeleccionado => _cliente?.Nombre;
         public string? DepositoSeleccionado => _deposito;

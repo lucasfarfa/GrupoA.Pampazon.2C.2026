@@ -10,13 +10,11 @@
         // Depósito del operario.
         private const string Deposito = "GBA";
 
-        private static readonly Transportista _joseGomez = new Transportista { DNI = "24568779", NombreApellido = "Jose Gomez" };
-
-        private static readonly List<OrdenEntrega> _ordenesEntrega = new List<OrdenEntrega>
+        private List<OrdenEntrega> _ordenesEntrega = new List<OrdenEntrega>
         {
-            new OrdenEntrega { NroOE = "700", Estado = PendienteEntrega, Deposito = "GBA", Cliente = "Mercadito S.A.", Transportista = _joseGomez, FechaEmision = new DateTime(2026, 10, 14), NrosOP = new List<string> { "109" }, Bultos = 5, Ubicacion = Despacho, FechaRecepcion = new DateTime(2026, 10, 14) },
-            new OrdenEntrega { NroOE = "701", Estado = Emitida, Deposito = "GBA", Cliente = "Mercadito S.A.", Transportista = _joseGomez, FechaEmision = new DateTime(2026, 10, 14), NrosOP = new List<string> { "101", "102" }, Bultos = 18, Ubicacion = Preparacion },
-            new OrdenEntrega { NroOE = "702", Estado = Emitida, Deposito = "GBA", Cliente = "MundoFOX S.R.L.", Transportista = _joseGomez, FechaEmision = new DateTime(2026, 10, 14), NrosOP = new List<string> { "103" }, Bultos = 1, Ubicacion = Preparacion }
+            new OrdenEntrega { NroOE = "700", Estado = PendienteEntrega, Deposito = "GBA", Cliente = "Mercadito S.A.", Transportista = new Transportista { DNI = "24568779", NombreApellido = "Jose Gomez" }, FechaEmision = new DateTime(2026, 10, 14), NrosOP = new List<string> { "109" }, Bultos = 5, Ubicacion = Despacho, FechaRecepcion = new DateTime(2026, 10, 14) },
+            new OrdenEntrega { NroOE = "701", Estado = Emitida, Deposito = "GBA", Cliente = "Mercadito S.A.", Transportista = new Transportista { DNI = "24568779", NombreApellido = "Jose Gomez" }, FechaEmision = new DateTime(2026, 10, 14), NrosOP = new List<string> { "101", "102" }, Bultos = 18, Ubicacion = Preparacion },
+            new OrdenEntrega { NroOE = "702", Estado = Emitida, Deposito = "GBA", Cliente = "MundoFOX S.R.L.", Transportista = new Transportista { DNI = "24568779", NombreApellido = "Jose Gomez" }, FechaEmision = new DateTime(2026, 10, 14), NrosOP = new List<string> { "103" }, Bultos = 1, Ubicacion = Preparacion }
         };
 
         // Filas de "Órdenes de entrega emitidas": las OE Emitidas del depósito.

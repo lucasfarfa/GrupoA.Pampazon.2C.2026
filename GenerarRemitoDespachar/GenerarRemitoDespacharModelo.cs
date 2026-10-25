@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace GrupoA.PampazonSA.AdministracionDeposito.GenerarRemitoDespachar
+﻿namespace GrupoA.PampazonSA.AdministracionDeposito.GenerarRemitoDespachar
 {
     internal class GenerarRemitoDespacharModelo
     {
@@ -13,33 +8,34 @@ namespace GrupoA.PampazonSA.AdministracionDeposito.GenerarRemitoDespachar
         private const string Cumplido = "Cumplido";
         private const string Cumplida = "Cumplida";
 
-        private static readonly Transportista _joseGomez = new Transportista { DNI = "24568779", NombreApellido = "Jose Gomez" };
-        private static readonly Transportista _alejoCisterna = new Transportista { DNI = "20562667", NombreApellido = "Alejo Cisterna" };
-        private static readonly Transportista _danielBaez = new Transportista { DNI = "32321987", NombreApellido = "Daniel Baez" };
-
-        private static readonly List<Transportista> _transportistas = new List<Transportista> { _joseGomez, _alejoCisterna, _danielBaez };
-
-        private static readonly List<OrdenDeEntrega> _ordenesEntrega = new List<OrdenDeEntrega>
+        private List<Transportista> _transportistas = new List<Transportista>
         {
-            new OrdenDeEntrega { NroOE = "701", Cliente = "Mercadito S.A.", NrosOP = new List<string> { "101", "102" }, Bultos = 18, Transportista = _joseGomez, Estado = PendienteEntrega },
-            new OrdenDeEntrega { NroOE = "704", Cliente = "Mercadito S.A.", NrosOP = new List<string> { "105" }, Bultos = 10, Transportista = _joseGomez, Estado = PendienteEntrega },
-            new OrdenDeEntrega { NroOE = "702", Cliente = "MundoFOX S.R.L.", NrosOP = new List<string> { "103" }, Bultos = 1, Transportista = _joseGomez, Estado = PendienteEntrega },
-            new OrdenDeEntrega { NroOE = "710", Cliente = "MundoFOX S.R.L.", NrosOP = new List<string> { "110" }, Bultos = 1, Transportista = _alejoCisterna, Estado = RemitoEmitido },
-            new OrdenDeEntrega { NroOE = "703", Cliente = "Ferretería Norte S.A.", NrosOP = new List<string> { "104" }, Bultos = 30, Transportista = _danielBaez, Estado = PendienteEntrega },
-            new OrdenDeEntrega { NroOE = "705", Cliente = "Construcciones del Plata S.R.L.", NrosOP = new List<string> { "106", "107" }, Bultos = 9, Transportista = _danielBaez, Estado = PendienteEntrega }
+            new Transportista { DNI = "24568779", NombreApellido = "Jose Gomez" },
+            new Transportista { DNI = "20562667", NombreApellido = "Alejo Cisterna" },
+            new Transportista { DNI = "32321987", NombreApellido = "Daniel Baez" }
         };
 
-        private static readonly List<Remito> _remitos = new List<Remito>
+        private List<OrdenDeEntrega> _ordenesEntrega = new List<OrdenDeEntrega>
         {
-            new Remito { NroRemito = "R-410", Fecha = DateTime.Today.AddDays(-1), Cliente = "MundoFOX S.R.L.", Transportista = _alejoCisterna, NrosOE = new List<string> { "710" }, NrosOP = new List<string> { "110" }, TotalBultos = 1, Estado = Emitido }
+            new OrdenDeEntrega { NroOE = "701", Cliente = "Mercadito S.A.", NrosOP = new List<string> { "101", "102" }, Bultos = 18, Transportista = new Transportista { DNI = "24568779", NombreApellido = "Jose Gomez" }, Estado = PendienteEntrega },
+            new OrdenDeEntrega { NroOE = "704", Cliente = "Mercadito S.A.", NrosOP = new List<string> { "105" }, Bultos = 10, Transportista = new Transportista { DNI = "24568779", NombreApellido = "Jose Gomez" }, Estado = PendienteEntrega },
+            new OrdenDeEntrega { NroOE = "702", Cliente = "MundoFOX S.R.L.", NrosOP = new List<string> { "103" }, Bultos = 1, Transportista = new Transportista { DNI = "24568779", NombreApellido = "Jose Gomez" }, Estado = PendienteEntrega },
+            new OrdenDeEntrega { NroOE = "710", Cliente = "MundoFOX S.R.L.", NrosOP = new List<string> { "110" }, Bultos = 1, Transportista = new Transportista { DNI = "20562667", NombreApellido = "Alejo Cisterna" }, Estado = RemitoEmitido },
+            new OrdenDeEntrega { NroOE = "703", Cliente = "Ferretería Norte S.A.", NrosOP = new List<string> { "104" }, Bultos = 30, Transportista = new Transportista { DNI = "32321987", NombreApellido = "Daniel Baez" }, Estado = PendienteEntrega },
+            new OrdenDeEntrega { NroOE = "705", Cliente = "Construcciones del Plata S.R.L.", NrosOP = new List<string> { "106", "107" }, Bultos = 9, Transportista = new Transportista { DNI = "32321987", NombreApellido = "Daniel Baez" }, Estado = PendienteEntrega }
+        };
+
+        private List<Remito> _remitos = new List<Remito>
+        {
+            new Remito { NroRemito = "R-410", Fecha = DateTime.Today.AddDays(-1), Cliente = "MundoFOX S.R.L.", Transportista = new Transportista { DNI = "20562667", NombreApellido = "Alejo Cisterna" }, NrosOE = new List<string> { "710" }, NrosOP = new List<string> { "110" }, TotalBultos = 1, Estado = Emitido }
         };
 
         // OP que pasaron a Despachada al confirmar la entrega.
-        private static readonly List<string> _opsDespachadas = new List<string>();
-        private static int _ultimoNroRemito = 410;
+        private List<string> _opsDespachadas = new List<string>();
+        private int _ultimoNroRemito = 410;
 
         private Transportista? _transportista;   // transportista identificado con "Buscar órdenes"
-        private readonly List<string> _seleccionadas = new List<string>();
+        private List<string> _seleccionadas = new List<string>();
 
         public bool HaySeleccion => _seleccionadas.Count > 0;
 

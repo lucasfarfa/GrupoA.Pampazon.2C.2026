@@ -52,7 +52,7 @@ Reglas que se repiten en todas las pantallas:
 - **Form → modelo:** el form valida y después llama al modelo con datos simples (`string`, `int`, `DateTime`, `List<string>`), nunca con controles. Para saber qué fila de una lista eligió el usuario, la clave se guarda en `item.Tag`.
 - **Modelo → form:** las **propiedades** son lo que la pantalla necesita mostrar (listas, totales, estado). Los **métodos** son lo que la pantalla hace (acciones) y devuelven `bool`: el form solo actualiza la pantalla si es `true` (`if (!_modelo.Accion(...)) return;`).
 - **`RefrescarListas()`:** cada form vuelve a cargar sus listas desde las propiedades del modelo después de cada cambio.
-- **Datos de prueba `static`:** se mantienen al cerrar y volver a abrir la pantalla (como si estuvieran en una base de datos). Lo que el usuario está eligiendo (selección, filtros) son campos normales y arranca vacío en cada apertura.
+- **Datos de prueba en el modelo:** son campos comunes (sin `static`) y vuelven a su estado inicial cada vez que se abre la pantalla. En el prototipo cada pantalla se prueba en una sola apertura; la persistencia se agrega en una entrega posterior.
 - **Cada pantalla tiene sus propios datos y clases.** No se comparten entre carpetas: una OP registrada en una pantalla no aparece en otra.
 - **Clases de datos:** una propiedad, un valor. Varios valores van en una lista (`List<string> NrosOP`) y los datos que van juntos forman un objeto (`Transportista` con `DNI` y `NombreApellido`).
 
@@ -93,7 +93,7 @@ Tiene un botón por pantalla y la abre con `ShowDialog()`. También tiene un com
 
 **Cómo funciona el modelo (`RegistrarOrdenPreparacionModelo`)**
 
-- *Datos de prueba (`static`):* `_clientes` (4 clientes), `_depositos` (GBA, ROS, CBA, MDZ), `_stock` (todo en GBA), `_ordenes` (OP 101, 102 y 103 Pendientes, que comprometen stock) y `_ultimoNroOP = 109` (la próxima OP es la 110).
+- *Datos de prueba:* `_clientes` (4 clientes), `_depositos` (GBA, ROS, CBA, MDZ), `_stock` (todo en GBA), `_ordenes` (OP 101, 102 y 103 Pendientes, que comprometen stock) y `_ultimoNroOP = 109` (la próxima OP es la 110).
 - *Estado de la pantalla:* `_cliente`, `_deposito`, `_sku` y `_lineas` (la orden que se está cargando).
 - *Propiedades:*
   - `Clientes`, `Depositos`: listas para los combos.
@@ -142,7 +142,7 @@ Tiene un botón por pantalla y la abre con `ShowDialog()`. También tiene un com
 
 **Cómo funciona el modelo (`GenerarOrdenSeleccionModelo`)**
 
-- *Datos de prueba (`static`):* `_modalidades`, `_ordenesPreparacion` (101 y 102 de hoy, 103 de ayer), `_stock` por posición (CEM-50KG en dos posiciones), `_ordenesSeleccion` y `_ultimoNroOS = 300`.
+- *Datos de prueba:* `_modalidades`, `_ordenesPreparacion` (101 y 102 de hoy, 103 de ayer), `_stock` por posición (CEM-50KG en dos posiciones), `_ordenesSeleccion` y `_ultimoNroOS = 300`.
 - *Estado de la pantalla:* los filtros (`_cliente`, `_desde`, `_hasta`, `_modalidad`) y `_incluidas` (OP de la OS en armado). El depósito llega por constructor desde el menú.
 - *Propiedades:*
   - `Deposito`, `Modalidades`, `HayOrdenesPendientes`, `CantidadIncluidas`.
@@ -182,7 +182,7 @@ Tiene un botón por pantalla y la abre con `ShowDialog()`. También tiene un com
 
 **Cómo funciona el modelo (`PrepararProductosModelo`)**
 
-- *Datos de prueba (`static`):* `_ordenes` (OS 501 y 502 Pendientes con su mercadería por posición) y `_stock` por posición.
+- *Datos de prueba:* `_ordenes` (OS 501 y 502 Pendientes con su mercadería por posición) y `_stock` por posición.
 - *Estado de la pantalla:* `_nroOsSeleccionada`.
 - *Propiedades:*
   - `Deposito` (GBA).
@@ -218,7 +218,7 @@ Tiene un botón por pantalla y la abre con `ShowDialog()`. También tiene un com
 
 **Cómo funciona el modelo (`EmpaquetarProductosModelo`)**
 
-- *Datos de prueba (`static`):* `_ordenesSeleccion` (501 Cumplida, 503 Pendiente) y `_ordenesPreparacion` (101 y 102 de la OS 501; 108 de la OS 503).
+- *Datos de prueba:* `_ordenesSeleccion` (501 Cumplida, 503 Pendiente) y `_ordenesPreparacion` (101 y 102 de la OS 501; 108 de la OS 503).
 - *Estado de la pantalla:* `_ordenAsignada`.
 - *Propiedades:*
   - `HayOrdenAsignada`, `NroOPAsignada`.
@@ -253,7 +253,7 @@ Marcar una sola fila (y que hacer clic en la fila también la marque) lo resuelv
 
 **Cómo funciona el modelo (`GenerarOrdenEntregaModelo`)**
 
-- *Datos de prueba (`static`):* `_joseGomez` (transportista), `_ordenesPreparacion` (101, 102, 103 y 105 Preparadas; 109 ya En entrega), `_ordenesEntrega` (OE 700) y `_ultimoNroOE = 700`.
+- *Datos de prueba:* `_ordenesPreparacion` (todas con el transportista Jose Gomez; 101, 102, 103 y 105 Preparadas; 109 ya En entrega), `_ordenesEntrega` (OE 700) y `_ultimoNroOE = 700`.
 - *Propiedades:* `Grupos`: un grupo por cliente + DNI del transportista + fecha de retiro, con la cantidad de OP.
 - *Métodos (acciones):*
   - `ObtenerGrupo(clave, out grupo)`: datos del grupo marcado.
@@ -285,7 +285,7 @@ Marcar una sola fila (y que hacer clic en la fila también la marque) lo resuelv
 
 **Cómo funciona el modelo (`RecepcionarOrdenEntregaModelo`)**
 
-- *Datos de prueba (`static`):* `_joseGomez` y `_ordenesEntrega` (700 ya recepcionada; 701 y 702 Emitidas).
+- *Datos de prueba:* `_ordenesEntrega` (todas de Jose Gomez; 700 ya recepcionada; 701 y 702 Emitidas).
 - *Propiedades:* `OrdenesEmitidas`: OE Emitidas del depósito, por número.
 - *Métodos (acciones):* `ConfirmarRecepcion(nroOE)`: pasa la OE a Pendiente de entrega, cambia su ubicación a Despacho y guarda la fecha de recepción.
 
@@ -316,7 +316,7 @@ Marcar una sola fila (y que hacer clic en la fila también la marque) lo resuelv
 
 **Cómo funciona el modelo (`GenerarRemitoDespacharModelo`)**
 
-- *Datos de prueba (`static`):* tres transportistas (`_joseGomez`, `_alejoCisterna`, `_danielBaez`) y la lista `_transportistas`; `_ordenesEntrega` (701 a 705 y 710); `_remitos` (R-410 Emitido); `_opsDespachadas`; `_ultimoNroRemito = 410`.
+- *Datos de prueba:* `_transportistas` (Jose Gomez, Alejo Cisterna y Daniel Baez); `_ordenesEntrega` (701 a 705 y 710); `_remitos` (R-410 Emitido); `_opsDespachadas`; `_ultimoNroRemito = 410`.
 - *Estado de la pantalla:* `_transportista` (el buscado) y `_seleccionadas` (OE elegidas para remitir).
 - *Propiedades:*
   - `HaySeleccion`.

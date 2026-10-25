@@ -1,8 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
 namespace GrupoA.PampazonSA.AdministracionDeposito.GenerarOrdenSeleccion
 {
     internal class GenerarOrdenSeleccionModelo
@@ -10,10 +5,10 @@ namespace GrupoA.PampazonSA.AdministracionDeposito.GenerarOrdenSeleccion
         private const string Pendiente = "Pendiente";
         private const string EnPreparacion = "En preparación";
 
-        private static readonly List<string> _modalidades = new List<string> { "Fulfillment", "Palet cerrado" };
+        private List<string> _modalidades = new List<string> { "Fulfillment", "Palet cerrado" };
 
         // Fechas relativas al día de hoy para que los datos sirvan cualquier día.
-        private static readonly List<OrdenPreparacion> _ordenesPreparacion = new List<OrdenPreparacion>
+        private List<OrdenPreparacion> _ordenesPreparacion = new List<OrdenPreparacion>
         {
             new OrdenPreparacion { NroOP = "101", Cliente = "Mercadito S.A.", FechaRecepcion = DateTime.Today.AddHours(9), Modalidad = "Fulfillment", Estado = Pendiente,
                 Productos = new List<LineaProducto> { new LineaProducto { Sku = "CEM-50KG", Cantidad = 10 } } },
@@ -24,7 +19,7 @@ namespace GrupoA.PampazonSA.AdministracionDeposito.GenerarOrdenSeleccion
         };
 
         // Registro de stock del depósito. CEM-50KG está en dos posiciones
-        private static readonly List<PosicionStock> _stock = new List<PosicionStock>
+        private List<PosicionStock> _stock = new List<PosicionStock>
         {
             new PosicionStock { Sku = "CEM-50KG", Posicion = "12-43-2", Cantidad = 10 },
             new PosicionStock { Sku = "CEM-50KG", Posicion = "12-44-1", Cantidad = 50 },
@@ -32,8 +27,8 @@ namespace GrupoA.PampazonSA.AdministracionDeposito.GenerarOrdenSeleccion
             new PosicionStock { Sku = "ZAP-0042", Posicion = "12-05-1", Cantidad = 100 }
         };
 
-        private static readonly List<OrdenSeleccion> _ordenesSeleccion = new List<OrdenSeleccion>();
-        private static int _ultimoNroOS = 300;
+        private List<OrdenSeleccion> _ordenesSeleccion = new List<OrdenSeleccion>();
+        private int _ultimoNroOS = 300;
 
         // Filtros aplicados con "Buscar"; al abrir, fechas en el día de hoy 
         private string _cliente = "";
@@ -42,9 +37,9 @@ namespace GrupoA.PampazonSA.AdministracionDeposito.GenerarOrdenSeleccion
         private string _modalidad = "";
 
         // OP incluidas en la OS en armado.
-        private readonly List<string> _incluidas = new List<string>();
+        private List<string> _incluidas = new List<string>();
 
-        public string Deposito { get; private set; }
+        public string Deposito { get; }
 
         public GenerarOrdenSeleccionModelo(string deposito)
         {

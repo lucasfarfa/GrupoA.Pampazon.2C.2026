@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace GrupoA.PampazonSA.AdministracionDeposito.MenuPrincipal
+﻿namespace GrupoA.PampazonSA.AdministracionDeposito.MenuPrincipal
 {
     internal class MenuPrincipalModelo
     {

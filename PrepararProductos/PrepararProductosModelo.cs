@@ -5,7 +5,7 @@
         private const string Pendiente = "Pendiente";
         private const string Cumplida = "Cumplida";
 
-        private static readonly List<OrdenSeleccion> _ordenes = new List<OrdenSeleccion>
+        private List<OrdenSeleccion> _ordenes = new List<OrdenSeleccion>
         {
             new OrdenSeleccion
             {
@@ -31,7 +31,7 @@
             }
         };
 
-        private static readonly List<StockPosicion> _stock = new List<StockPosicion>
+        private List<StockPosicion> _stock = new List<StockPosicion>
         {
             new StockPosicion { Sku = "CEM-50KG", Posicion = "12-43-2", Cantidad = 10 },
             new StockPosicion { Sku = "CEM-50KG", Posicion = "12-44-1", Cantidad = 50 },
@@ -124,7 +124,7 @@
         }
 
         // Posición X-Y-Z: sector, posición, fila.
-        private static (int Sector, int Posicion, int Fila) ClaveRecorrido(string posicion)
+        private (int Sector, int Posicion, int Fila) ClaveRecorrido(string posicion)
         {
             string[] partes = posicion.Split('-');
             return (int.Parse(partes[0]), int.Parse(partes[1]), int.Parse(partes[2]));

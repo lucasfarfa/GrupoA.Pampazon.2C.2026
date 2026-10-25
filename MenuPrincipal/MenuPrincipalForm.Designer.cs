@@ -146,7 +146,6 @@ namespace OrdenesPreparacion
             Name = "MenuPrincipalForm";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Administración de Depósito";
-            Load += MenuPrincipalForm_Load;
             ResumeLayout(false);
             PerformLayout();
         }

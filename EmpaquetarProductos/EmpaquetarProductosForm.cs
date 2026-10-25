@@ -19,7 +19,6 @@ namespace GrupoA.PampazonSA.AdministracionDeposito.CU04EmpaquetarProductos
         {
             if (!_modelo.AsignarSiguienteOrden(out OrdenPreparacion? orden) || orden == null)
             {
-                // 
                 lblNroOrden.Text = "";
                 lblModalidad.Text = "";
                 lblTotalBultos.Text = "";
@@ -49,7 +48,6 @@ namespace GrupoA.PampazonSA.AdministracionDeposito.CU04EmpaquetarProductos
             }
         }
 
-        // 
         private void btnEmpaquetar_Click(object sender, EventArgs e)
         {
             if (MessageBox.Show("¿Confirma el empaquetado de la OP N° " + _modelo.NroOPAsignada + " en " + _modelo.TotalBultos + " bultos?", Text,
@@ -69,8 +67,7 @@ namespace GrupoA.PampazonSA.AdministracionDeposito.CU04EmpaquetarProductos
             Close();
         }
 
-        // Cubre tanto "Cancelar" como cerrar la ventana. La OP sigue En preparación y
-        // se vuelve a asignar al abrir la pantalla 
+        // Cubre tanto "Cancelar" como cerrar la ventana. La OP sigue En preparación.
         private void EmpaquetarProductosForm_FormClosing(object sender, FormClosingEventArgs e)
         {
             if (_modelo.HayOrdenAsignada)

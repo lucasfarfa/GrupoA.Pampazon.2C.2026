@@ -9,13 +9,13 @@ namespace GrupoA.PampazonSA.AdministracionDeposito.CU04EmpaquetarProductos
         private const string PaletCerrado = "Palet cerrado";
         private const string Fulfillment = "Fulfillment";
 
-        private static readonly List<OrdenSeleccion> _ordenesSeleccion = new List<OrdenSeleccion>
+        private List<OrdenSeleccion> _ordenesSeleccion = new List<OrdenSeleccion>
         {
             new OrdenSeleccion { NroOS = "501", Estado = Cumplida },
             new OrdenSeleccion { NroOS = "503", Estado = Pendiente }
         };
 
-        private static readonly List<OrdenPreparacion> _ordenesPreparacion = new List<OrdenPreparacion>
+        private List<OrdenPreparacion> _ordenesPreparacion = new List<OrdenPreparacion>
         {
             new OrdenPreparacion
             {

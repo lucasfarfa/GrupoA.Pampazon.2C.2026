@@ -34,7 +34,6 @@
 
         private void btnConfirmar_Click(object sender, EventArgs e)
         {
-            // 
             if (comboOrdenSeleccion.SelectedItem is not string nro)
             {
                 MessageBox.Show("Debe seleccionar una orden de selección", Text);
@@ -51,13 +50,11 @@
                 return;
             }
 
-            // 
             if (!_modelo.ConfirmarEntrega(nro)) return;
 
             MessageBox.Show("La OS " + nro + " quedó Cumplida. Se descontó el stock de almacén.", Text);
             RefrescarListas();
 
-            // 
             if (_modelo.OrdenesPendientes.Count == 0)
                 MessageBox.Show("No hay órdenes de selección pendientes", Text);
         }
