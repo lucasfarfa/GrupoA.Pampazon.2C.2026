@@ -2,7 +2,7 @@ namespace GrupoA.PampazonSA.AdministracionDeposito.GenerarOrdenEntrega
 {
     internal class OrdenEntrega
     {
-        public string NroOE { get; set; } = "";
+        public int NroOE { get; set; }
         public string Estado { get; set; } = "";
         public string Deposito { get; set; } = "";
         public DateTime FechaEmision { get; set; }
@@ -15,7 +15,7 @@ namespace GrupoA.PampazonSA.AdministracionDeposito.GenerarOrdenEntrega
     // OP incluida en la OE con sus bultos.
     internal class LineaOrdenEntrega
     {
-        public string NroOP { get; set; } = "";
+        public int NroOP { get; set; }
         public int Bultos { get; set; }
     }
 }

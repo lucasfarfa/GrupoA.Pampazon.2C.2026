@@ -15,7 +15,7 @@
             btnGenerarOrden.Enabled = true;
             RefrescarListas();
 
-            if (lvPendientes.Items.Count == 0)
+            if (_modelo.Grupos.Count == 0)
             {
                 MessageBox.Show("No hay órdenes preparadas pendientes de orden de entrega", Text);
             }
@@ -48,18 +48,16 @@
 
             ListViewItem item = lvPendientes.CheckedItems[0];
             if (item.Tag == null) return;
-            string clave = (string)item.Tag;
+            GrupoOrdenes grupo = (GrupoOrdenes)item.Tag;
 
-            if (!_modelo.ObtenerGrupo(clave, out GrupoOrdenes? grupo) || grupo == null) return;
-
-            if (MessageBox.Show("¿Confirma la orden de entrega para " + grupo.Cliente + ", transportista " + grupo.NombreTransportista +
+            if (MessageBox.Show("¿Confirma la orden de entrega para " + grupo.Cliente + ", transportista " + grupo.Transportista.NombreApellido +
                     ", retiro " + grupo.FechaRetiro.ToString("dd/MM/yyyy") + ", con " + grupo.CantidadOP + " OP?", Text,
                     MessageBoxButtons.OKCancel, MessageBoxIcon.Question) != DialogResult.OK)
             {
                 return;
             }
 
-            if (!_modelo.GenerarOrdenEntrega(clave, out string nroOE)) return;
+            if (!_modelo.GenerarOrdenEntrega(grupo.Cliente, grupo.Transportista.DNI, grupo.FechaRetiro, out int nroOE)) return;
 
             MessageBox.Show("Orden de entrega N° " + nroOE + " generada", Text);
             RefrescarListas();
@@ -72,8 +70,8 @@
 
             foreach (var grupo in _modelo.Grupos)
             {
-                var item = new ListViewItem(new[] { grupo.Cliente, grupo.NombreTransportista, grupo.FechaRetiro.ToString("dd/MM/yyyy"), grupo.CantidadOP.ToString() });
-                item.Tag = grupo.Clave;
+                var item = new ListViewItem(new[] { grupo.Cliente, grupo.Transportista.NombreApellido, grupo.FechaRetiro.ToString("dd/MM/yyyy"), grupo.CantidadOP.ToString() });
+                item.Tag = grupo;
                 lvPendientes.Items.Add(item);
             }
         }
