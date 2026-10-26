@@ -2,29 +2,27 @@ namespace GrupoA.PampazonSA.AdministracionDeposito.GenerarOrdenSeleccion
 {
     internal class GenerarOrdenSeleccionModelo
     {
-        private const string Pendiente = "Pendiente";
-        private const string EnPreparacion = "En preparación";
 
         private List<string> _modalidades = new List<string> { "Fulfillment", "Palet cerrado" };
 
         // Fechas relativas al día de hoy para que los datos sirvan cualquier día.
         private List<OrdenPreparacion> _ordenesPreparacion = new List<OrdenPreparacion>
         {
-            new OrdenPreparacion { NroOP = 101, Cliente = "Mercadito S.A.", FechaRecepcion = DateTime.Today.AddHours(9), Modalidad = "Fulfillment", Estado = Pendiente,
-                Productos = new List<LineaProducto> { new LineaProducto { Sku = "CEM-50KG", Cantidad = 10 } } },
-            new OrdenPreparacion { NroOP = 102, Cliente = "Mercadito S.A.", FechaRecepcion = DateTime.Today.AddHours(10.5), Modalidad = "Fulfillment", Estado = Pendiente,
-                Productos = new List<LineaProducto> { new LineaProducto { Sku = "CEM-50KG", Cantidad = 5 }, new LineaProducto { Sku = "CAL-25KG", Cantidad = 3 } } },
-            new OrdenPreparacion { NroOP = 103, Cliente = "MundoFOX S.R.L.", FechaRecepcion = DateTime.Today.AddDays(-1).AddHours(16), Modalidad = "Palet cerrado", Estado = Pendiente,
-                Productos = new List<LineaProducto> { new LineaProducto { Sku = "ZAP-0042", Cantidad = 24 } } }
+            new OrdenPreparacion { NroOP = 101, Cliente = "Mercadito S.A.", FechaRecepcion = DateTime.Today.AddHours(9), Modalidad = "Fulfillment", Estado = EstadoOrdenPreparacion.Pendiente,
+                Lineas = new List<LineaOrdenPreparacion> { new LineaOrdenPreparacion { Sku = "CEM-50KG", Cantidad = 10 } } },
+            new OrdenPreparacion { NroOP = 102, Cliente = "Mercadito S.A.", FechaRecepcion = DateTime.Today.AddHours(10.5), Modalidad = "Fulfillment", Estado = EstadoOrdenPreparacion.Pendiente,
+                Lineas = new List<LineaOrdenPreparacion> { new LineaOrdenPreparacion { Sku = "CEM-50KG", Cantidad = 5 }, new LineaOrdenPreparacion { Sku = "CAL-25KG", Cantidad = 3 } } },
+            new OrdenPreparacion { NroOP = 103, Cliente = "MundoFOX S.R.L.", FechaRecepcion = DateTime.Today.AddDays(-1).AddHours(16), Modalidad = "Palet cerrado", Estado = EstadoOrdenPreparacion.Pendiente,
+                Lineas = new List<LineaOrdenPreparacion> { new LineaOrdenPreparacion { Sku = "ZAP-0042", Cantidad = 24 } } }
         };
 
         // Registro de stock del depósito. CEM-50KG está en dos posiciones
-        private List<PosicionStock> _stock = new List<PosicionStock>
+        private List<StockPosicion> _stock = new List<StockPosicion>
         {
-            new PosicionStock { Sku = "CEM-50KG", Posicion = "12-43-2", Cantidad = 10 },
-            new PosicionStock { Sku = "CEM-50KG", Posicion = "12-44-1", Cantidad = 50 },
-            new PosicionStock { Sku = "CAL-25KG", Posicion = "03-10-1", Cantidad = 50 },
-            new PosicionStock { Sku = "ZAP-0042", Posicion = "12-05-1", Cantidad = 100 }
+            new StockPosicion { Sku = "CEM-50KG", Posicion = new PosicionDeposito { Sector = 12, Posicion = 43, Fila = 2 }, Cantidad = 10 },
+            new StockPosicion { Sku = "CEM-50KG", Posicion = new PosicionDeposito { Sector = 12, Posicion = 44, Fila = 1 }, Cantidad = 50 },
+            new StockPosicion { Sku = "CAL-25KG", Posicion = new PosicionDeposito { Sector = 3, Posicion = 10, Fila = 1 }, Cantidad = 50 },
+            new StockPosicion { Sku = "ZAP-0042", Posicion = new PosicionDeposito { Sector = 12, Posicion = 5, Fila = 1 }, Cantidad = 100 }
         };
 
         private List<OrdenSeleccion> _ordenesSeleccion = new List<OrdenSeleccion>();
@@ -51,7 +49,7 @@ namespace GrupoA.PampazonSA.AdministracionDeposito.GenerarOrdenSeleccion
         public List<string> Modalidades => _modalidades.ToList();
 
         // Para avisar al abrir si no hay ninguna OP Pendiente (Any: ¿hay alguna OP en estado Pendiente?).
-        public bool HayOrdenesPendientes => _ordenesPreparacion.Any(op => op.Estado == Pendiente);
+        public bool HayOrdenesPendientes => _ordenesPreparacion.Any(op => op.Estado == EstadoOrdenPreparacion.Pendiente);
 
         // Si están las dos fechas, la desde no puede ser posterior a la hasta (null = sin límite en esa fecha).
         public bool FechasValidas(DateTime? desde, DateTime? hasta)
@@ -91,7 +89,7 @@ namespace GrupoA.PampazonSA.AdministracionDeposito.GenerarOrdenSeleccion
             get
             {
                 return _ordenesPreparacion
-                    .Where(op => op.Estado == Pendiente
+                    .Where(op => op.Estado == EstadoOrdenPreparacion.Pendiente
                         && op.Cliente.Contains(_cliente, StringComparison.OrdinalIgnoreCase)
                         && (_desde == null || op.FechaRecepcion.Date >= _desde)
                         && (_hasta == null || op.FechaRecepcion.Date <= _hasta)
@@ -115,7 +113,7 @@ namespace GrupoA.PampazonSA.AdministracionDeposito.GenerarOrdenSeleccion
             {
                 // Busca la OP con ese número, o null si no existe (FirstOrDefault).
                 var op = _ordenesPreparacion.FirstOrDefault(o => o.NroOP == nro);
-                if (op == null || op.Estado != Pendiente)
+                if (op == null || op.Estado != EstadoOrdenPreparacion.Pendiente)
                     return false;
             }
 
@@ -144,16 +142,16 @@ namespace GrupoA.PampazonSA.AdministracionDeposito.GenerarOrdenSeleccion
         // Filas de "Resumen consolidado de productos": una línea por SKU con la cantidad total de las OP incluidas.
         // Toma las OP incluidas (Where), junta todos sus productos (SelectMany), los agrupa por SKU (GroupBy),
         // los ordena por SKU (OrderBy) y de cada grupo arma una línea con la suma de cantidades (Select y Sum).
-        public List<LineaProducto> ResumenConsolidado
+        public List<LineaOrdenPreparacion> ResumenConsolidado
         {
             get
             {
                 return _ordenesPreparacion
                     .Where(op => _incluidas.Contains(op.NroOP))
-                    .SelectMany(op => op.Productos)
+                    .SelectMany(op => op.Lineas)
                     .GroupBy(p => p.Sku)
                     .OrderBy(g => g.Key)
-                    .Select(g => new LineaProducto { Sku = g.Key, Cantidad = g.Sum(p => p.Cantidad) })
+                    .Select(g => new LineaOrdenPreparacion { Sku = g.Key, Cantidad = g.Sum(p => p.Cantidad) })
                     .ToList();
             }
         }
@@ -190,14 +188,14 @@ namespace GrupoA.PampazonSA.AdministracionDeposito.GenerarOrdenSeleccion
                 NroOS = nroOS,
                 Deposito = Deposito,
                 Fecha = DateTime.Now,
-                Estado = Pendiente,
+                Estado = EstadoOrdenSeleccion.Pendiente,
                 NrosOP = _incluidas.ToList(),
                 Detalle = detalle
             });
 
             // Pasa a En preparación las OP incluidas en la OS (Where).
             foreach (var op in _ordenesPreparacion.Where(o => _incluidas.Contains(o.NroOP)))
-                op.Estado = EnPreparacion;
+                op.Estado = EstadoOrdenPreparacion.EnPreparacion;
 
             _incluidas.Clear();
             return true;

@@ -2,7 +2,6 @@
 {
     internal class RegistrarOrdenPreparacionModelo
     {
-        private const string Pendiente = "Pendiente";
 
         private List<Cliente> _clientes = new List<Cliente>
         {
@@ -25,26 +24,26 @@
         };
 
         // OP Pendientes que comprometen stock: CEM-50KG 15, CAL-25KG 3 y ZAP-0042 24.
-        private List<OrdenPreparacion> _ordenes = new List<OrdenPreparacion>
+        private List<OrdenPreparacion> _ordenesPreparacion = new List<OrdenPreparacion>
         {
             new OrdenPreparacion
             {
-                NroOP = 101, CuitCliente = 30712345678, Deposito = "GBA", Estado = Pendiente,
-                Lineas = new List<LineaOrden> { new LineaOrden { Sku = "CEM-50KG", Cantidad = 10 } }
+                NroOP = 101, CuitCliente = 30712345678, Deposito = "GBA", Estado = EstadoOrdenPreparacion.Pendiente,
+                Lineas = new List<LineaOrdenPreparacion> { new LineaOrdenPreparacion { Sku = "CEM-50KG", Cantidad = 10 } }
             },
             new OrdenPreparacion
             {
-                NroOP = 102, CuitCliente = 30712345678, Deposito = "GBA", Estado = Pendiente,
-                Lineas = new List<LineaOrden>
+                NroOP = 102, CuitCliente = 30712345678, Deposito = "GBA", Estado = EstadoOrdenPreparacion.Pendiente,
+                Lineas = new List<LineaOrdenPreparacion>
                 {
-                    new LineaOrden { Sku = "CEM-50KG", Cantidad = 5 },
-                    new LineaOrden { Sku = "CAL-25KG", Cantidad = 3 }
+                    new LineaOrdenPreparacion { Sku = "CEM-50KG", Cantidad = 5 },
+                    new LineaOrdenPreparacion { Sku = "CAL-25KG", Cantidad = 3 }
                 }
             },
             new OrdenPreparacion
             {
-                NroOP = 103, CuitCliente = 30709876543, Deposito = "GBA", Estado = Pendiente,
-                Lineas = new List<LineaOrden> { new LineaOrden { Sku = "ZAP-0042", Cantidad = 24 } }
+                NroOP = 103, CuitCliente = 30709876543, Deposito = "GBA", Estado = EstadoOrdenPreparacion.Pendiente,
+                Lineas = new List<LineaOrdenPreparacion> { new LineaOrdenPreparacion { Sku = "ZAP-0042", Cantidad = 24 } }
             }
         };
 
@@ -55,7 +54,7 @@
         private Cliente? _cliente;
         private string? _deposito;
         private string? _sku;
-        private List<LineaOrden> _lineas = new List<LineaOrden>();
+        private List<LineaOrdenPreparacion> _lineas = new List<LineaOrdenPreparacion>();
 
         public string? ClienteSeleccionado => _cliente?.Nombre;
         public string? DepositoSeleccionado => _deposito;
@@ -117,8 +116,8 @@
 
                 // De las OP Pendientes del cliente en el depósito (Where) junta todas sus líneas (SelectMany),
                 // se queda con las del SKU elegido (Where) y suma sus cantidades (Sum).
-                int comprometido = _ordenes
-                    .Where(o => o.CuitCliente == stock.CuitCliente && o.Deposito == stock.Deposito && o.Estado == Pendiente)
+                int comprometido = _ordenesPreparacion
+                    .Where(o => o.CuitCliente == stock.CuitCliente && o.Deposito == stock.Deposito && o.Estado == EstadoOrdenPreparacion.Pendiente)
                     .SelectMany(o => o.Lineas)
                     .Where(l => l.Sku == _sku)
                     .Sum(l => l.Cantidad);
@@ -157,7 +156,7 @@
             if (stock == null) return false;
             if (!CantidadValida(cantidad) || !CantidadDisponible(cantidad) || SkuYaAgregado) return false;
 
-            _lineas.Add(new LineaOrden { Sku = stock.Sku, Descripcion = stock.Descripcion, Cantidad = cantidad });
+            _lineas.Add(new LineaOrdenPreparacion { Sku = stock.Sku, Descripcion = stock.Descripcion, Cantidad = cantidad });
             _sku = null;
             return true;
         }
@@ -175,7 +174,7 @@
             return true;
         }
 
-        public List<LineaOrden> Lineas => _lineas.ToList();
+        public List<LineaOrdenPreparacion> Lineas => _lineas.ToList();
 
         // Un DNI tiene 7 u 8 dígitos.
         public bool DniValido(int dni)
@@ -220,7 +219,7 @@
             _ultimoNroOP++;
             nroOP = _ultimoNroOP;
 
-            _ordenes.Add(new OrdenPreparacion
+            _ordenesPreparacion.Add(new OrdenPreparacion
             {
                 NroOP = nroOP,
                 FechaRecepcion = DateTime.Now,
@@ -229,7 +228,7 @@
                 Modalidad = modalidad,
                 Transportista = new Transportista { DNI = dni, NombreApellido = nombreTransportista },
                 FechaRetiro = fechaRetiro,
-                Estado = Pendiente,
+                Estado = EstadoOrdenPreparacion.Pendiente,
                 Lineas = _lineas.ToList()
             });
 

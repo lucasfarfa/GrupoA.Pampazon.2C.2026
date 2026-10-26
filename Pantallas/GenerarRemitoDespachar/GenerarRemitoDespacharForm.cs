@@ -10,7 +10,7 @@
         }
 
         // Botón "Buscar órdenes": identifica al transportista por DNI.
-        private void button1_Click(object sender, EventArgs e)
+        private void btnBuscarOrdenes_Click(object sender, EventArgs e)
         {
             // Cada búsqueda arranca de cero: se descarta la selección anterior y se vacían el nombre y las listas.
             lblNombreTransportista.Text = "";
@@ -105,11 +105,11 @@
 
         private void btnConfirmarEntregaFirma_Click(object sender, EventArgs e)
         {
-            List<string> nrosRemito = new List<string>();
+            List<int> nrosRemito = new List<int>();
             foreach (ListViewItem item in lvRemitosPendientesFirma.SelectedItems)
             {
                 if (item.Tag == null) return;
-                nrosRemito.Add((string)item.Tag);
+                nrosRemito.Add((int)item.Tag);
             }
 
             if (!_modelo.HayRemitos(nrosRemito))
@@ -118,7 +118,7 @@
                 return;
             }
 
-            if (MessageBox.Show("¿Confirma la entrega de los remitos N° " + string.Join(", ", nrosRemito) + " con la copia firmada?", Text,
+            if (MessageBox.Show("¿Confirma la entrega de los remitos N° " + string.Join(", ", nrosRemito.Select(nro => "R-" + nro)) + " con la copia firmada?", Text,
                     MessageBoxButtons.OKCancel, MessageBoxIcon.Question) != DialogResult.OK)
             {
                 return;
@@ -139,7 +139,7 @@
 
             foreach (var oe in _modelo.OrdenesPendientes)
             {
-                var item = new ListViewItem(new[] { oe.Cliente, oe.NroOE.ToString(), string.Join(", ", oe.NrosOP), oe.Bultos.ToString() });
+                var item = new ListViewItem(new[] { oe.Cliente, oe.NroOE.ToString(), string.Join(", ", oe.Lineas.Select(l => l.NroOP)), oe.Lineas.Sum(l => l.Bultos).ToString() });
                 item.Tag = oe.NroOE;
                 lvOEPendientesEntrega.Items.Add(item);
             }
@@ -153,7 +153,7 @@
 
             foreach (var remito in _modelo.RemitosPendientesFirma)
             {
-                var item = new ListViewItem(remito.NroRemito);
+                var item = new ListViewItem("R-" + remito.NroRemito);
                 item.Tag = remito.NroRemito;
                 lvRemitosPendientesFirma.Items.Add(item);
             }

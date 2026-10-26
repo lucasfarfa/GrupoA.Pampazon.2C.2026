@@ -1,4 +1,4 @@
-﻿namespace GrupoA.PampazonSA.AdministracionDeposito.CU04EmpaquetarProductos
+﻿namespace GrupoA.PampazonSA.AdministracionDeposito.EmpaquetarProductos
 {
     partial class EmpaquetarProductosForm
     {

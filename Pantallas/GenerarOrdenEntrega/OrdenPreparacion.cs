@@ -8,7 +8,7 @@ namespace GrupoA.PampazonSA.AdministracionDeposito.GenerarOrdenEntrega
         public Transportista Transportista { get; set; } = new Transportista();
         public DateTime FechaRetiro { get; set; }
         public int Bultos { get; set; }
-        public string Estado { get; set; } = "";
+        public EstadoOrdenPreparacion Estado { get; set; }
         public int? NroOE { get; set; }
     }
 }

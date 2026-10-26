@@ -1,4 +1,4 @@
-namespace GrupoA.PampazonSA.AdministracionDeposito.CU04EmpaquetarProductos
+namespace GrupoA.PampazonSA.AdministracionDeposito.EmpaquetarProductos
 {
     public partial class EmpaquetarProductosForm : Form
     {
@@ -40,7 +40,7 @@ namespace GrupoA.PampazonSA.AdministracionDeposito.CU04EmpaquetarProductos
         {
             lstProductos.Items.Clear();
 
-            foreach (var producto in _modelo.ProductosAsignados)
+            foreach (var producto in _modelo.Lineas)
             {
                 var item = new ListViewItem(new[] { producto.Sku, producto.Descripcion, producto.Cantidad.ToString() });
                 item.Tag = producto.Sku;

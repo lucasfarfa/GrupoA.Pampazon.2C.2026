@@ -15,7 +15,7 @@
             RefrescarListas();
 
             // CU-03, 2.1
-            if (_modelo.OrdenesPendientes.Count == 0)
+            if (_modelo.NrosOSPendientes.Count == 0)
                 MessageBox.Show("No hay órdenes de selección pendientes", Text);
         }
 
@@ -55,7 +55,7 @@
             MessageBox.Show("La OS " + nro + " quedó Cumplida. Se descontó el stock de almacén.", Text);
             RefrescarListas();
 
-            if (_modelo.OrdenesPendientes.Count == 0)
+            if (_modelo.NrosOSPendientes.Count == 0)
                 MessageBox.Show("No hay órdenes de selección pendientes", Text);
         }
 
@@ -77,7 +77,7 @@
         private void RefrescarListas()
         {
             comboOrdenSeleccion.Items.Clear();
-            List<int> ordenes = _modelo.OrdenesPendientes;
+            List<int> ordenes = _modelo.NrosOSPendientes;
             foreach (int nro in ordenes)
                 comboOrdenSeleccion.Items.Add(nro);
 
@@ -85,7 +85,7 @@
                 comboOrdenSeleccion.SelectedItem = _modelo.OrdenSeleccionada;
 
             listViewDetalle.Items.Clear();
-            foreach (LineaMercaderia linea in _modelo.Lineas)
+            foreach (LineaOrdenSeleccion linea in _modelo.Detalle)
             {
                 listViewDetalle.Items.Add(new ListViewItem(new[]
                 {

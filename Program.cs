@@ -1,4 +1,4 @@
-using GrupoA.PampazonSA.AdministracionDeposito.CU04EmpaquetarProductos;
+using GrupoA.PampazonSA.AdministracionDeposito.EmpaquetarProductos;
 using GrupoA.PampazonSA.AdministracionDeposito.GenerarOrdenEntrega;
 using GrupoA.PampazonSA.AdministracionDeposito.GenerarOrdenSeleccion;
 using GrupoA.PampazonSA.AdministracionDeposito.GenerarRemitoDespachar;

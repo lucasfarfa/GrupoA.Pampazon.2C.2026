@@ -65,7 +65,7 @@
 
             foreach (var oe in _modelo.OrdenesEmitidas)
             {
-                var item = new ListViewItem(new[] { oe.NroOE.ToString(), oe.Transportista.NombreApellido, oe.Cliente, oe.FechaEmision.ToString("dd/MM/yyyy"), string.Join(", ", oe.NrosOP) });
+                var item = new ListViewItem(new[] { oe.NroOE.ToString(), oe.Transportista.NombreApellido, oe.Cliente, oe.FechaEmision.ToString("dd/MM/yyyy"), string.Join(", ", oe.Lineas.Select(l => l.NroOP)) });
                 item.Tag = oe.NroOE;
                 lvOEEmitidas.Items.Add(item);
             }
