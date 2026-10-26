@@ -28,7 +28,7 @@ namespace GrupoA.PampazonSA.AdministracionDeposito.CU04EmpaquetarProductos
                 return;
             }
 
-            lblNroOrden.Text = orden.NroOP;
+            lblNroOrden.Text = orden.NroOP.ToString();
             lblModalidad.Text = orden.Modalidad;
             lblTotalBultos.Text = _modelo.TotalBultos.ToString();
             btnEmpaquetar.Enabled = true;
@@ -56,7 +56,7 @@ namespace GrupoA.PampazonSA.AdministracionDeposito.CU04EmpaquetarProductos
                 return;
             }
 
-            if (!_modelo.ConfirmarEmpaquetado(out string nroOP)) return;
+            if (!_modelo.ConfirmarEmpaquetado(out int nroOP)) return;
 
             MessageBox.Show("Orden de preparación N° " + nroOP + " preparada", Text);
             MostrarOrdenAsignada();

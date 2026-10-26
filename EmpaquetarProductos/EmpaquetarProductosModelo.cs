@@ -11,15 +11,15 @@ namespace GrupoA.PampazonSA.AdministracionDeposito.CU04EmpaquetarProductos
 
         private List<OrdenSeleccion> _ordenesSeleccion = new List<OrdenSeleccion>
         {
-            new OrdenSeleccion { NroOS = "501", Estado = Cumplida },
-            new OrdenSeleccion { NroOS = "503", Estado = Pendiente }
+            new OrdenSeleccion { NroOS = 501, Estado = Cumplida },
+            new OrdenSeleccion { NroOS = 503, Estado = Pendiente }
         };
 
         private List<OrdenPreparacion> _ordenesPreparacion = new List<OrdenPreparacion>
         {
             new OrdenPreparacion
             {
-                NroOP = "101", FechaRecepcion = new DateTime(2026, 10, 14, 9, 0, 0), Modalidad = Fulfillment, NroOS = "501", Estado = EnPreparacion,
+                NroOP = 101, FechaRecepcion = new DateTime(2026, 10, 14, 9, 0, 0), Modalidad = Fulfillment, NroOS = 501, Estado = EnPreparacion,
                 Productos = new List<ProductoOrden>
                 {
                     new ProductoOrden { Sku = "CEM-50KG", Descripcion = "Bolsa de cemento 50 kg", Cantidad = 10 }
@@ -27,7 +27,7 @@ namespace GrupoA.PampazonSA.AdministracionDeposito.CU04EmpaquetarProductos
             },
             new OrdenPreparacion
             {
-                NroOP = "102", FechaRecepcion = new DateTime(2026, 10, 14, 10, 30, 0), Modalidad = Fulfillment, NroOS = "501", Estado = EnPreparacion,
+                NroOP = 102, FechaRecepcion = new DateTime(2026, 10, 14, 10, 30, 0), Modalidad = Fulfillment, NroOS = 501, Estado = EnPreparacion,
                 Productos = new List<ProductoOrden>
                 {
                     new ProductoOrden { Sku = "CEM-50KG", Descripcion = "Bolsa de cemento 50 kg", Cantidad = 5 },
@@ -36,7 +36,7 @@ namespace GrupoA.PampazonSA.AdministracionDeposito.CU04EmpaquetarProductos
             },
             new OrdenPreparacion
             {
-                NroOP = "108", FechaRecepcion = new DateTime(2026, 10, 14, 12, 0, 0), Modalidad = Fulfillment, NroOS = "503", Estado = EnPreparacion,
+                NroOP = 108, FechaRecepcion = new DateTime(2026, 10, 14, 12, 0, 0), Modalidad = Fulfillment, NroOS = 503, Estado = EnPreparacion,
                 Productos = new List<ProductoOrden>
                 {
                     new ProductoOrden { Sku = "CAL-25KG", Descripcion = "Bolsa de cal 25 kg", Cantidad = 20 }
@@ -48,11 +48,11 @@ namespace GrupoA.PampazonSA.AdministracionDeposito.CU04EmpaquetarProductos
 
         public bool HayOrdenAsignada => _ordenAsignada != null;
 
-        public string NroOPAsignada
+        public int NroOPAsignada
         {
             get
             {
-                if (_ordenAsignada == null) return "";
+                if (_ordenAsignada == null) return 0;
                 return _ordenAsignada.NroOP;
             }
         }
@@ -93,9 +93,9 @@ namespace GrupoA.PampazonSA.AdministracionDeposito.CU04EmpaquetarProductos
         }
 
         // Registra la OP asignada como Preparada con sus bultos, fecha y hora (CU-04, paso 8).
-        public bool ConfirmarEmpaquetado(out string nroOP)
+        public bool ConfirmarEmpaquetado(out int nroOP)
         {
-            nroOP = "";
+            nroOP = 0;
             if (_ordenAsignada == null || _ordenAsignada.Estado != EnPreparacion) return false;
 
             _ordenAsignada.Bultos = TotalBultos;
