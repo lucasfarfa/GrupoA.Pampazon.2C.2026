@@ -2,9 +2,9 @@ namespace GrupoA.PampazonSA.AdministracionDeposito.RegistrarOrdenPreparacion
 {
     internal class OrdenPreparacion
     {
-        public string NroOP { get; set; } = "";
+        public int NroOP { get; set; }
         public DateTime FechaRecepcion { get; set; }
-        public string CuitCliente { get; set; } = "";
+        public long CuitCliente { get; set; }
         public string Deposito { get; set; } = "";
         public string Modalidad { get; set; } = "";
         public Transportista Transportista { get; set; } = new Transportista();

@@ -1,5 +1,4 @@
 ﻿using System.Globalization;
-using System.Text.RegularExpressions;
 
 namespace GrupoA.PampazonSA.AdministracionDeposito.RegistrarOrdenPreparacion
 {
@@ -37,9 +36,9 @@ namespace GrupoA.PampazonSA.AdministracionDeposito.RegistrarOrdenPreparacion
                 return;
             }
 
-            if (!_modelo.SeleccionarCliente(cliente, out string cuit)) return;
+            if (!_modelo.SeleccionarCliente(cliente, out long cuit)) return;
 
-            txtCuitCliente.Text = cuit;
+            txtCuitCliente.Text = cuit.ToString("00-00000000-0");
             CargarSkus();
             RefrescarListas();
         }
@@ -97,21 +96,27 @@ namespace GrupoA.PampazonSA.AdministracionDeposito.RegistrarOrdenPreparacion
 
         private void btnAgregar_Click(object sender, EventArgs e)
         {
-            if (cboSku.SelectedItem is not string sku)
+            if (_modelo.SkuSeleccionado == null)
             {
                 MessageBox.Show("Debe seleccionar un SKU", Text);
                 return;
             }
 
-            if (!int.TryParse(txtCantidad.Text.Trim(), out int cantidad) || cantidad <= 0)
+            if (!int.TryParse(txtCantidad.Text.Trim(), out int cantidad))
             {
                 MessageBox.Show("La cantidad debe ser un número entero mayor a cero", Text);
                 return;
             }
 
-            if (cantidad > _modelo.Disponible)
+            if (!_modelo.CantidadValida(cantidad))
             {
-                MessageBox.Show("La cantidad supera el disponible del SKU " + sku + ": " + _modelo.Disponible + " unidades", Text);
+                MessageBox.Show("La cantidad debe ser un número entero mayor a cero", Text);
+                return;
+            }
+
+            if (!_modelo.CantidadDisponible(cantidad))
+            {
+                MessageBox.Show("La cantidad supera el disponible del SKU " + _modelo.SkuSeleccionado + ": " + _modelo.Disponible + " unidades", Text);
                 return;
             }
 
@@ -130,17 +135,17 @@ namespace GrupoA.PampazonSA.AdministracionDeposito.RegistrarOrdenPreparacion
 
         private void btnQuitarSeleccionado_Click(object sender, EventArgs e)
         {
-            if (listDetalleAgregado.SelectedItems.Count == 0)
-            {
-                MessageBox.Show("Seleccione un producto de la lista", Text);
-                return;
-            }
-
             List<string> skus = new List<string>();
             foreach (ListViewItem item in listDetalleAgregado.SelectedItems)
             {
                 if (item.Tag == null) return;
                 skus.Add((string)item.Tag);
+            }
+
+            if (!_modelo.HaySkus(skus))
+            {
+                MessageBox.Show("Seleccione un producto de la lista", Text);
+                return;
             }
 
             if (!_modelo.QuitarProductos(skus)) return;
@@ -150,17 +155,17 @@ namespace GrupoA.PampazonSA.AdministracionDeposito.RegistrarOrdenPreparacion
 
         private void btnRegistrar_Click(object sender, EventArgs e)
         {
-            string dni = txtDniTransportista.Text.Trim();
+            string textoDni = txtDniTransportista.Text.Trim();
             string nombre = txtNombreTransportista.Text.Trim();
-            string fecha = txtFechaRetiro.Text.Trim();
+            string textoFecha = txtFechaRetiro.Text.Trim();
 
             var faltantes = new List<string>();
-            if (cboCliente.SelectedIndex < 0) faltantes.Add("Cliente");
-            if (cboDeposito.SelectedIndex < 0) faltantes.Add("Depósito");
+            if (_modelo.ClienteSeleccionado == null) faltantes.Add("Cliente");
+            if (_modelo.DepositoSeleccionado == null) faltantes.Add("Depósito");
             if (!rbFulfillment.Checked && !rbPaletCerrado.Checked) faltantes.Add("Modalidad");
-            if (dni == "") faltantes.Add("DNI");
-            if (nombre == "") faltantes.Add("Nombre del transportista");
-            if (fecha == "") faltantes.Add("Fecha de retiro");
+            if (textoDni == "") faltantes.Add("DNI");
+            if (!_modelo.NombreCompleto(nombre)) faltantes.Add("Nombre del transportista");
+            if (textoFecha == "") faltantes.Add("Fecha de retiro");
 
             if (faltantes.Count > 0)
             {
@@ -168,25 +173,31 @@ namespace GrupoA.PampazonSA.AdministracionDeposito.RegistrarOrdenPreparacion
                 return;
             }
 
-            if (!Regex.IsMatch(dni, @"^\d{7,8}$"))
+            if (!int.TryParse(textoDni, out int dni))
             {
                 MessageBox.Show("El DNI debe tener 7 u 8 dígitos numéricos", Text);
                 return;
             }
 
-            if (!Regex.IsMatch(nombre, @"^[\p{L} '\-]+$"))
+            if (!_modelo.DniValido(dni))
+            {
+                MessageBox.Show("El DNI debe tener 7 u 8 dígitos numéricos", Text);
+                return;
+            }
+
+            if (!_modelo.NombreValido(nombre))
             {
                 MessageBox.Show("El nombre solo admite letras, espacios, apóstrofos y guiones", Text);
                 return;
             }
 
-            if (!DateTime.TryParseExact(fecha, "dd/MM/yyyy", CultureInfo.InvariantCulture, DateTimeStyles.None, out DateTime fechaRetiro))
+            if (!DateTime.TryParseExact(textoFecha, "dd/MM/yyyy", CultureInfo.InvariantCulture, DateTimeStyles.None, out DateTime fechaRetiro))
             {
                 MessageBox.Show("Fecha inválida", Text);
                 return;
             }
 
-            if (fechaRetiro < DateTime.Today)
+            if (!_modelo.FechaRetiroValida(fechaRetiro))
             {
                 MessageBox.Show("La fecha de retiro no puede ser anterior a hoy", Text);
                 return;
@@ -205,7 +216,7 @@ namespace GrupoA.PampazonSA.AdministracionDeposito.RegistrarOrdenPreparacion
             }
 
             string modalidad = rbFulfillment.Checked ? "Fulfillment" : "Palet cerrado";
-            if (!_modelo.Registrar(modalidad, dni, nombre, fechaRetiro, out string nroOP)) return;
+            if (!_modelo.Registrar(modalidad, dni, nombre, fechaRetiro, out int nroOP)) return;
 
             MessageBox.Show("Orden de preparación N° " + nroOP + " registrada", Text);
             VaciarPantalla();
