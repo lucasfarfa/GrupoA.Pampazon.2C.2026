@@ -4,7 +4,7 @@
 
 **Cátedra:** Méndez Cerezuela, Alejandro Luis
 
-**Docentes:** Méndez Cerezuela, Alejandro Luis · Panitsch, Andrés
+**Docentes:** Méndez Cerezuela, Alejandro Luis - Panitsch, Andrés
 
 ## Alumnos
 
