@@ -28,7 +28,7 @@
         {
             RefrescarListas();
 
-            if (lvOEEmitidas.Items.Count == 0)
+            if (_modelo.OrdenesEmitidas.Count == 0)
             {
                 MessageBox.Show("No hay órdenes de entrega para recepcionar", Text);
             }
@@ -44,7 +44,7 @@
 
             ListViewItem item = lvOEEmitidas.SelectedItems[0];
             if (item.Tag == null) return;
-            string nroOE = (string)item.Tag;
+            int nroOE = (int)item.Tag;
 
             if (MessageBox.Show("¿Confirma la recepción de la OE N° " + nroOE + " en Despacho?", Text,
                     MessageBoxButtons.OKCancel, MessageBoxIcon.Question) != DialogResult.OK)
@@ -65,7 +65,7 @@
 
             foreach (var oe in _modelo.OrdenesEmitidas)
             {
-                var item = new ListViewItem(new[] { oe.NroOE, oe.Transportista.NombreApellido, oe.Cliente, oe.FechaEmision.ToString("dd/MM/yyyy"), string.Join(", ", oe.NrosOP) });
+                var item = new ListViewItem(new[] { oe.NroOE.ToString(), oe.Transportista.NombreApellido, oe.Cliente, oe.FechaEmision.ToString("dd/MM/yyyy"), string.Join(", ", oe.NrosOP) });
                 item.Tag = oe.NroOE;
                 lvOEEmitidas.Items.Add(item);
             }
