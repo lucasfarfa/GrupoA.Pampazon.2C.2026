@@ -24,8 +24,8 @@
             new Remito { NroRemito = 410, Fecha = DateTime.Today.AddDays(-1), Cliente = "MundoFOX S.R.L.", Transportista = new Transportista { DNI = 20562667, NombreApellido = "Alejo Cisterna" }, NrosOE = new List<int> { 710 }, NrosOP = new List<int> { 110 }, TotalBultos = 1, Estado = EstadoRemito.Emitido }
         };
 
-        // OP que pasaron a Despachada al confirmar la entrega.
-        private List<int> _opsDespachadas = new List<int>();
+        // OP que pasaron a Cumplida al confirmar la entrega.
+        private List<int> _opsCumplidas = new List<int>();
         private int _ultimoNroRemito = 410;
 
         private Transportista? _transportista;   // transportista identificado con "Buscar órdenes"
@@ -188,7 +188,7 @@
             }
         }
 
-        // Confirma la entrega firmada: los remitos pasan a Cumplidos, sus OE a Cumplidas y sus OP a Despachadas.
+        // Confirma la entrega firmada: los remitos pasan a Cumplidos, sus OE y sus OP a Cumplidas.
         // Devuelve true si hay al menos un remito y todos existen y estaban Emitidos.
         public bool ConfirmarEntrega(List<int> nrosRemito)
         {
@@ -210,7 +210,7 @@
                     oe.Estado = EstadoOrdenEntrega.Cumplida;
                 }
 
-                _opsDespachadas.AddRange(remito.NrosOP);
+                _opsCumplidas.AddRange(remito.NrosOP);
             }
 
             return true;
