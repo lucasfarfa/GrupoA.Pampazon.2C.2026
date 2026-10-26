@@ -2,9 +2,9 @@
 {
     internal class OrdenDeEntrega
     {
-        public string NroOE { get; set; } = "";
+        public int NroOE { get; set; }
         public string Cliente { get; set; } = "";
-        public List<string> NrosOP { get; set; } = new List<string>();
+        public List<int> NrosOP { get; set; } = new List<int>();
         public int Bultos { get; set; }
         public Transportista Transportista { get; set; } = new Transportista();
         public string Estado { get; set; } = "";

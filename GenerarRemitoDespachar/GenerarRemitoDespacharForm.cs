@@ -1,6 +1,4 @@
-﻿using System.Text.RegularExpressions;
-
-namespace GrupoA.PampazonSA.AdministracionDeposito.GenerarRemitoDespachar
+﻿namespace GrupoA.PampazonSA.AdministracionDeposito.GenerarRemitoDespachar
 {
     public partial class GenerarRemitoDespacharForm : Form
     {
@@ -14,14 +12,18 @@ namespace GrupoA.PampazonSA.AdministracionDeposito.GenerarRemitoDespachar
         // Botón "Buscar órdenes": identifica al transportista por DNI.
         private void button1_Click(object sender, EventArgs e)
         {
-            string dni = textDNITransportista.Text.Trim();
-
             // Cada búsqueda arranca de cero: se descarta la selección anterior y se vacían el nombre y las listas.
             lblNombreTransportista.Text = "";
             if (!_modelo.LimpiarBusqueda()) return;
             RefrescarListas();
 
-            if (!Regex.IsMatch(dni, @"^\d{7,8}$"))
+            if (!int.TryParse(textDNITransportista.Text.Trim(), out int dni))
+            {
+                MessageBox.Show("El DNI debe tener 7 u 8 dígitos numéricos", Text);
+                return;
+            }
+
+            if (!_modelo.DniValido(dni))
             {
                 MessageBox.Show("El DNI debe tener 7 u 8 dígitos numéricos", Text);
                 return;
@@ -46,17 +48,17 @@ namespace GrupoA.PampazonSA.AdministracionDeposito.GenerarRemitoDespachar
 
         private void btnSeleccionar_Click(object sender, EventArgs e)
         {
-            if (lvOEPendientesEntrega.SelectedItems.Count == 0)
-            {
-                MessageBox.Show("Seleccione al menos una orden de entrega", Text);
-                return;
-            }
-
-            List<string> nrosOE = new List<string>();
+            List<int> nrosOE = new List<int>();
             foreach (ListViewItem item in lvOEPendientesEntrega.SelectedItems)
             {
                 if (item.Tag == null) return;
-                nrosOE.Add((string)item.Tag);
+                nrosOE.Add((int)item.Tag);
+            }
+
+            if (!_modelo.HayOrdenes(nrosOE))
+            {
+                MessageBox.Show("Seleccione al menos una orden de entrega", Text);
+                return;
             }
 
             if (!_modelo.SeleccionarOrdenes(nrosOE)) return;
@@ -67,14 +69,14 @@ namespace GrupoA.PampazonSA.AdministracionDeposito.GenerarRemitoDespachar
         // Devuelve a la primera lista las OE de los remitos (clientes) marcados en "Se emitirán los siguientes remitos".
         private void btnDeseleccionar_Click(object sender, EventArgs e)
         {
-            if (lvRemitosEmitir.SelectedItems.Count == 0) return;
-
-            List<string> nrosOE = new List<string>();
+            List<int> nrosOE = new List<int>();
             foreach (ListViewItem item in lvRemitosEmitir.SelectedItems)
             {
                 if (item.Tag == null) return;
-                nrosOE.AddRange((List<string>)item.Tag);
+                nrosOE.AddRange((List<int>)item.Tag);
             }
+
+            if (!_modelo.HayOrdenes(nrosOE)) return;
 
             if (!_modelo.DeseleccionarOrdenes(nrosOE)) return;
 
@@ -83,13 +85,13 @@ namespace GrupoA.PampazonSA.AdministracionDeposito.GenerarRemitoDespachar
 
         private void btnEmitirRemitos_Click(object sender, EventArgs e)
         {
-            if (lvRemitosEmitir.Items.Count == 0)
+            if (!_modelo.HaySeleccion)
             {
                 MessageBox.Show("Debe seleccionar al menos una orden de entrega", Text);
                 return;
             }
 
-            int cantidad = lvRemitosEmitir.Items.Count;
+            int cantidad = _modelo.RemitosAEmitir.Count;
             if (MessageBox.Show("Se emitirán " + cantidad + " remitos. ¿Confirma?", Text,
                     MessageBoxButtons.OKCancel, MessageBoxIcon.Question) != DialogResult.OK)
             {
@@ -103,17 +105,17 @@ namespace GrupoA.PampazonSA.AdministracionDeposito.GenerarRemitoDespachar
 
         private void btnConfirmarEntregaFirma_Click(object sender, EventArgs e)
         {
-            if (lvRemitosPendientesFirma.SelectedItems.Count == 0)
-            {
-                MessageBox.Show("Debe seleccionar al menos un remito", Text);
-                return;
-            }
-
             List<string> nrosRemito = new List<string>();
             foreach (ListViewItem item in lvRemitosPendientesFirma.SelectedItems)
             {
                 if (item.Tag == null) return;
                 nrosRemito.Add((string)item.Tag);
+            }
+
+            if (!_modelo.HayRemitos(nrosRemito))
+            {
+                MessageBox.Show("Debe seleccionar al menos un remito", Text);
+                return;
             }
 
             if (MessageBox.Show("¿Confirma la entrega de los remitos N° " + string.Join(", ", nrosRemito) + " con la copia firmada?", Text,
@@ -137,7 +139,7 @@ namespace GrupoA.PampazonSA.AdministracionDeposito.GenerarRemitoDespachar
 
             foreach (var oe in _modelo.OrdenesPendientes)
             {
-                var item = new ListViewItem(new[] { oe.Cliente, oe.NroOE, string.Join(", ", oe.NrosOP), oe.Bultos.ToString() });
+                var item = new ListViewItem(new[] { oe.Cliente, oe.NroOE.ToString(), string.Join(", ", oe.NrosOP), oe.Bultos.ToString() });
                 item.Tag = oe.NroOE;
                 lvOEPendientesEntrega.Items.Add(item);
             }

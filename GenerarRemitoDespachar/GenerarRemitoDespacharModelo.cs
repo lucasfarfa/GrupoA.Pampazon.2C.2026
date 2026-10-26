@@ -10,38 +10,59 @@
 
         private List<Transportista> _transportistas = new List<Transportista>
         {
-            new Transportista { DNI = "24568779", NombreApellido = "Jose Gomez" },
-            new Transportista { DNI = "20562667", NombreApellido = "Alejo Cisterna" },
-            new Transportista { DNI = "32321987", NombreApellido = "Daniel Baez" }
+            new Transportista { DNI = 24568779, NombreApellido = "Jose Gomez" },
+            new Transportista { DNI = 20562667, NombreApellido = "Alejo Cisterna" },
+            new Transportista { DNI = 32321987, NombreApellido = "Daniel Baez" }
         };
 
         private List<OrdenDeEntrega> _ordenesEntrega = new List<OrdenDeEntrega>
         {
-            new OrdenDeEntrega { NroOE = "701", Cliente = "Mercadito S.A.", NrosOP = new List<string> { "101", "102" }, Bultos = 18, Transportista = new Transportista { DNI = "24568779", NombreApellido = "Jose Gomez" }, Estado = PendienteEntrega },
-            new OrdenDeEntrega { NroOE = "704", Cliente = "Mercadito S.A.", NrosOP = new List<string> { "105" }, Bultos = 10, Transportista = new Transportista { DNI = "24568779", NombreApellido = "Jose Gomez" }, Estado = PendienteEntrega },
-            new OrdenDeEntrega { NroOE = "702", Cliente = "MundoFOX S.R.L.", NrosOP = new List<string> { "103" }, Bultos = 1, Transportista = new Transportista { DNI = "24568779", NombreApellido = "Jose Gomez" }, Estado = PendienteEntrega },
-            new OrdenDeEntrega { NroOE = "710", Cliente = "MundoFOX S.R.L.", NrosOP = new List<string> { "110" }, Bultos = 1, Transportista = new Transportista { DNI = "20562667", NombreApellido = "Alejo Cisterna" }, Estado = RemitoEmitido },
-            new OrdenDeEntrega { NroOE = "703", Cliente = "Ferretería Norte S.A.", NrosOP = new List<string> { "104" }, Bultos = 30, Transportista = new Transportista { DNI = "32321987", NombreApellido = "Daniel Baez" }, Estado = PendienteEntrega },
-            new OrdenDeEntrega { NroOE = "705", Cliente = "Construcciones del Plata S.R.L.", NrosOP = new List<string> { "106", "107" }, Bultos = 9, Transportista = new Transportista { DNI = "32321987", NombreApellido = "Daniel Baez" }, Estado = PendienteEntrega }
+            new OrdenDeEntrega { NroOE = 701, Cliente = "Mercadito S.A.", NrosOP = new List<int> { 101, 102 }, Bultos = 18, Transportista = new Transportista { DNI = 24568779, NombreApellido = "Jose Gomez" }, Estado = PendienteEntrega },
+            new OrdenDeEntrega { NroOE = 704, Cliente = "Mercadito S.A.", NrosOP = new List<int> { 105 }, Bultos = 10, Transportista = new Transportista { DNI = 24568779, NombreApellido = "Jose Gomez" }, Estado = PendienteEntrega },
+            new OrdenDeEntrega { NroOE = 702, Cliente = "MundoFOX S.R.L.", NrosOP = new List<int> { 103 }, Bultos = 1, Transportista = new Transportista { DNI = 24568779, NombreApellido = "Jose Gomez" }, Estado = PendienteEntrega },
+            new OrdenDeEntrega { NroOE = 710, Cliente = "MundoFOX S.R.L.", NrosOP = new List<int> { 110 }, Bultos = 1, Transportista = new Transportista { DNI = 20562667, NombreApellido = "Alejo Cisterna" }, Estado = RemitoEmitido },
+            new OrdenDeEntrega { NroOE = 703, Cliente = "Ferretería Norte S.A.", NrosOP = new List<int> { 104 }, Bultos = 30, Transportista = new Transportista { DNI = 32321987, NombreApellido = "Daniel Baez" }, Estado = PendienteEntrega },
+            new OrdenDeEntrega { NroOE = 705, Cliente = "Construcciones del Plata S.R.L.", NrosOP = new List<int> { 106, 107 }, Bultos = 9, Transportista = new Transportista { DNI = 32321987, NombreApellido = "Daniel Baez" }, Estado = PendienteEntrega }
         };
 
         private List<Remito> _remitos = new List<Remito>
         {
-            new Remito { NroRemito = "R-410", Fecha = DateTime.Today.AddDays(-1), Cliente = "MundoFOX S.R.L.", Transportista = new Transportista { DNI = "20562667", NombreApellido = "Alejo Cisterna" }, NrosOE = new List<string> { "710" }, NrosOP = new List<string> { "110" }, TotalBultos = 1, Estado = Emitido }
+            new Remito { NroRemito = "R-410", Fecha = DateTime.Today.AddDays(-1), Cliente = "MundoFOX S.R.L.", Transportista = new Transportista { DNI = 20562667, NombreApellido = "Alejo Cisterna" }, NrosOE = new List<int> { 710 }, NrosOP = new List<int> { 110 }, TotalBultos = 1, Estado = Emitido }
         };
 
         // OP que pasaron a Despachada al confirmar la entrega.
-        private List<string> _opsDespachadas = new List<string>();
+        private List<int> _opsDespachadas = new List<int>();
         private int _ultimoNroRemito = 410;
 
         private Transportista? _transportista;   // transportista identificado con "Buscar órdenes"
-        private List<string> _seleccionadas = new List<string>();
+        private List<int> _seleccionadas = new List<int>();
 
         public bool HaySeleccion => _seleccionadas.Count > 0;
 
-        // Identifica al transportista para cargar sus documentos. Devuelve true si existe uno con ese DNI (ya validado por el form).
-        public bool BuscarTransportista(string dni, out Transportista? transportista)
+        // Un DNI tiene 7 u 8 dígitos.
+        public bool DniValido(int dni)
         {
+            return dni >= 1_000_000 && dni <= 99_999_999;
+        }
+
+        // Hay al menos una OE elegida.
+        public bool HayOrdenes(List<int> nrosOE)
+        {
+            return nrosOE.Count > 0;
+        }
+
+        // Hay al menos un remito elegido.
+        public bool HayRemitos(List<string> nrosRemito)
+        {
+            return nrosRemito.Count > 0;
+        }
+
+        // Identifica al transportista para cargar sus documentos. Devuelve true si el DNI es válido y existe un transportista con él.
+        public bool BuscarTransportista(int dni, out Transportista? transportista)
+        {
+            transportista = null;
+            if (!DniValido(dni)) return false;
+
             // Busca el transportista con ese DNI, o null si no hay ninguno (FirstOrDefault).
             transportista = _transportistas.FirstOrDefault(t => t.DNI == dni);
             _transportista = transportista;
@@ -72,9 +93,11 @@
         }
 
         // Pasa las OE elegidas a "Se emitirán los siguientes remitos".
-        // Devuelve true si todas las OE existen, siguen pendientes y no estaban seleccionadas.
-        public bool SeleccionarOrdenes(List<string> nrosOE)
+        // Devuelve true si hay al menos una OE y todas existen, siguen pendientes y no estaban seleccionadas.
+        public bool SeleccionarOrdenes(List<int> nrosOE)
         {
+            if (!HayOrdenes(nrosOE)) return false;
+
             foreach (var nro in nrosOE)
             {
                 // Busca la OE con ese número, o null si no existe (FirstOrDefault).
@@ -87,9 +110,11 @@
             return true;
         }
 
-        // Devuelve las OE elegidas a "Órdenes de entrega pendientes". Devuelve true si todas estaban seleccionadas.
-        public bool DeseleccionarOrdenes(List<string> nrosOE)
+        // Devuelve las OE elegidas a "Órdenes de entrega pendientes". Devuelve true si hay al menos una y todas estaban seleccionadas.
+        public bool DeseleccionarOrdenes(List<int> nrosOE)
         {
+            if (!HayOrdenes(nrosOE)) return false;
+
             // Si alguna OE de la lista no está seleccionada (Any), no se deselecciona nada.
             if (nrosOE.Any(nro => !_seleccionadas.Contains(nro)))
                 return false;
@@ -170,9 +195,11 @@
         }
 
         // Confirma la entrega firmada: los remitos pasan a Cumplidos, sus OE a Cumplidas y sus OP a Despachadas.
-        // Devuelve true si todos los remitos existen y estaban Emitidos.
+        // Devuelve true si hay al menos un remito y todos existen y estaban Emitidos.
         public bool ConfirmarEntrega(List<string> nrosRemito)
         {
+            if (!HayRemitos(nrosRemito)) return false;
+
             // Busca los remitos elegidos (Where); si falta alguno o alguno no está Emitido (Any), no confirma nada.
             var remitos = _remitos.Where(r => nrosRemito.Contains(r.NroRemito)).ToList();
             if (remitos.Count != nrosRemito.Count || remitos.Any(r => r.Estado != Emitido))
