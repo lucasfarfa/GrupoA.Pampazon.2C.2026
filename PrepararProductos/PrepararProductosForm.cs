@@ -19,10 +19,10 @@
                 MessageBox.Show("No hay órdenes de selección pendientes", Text);
         }
 
-        //La clave de la OS es el texto del ítem del combo.
+        // La clave de la OS es el ítem del combo (su N°).
         private void comboOrdenSeleccion_SelectedIndexChanged(object? sender, EventArgs e)
         {
-            if (comboOrdenSeleccion.SelectedItem is not string nro) return;
+            if (comboOrdenSeleccion.SelectedItem is not int nro) return;
 
             // Al recargar el combo se vuelve a elegir la OS que ya tiene el modelo: no hay nada que hacer.
             if (nro == _modelo.OrdenSeleccionada) return;
@@ -34,7 +34,7 @@
 
         private void btnConfirmar_Click(object sender, EventArgs e)
         {
-            if (comboOrdenSeleccion.SelectedItem is not string nro)
+            if (comboOrdenSeleccion.SelectedItem is not int nro)
             {
                 MessageBox.Show("Debe seleccionar una orden de selección", Text);
                 return;
@@ -68,7 +68,7 @@
         // Solo avisa si hay una OS elegida sin confirmar.
         private void PrepararProductosForm_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if (_modelo.OrdenSeleccionada == "") return;
+            if (_modelo.OrdenSeleccionada == null) return;
 
             MessageBox.Show("No se registró la entrega a Preparación", Text);
         }
@@ -77,11 +77,11 @@
         private void RefrescarListas()
         {
             comboOrdenSeleccion.Items.Clear();
-            List<string> ordenes = _modelo.OrdenesPendientes;
-            foreach (string nro in ordenes)
+            List<int> ordenes = _modelo.OrdenesPendientes;
+            foreach (int nro in ordenes)
                 comboOrdenSeleccion.Items.Add(nro);
 
-            if (_modelo.OrdenSeleccionada != "")
+            if (_modelo.OrdenSeleccionada != null)
                 comboOrdenSeleccion.SelectedItem = _modelo.OrdenSeleccionada;
 
             listViewDetalle.Items.Clear();
@@ -89,7 +89,7 @@
             {
                 listViewDetalle.Items.Add(new ListViewItem(new[]
                 {
-                    linea.Posicion,
+                    linea.Posicion.Sector.ToString("00") + "-" + linea.Posicion.Posicion.ToString("00") + "-" + linea.Posicion.Fila,
                     linea.Sku,
                     linea.Cantidad.ToString()
                 }));
