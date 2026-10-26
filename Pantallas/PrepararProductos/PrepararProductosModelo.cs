@@ -2,31 +2,29 @@
 {
     internal class PrepararProductosModelo
     {
-        private const string Pendiente = "Pendiente";
-        private const string Cumplida = "Cumplida";
 
-        private List<OrdenSeleccion> _ordenes = new List<OrdenSeleccion>
+        private List<OrdenSeleccion> _ordenesSeleccion = new List<OrdenSeleccion>
         {
             new OrdenSeleccion
             {
-                Nro = 501,
-                Estado = Pendiente,
+                NroOS = 501,
+                Estado = EstadoOrdenSeleccion.Pendiente,
                 NrosOP = new List<int> { 101, 102 },
-                Lineas =
+                Detalle =
                 {
-                    new LineaMercaderia { Posicion = new PosicionDeposito { Sector = 12, Posicion = 43, Fila = 2 }, Sku = "CEM-50KG", Cantidad = 10 },
-                    new LineaMercaderia { Posicion = new PosicionDeposito { Sector = 12, Posicion = 44, Fila = 1 }, Sku = "CEM-50KG", Cantidad = 5 },
-                    new LineaMercaderia { Posicion = new PosicionDeposito { Sector = 3, Posicion = 10, Fila = 1 }, Sku = "CAL-25KG", Cantidad = 3 }
+                    new LineaOrdenSeleccion { Posicion = new PosicionDeposito { Sector = 12, Posicion = 43, Fila = 2 }, Sku = "CEM-50KG", Cantidad = 10 },
+                    new LineaOrdenSeleccion { Posicion = new PosicionDeposito { Sector = 12, Posicion = 44, Fila = 1 }, Sku = "CEM-50KG", Cantidad = 5 },
+                    new LineaOrdenSeleccion { Posicion = new PosicionDeposito { Sector = 3, Posicion = 10, Fila = 1 }, Sku = "CAL-25KG", Cantidad = 3 }
                 }
             },
             new OrdenSeleccion
             {
-                Nro = 502,
-                Estado = Pendiente,
+                NroOS = 502,
+                Estado = EstadoOrdenSeleccion.Pendiente,
                 NrosOP = new List<int> { 103 },
-                Lineas =
+                Detalle =
                 {
-                    new LineaMercaderia { Posicion = new PosicionDeposito { Sector = 12, Posicion = 5, Fila = 1 }, Sku = "ZAP-0042", Cantidad = 24 }
+                    new LineaOrdenSeleccion { Posicion = new PosicionDeposito { Sector = 12, Posicion = 5, Fila = 1 }, Sku = "ZAP-0042", Cantidad = 24 }
                 }
             }
         };
@@ -45,14 +43,14 @@
 
         // Lista del combo "Orden de selección": N° de las OS Pendientes del depósito.
         // Filtra las Pendientes (Where), las ordena por número (OrderBy) y toma solo el N° (Select).
-        public List<int> OrdenesPendientes
+        public List<int> NrosOSPendientes
         {
             get
             {
-                return _ordenes
-                    .Where(o => o.Estado == Pendiente)
-                    .OrderBy(o => o.Nro)
-                    .Select(o => o.Nro)
+                return _ordenesSeleccion
+                    .Where(o => o.Estado == EstadoOrdenSeleccion.Pendiente)
+                    .OrderBy(o => o.NroOS)
+                    .Select(o => o.NroOS)
                     .ToList();
             }
         }
@@ -63,9 +61,9 @@
         {
             get
             {
-                var os = _ordenes.FirstOrDefault(o => o.Nro == _nroOsSeleccionada && o.Estado == Pendiente);
+                var os = _ordenesSeleccion.FirstOrDefault(o => o.NroOS == _nroOsSeleccionada && o.Estado == EstadoOrdenSeleccion.Pendiente);
                 if (os == null) return null;
-                return os.Nro;
+                return os.NroOS;
             }
         }
 
@@ -73,7 +71,7 @@
         // (Any: ¿hay alguna OS con ese N° en estado Pendiente?).
         public bool SeleccionarOrden(int nro)
         {
-            if (!_ordenes.Any(o => o.Nro == nro && o.Estado == Pendiente))
+            if (!_ordenesSeleccion.Any(o => o.NroOS == nro && o.Estado == EstadoOrdenSeleccion.Pendiente))
                 return false;
 
             _nroOsSeleccionada = nro;
@@ -82,14 +80,14 @@
 
         // Filas del detalle de la OS elegida, en el orden de recorrido del depósito: sector, posición y fila.
         // Busca la OS elegida (FirstOrDefault) y ordena sus líneas por sector, posición y fila (OrderBy y ThenBy).
-        public List<LineaMercaderia> Lineas
+        public List<LineaOrdenSeleccion> Detalle
         {
             get
             {
-                var os = _ordenes.FirstOrDefault(o => o.Nro == _nroOsSeleccionada && o.Estado == Pendiente);
-                if (os == null) return new List<LineaMercaderia>();
+                var os = _ordenesSeleccion.FirstOrDefault(o => o.NroOS == _nroOsSeleccionada && o.Estado == EstadoOrdenSeleccion.Pendiente);
+                if (os == null) return new List<LineaOrdenSeleccion>();
 
-                return os.Lineas
+                return os.Detalle
                     .OrderBy(l => l.Posicion.Sector)
                     .ThenBy(l => l.Posicion.Posicion)
                     .ThenBy(l => l.Posicion.Fila)
@@ -102,11 +100,11 @@
         public bool ConfirmarEntrega(int nro)
         {
             // Busca la OS si sigue Pendiente, o null si no (FirstOrDefault).
-            var os = _ordenes.FirstOrDefault(o => o.Nro == nro && o.Estado == Pendiente);
+            var os = _ordenesSeleccion.FirstOrDefault(o => o.NroOS == nro && o.Estado == EstadoOrdenSeleccion.Pendiente);
             if (os == null) return false;
 
             var stocks = new List<StockPosicion>();
-            foreach (var linea in os.Lineas)
+            foreach (var linea in os.Detalle)
             {
                 // Busca el stock de la posición y el SKU de la línea (FirstOrDefault).
                 var stock = _stock.FirstOrDefault(s => s.Posicion.Sector == linea.Posicion.Sector
@@ -117,10 +115,10 @@
                 stocks.Add(stock);
             }
 
-            for (int i = 0; i < os.Lineas.Count; i++)
-                stocks[i].Cantidad -= os.Lineas[i].Cantidad;
+            for (int i = 0; i < os.Detalle.Count; i++)
+                stocks[i].Cantidad -= os.Detalle[i].Cantidad;
 
-            os.Estado = Cumplida;
+            os.Estado = EstadoOrdenSeleccion.Cumplida;
             os.FechaHoraCumplida = DateTime.Now;
             if (_nroOsSeleccionada == nro)
                 _nroOsSeleccionada = null;

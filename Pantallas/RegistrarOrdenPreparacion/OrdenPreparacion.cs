@@ -9,12 +9,12 @@ namespace GrupoA.PampazonSA.AdministracionDeposito.RegistrarOrdenPreparacion
         public string Modalidad { get; set; } = "";
         public Transportista Transportista { get; set; } = new Transportista();
         public DateTime FechaRetiro { get; set; }
-        public string Estado { get; set; } = "";
-        public List<LineaOrden> Lineas { get; set; } = new List<LineaOrden>();
+        public EstadoOrdenPreparacion Estado { get; set; }
+        public List<LineaOrdenPreparacion> Lineas { get; set; } = new List<LineaOrdenPreparacion>();
     }
 
     // Fila de "Productos a preparar".
-    internal class LineaOrden
+    internal class LineaOrdenPreparacion
     {
         public string Sku { get; set; } = "";
         public string Descripcion { get; set; } = "";

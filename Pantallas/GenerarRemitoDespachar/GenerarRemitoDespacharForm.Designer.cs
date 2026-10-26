@@ -69,7 +69,7 @@
             btnBuscarOrdenes.TabIndex = 5;
             btnBuscarOrdenes.Text = "Buscar órdenes";
             btnBuscarOrdenes.UseVisualStyleBackColor = true;
-            btnBuscarOrdenes.Click += button1_Click;
+            btnBuscarOrdenes.Click += btnBuscarOrdenes_Click;
             // 
             // lblNombreTransportista
             // 

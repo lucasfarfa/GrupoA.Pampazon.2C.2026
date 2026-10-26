@@ -3,7 +3,7 @@ namespace GrupoA.PampazonSA.AdministracionDeposito.GenerarOrdenEntrega
     internal class OrdenEntrega
     {
         public int NroOE { get; set; }
-        public string Estado { get; set; } = "";
+        public EstadoOrdenEntrega Estado { get; set; }
         public string Deposito { get; set; } = "";
         public DateTime FechaEmision { get; set; }
         public string Cliente { get; set; } = "";

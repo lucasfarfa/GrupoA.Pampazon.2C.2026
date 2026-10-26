@@ -1,6 +1,6 @@
-namespace GrupoA.PampazonSA.AdministracionDeposito.CU04EmpaquetarProductos
+namespace GrupoA.PampazonSA.AdministracionDeposito.EmpaquetarProductos
 {
-    internal class ProductoOrden
+    internal class LineaOrdenPreparacion
     {
         public string Sku { get; set; } = "";
         public string Descripcion { get; set; } = "";

@@ -6,12 +6,12 @@ namespace GrupoA.PampazonSA.AdministracionDeposito.GenerarOrdenSeleccion
         public string Cliente { get; set; } = "";
         public DateTime FechaRecepcion { get; set; }
         public string Modalidad { get; set; } = "";
-        public string Estado { get; set; } = "";
-        public List<LineaProducto> Productos { get; set; } = new List<LineaProducto>();
+        public EstadoOrdenPreparacion Estado { get; set; }
+        public List<LineaOrdenPreparacion> Lineas { get; set; } = new List<LineaOrdenPreparacion>();
     }
 
     // Línea de mercadería de una OP; también es la fila del "Resumen consolidado de productos".
-    internal class LineaProducto
+    internal class LineaOrdenPreparacion
     {
         public string Sku { get; set; } = "";
         public int Cantidad { get; set; }

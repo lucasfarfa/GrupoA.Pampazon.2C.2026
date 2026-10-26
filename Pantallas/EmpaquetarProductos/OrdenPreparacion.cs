@@ -1,4 +1,4 @@
-namespace GrupoA.PampazonSA.AdministracionDeposito.CU04EmpaquetarProductos
+namespace GrupoA.PampazonSA.AdministracionDeposito.EmpaquetarProductos
 {
     internal class OrdenPreparacion
     {
@@ -6,8 +6,8 @@ namespace GrupoA.PampazonSA.AdministracionDeposito.CU04EmpaquetarProductos
         public DateTime FechaRecepcion { get; set; }
         public string Modalidad { get; set; } = "";
         public int NroOS { get; set; }
-        public string Estado { get; set; } = "";
-        public List<ProductoOrden> Productos { get; set; } = new List<ProductoOrden>();
+        public EstadoOrdenPreparacion Estado { get; set; }
+        public List<LineaOrdenPreparacion> Lineas { get; set; } = new List<LineaOrdenPreparacion>();
         public int Bultos { get; set; }
         public DateTime? FechaEmpaquetado { get; set; }
     }

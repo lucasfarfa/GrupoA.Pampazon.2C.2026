@@ -1,45 +1,41 @@
-namespace GrupoA.PampazonSA.AdministracionDeposito.CU04EmpaquetarProductos
+namespace GrupoA.PampazonSA.AdministracionDeposito.EmpaquetarProductos
 {
     internal class EmpaquetarProductosModelo
     {
-        private const string EnPreparacion = "En preparación";
-        private const string Preparada = "Preparada";
-        private const string Cumplida = "Cumplida";
-        private const string Pendiente = "Pendiente";
         private const string PaletCerrado = "Palet cerrado";
         private const string Fulfillment = "Fulfillment";
 
         private List<OrdenSeleccion> _ordenesSeleccion = new List<OrdenSeleccion>
         {
-            new OrdenSeleccion { NroOS = 501, Estado = Cumplida },
-            new OrdenSeleccion { NroOS = 503, Estado = Pendiente }
+            new OrdenSeleccion { NroOS = 501, Estado = EstadoOrdenSeleccion.Cumplida },
+            new OrdenSeleccion { NroOS = 503, Estado = EstadoOrdenSeleccion.Pendiente }
         };
 
         private List<OrdenPreparacion> _ordenesPreparacion = new List<OrdenPreparacion>
         {
             new OrdenPreparacion
             {
-                NroOP = 101, FechaRecepcion = new DateTime(2026, 10, 14, 9, 0, 0), Modalidad = Fulfillment, NroOS = 501, Estado = EnPreparacion,
-                Productos = new List<ProductoOrden>
+                NroOP = 101, FechaRecepcion = new DateTime(2026, 10, 14, 9, 0, 0), Modalidad = Fulfillment, NroOS = 501, Estado = EstadoOrdenPreparacion.EnPreparacion,
+                Lineas = new List<LineaOrdenPreparacion>
                 {
-                    new ProductoOrden { Sku = "CEM-50KG", Descripcion = "Bolsa de cemento 50 kg", Cantidad = 10 }
+                    new LineaOrdenPreparacion { Sku = "CEM-50KG", Descripcion = "Bolsa de cemento 50 kg", Cantidad = 10 }
                 }
             },
             new OrdenPreparacion
             {
-                NroOP = 102, FechaRecepcion = new DateTime(2026, 10, 14, 10, 30, 0), Modalidad = Fulfillment, NroOS = 501, Estado = EnPreparacion,
-                Productos = new List<ProductoOrden>
+                NroOP = 102, FechaRecepcion = new DateTime(2026, 10, 14, 10, 30, 0), Modalidad = Fulfillment, NroOS = 501, Estado = EstadoOrdenPreparacion.EnPreparacion,
+                Lineas = new List<LineaOrdenPreparacion>
                 {
-                    new ProductoOrden { Sku = "CEM-50KG", Descripcion = "Bolsa de cemento 50 kg", Cantidad = 5 },
-                    new ProductoOrden { Sku = "CAL-25KG", Descripcion = "Bolsa de cal 25 kg", Cantidad = 3 }
+                    new LineaOrdenPreparacion { Sku = "CEM-50KG", Descripcion = "Bolsa de cemento 50 kg", Cantidad = 5 },
+                    new LineaOrdenPreparacion { Sku = "CAL-25KG", Descripcion = "Bolsa de cal 25 kg", Cantidad = 3 }
                 }
             },
             new OrdenPreparacion
             {
-                NroOP = 108, FechaRecepcion = new DateTime(2026, 10, 14, 12, 0, 0), Modalidad = Fulfillment, NroOS = 503, Estado = EnPreparacion,
-                Productos = new List<ProductoOrden>
+                NroOP = 108, FechaRecepcion = new DateTime(2026, 10, 14, 12, 0, 0), Modalidad = Fulfillment, NroOS = 503, Estado = EstadoOrdenPreparacion.EnPreparacion,
+                Lineas = new List<LineaOrdenPreparacion>
                 {
-                    new ProductoOrden { Sku = "CAL-25KG", Descripcion = "Bolsa de cal 25 kg", Cantidad = 20 }
+                    new LineaOrdenPreparacion { Sku = "CAL-25KG", Descripcion = "Bolsa de cal 25 kg", Cantidad = 20 }
                 }
             }
         };
@@ -65,7 +61,7 @@ namespace GrupoA.PampazonSA.AdministracionDeposito.CU04EmpaquetarProductos
             {
                 if (_ordenAsignada == null) return 0;
                 if (_ordenAsignada.Modalidad == PaletCerrado) return 1;
-                return _ordenAsignada.Productos.Sum(p => p.Cantidad);
+                return _ordenAsignada.Lineas.Sum(p => p.Cantidad);
             }
         }
 
@@ -75,20 +71,20 @@ namespace GrupoA.PampazonSA.AdministracionDeposito.CU04EmpaquetarProductos
         public bool AsignarSiguienteOrden(out OrdenPreparacion? orden)
         {
             orden = _ordenesPreparacion
-                .Where(op => op.Estado == EnPreparacion
-                          && _ordenesSeleccion.Any(os => os.NroOS == op.NroOS && os.Estado == Cumplida))
+                .Where(op => op.Estado == EstadoOrdenPreparacion.EnPreparacion
+                          && _ordenesSeleccion.Any(os => os.NroOS == op.NroOS && os.Estado == EstadoOrdenSeleccion.Cumplida))
                 .OrderBy(op => op.FechaRecepcion)
                 .FirstOrDefault();
             _ordenAsignada = orden;
             return orden != null;
         }
 
-        public List<ProductoOrden> ProductosAsignados
+        public List<LineaOrdenPreparacion> Lineas
         {
             get
             {
-                if (_ordenAsignada == null) return new List<ProductoOrden>();
-                return _ordenAsignada.Productos.ToList();
+                if (_ordenAsignada == null) return new List<LineaOrdenPreparacion>();
+                return _ordenAsignada.Lineas.ToList();
             }
         }
 
@@ -96,11 +92,11 @@ namespace GrupoA.PampazonSA.AdministracionDeposito.CU04EmpaquetarProductos
         public bool ConfirmarEmpaquetado(out int nroOP)
         {
             nroOP = 0;
-            if (_ordenAsignada == null || _ordenAsignada.Estado != EnPreparacion) return false;
+            if (_ordenAsignada == null || _ordenAsignada.Estado != EstadoOrdenPreparacion.EnPreparacion) return false;
 
             _ordenAsignada.Bultos = TotalBultos;
             _ordenAsignada.FechaEmpaquetado = DateTime.Now;
-            _ordenAsignada.Estado = Preparada;
+            _ordenAsignada.Estado = EstadoOrdenPreparacion.Preparada;
             nroOP = _ordenAsignada.NroOP;
             _ordenAsignada = null;
             return true;
