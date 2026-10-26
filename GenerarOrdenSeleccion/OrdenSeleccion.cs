@@ -2,11 +2,11 @@ namespace GrupoA.PampazonSA.AdministracionDeposito.GenerarOrdenSeleccion
 {
     internal class OrdenSeleccion
     {
-        public string NroOS { get; set; } = "";
+        public int NroOS { get; set; }
         public string Deposito { get; set; } = "";
         public DateTime Fecha { get; set; }
         public string Estado { get; set; } = "";
-        public List<string> NrosOP { get; set; } = new List<string>();
+        public List<int> NrosOP { get; set; } = new List<int>();
         public List<LineaOrdenSeleccion> Detalle { get; set; } = new List<LineaOrdenSeleccion>();
     }
 
