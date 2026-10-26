@@ -6,8 +6,8 @@
         public DateTime Fecha { get; set; }
         public string Cliente { get; set; } = "";
         public Transportista Transportista { get; set; } = new Transportista();
-        public List<string> NrosOE { get; set; } = new List<string>();
-        public List<string> NrosOP { get; set; } = new List<string>();
+        public List<int> NrosOE { get; set; } = new List<int>();
+        public List<int> NrosOP { get; set; } = new List<int>();
         public int TotalBultos { get; set; }
         public string Estado { get; set; } = "";
         public DateTime? FechaCumplido { get; set; }
@@ -17,6 +17,6 @@
     internal class RemitoAEmitir
     {
         public string Cliente { get; set; } = "";
-        public List<string> NrosOE { get; set; } = new List<string>();
+        public List<int> NrosOE { get; set; } = new List<int>();
     }
 }
