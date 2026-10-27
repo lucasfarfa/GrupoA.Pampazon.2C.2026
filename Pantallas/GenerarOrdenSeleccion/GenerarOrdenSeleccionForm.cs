@@ -206,7 +206,7 @@ namespace GrupoA.PampazonSA.AdministracionDeposito.GenerarOrdenSeleccion
 
             foreach (var op in _modelo.OrdenesFiltradas)
             {
-                var item = new ListViewItem(new[] { op.NroOP.ToString(), op.Cliente, op.FechaRecepcion.ToString("dd/MM/yyyy HH:mm"), TextoModalidad(op.Modalidad) });
+                var item = new ListViewItem(new[] { op.NroOP.ToString(), op.Cliente.Nombre, op.FechaRecepcion.ToString("dd/MM/yyyy HH:mm"), TextoModalidad(op.Modalidad) });
                 item.Tag = op.NroOP;
                 item.Checked = _modelo.EstaIncluida(op.NroOP);
                 OPPendientesListView.Items.Add(item);
