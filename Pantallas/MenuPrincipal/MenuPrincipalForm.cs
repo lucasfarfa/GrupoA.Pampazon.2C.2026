@@ -17,13 +17,15 @@ public partial class MenuPrincipalForm : Form
         InitializeComponent();
 
         cboDeposito.Items.AddRange(new object[] { "GBA (Gran Buenos Aires)", "ROS (Rosario)", "CBA (Córdoba)" });
-        cboDeposito.SelectedItem = "ROS (Rosario)";
+        cboDeposito.SelectedIndex = 0;
     }
 
-    // Depósito elegido en el combo; si no se eligió ninguno, ROS.
+    // Código del depósito elegido en el combo, en el mismo orden que sus ítems; "" si no hay ninguno elegido.
     private string ObtenerDeposito()
     {
-        return cboDeposito.Text.Trim() == "" ? "ROS (Rosario)" : cboDeposito.Text.Trim();
+        string[] codigos = { "GBA", "ROS", "CBA" };
+        if (cboDeposito.SelectedIndex < 0 || cboDeposito.SelectedIndex >= codigos.Length) return "";
+        return codigos[cboDeposito.SelectedIndex];
     }
 
     private void btnGenerarOrdenSeleccion_Click(object sender, EventArgs e)

@@ -8,12 +8,16 @@ namespace GrupoA.PampazonSA.AdministracionDeposito.GenerarOrdenSeleccion
         public GenerarOrdenSeleccionForm(string deposito)
         {
             InitializeComponent();
-            _modelo = new GenerarOrdenSeleccionModelo(deposito);
+            _modelo = new GenerarOrdenSeleccionModelo();
+            _modelo.SeleccionarDeposito(deposito);
         }
 
         // Muestra el depósito y todas las OP Pendientes: las fechas arrancan destildadas (CU-02, pasos 1 y 2).
         private void GenerarOrdenSeleccionForm_Load(object sender, EventArgs e)
         {
+            // No debería pasar: el menú solo ofrece depósitos válidos.
+            if (_modelo.Deposito == null) return;
+
             DepositoLbl.Text = _modelo.Deposito;
 
             comboModalidad.Items.Clear();

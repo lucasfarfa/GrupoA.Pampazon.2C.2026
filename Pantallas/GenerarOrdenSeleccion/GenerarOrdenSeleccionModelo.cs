@@ -2,15 +2,16 @@ namespace GrupoA.PampazonSA.AdministracionDeposito.GenerarOrdenSeleccion
 {
     internal class GenerarOrdenSeleccionModelo
     {
+        private List<string> _depositos = new List<string> { "GBA", "ROS", "CBA", "MDZ" };
 
-        // Fechas relativas al día de hoy para que los datos sirvan cualquier día.
+        // Todas las OP de prueba son de GBA. Fechas relativas al día de hoy para que los datos sirvan cualquier día.
         private List<OrdenPreparacion> _ordenesPreparacion = new List<OrdenPreparacion>
         {
-            new OrdenPreparacion { NroOP = 101, Cliente = "Mercadito S.A.", FechaRecepcion = DateTime.Today.AddHours(9), Modalidad = Modalidad.Fulfillment, Estado = EstadoOrdenPreparacion.Pendiente,
+            new OrdenPreparacion { Deposito = "GBA", NroOP = 101, Cliente = "Mercadito S.A.", FechaRecepcion = DateTime.Today.AddHours(9), Modalidad = Modalidad.Fulfillment, Estado = EstadoOrdenPreparacion.Pendiente,
                 Lineas = new List<LineaOrdenPreparacion> { new LineaOrdenPreparacion { Sku = "CEM-50KG", Cantidad = 10 } } },
-            new OrdenPreparacion { NroOP = 102, Cliente = "Mercadito S.A.", FechaRecepcion = DateTime.Today.AddHours(10.5), Modalidad = Modalidad.Fulfillment, Estado = EstadoOrdenPreparacion.Pendiente,
+            new OrdenPreparacion { Deposito = "GBA", NroOP = 102, Cliente = "Mercadito S.A.", FechaRecepcion = DateTime.Today.AddHours(10.5), Modalidad = Modalidad.Fulfillment, Estado = EstadoOrdenPreparacion.Pendiente,
                 Lineas = new List<LineaOrdenPreparacion> { new LineaOrdenPreparacion { Sku = "CEM-50KG", Cantidad = 5 }, new LineaOrdenPreparacion { Sku = "CAL-25KG", Cantidad = 3 } } },
-            new OrdenPreparacion { NroOP = 103, Cliente = "MundoFOX S.R.L.", FechaRecepcion = DateTime.Today.AddDays(-1).AddHours(16), Modalidad = Modalidad.PaletCerrado, Estado = EstadoOrdenPreparacion.Pendiente,
+            new OrdenPreparacion { Deposito = "GBA", NroOP = 103, Cliente = "MundoFOX S.R.L.", FechaRecepcion = DateTime.Today.AddDays(-1).AddHours(16), Modalidad = Modalidad.PaletCerrado, Estado = EstadoOrdenPreparacion.Pendiente,
                 Lineas = new List<LineaOrdenPreparacion> { new LineaOrdenPreparacion { Sku = "ZAP-0042", Cantidad = 24 } } }
         };
 
@@ -35,19 +36,24 @@ namespace GrupoA.PampazonSA.AdministracionDeposito.GenerarOrdenSeleccion
         // OP incluidas en la OS en armado.
         private List<int> _incluidas = new List<int>();
 
-        public string Deposito { get; }
+        // Depósito elegido en el menú principal; null hasta que se selecciona uno válido.
+        public string? Deposito { get; private set; }
 
-        public GenerarOrdenSeleccionModelo(string deposito)
+        // Elige el depósito con el que trabaja la pantalla. Devuelve false si el código no es uno de los depósitos.
+        public bool SeleccionarDeposito(string deposito)
         {
+            if (!_depositos.Contains(deposito)) return false;
+
             Deposito = deposito;
+            return true;
         }
 
         public int CantidadIncluidas => _incluidas.Count;
 
         public List<Modalidad> Modalidades => Enum.GetValues<Modalidad>().ToList();
 
-        // Para avisar al abrir si no hay ninguna OP Pendiente (Any: ¿hay alguna OP en estado Pendiente?).
-        public bool HayOrdenesPendientes => _ordenesPreparacion.Any(op => op.Estado == EstadoOrdenPreparacion.Pendiente);
+        // Para avisar al abrir si no hay ninguna OP Pendiente en el depósito (Any: ¿hay alguna OP en estado Pendiente?).
+        public bool HayOrdenesPendientes => OrdenesDelDeposito().Any(op => op.Estado == EstadoOrdenPreparacion.Pendiente);
 
         // Si están las dos fechas, la desde no puede ser posterior a la hasta (null = sin límite en esa fecha).
         public bool FechasValidas(DateTime? desde, DateTime? hasta)
@@ -79,14 +85,14 @@ namespace GrupoA.PampazonSA.AdministracionDeposito.GenerarOrdenSeleccion
             return true;
         }
 
-        // Filas de la grilla de OP: las Pendientes que cumplen los filtros guardados.
+        // Filas de la grilla de OP: las Pendientes del depósito que cumplen los filtros guardados.
         // Se queda con las que cumplen estado, cliente, fechas y modalidad (Where; un filtro vacío o null no filtra)
         // y las ordena por fecha de recepción (OrderBy).
         public List<OrdenPreparacion> OrdenesFiltradas
         {
             get
             {
-                return _ordenesPreparacion
+                return OrdenesDelDeposito()
                     .Where(op => op.Estado == EstadoOrdenPreparacion.Pendiente
                         && op.Cliente.Contains(_cliente, StringComparison.OrdinalIgnoreCase)
                         && (_desde == null || op.FechaRecepcion.Date >= _desde)
@@ -109,8 +115,8 @@ namespace GrupoA.PampazonSA.AdministracionDeposito.GenerarOrdenSeleccion
 
             foreach (var nro in nrosOP)
             {
-                // Busca la OP con ese número, o null si no existe (FirstOrDefault).
-                var op = _ordenesPreparacion.FirstOrDefault(o => o.NroOP == nro);
+                // Busca la OP del depósito con ese número, o null si no existe (FirstOrDefault).
+                var op = OrdenesDelDeposito().FirstOrDefault(o => o.NroOP == nro);
                 if (op == null || op.Estado != EstadoOrdenPreparacion.Pendiente)
                     return false;
             }
@@ -144,7 +150,7 @@ namespace GrupoA.PampazonSA.AdministracionDeposito.GenerarOrdenSeleccion
         {
             get
             {
-                return _ordenesPreparacion
+                return OrdenesDelDeposito()
                     .Where(op => _incluidas.Contains(op.NroOP))
                     .SelectMany(op => op.Lineas)
                     .GroupBy(p => p.Sku)
@@ -158,7 +164,7 @@ namespace GrupoA.PampazonSA.AdministracionDeposito.GenerarOrdenSeleccion
         public bool GenerarOrdenSeleccion(out int nroOS)
         {
             nroOS = 0;
-            if (_incluidas.Count == 0) return false;
+            if (Deposito == null || _incluidas.Count == 0) return false;
 
             // Si un SKU está en más de una posición, una línea por posición hasta cubrir la cantidad.
             var detalle = new List<LineaOrdenSeleccion>();
@@ -197,6 +203,12 @@ namespace GrupoA.PampazonSA.AdministracionDeposito.GenerarOrdenSeleccion
 
             _incluidas.Clear();
             return true;
+        }
+
+        // OP del depósito elegido (Where).
+        private List<OrdenPreparacion> OrdenesDelDeposito()
+        {
+            return _ordenesPreparacion.Where(op => op.Deposito == Deposito).ToList();
         }
     }
 }
