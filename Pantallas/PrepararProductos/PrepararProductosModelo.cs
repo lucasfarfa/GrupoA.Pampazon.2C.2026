@@ -96,6 +96,7 @@
         }
 
         // Registra la entrega a Preparación: la OS pasa a Cumplida y se descuenta el stock de cada posición.
+        // Devuelve false si la OS no está Pendiente o si alguna posición no tiene el SKU o no le alcanza el stock.
         // Las OP no cambian de estado: siguen En preparación hasta que se empaquetan.
         public bool ConfirmarEntrega(int nro)
         {
@@ -112,6 +113,8 @@
                                                     && s.Posicion.Fila == linea.Posicion.Fila
                                                     && s.Sku == linea.Sku);
                 if (stock == null) return false;
+                // La posición tiene que tener stock suficiente: no se descuenta nada si alguna no alcanza.
+                if (stock.Cantidad < linea.Cantidad) return false;
                 stocks.Add(stock);
             }
 
