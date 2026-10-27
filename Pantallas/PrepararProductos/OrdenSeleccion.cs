@@ -5,7 +5,7 @@ namespace GrupoA.PampazonSA.AdministracionDeposito.PrepararProductos
         public int NroOS { get; set; }
         public EstadoOrdenSeleccion Estado { get; set; }
         public List<int> NrosOP { get; set; } = new List<int>();
-        public DateTime? FechaHoraCumplida { get; set; }
+        public DateTime? FechaCumplida { get; set; }
         public List<LineaOrdenSeleccion> Lineas { get; set; } = new List<LineaOrdenSeleccion>();
     }
 

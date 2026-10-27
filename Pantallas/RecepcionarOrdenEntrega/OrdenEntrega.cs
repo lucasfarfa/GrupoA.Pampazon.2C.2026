@@ -12,7 +12,7 @@ namespace GrupoA.PampazonSA.AdministracionDeposito.RecepcionarOrdenEntrega
 
         // Dónde está la mercadería: en Preparación hasta que Despacho confirma la recepción.
         public string Ubicacion { get; set; } = "";
-        public DateTime? FechaRecepcion { get; set; }
+        public DateTime? FechaRecepcionDespacho { get; set; }
     }
 
     // OP incluida en la OE con sus bultos.

@@ -122,7 +122,7 @@
                 stocks[i].Cantidad -= os.Lineas[i].Cantidad;
 
             os.Estado = EstadoOrdenSeleccion.Cumplida;
-            os.FechaHoraCumplida = DateTime.Now;
+            os.FechaCumplida = DateTime.Now;
             if (_nroOsSeleccionada == nro)
                 _nroOsSeleccionada = null;
 

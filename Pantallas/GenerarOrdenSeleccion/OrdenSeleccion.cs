@@ -4,7 +4,7 @@ namespace GrupoA.PampazonSA.AdministracionDeposito.GenerarOrdenSeleccion
     {
         public int NroOS { get; set; }
         public string Deposito { get; set; } = "";
-        public DateTime Fecha { get; set; }
+        public DateTime FechaEmision { get; set; }
         public EstadoOrdenSeleccion Estado { get; set; }
         public List<int> NrosOP { get; set; } = new List<int>();
         public List<LineaOrdenSeleccion> Lineas { get; set; } = new List<LineaOrdenSeleccion>();

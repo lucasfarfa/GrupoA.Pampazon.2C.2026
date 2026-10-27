@@ -10,7 +10,7 @@
 
         private List<OrdenEntrega> _ordenesEntrega = new List<OrdenEntrega>
         {
-            new OrdenEntrega { NroOE = 700, Estado = EstadoOrdenEntrega.PendienteEntrega, Deposito = "GBA", Cliente = "Mercadito S.A.", Transportista = new Transportista { DNI = 24568779, NombreApellido = "Jose Gomez" }, FechaEmision = new DateTime(2026, 10, 14), Lineas = new List<LineaOrdenEntrega> { new LineaOrdenEntrega { NroOP = 109, Bultos = 5 } }, Ubicacion = Despacho, FechaRecepcion = new DateTime(2026, 10, 14) },
+            new OrdenEntrega { NroOE = 700, Estado = EstadoOrdenEntrega.PendienteEntrega, Deposito = "GBA", Cliente = "Mercadito S.A.", Transportista = new Transportista { DNI = 24568779, NombreApellido = "Jose Gomez" }, FechaEmision = new DateTime(2026, 10, 14), Lineas = new List<LineaOrdenEntrega> { new LineaOrdenEntrega { NroOP = 109, Bultos = 5 } }, Ubicacion = Despacho, FechaRecepcionDespacho = new DateTime(2026, 10, 14) },
             new OrdenEntrega { NroOE = 701, Estado = EstadoOrdenEntrega.Emitida, Deposito = "GBA", Cliente = "Mercadito S.A.", Transportista = new Transportista { DNI = 24568779, NombreApellido = "Jose Gomez" }, FechaEmision = new DateTime(2026, 10, 14), Lineas = new List<LineaOrdenEntrega> { new LineaOrdenEntrega { NroOP = 101, Bultos = 10 }, new LineaOrdenEntrega { NroOP = 102, Bultos = 8 } }, Ubicacion = Preparacion },
             new OrdenEntrega { NroOE = 702, Estado = EstadoOrdenEntrega.Emitida, Deposito = "GBA", Cliente = "MundoFOX S.R.L.", Transportista = new Transportista { DNI = 24568779, NombreApellido = "Jose Gomez" }, FechaEmision = new DateTime(2026, 10, 14), Lineas = new List<LineaOrdenEntrega> { new LineaOrdenEntrega { NroOP = 103, Bultos = 1 } }, Ubicacion = Preparacion }
         };
@@ -38,7 +38,7 @@
 
             oe.Estado = EstadoOrdenEntrega.PendienteEntrega;
             oe.Ubicacion = Despacho;
-            oe.FechaRecepcion = DateTime.Now;
+            oe.FechaRecepcionDespacho = DateTime.Now;
             return true;
         }
     }
