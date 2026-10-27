@@ -7,11 +7,11 @@ namespace GrupoA.PampazonSA.AdministracionDeposito.GenerarOrdenSeleccion
         // Todas las OP de prueba son de GBA. Fechas relativas al día de hoy para que los datos sirvan cualquier día.
         private List<OrdenPreparacion> _ordenesPreparacion = new List<OrdenPreparacion>
         {
-            new OrdenPreparacion { Deposito = "GBA", NroOP = 101, Cliente = new Cliente { Cuit = 30712345678, Nombre = "Mercadito S.A." }, FechaRecepcion = DateTime.Today.AddHours(9), Modalidad = Modalidad.Fulfillment, Estado = EstadoOrdenPreparacion.Pendiente,
+            new OrdenPreparacion { Deposito = "GBA", NroOP = 101, Cliente = new Cliente { Cuit = 30712345678, RazonSocial = "Mercadito S.A." }, FechaRecepcion = DateTime.Today.AddHours(9), Modalidad = Modalidad.Fulfillment, Estado = EstadoOrdenPreparacion.Pendiente,
                 Lineas = new List<LineaOrdenPreparacion> { new LineaOrdenPreparacion { Sku = "CEM-50KG", Cantidad = 10 } } },
-            new OrdenPreparacion { Deposito = "GBA", NroOP = 102, Cliente = new Cliente { Cuit = 30712345678, Nombre = "Mercadito S.A." }, FechaRecepcion = DateTime.Today.AddHours(10.5), Modalidad = Modalidad.Fulfillment, Estado = EstadoOrdenPreparacion.Pendiente,
+            new OrdenPreparacion { Deposito = "GBA", NroOP = 102, Cliente = new Cliente { Cuit = 30712345678, RazonSocial = "Mercadito S.A." }, FechaRecepcion = DateTime.Today.AddHours(10.5), Modalidad = Modalidad.Fulfillment, Estado = EstadoOrdenPreparacion.Pendiente,
                 Lineas = new List<LineaOrdenPreparacion> { new LineaOrdenPreparacion { Sku = "CEM-50KG", Cantidad = 5 }, new LineaOrdenPreparacion { Sku = "CAL-25KG", Cantidad = 3 } } },
-            new OrdenPreparacion { Deposito = "GBA", NroOP = 103, Cliente = new Cliente { Cuit = 30709876543, Nombre = "MundoFOX S.R.L." }, FechaRecepcion = DateTime.Today.AddDays(-1).AddHours(16), Modalidad = Modalidad.PaletCerrado, Estado = EstadoOrdenPreparacion.Pendiente,
+            new OrdenPreparacion { Deposito = "GBA", NroOP = 103, Cliente = new Cliente { Cuit = 30709876543, RazonSocial = "MundoFOX S.R.L." }, FechaRecepcion = DateTime.Today.AddDays(-1).AddHours(16), Modalidad = Modalidad.PaletCerrado, Estado = EstadoOrdenPreparacion.Pendiente,
                 Lineas = new List<LineaOrdenPreparacion> { new LineaOrdenPreparacion { Sku = "ZAP-0042", Cantidad = 24 } } }
         };
 
@@ -94,7 +94,7 @@ namespace GrupoA.PampazonSA.AdministracionDeposito.GenerarOrdenSeleccion
             {
                 return OrdenesDelDeposito()
                     .Where(op => op.Estado == EstadoOrdenPreparacion.Pendiente
-                        && op.Cliente.Nombre.Contains(_cliente, StringComparison.OrdinalIgnoreCase)
+                        && op.Cliente.RazonSocial.Contains(_cliente, StringComparison.OrdinalIgnoreCase)
                         && (_desde == null || op.FechaRecepcion.Date >= _desde)
                         && (_hasta == null || op.FechaRecepcion.Date <= _hasta)
                         && (_modalidad == null || op.Modalidad == _modalidad))
