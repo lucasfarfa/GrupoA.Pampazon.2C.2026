@@ -19,13 +19,24 @@
             new OrdenEntrega { NroOE = 705, Cliente = new Cliente { Cuit = 30705554441, Nombre = "Construcciones del Plata S.R.L." }, Lineas = new List<LineaOrdenEntrega> { new LineaOrdenEntrega { NroOP = 106, Bultos = 5 }, new LineaOrdenEntrega { NroOP = 107, Bultos = 4 } }, Transportista = new Transportista { DNI = 32321987, NombreApellido = "Daniel Baez" }, Estado = EstadoOrdenEntrega.PendienteEntrega }
         };
 
+        // OP de las OE anteriores: están En entrega hasta que se confirma la entrega del remito.
+        private List<OrdenPreparacion> _ordenesPreparacion = new List<OrdenPreparacion>
+        {
+            new OrdenPreparacion { NroOP = 101, Estado = EstadoOrdenPreparacion.EnEntrega },
+            new OrdenPreparacion { NroOP = 102, Estado = EstadoOrdenPreparacion.EnEntrega },
+            new OrdenPreparacion { NroOP = 103, Estado = EstadoOrdenPreparacion.EnEntrega },
+            new OrdenPreparacion { NroOP = 104, Estado = EstadoOrdenPreparacion.EnEntrega },
+            new OrdenPreparacion { NroOP = 105, Estado = EstadoOrdenPreparacion.EnEntrega },
+            new OrdenPreparacion { NroOP = 106, Estado = EstadoOrdenPreparacion.EnEntrega },
+            new OrdenPreparacion { NroOP = 107, Estado = EstadoOrdenPreparacion.EnEntrega },
+            new OrdenPreparacion { NroOP = 110, Estado = EstadoOrdenPreparacion.EnEntrega }
+        };
+
         private List<Remito> _remitos = new List<Remito>
         {
             new Remito { NroRemito = 410, FechaEmision = DateTime.Today.AddDays(-1), Cliente = new Cliente { Cuit = 30709876543, Nombre = "MundoFOX S.R.L." }, Transportista = new Transportista { DNI = 20562667, NombreApellido = "Alejo Cisterna" }, NrosOE = new List<int> { 710 }, NrosOP = new List<int> { 110 }, TotalBultos = 1, Estado = EstadoRemito.Emitido }
         };
 
-        // OP que pasaron a Cumplida al confirmar la entrega.
-        private List<int> _opsCumplidas = new List<int>();
         private int _ultimoNroRemito = 410;
 
         private Transportista? _transportista;   // transportista identificado con "Buscar órdenes"
@@ -212,7 +223,11 @@
                     oe.Estado = EstadoOrdenEntrega.Cumplida;
                 }
 
-                _opsCumplidas.AddRange(remito.NrosOP);
+                // Pasa a Cumplida cada OP que figura en el remito (Where).
+                foreach (var op in _ordenesPreparacion.Where(o => remito.NrosOP.Contains(o.NroOP)))
+                {
+                    op.Estado = EstadoOrdenPreparacion.Cumplida;
+                }
             }
 
             return true;
