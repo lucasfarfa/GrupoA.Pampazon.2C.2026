@@ -29,12 +29,12 @@
             }
         };
 
-        private List<StockPosicion> _stock = new List<StockPosicion>
+        private List<CantidadPosicion> _stock = new List<CantidadPosicion>
         {
-            new StockPosicion { Sku = "CEM-50KG", Posicion = new PosicionDeposito { Sector = 12, Posicion = 43, Fila = 2 }, Cantidad = 10 },
-            new StockPosicion { Sku = "CEM-50KG", Posicion = new PosicionDeposito { Sector = 12, Posicion = 44, Fila = 1 }, Cantidad = 50 },
-            new StockPosicion { Sku = "CAL-25KG", Posicion = new PosicionDeposito { Sector = 3, Posicion = 10, Fila = 1 }, Cantidad = 50 },
-            new StockPosicion { Sku = "ZAP-0042", Posicion = new PosicionDeposito { Sector = 12, Posicion = 5, Fila = 1 }, Cantidad = 100 }
+            new CantidadPosicion { Sku = "CEM-50KG", Posicion = new PosicionDeposito { Sector = 12, Posicion = 43, Fila = 2 }, Cantidad = 10 },
+            new CantidadPosicion { Sku = "CEM-50KG", Posicion = new PosicionDeposito { Sector = 12, Posicion = 44, Fila = 1 }, Cantidad = 50 },
+            new CantidadPosicion { Sku = "CAL-25KG", Posicion = new PosicionDeposito { Sector = 3, Posicion = 10, Fila = 1 }, Cantidad = 50 },
+            new CantidadPosicion { Sku = "ZAP-0042", Posicion = new PosicionDeposito { Sector = 12, Posicion = 5, Fila = 1 }, Cantidad = 100 }
         };
 
         private int? _nroOsSeleccionada;
@@ -104,7 +104,7 @@
             var os = _ordenesSeleccion.FirstOrDefault(o => o.NroOS == nro && o.Estado == EstadoOrdenSeleccion.Pendiente);
             if (os == null) return false;
 
-            var stocks = new List<StockPosicion>();
+            var stocks = new List<CantidadPosicion>();
             foreach (var linea in os.Lineas)
             {
                 // Busca el stock de la posición y el SKU de la línea (FirstOrDefault).

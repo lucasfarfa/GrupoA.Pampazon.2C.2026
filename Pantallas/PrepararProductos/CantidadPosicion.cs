@@ -1,6 +1,6 @@
 namespace GrupoA.PampazonSA.AdministracionDeposito.PrepararProductos
 {
-    internal class StockPosicion
+    internal class CantidadPosicion
     {
         public string Sku { get; set; } = "";
         public PosicionDeposito Posicion { get; set; } = new PosicionDeposito();

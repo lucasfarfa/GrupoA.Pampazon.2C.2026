@@ -1,7 +1,7 @@
 namespace GrupoA.PampazonSA.AdministracionDeposito.RegistrarOrdenPreparacion
 {
-    // Stock en almacén de un SKU de un cliente en un depósito.
-    internal class Stock
+    // Mercadería en almacén de un SKU de un cliente en un depósito.
+    internal class Mercaderia
     {
         public Cliente Cliente { get; set; } = new Cliente();
         public string Deposito { get; set; } = "";

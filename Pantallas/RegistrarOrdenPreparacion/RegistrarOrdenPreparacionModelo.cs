@@ -5,22 +5,22 @@
 
         private List<Cliente> _clientes = new List<Cliente>
         {
-            new Cliente { Cuit = 30712345678, Nombre = "Mercadito S.A." },
-            new Cliente { Cuit = 30709876543, Nombre = "MundoFOX S.R.L." },
-            new Cliente { Cuit = 30711122234, Nombre = "Ferretería Norte S.A." },
-            new Cliente { Cuit = 30705554441, Nombre = "Construcciones del Plata S.R.L." }
+            new Cliente { Cuit = 30712345678, RazonSocial = "Mercadito S.A." },
+            new Cliente { Cuit = 30709876543, RazonSocial = "MundoFOX S.R.L." },
+            new Cliente { Cuit = 30711122234, RazonSocial = "Ferretería Norte S.A." },
+            new Cliente { Cuit = 30705554441, RazonSocial = "Construcciones del Plata S.R.L." }
         };
 
         private List<string> _depositos = new List<string> { "GBA", "ROS", "CBA", "MDZ" };
 
         // Ningún cliente tiene mercadería fuera de GBA.
-        private List<Stock> _stock = new List<Stock>
+        private List<Mercaderia> _stock = new List<Mercaderia>
         {
-            new Stock { Cliente = new Cliente { Cuit = 30712345678, Nombre = "Mercadito S.A." }, Deposito = "GBA", Sku = "CEM-50KG", Descripcion = "Bolsa de cemento 50 kg", Cantidad = 60 },
-            new Stock { Cliente = new Cliente { Cuit = 30712345678, Nombre = "Mercadito S.A." }, Deposito = "GBA", Sku = "CAL-25KG", Descripcion = "Bolsa de cal 25 kg", Cantidad = 50 },
-            new Stock { Cliente = new Cliente { Cuit = 30709876543, Nombre = "MundoFOX S.R.L." }, Deposito = "GBA", Sku = "ZAP-0042", Descripcion = "Caja de zapatillas", Cantidad = 100 },
-            new Stock { Cliente = new Cliente { Cuit = 30711122234, Nombre = "Ferretería Norte S.A." }, Deposito = "GBA", Sku = "TOR-M8", Descripcion = "Caja de tornillos M8 x 100", Cantidad = 500 },
-            new Stock { Cliente = new Cliente { Cuit = 30705554441, Nombre = "Construcciones del Plata S.R.L." }, Deposito = "GBA", Sku = "ARE-25KG", Descripcion = "Bolsa de arena 25 kg", Cantidad = 800 }
+            new Mercaderia { Cliente = new Cliente { Cuit = 30712345678, RazonSocial = "Mercadito S.A." }, Deposito = "GBA", Sku = "CEM-50KG", Descripcion = "Bolsa de cemento 50 kg", Cantidad = 60 },
+            new Mercaderia { Cliente = new Cliente { Cuit = 30712345678, RazonSocial = "Mercadito S.A." }, Deposito = "GBA", Sku = "CAL-25KG", Descripcion = "Bolsa de cal 25 kg", Cantidad = 50 },
+            new Mercaderia { Cliente = new Cliente { Cuit = 30709876543, RazonSocial = "MundoFOX S.R.L." }, Deposito = "GBA", Sku = "ZAP-0042", Descripcion = "Caja de zapatillas", Cantidad = 100 },
+            new Mercaderia { Cliente = new Cliente { Cuit = 30711122234, RazonSocial = "Ferretería Norte S.A." }, Deposito = "GBA", Sku = "TOR-M8", Descripcion = "Caja de tornillos M8 x 100", Cantidad = 500 },
+            new Mercaderia { Cliente = new Cliente { Cuit = 30705554441, RazonSocial = "Construcciones del Plata S.R.L." }, Deposito = "GBA", Sku = "ARE-25KG", Descripcion = "Bolsa de arena 25 kg", Cantidad = 800 }
         };
 
         // OP Pendientes que comprometen stock: CEM-50KG 15, CAL-25KG 3 y ZAP-0042 24.
@@ -28,12 +28,12 @@
         {
             new OrdenPreparacion
             {
-                NroOP = 101, Cliente = new Cliente { Cuit = 30712345678, Nombre = "Mercadito S.A." }, Deposito = "GBA", Estado = EstadoOrdenPreparacion.Pendiente,
+                NroOP = 101, Cliente = new Cliente { Cuit = 30712345678, RazonSocial = "Mercadito S.A." }, Deposito = "GBA", Estado = EstadoOrdenPreparacion.Pendiente,
                 Lineas = new List<LineaOrdenPreparacion> { new LineaOrdenPreparacion { Sku = "CEM-50KG", Cantidad = 10 } }
             },
             new OrdenPreparacion
             {
-                NroOP = 102, Cliente = new Cliente { Cuit = 30712345678, Nombre = "Mercadito S.A." }, Deposito = "GBA", Estado = EstadoOrdenPreparacion.Pendiente,
+                NroOP = 102, Cliente = new Cliente { Cuit = 30712345678, RazonSocial = "Mercadito S.A." }, Deposito = "GBA", Estado = EstadoOrdenPreparacion.Pendiente,
                 Lineas = new List<LineaOrdenPreparacion>
                 {
                     new LineaOrdenPreparacion { Sku = "CEM-50KG", Cantidad = 5 },
@@ -42,7 +42,7 @@
             },
             new OrdenPreparacion
             {
-                NroOP = 103, Cliente = new Cliente { Cuit = 30709876543, Nombre = "MundoFOX S.R.L." }, Deposito = "GBA", Estado = EstadoOrdenPreparacion.Pendiente,
+                NroOP = 103, Cliente = new Cliente { Cuit = 30709876543, RazonSocial = "MundoFOX S.R.L." }, Deposito = "GBA", Estado = EstadoOrdenPreparacion.Pendiente,
                 Lineas = new List<LineaOrdenPreparacion> { new LineaOrdenPreparacion { Sku = "ZAP-0042", Cantidad = 24 } }
             }
         };
@@ -56,13 +56,13 @@
         private string? _sku;
         private List<LineaOrdenPreparacion> _lineas = new List<LineaOrdenPreparacion>();
 
-        public string? ClienteSeleccionado => _cliente?.Nombre;
+        public string? ClienteSeleccionado => _cliente?.RazonSocial;
         public string? DepositoSeleccionado => _deposito;
         public string? SkuSeleccionado => _sku;
         public bool HayProductos => _lineas.Count > 0;
 
         // Nombres para la lista "Cliente": de cada cliente toma solo el nombre (Select).
-        public List<string> Clientes => _clientes.Select(c => c.Nombre).ToList();
+        public List<string> Clientes => _clientes.Select(c => c.RazonSocial).ToList();
         public List<string> Depositos => _depositos.ToList();
 
         // Elige el cliente y devuelve su CUIT para mostrarlo. Cambiar el cliente vacía la lista de productos.
@@ -70,7 +70,7 @@
         {
             cuit = 0;
             // Busca el cliente con ese nombre, o null si no existe (FirstOrDefault).
-            var cliente = _clientes.FirstOrDefault(c => c.Nombre == nombre);
+            var cliente = _clientes.FirstOrDefault(c => c.RazonSocial == nombre);
             if (cliente == null) return false;
 
             _cliente = cliente;
@@ -240,7 +240,7 @@
         }
 
         // Registros de stock del cliente elegido en el depósito elegido (Where).
-        private List<Stock> StockDelCliente()
+        private List<Mercaderia> StockDelCliente()
         {
             return _stock.Where(s => s.Cliente.Cuit == _cliente?.Cuit && s.Deposito == _deposito).ToList();
         }
