@@ -3,16 +3,14 @@ namespace GrupoA.PampazonSA.AdministracionDeposito.GenerarOrdenSeleccion
     internal class GenerarOrdenSeleccionModelo
     {
 
-        private List<string> _modalidades = new List<string> { "Fulfillment", "Palet cerrado" };
-
         // Fechas relativas al día de hoy para que los datos sirvan cualquier día.
         private List<OrdenPreparacion> _ordenesPreparacion = new List<OrdenPreparacion>
         {
-            new OrdenPreparacion { NroOP = 101, Cliente = "Mercadito S.A.", FechaRecepcion = DateTime.Today.AddHours(9), Modalidad = "Fulfillment", Estado = EstadoOrdenPreparacion.Pendiente,
+            new OrdenPreparacion { NroOP = 101, Cliente = "Mercadito S.A.", FechaRecepcion = DateTime.Today.AddHours(9), Modalidad = Modalidad.Fulfillment, Estado = EstadoOrdenPreparacion.Pendiente,
                 Lineas = new List<LineaOrdenPreparacion> { new LineaOrdenPreparacion { Sku = "CEM-50KG", Cantidad = 10 } } },
-            new OrdenPreparacion { NroOP = 102, Cliente = "Mercadito S.A.", FechaRecepcion = DateTime.Today.AddHours(10.5), Modalidad = "Fulfillment", Estado = EstadoOrdenPreparacion.Pendiente,
+            new OrdenPreparacion { NroOP = 102, Cliente = "Mercadito S.A.", FechaRecepcion = DateTime.Today.AddHours(10.5), Modalidad = Modalidad.Fulfillment, Estado = EstadoOrdenPreparacion.Pendiente,
                 Lineas = new List<LineaOrdenPreparacion> { new LineaOrdenPreparacion { Sku = "CEM-50KG", Cantidad = 5 }, new LineaOrdenPreparacion { Sku = "CAL-25KG", Cantidad = 3 } } },
-            new OrdenPreparacion { NroOP = 103, Cliente = "MundoFOX S.R.L.", FechaRecepcion = DateTime.Today.AddDays(-1).AddHours(16), Modalidad = "Palet cerrado", Estado = EstadoOrdenPreparacion.Pendiente,
+            new OrdenPreparacion { NroOP = 103, Cliente = "MundoFOX S.R.L.", FechaRecepcion = DateTime.Today.AddDays(-1).AddHours(16), Modalidad = Modalidad.PaletCerrado, Estado = EstadoOrdenPreparacion.Pendiente,
                 Lineas = new List<LineaOrdenPreparacion> { new LineaOrdenPreparacion { Sku = "ZAP-0042", Cantidad = 24 } } }
         };
 
@@ -32,7 +30,7 @@ namespace GrupoA.PampazonSA.AdministracionDeposito.GenerarOrdenSeleccion
         private string _cliente = "";
         private DateTime? _desde;
         private DateTime? _hasta;
-        private string _modalidad = "";
+        private Modalidad? _modalidad;
 
         // OP incluidas en la OS en armado.
         private List<int> _incluidas = new List<int>();
@@ -46,7 +44,7 @@ namespace GrupoA.PampazonSA.AdministracionDeposito.GenerarOrdenSeleccion
 
         public int CantidadIncluidas => _incluidas.Count;
 
-        public List<string> Modalidades => _modalidades.ToList();
+        public List<Modalidad> Modalidades => Enum.GetValues<Modalidad>().ToList();
 
         // Para avisar al abrir si no hay ninguna OP Pendiente (Any: ¿hay alguna OP en estado Pendiente?).
         public bool HayOrdenesPendientes => _ordenesPreparacion.Any(op => op.Estado == EstadoOrdenPreparacion.Pendiente);
@@ -57,10 +55,10 @@ namespace GrupoA.PampazonSA.AdministracionDeposito.GenerarOrdenSeleccion
             return desde == null || hasta == null || desde.Value.Date <= hasta.Value.Date;
         }
 
-        // La modalidad vacía no filtra; si no, tiene que ser una de la lista, sin importar mayúsculas (Any: ¿coincide con alguna?).
-        public bool ModalidadValida(string modalidad)
+        // La modalidad null no filtra; si no, tiene que ser una de las definidas.
+        public bool ModalidadValida(Modalidad? modalidad)
         {
-            return modalidad == "" || _modalidades.Any(m => m.Equals(modalidad, StringComparison.OrdinalIgnoreCase));
+            return modalidad == null || Enum.IsDefined(modalidad.Value);
         }
 
         // Hay al menos una OP elegida.
@@ -70,7 +68,7 @@ namespace GrupoA.PampazonSA.AdministracionDeposito.GenerarOrdenSeleccion
         }
 
         // Guarda los filtros. Devuelve true si las fechas y la modalidad son válidas.
-        public bool Filtrar(string cliente, DateTime? desde, DateTime? hasta, string modalidad)
+        public bool Filtrar(string cliente, DateTime? desde, DateTime? hasta, Modalidad? modalidad)
         {
             if (!FechasValidas(desde, hasta) || !ModalidadValida(modalidad)) return false;
 
@@ -82,7 +80,7 @@ namespace GrupoA.PampazonSA.AdministracionDeposito.GenerarOrdenSeleccion
         }
 
         // Filas de la grilla de OP: las Pendientes que cumplen los filtros guardados.
-        // Se queda con las que cumplen estado, cliente, fechas y modalidad (Where; un filtro vacío no filtra)
+        // Se queda con las que cumplen estado, cliente, fechas y modalidad (Where; un filtro vacío o null no filtra)
         // y las ordena por fecha de recepción (OrderBy).
         public List<OrdenPreparacion> OrdenesFiltradas
         {
@@ -93,7 +91,7 @@ namespace GrupoA.PampazonSA.AdministracionDeposito.GenerarOrdenSeleccion
                         && op.Cliente.Contains(_cliente, StringComparison.OrdinalIgnoreCase)
                         && (_desde == null || op.FechaRecepcion.Date >= _desde)
                         && (_hasta == null || op.FechaRecepcion.Date <= _hasta)
-                        && (_modalidad == "" || op.Modalidad.Equals(_modalidad, StringComparison.OrdinalIgnoreCase)))
+                        && (_modalidad == null || op.Modalidad == _modalidad))
                     .OrderBy(op => op.FechaRecepcion)
                     .ToList();
             }

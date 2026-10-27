@@ -29,10 +29,16 @@ namespace GrupoA.PampazonSA.AdministracionDeposito.EmpaquetarProductos
             }
 
             lblNroOrden.Text = orden.NroOP.ToString();
-            lblModalidad.Text = orden.Modalidad;
+            lblModalidad.Text = TextoModalidad(orden.Modalidad);
             lblTotalBultos.Text = _modelo.TotalBultos.ToString();
             btnEmpaquetar.Enabled = true;
             RefrescarListas();
+        }
+
+        // Texto con que se muestra la modalidad.
+        private string TextoModalidad(Modalidad modalidad)
+        {
+            return modalidad == Modalidad.PaletCerrado ? "Palet cerrado" : "Fulfillment";
         }
 
         // Vuelve a cargar los productos de la OP asignada con lo que tiene el modelo.

@@ -17,7 +17,8 @@ namespace GrupoA.PampazonSA.AdministracionDeposito.GenerarOrdenSeleccion
             DepositoLbl.Text = _modelo.Deposito;
 
             comboModalidad.Items.Clear();
-            comboModalidad.Items.AddRange(_modelo.Modalidades.ToArray());
+            foreach (var modalidad in _modelo.Modalidades)
+                comboModalidad.Items.Add(TextoModalidad(modalidad));
 
             dtpFechaDesde.Value = DateTime.Today;
             dtpFechaDesde.Checked = false;
@@ -30,7 +31,7 @@ namespace GrupoA.PampazonSA.AdministracionDeposito.GenerarOrdenSeleccion
                 return;
             }
 
-            if (!_modelo.Filtrar("", null, null, "")) return;
+            if (!_modelo.Filtrar("", null, null, null)) return;
             RefrescarListas();
         }
 
@@ -38,13 +39,18 @@ namespace GrupoA.PampazonSA.AdministracionDeposito.GenerarOrdenSeleccion
         private void btnBuscar_Click(object sender, EventArgs e)
         {
             string cliente = txtCliente.Text.Trim();
-            string modalidad = comboModalidad.Text.Trim();
             DateTime? desde = dtpFechaDesde.Checked ? dtpFechaDesde.Value.Date : null;
             DateTime? hasta = dtpFechaHasta.Checked ? dtpFechaHasta.Value.Date : null;
 
             if (!_modelo.FechasValidas(desde, hasta))
             {
                 MessageBox.Show("La fecha desde no puede ser posterior a la fecha hasta", Text);
+                return;
+            }
+
+            if (!ConvertirModalidad(comboModalidad.Text.Trim(), out Modalidad? modalidad))
+            {
+                MessageBox.Show("Modalidad inválida", Text);
                 return;
             }
 
@@ -73,7 +79,7 @@ namespace GrupoA.PampazonSA.AdministracionDeposito.GenerarOrdenSeleccion
             dtpFechaHasta.Value = DateTime.Today;
             dtpFechaHasta.Checked = false;
 
-            if (!_modelo.Filtrar("", null, null, "")) return;
+            if (!_modelo.Filtrar("", null, null, null)) return;
             RefrescarListas();
         }
 
@@ -165,6 +171,29 @@ namespace GrupoA.PampazonSA.AdministracionDeposito.GenerarOrdenSeleccion
             RefrescarListas();
         }
 
+        // Convierte el texto del combo a la modalidad, sin importar mayúsculas; vacío no filtra (null).
+        // Devuelve false si no coincide con ninguna.
+        private bool ConvertirModalidad(string texto, out Modalidad? modalidad)
+        {
+            modalidad = null;
+            if (texto == "") return true;
+            foreach (var m in _modelo.Modalidades)
+            {
+                if (TextoModalidad(m).Equals(texto, StringComparison.OrdinalIgnoreCase))
+                {
+                    modalidad = m;
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        // Texto con que se muestra la modalidad.
+        private string TextoModalidad(Modalidad modalidad)
+        {
+            return modalidad == Modalidad.PaletCerrado ? "Palet cerrado" : "Fulfillment";
+        }
+
         // Vuelve a cargar la grilla de OP y el resumen consolidado con lo que tiene el modelo.
         private void RefrescarListas()
         {
@@ -173,7 +202,7 @@ namespace GrupoA.PampazonSA.AdministracionDeposito.GenerarOrdenSeleccion
 
             foreach (var op in _modelo.OrdenesFiltradas)
             {
-                var item = new ListViewItem(new[] { op.NroOP.ToString(), op.Cliente, op.FechaRecepcion.ToString("dd/MM/yyyy HH:mm"), op.Modalidad });
+                var item = new ListViewItem(new[] { op.NroOP.ToString(), op.Cliente, op.FechaRecepcion.ToString("dd/MM/yyyy HH:mm"), TextoModalidad(op.Modalidad) });
                 item.Tag = op.NroOP;
                 item.Checked = _modelo.EstaIncluida(op.NroOP);
                 OPPendientesListView.Items.Add(item);
