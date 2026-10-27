@@ -3,6 +3,7 @@ namespace GrupoA.PampazonSA.AdministracionDeposito.GenerarOrdenSeleccion
     internal class OrdenPreparacion
     {
         public int NroOP { get; set; }
+        public string Deposito { get; set; } = "";
         public string Cliente { get; set; } = "";
         public DateTime FechaRecepcion { get; set; }
         public Modalidad Modalidad { get; set; }
