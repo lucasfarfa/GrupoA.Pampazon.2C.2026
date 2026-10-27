@@ -6,7 +6,7 @@ namespace GrupoA.PampazonSA.AdministracionDeposito.GenerarOrdenEntrega
         public EstadoOrdenEntrega Estado { get; set; }
         public string Deposito { get; set; } = "";
         public DateTime FechaEmision { get; set; }
-        public string Cliente { get; set; } = "";
+        public Cliente Cliente { get; set; } = new Cliente();
         public Transportista Transportista { get; set; } = new Transportista();
         public DateTime FechaRetiro { get; set; }
         public List<LineaOrdenEntrega> Lineas { get; set; } = new List<LineaOrdenEntrega>();

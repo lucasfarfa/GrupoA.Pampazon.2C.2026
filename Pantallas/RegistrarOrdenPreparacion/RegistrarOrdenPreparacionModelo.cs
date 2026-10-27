@@ -201,15 +201,15 @@
         }
 
         // La modalidad es Fulfillment o Palet cerrado.
-        public bool ModalidadValida(string modalidad)
+        public bool ModalidadValida(Modalidad modalidad)
         {
-            return modalidad == "Fulfillment" || modalidad == "Palet cerrado";
+            return Enum.IsDefined(modalidad);
         }
 
         // Registra la OP Pendiente con los productos cargados; al quedar Pendiente compromete su stock (CU-01, pasos 27 y 28).
         // Devuelve true si hay cliente, depósito y productos, y la modalidad y los datos del transportista y del retiro son válidos.
         // Deja el modelo vacío para una nueva orden.
-        public bool Registrar(string modalidad, int dni, string nombreTransportista, DateTime fechaRetiro, out int nroOP)
+        public bool Registrar(Modalidad modalidad, int dni, string nombreTransportista, DateTime fechaRetiro, out int nroOP)
         {
             nroOP = 0;
             if (_cliente == null || _deposito == null || _lineas.Count == 0) return false;

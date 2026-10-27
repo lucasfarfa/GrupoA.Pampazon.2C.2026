@@ -4,7 +4,7 @@ namespace GrupoA.PampazonSA.AdministracionDeposito.EmpaquetarProductos
     {
         public int NroOP { get; set; }
         public DateTime FechaRecepcion { get; set; }
-        public string Modalidad { get; set; } = "";
+        public Modalidad Modalidad { get; set; }
         public int NroOS { get; set; }
         public EstadoOrdenPreparacion Estado { get; set; }
         public List<LineaOrdenPreparacion> Lineas { get; set; } = new List<LineaOrdenPreparacion>();

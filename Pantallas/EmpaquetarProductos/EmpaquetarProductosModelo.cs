@@ -2,9 +2,6 @@ namespace GrupoA.PampazonSA.AdministracionDeposito.EmpaquetarProductos
 {
     internal class EmpaquetarProductosModelo
     {
-        private const string PaletCerrado = "Palet cerrado";
-        private const string Fulfillment = "Fulfillment";
-
         private List<OrdenSeleccion> _ordenesSeleccion = new List<OrdenSeleccion>
         {
             new OrdenSeleccion { NroOS = 501, Estado = EstadoOrdenSeleccion.Cumplida },
@@ -15,7 +12,7 @@ namespace GrupoA.PampazonSA.AdministracionDeposito.EmpaquetarProductos
         {
             new OrdenPreparacion
             {
-                NroOP = 101, FechaRecepcion = new DateTime(2026, 10, 14, 9, 0, 0), Modalidad = Fulfillment, NroOS = 501, Estado = EstadoOrdenPreparacion.EnPreparacion,
+                NroOP = 101, FechaRecepcion = new DateTime(2026, 10, 14, 9, 0, 0), Modalidad = Modalidad.Fulfillment, NroOS = 501, Estado = EstadoOrdenPreparacion.EnPreparacion,
                 Lineas = new List<LineaOrdenPreparacion>
                 {
                     new LineaOrdenPreparacion { Sku = "CEM-50KG", Descripcion = "Bolsa de cemento 50 kg", Cantidad = 10 }
@@ -23,7 +20,7 @@ namespace GrupoA.PampazonSA.AdministracionDeposito.EmpaquetarProductos
             },
             new OrdenPreparacion
             {
-                NroOP = 102, FechaRecepcion = new DateTime(2026, 10, 14, 10, 30, 0), Modalidad = Fulfillment, NroOS = 501, Estado = EstadoOrdenPreparacion.EnPreparacion,
+                NroOP = 102, FechaRecepcion = new DateTime(2026, 10, 14, 10, 30, 0), Modalidad = Modalidad.Fulfillment, NroOS = 501, Estado = EstadoOrdenPreparacion.EnPreparacion,
                 Lineas = new List<LineaOrdenPreparacion>
                 {
                     new LineaOrdenPreparacion { Sku = "CEM-50KG", Descripcion = "Bolsa de cemento 50 kg", Cantidad = 5 },
@@ -32,7 +29,7 @@ namespace GrupoA.PampazonSA.AdministracionDeposito.EmpaquetarProductos
             },
             new OrdenPreparacion
             {
-                NroOP = 108, FechaRecepcion = new DateTime(2026, 10, 14, 12, 0, 0), Modalidad = Fulfillment, NroOS = 503, Estado = EstadoOrdenPreparacion.EnPreparacion,
+                NroOP = 108, FechaRecepcion = new DateTime(2026, 10, 14, 12, 0, 0), Modalidad = Modalidad.Fulfillment, NroOS = 503, Estado = EstadoOrdenPreparacion.EnPreparacion,
                 Lineas = new List<LineaOrdenPreparacion>
                 {
                     new LineaOrdenPreparacion { Sku = "CAL-25KG", Descripcion = "Bolsa de cal 25 kg", Cantidad = 20 }
@@ -60,7 +57,7 @@ namespace GrupoA.PampazonSA.AdministracionDeposito.EmpaquetarProductos
             get
             {
                 if (_ordenAsignada == null) return 0;
-                if (_ordenAsignada.Modalidad == PaletCerrado) return 1;
+                if (_ordenAsignada.Modalidad == Modalidad.PaletCerrado) return 1;
                 return _ordenAsignada.Lineas.Sum(p => p.Cantidad);
             }
         }

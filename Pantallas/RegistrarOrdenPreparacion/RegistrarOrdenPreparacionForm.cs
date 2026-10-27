@@ -215,7 +215,7 @@ namespace GrupoA.PampazonSA.AdministracionDeposito.RegistrarOrdenPreparacion
                 return;
             }
 
-            string modalidad = rbFulfillment.Checked ? "Fulfillment" : "Palet cerrado";
+            Modalidad modalidad = rbFulfillment.Checked ? Modalidad.Fulfillment : Modalidad.PaletCerrado;
             if (!_modelo.Registrar(modalidad, dni, nombre, fechaRetiro, out int nroOP)) return;
 
             MessageBox.Show("Orden de preparación N° " + nroOP + " registrada", Text);

@@ -139,14 +139,14 @@
 
             foreach (var oe in _modelo.OrdenesPendientes)
             {
-                var item = new ListViewItem(new[] { oe.Cliente, oe.NroOE.ToString(), string.Join(", ", oe.Lineas.Select(l => l.NroOP)), oe.Lineas.Sum(l => l.Bultos).ToString() });
+                var item = new ListViewItem(new[] { oe.Cliente.Nombre, oe.NroOE.ToString(), string.Join(", ", oe.Lineas.Select(l => l.NroOP)), oe.Lineas.Sum(l => l.Bultos).ToString() });
                 item.Tag = oe.NroOE;
                 lvOEPendientesEntrega.Items.Add(item);
             }
 
             foreach (var remito in _modelo.RemitosAEmitir)
             {
-                var item = new ListViewItem(new[] { remito.Cliente, string.Join(", ", remito.NrosOE) });
+                var item = new ListViewItem(new[] { remito.Cliente.Nombre, string.Join(", ", remito.NrosOE) });
                 item.Tag = remito.NrosOE;
                 lvRemitosEmitir.Items.Add(item);
             }
