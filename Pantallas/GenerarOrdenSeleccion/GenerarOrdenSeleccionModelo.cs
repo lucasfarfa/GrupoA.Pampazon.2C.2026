@@ -185,10 +185,10 @@ namespace GrupoA.PampazonSA.AdministracionDeposito.GenerarOrdenSeleccion
             {
                 NroOS = nroOS,
                 Deposito = Deposito,
-                Fecha = DateTime.Now,
+                FechaEmision = DateTime.Now,
                 Estado = EstadoOrdenSeleccion.Pendiente,
                 NrosOP = _incluidas.ToList(),
-                Detalle = detalle
+                Lineas = detalle
             });
 
             // Pasa a En preparación las OP incluidas en la OS (Where).

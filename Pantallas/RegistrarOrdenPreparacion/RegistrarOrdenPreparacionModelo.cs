@@ -5,10 +5,10 @@
 
         private List<Cliente> _clientes = new List<Cliente>
         {
-            new Cliente { Nombre = "Mercadito S.A.", Cuit = 30712345678 },
-            new Cliente { Nombre = "MundoFOX S.R.L.", Cuit = 30709876543 },
-            new Cliente { Nombre = "Ferretería Norte S.A.", Cuit = 30711122234 },
-            new Cliente { Nombre = "Construcciones del Plata S.R.L.", Cuit = 30705554441 }
+            new Cliente { Cuit = 30712345678, Nombre = "Mercadito S.A." },
+            new Cliente { Cuit = 30709876543, Nombre = "MundoFOX S.R.L." },
+            new Cliente { Cuit = 30711122234, Nombre = "Ferretería Norte S.A." },
+            new Cliente { Cuit = 30705554441, Nombre = "Construcciones del Plata S.R.L." }
         };
 
         private List<string> _depositos = new List<string> { "GBA", "ROS", "CBA", "MDZ" };
@@ -16,11 +16,11 @@
         // Ningún cliente tiene mercadería fuera de GBA.
         private List<Stock> _stock = new List<Stock>
         {
-            new Stock { CuitCliente = 30712345678, Deposito = "GBA", Sku = "CEM-50KG", Descripcion = "Bolsa de cemento 50 kg", Cantidad = 60 },
-            new Stock { CuitCliente = 30712345678, Deposito = "GBA", Sku = "CAL-25KG", Descripcion = "Bolsa de cal 25 kg", Cantidad = 50 },
-            new Stock { CuitCliente = 30709876543, Deposito = "GBA", Sku = "ZAP-0042", Descripcion = "Caja de zapatillas", Cantidad = 100 },
-            new Stock { CuitCliente = 30711122234, Deposito = "GBA", Sku = "TOR-M8", Descripcion = "Caja de tornillos M8 x 100", Cantidad = 500 },
-            new Stock { CuitCliente = 30705554441, Deposito = "GBA", Sku = "ARE-25KG", Descripcion = "Bolsa de arena 25 kg", Cantidad = 800 }
+            new Stock { Cliente = new Cliente { Cuit = 30712345678, Nombre = "Mercadito S.A." }, Deposito = "GBA", Sku = "CEM-50KG", Descripcion = "Bolsa de cemento 50 kg", Cantidad = 60 },
+            new Stock { Cliente = new Cliente { Cuit = 30712345678, Nombre = "Mercadito S.A." }, Deposito = "GBA", Sku = "CAL-25KG", Descripcion = "Bolsa de cal 25 kg", Cantidad = 50 },
+            new Stock { Cliente = new Cliente { Cuit = 30709876543, Nombre = "MundoFOX S.R.L." }, Deposito = "GBA", Sku = "ZAP-0042", Descripcion = "Caja de zapatillas", Cantidad = 100 },
+            new Stock { Cliente = new Cliente { Cuit = 30711122234, Nombre = "Ferretería Norte S.A." }, Deposito = "GBA", Sku = "TOR-M8", Descripcion = "Caja de tornillos M8 x 100", Cantidad = 500 },
+            new Stock { Cliente = new Cliente { Cuit = 30705554441, Nombre = "Construcciones del Plata S.R.L." }, Deposito = "GBA", Sku = "ARE-25KG", Descripcion = "Bolsa de arena 25 kg", Cantidad = 800 }
         };
 
         // OP Pendientes que comprometen stock: CEM-50KG 15, CAL-25KG 3 y ZAP-0042 24.
@@ -28,12 +28,12 @@
         {
             new OrdenPreparacion
             {
-                NroOP = 101, CuitCliente = 30712345678, Deposito = "GBA", Estado = EstadoOrdenPreparacion.Pendiente,
+                NroOP = 101, Cliente = new Cliente { Cuit = 30712345678, Nombre = "Mercadito S.A." }, Deposito = "GBA", Estado = EstadoOrdenPreparacion.Pendiente,
                 Lineas = new List<LineaOrdenPreparacion> { new LineaOrdenPreparacion { Sku = "CEM-50KG", Cantidad = 10 } }
             },
             new OrdenPreparacion
             {
-                NroOP = 102, CuitCliente = 30712345678, Deposito = "GBA", Estado = EstadoOrdenPreparacion.Pendiente,
+                NroOP = 102, Cliente = new Cliente { Cuit = 30712345678, Nombre = "Mercadito S.A." }, Deposito = "GBA", Estado = EstadoOrdenPreparacion.Pendiente,
                 Lineas = new List<LineaOrdenPreparacion>
                 {
                     new LineaOrdenPreparacion { Sku = "CEM-50KG", Cantidad = 5 },
@@ -42,7 +42,7 @@
             },
             new OrdenPreparacion
             {
-                NroOP = 103, CuitCliente = 30709876543, Deposito = "GBA", Estado = EstadoOrdenPreparacion.Pendiente,
+                NroOP = 103, Cliente = new Cliente { Cuit = 30709876543, Nombre = "MundoFOX S.R.L." }, Deposito = "GBA", Estado = EstadoOrdenPreparacion.Pendiente,
                 Lineas = new List<LineaOrdenPreparacion> { new LineaOrdenPreparacion { Sku = "ZAP-0042", Cantidad = 24 } }
             }
         };
@@ -117,7 +117,7 @@
                 // De las OP Pendientes del cliente en el depósito (Where) junta todas sus líneas (SelectMany),
                 // se queda con las del SKU elegido (Where) y suma sus cantidades (Sum).
                 int comprometido = _ordenesPreparacion
-                    .Where(o => o.CuitCliente == stock.CuitCliente && o.Deposito == stock.Deposito && o.Estado == EstadoOrdenPreparacion.Pendiente)
+                    .Where(o => o.Cliente.Cuit == stock.Cliente.Cuit && o.Deposito == stock.Deposito && o.Estado == EstadoOrdenPreparacion.Pendiente)
                     .SelectMany(o => o.Lineas)
                     .Where(l => l.Sku == _sku)
                     .Sum(l => l.Cantidad);
@@ -223,7 +223,7 @@
             {
                 NroOP = nroOP,
                 FechaRecepcion = DateTime.Now,
-                CuitCliente = _cliente.Cuit,
+                Cliente = _cliente,
                 Deposito = _deposito,
                 Modalidad = modalidad,
                 Transportista = new Transportista { DNI = dni, NombreApellido = nombreTransportista },
@@ -242,7 +242,7 @@
         // Registros de stock del cliente elegido en el depósito elegido (Where).
         private List<Stock> StockDelCliente()
         {
-            return _stock.Where(s => s.CuitCliente == _cliente?.Cuit && s.Deposito == _deposito).ToList();
+            return _stock.Where(s => s.Cliente.Cuit == _cliente?.Cuit && s.Deposito == _deposito).ToList();
         }
     }
 }

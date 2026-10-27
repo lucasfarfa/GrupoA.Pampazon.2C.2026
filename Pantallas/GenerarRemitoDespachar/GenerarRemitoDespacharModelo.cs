@@ -21,7 +21,7 @@
 
         private List<Remito> _remitos = new List<Remito>
         {
-            new Remito { NroRemito = 410, Fecha = DateTime.Today.AddDays(-1), Cliente = new Cliente { Cuit = 30709876543, Nombre = "MundoFOX S.R.L." }, Transportista = new Transportista { DNI = 20562667, NombreApellido = "Alejo Cisterna" }, NrosOE = new List<int> { 710 }, NrosOP = new List<int> { 110 }, TotalBultos = 1, Estado = EstadoRemito.Emitido }
+            new Remito { NroRemito = 410, FechaEmision = DateTime.Today.AddDays(-1), Cliente = new Cliente { Cuit = 30709876543, Nombre = "MundoFOX S.R.L." }, Transportista = new Transportista { DNI = 20562667, NombreApellido = "Alejo Cisterna" }, NrosOE = new List<int> { 710 }, NrosOP = new List<int> { 110 }, TotalBultos = 1, Estado = EstadoRemito.Emitido }
         };
 
         // OP que pasaron a Cumplida al confirmar la entrega.
@@ -157,7 +157,7 @@
                 _remitos.Add(new Remito
                 {
                     NroRemito = _ultimoNroRemito,
-                    Fecha = DateTime.Now,
+                    FechaEmision = DateTime.Now,
                     // El cliente es el mismo en todo el grupo: se toma de la primera OE (First).
                     Cliente = grupo.First().Cliente,
                     Transportista = _transportista,
@@ -204,7 +204,7 @@
             foreach (var remito in remitos)
             {
                 remito.Estado = EstadoRemito.Cumplido;
-                remito.FechaCumplido = DateTime.Now;
+                remito.FechaCumplida = DateTime.Now;
 
                 // Pasa a Cumplida cada OE que figura en el remito (Where).
                 foreach (var oe in _ordenesEntrega.Where(o => remito.NrosOE.Contains(o.NroOE)))

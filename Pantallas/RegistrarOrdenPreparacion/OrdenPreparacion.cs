@@ -4,7 +4,7 @@ namespace GrupoA.PampazonSA.AdministracionDeposito.RegistrarOrdenPreparacion
     {
         public int NroOP { get; set; }
         public DateTime FechaRecepcion { get; set; }
-        public long CuitCliente { get; set; }
+        public Cliente Cliente { get; set; } = new Cliente();
         public string Deposito { get; set; } = "";
         public Modalidad Modalidad { get; set; }
         public Transportista Transportista { get; set; } = new Transportista();

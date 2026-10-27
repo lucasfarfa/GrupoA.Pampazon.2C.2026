@@ -10,7 +10,7 @@
                 NroOS = 501,
                 Estado = EstadoOrdenSeleccion.Pendiente,
                 NrosOP = new List<int> { 101, 102 },
-                Detalle =
+                Lineas =
                 {
                     new LineaOrdenSeleccion { Posicion = new PosicionDeposito { Sector = 12, Posicion = 43, Fila = 2 }, Sku = "CEM-50KG", Cantidad = 10 },
                     new LineaOrdenSeleccion { Posicion = new PosicionDeposito { Sector = 12, Posicion = 44, Fila = 1 }, Sku = "CEM-50KG", Cantidad = 5 },
@@ -22,7 +22,7 @@
                 NroOS = 502,
                 Estado = EstadoOrdenSeleccion.Pendiente,
                 NrosOP = new List<int> { 103 },
-                Detalle =
+                Lineas =
                 {
                     new LineaOrdenSeleccion { Posicion = new PosicionDeposito { Sector = 12, Posicion = 5, Fila = 1 }, Sku = "ZAP-0042", Cantidad = 24 }
                 }
@@ -80,14 +80,14 @@
 
         // Filas del detalle de la OS elegida, en el orden de recorrido del depósito: sector, posición y fila.
         // Busca la OS elegida (FirstOrDefault) y ordena sus líneas por sector, posición y fila (OrderBy y ThenBy).
-        public List<LineaOrdenSeleccion> Detalle
+        public List<LineaOrdenSeleccion> Lineas
         {
             get
             {
                 var os = _ordenesSeleccion.FirstOrDefault(o => o.NroOS == _nroOsSeleccionada && o.Estado == EstadoOrdenSeleccion.Pendiente);
                 if (os == null) return new List<LineaOrdenSeleccion>();
 
-                return os.Detalle
+                return os.Lineas
                     .OrderBy(l => l.Posicion.Sector)
                     .ThenBy(l => l.Posicion.Posicion)
                     .ThenBy(l => l.Posicion.Fila)
@@ -105,7 +105,7 @@
             if (os == null) return false;
 
             var stocks = new List<StockPosicion>();
-            foreach (var linea in os.Detalle)
+            foreach (var linea in os.Lineas)
             {
                 // Busca el stock de la posición y el SKU de la línea (FirstOrDefault).
                 var stock = _stock.FirstOrDefault(s => s.Posicion.Sector == linea.Posicion.Sector
@@ -118,11 +118,11 @@
                 stocks.Add(stock);
             }
 
-            for (int i = 0; i < os.Detalle.Count; i++)
-                stocks[i].Cantidad -= os.Detalle[i].Cantidad;
+            for (int i = 0; i < os.Lineas.Count; i++)
+                stocks[i].Cantidad -= os.Lineas[i].Cantidad;
 
             os.Estado = EstadoOrdenSeleccion.Cumplida;
-            os.FechaHoraCumplida = DateTime.Now;
+            os.FechaCumplida = DateTime.Now;
             if (_nroOsSeleccionada == nro)
                 _nroOsSeleccionada = null;
 
