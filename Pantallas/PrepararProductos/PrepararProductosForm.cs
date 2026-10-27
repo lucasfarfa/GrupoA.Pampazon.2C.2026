@@ -85,7 +85,7 @@
                 comboOrdenSeleccion.SelectedItem = _modelo.OrdenSeleccionada;
 
             listViewDetalle.Items.Clear();
-            foreach (LineaOrdenSeleccion linea in _modelo.Detalle)
+            foreach (LineaOrdenSeleccion linea in _modelo.Lineas)
             {
                 listViewDetalle.Items.Add(new ListViewItem(new[]
                 {

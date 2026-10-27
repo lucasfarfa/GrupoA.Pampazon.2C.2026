@@ -6,7 +6,7 @@ namespace GrupoA.PampazonSA.AdministracionDeposito.PrepararProductos
         public EstadoOrdenSeleccion Estado { get; set; }
         public List<int> NrosOP { get; set; } = new List<int>();
         public DateTime? FechaHoraCumplida { get; set; }
-        public List<LineaOrdenSeleccion> Detalle { get; set; } = new List<LineaOrdenSeleccion>();
+        public List<LineaOrdenSeleccion> Lineas { get; set; } = new List<LineaOrdenSeleccion>();
     }
 
     internal class LineaOrdenSeleccion

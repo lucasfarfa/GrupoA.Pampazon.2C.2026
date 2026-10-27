@@ -7,7 +7,7 @@ namespace GrupoA.PampazonSA.AdministracionDeposito.GenerarOrdenSeleccion
         public DateTime Fecha { get; set; }
         public EstadoOrdenSeleccion Estado { get; set; }
         public List<int> NrosOP { get; set; } = new List<int>();
-        public List<LineaOrdenSeleccion> Detalle { get; set; } = new List<LineaOrdenSeleccion>();
+        public List<LineaOrdenSeleccion> Lineas { get; set; } = new List<LineaOrdenSeleccion>();
     }
 
     // Mercadería a retirar: una línea por SKU y posición donde está almacenado.
