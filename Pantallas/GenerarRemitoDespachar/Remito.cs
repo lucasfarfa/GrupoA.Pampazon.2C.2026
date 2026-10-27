@@ -4,7 +4,7 @@
     {
         public int NroRemito { get; set; }
         public DateTime Fecha { get; set; }
-        public string Cliente { get; set; } = "";
+        public Cliente Cliente { get; set; } = new Cliente();
         public Transportista Transportista { get; set; } = new Transportista();
         public List<int> NrosOE { get; set; } = new List<int>();
         public List<int> NrosOP { get; set; } = new List<int>();
@@ -16,7 +16,7 @@
     // Fila de "Se emitirán los siguientes remitos": un remito por cliente.
     internal class RemitoAEmitir
     {
-        public string Cliente { get; set; } = "";
+        public Cliente Cliente { get; set; } = new Cliente();
         public List<int> NrosOE { get; set; } = new List<int>();
     }
 }

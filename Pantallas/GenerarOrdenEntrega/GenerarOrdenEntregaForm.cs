@@ -50,14 +50,14 @@
             if (item.Tag == null) return;
             GrupoOrdenes grupo = (GrupoOrdenes)item.Tag;
 
-            if (MessageBox.Show("¿Confirma la orden de entrega para " + grupo.Cliente + ", transportista " + grupo.Transportista.NombreApellido +
+            if (MessageBox.Show("¿Confirma la orden de entrega para " + grupo.Cliente.Nombre + ", transportista " + grupo.Transportista.NombreApellido +
                     ", retiro " + grupo.FechaRetiro.ToString("dd/MM/yyyy") + ", con " + grupo.CantidadOP + " OP?", Text,
                     MessageBoxButtons.OKCancel, MessageBoxIcon.Question) != DialogResult.OK)
             {
                 return;
             }
 
-            if (!_modelo.GenerarOrdenEntrega(grupo.Cliente, grupo.Transportista.DNI, grupo.FechaRetiro, out int nroOE)) return;
+            if (!_modelo.GenerarOrdenEntrega(grupo.Cliente.Cuit, grupo.Transportista.DNI, grupo.FechaRetiro, out int nroOE)) return;
 
             MessageBox.Show("Orden de entrega N° " + nroOE + " generada", Text);
             RefrescarListas();
@@ -70,7 +70,7 @@
 
             foreach (var grupo in _modelo.Grupos)
             {
-                var item = new ListViewItem(new[] { grupo.Cliente, grupo.Transportista.NombreApellido, grupo.FechaRetiro.ToString("dd/MM/yyyy"), grupo.CantidadOP.ToString() });
+                var item = new ListViewItem(new[] { grupo.Cliente.Nombre, grupo.Transportista.NombreApellido, grupo.FechaRetiro.ToString("dd/MM/yyyy"), grupo.CantidadOP.ToString() });
                 item.Tag = grupo;
                 lvPendientes.Items.Add(item);
             }

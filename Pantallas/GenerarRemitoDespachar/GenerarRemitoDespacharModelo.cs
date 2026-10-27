@@ -11,17 +11,17 @@
 
         private List<OrdenEntrega> _ordenesEntrega = new List<OrdenEntrega>
         {
-            new OrdenEntrega { NroOE = 701, Cliente = "Mercadito S.A.", Lineas = new List<LineaOrdenEntrega> { new LineaOrdenEntrega { NroOP = 101, Bultos = 10 }, new LineaOrdenEntrega { NroOP = 102, Bultos = 8 } }, Transportista = new Transportista { DNI = 24568779, NombreApellido = "Jose Gomez" }, Estado = EstadoOrdenEntrega.PendienteEntrega },
-            new OrdenEntrega { NroOE = 704, Cliente = "Mercadito S.A.", Lineas = new List<LineaOrdenEntrega> { new LineaOrdenEntrega { NroOP = 105, Bultos = 10 } }, Transportista = new Transportista { DNI = 24568779, NombreApellido = "Jose Gomez" }, Estado = EstadoOrdenEntrega.PendienteEntrega },
-            new OrdenEntrega { NroOE = 702, Cliente = "MundoFOX S.R.L.", Lineas = new List<LineaOrdenEntrega> { new LineaOrdenEntrega { NroOP = 103, Bultos = 1 } }, Transportista = new Transportista { DNI = 24568779, NombreApellido = "Jose Gomez" }, Estado = EstadoOrdenEntrega.PendienteEntrega },
-            new OrdenEntrega { NroOE = 710, Cliente = "MundoFOX S.R.L.", Lineas = new List<LineaOrdenEntrega> { new LineaOrdenEntrega { NroOP = 110, Bultos = 1 } }, Transportista = new Transportista { DNI = 20562667, NombreApellido = "Alejo Cisterna" }, Estado = EstadoOrdenEntrega.RemitoEmitido },
-            new OrdenEntrega { NroOE = 703, Cliente = "Ferretería Norte S.A.", Lineas = new List<LineaOrdenEntrega> { new LineaOrdenEntrega { NroOP = 104, Bultos = 30 } }, Transportista = new Transportista { DNI = 32321987, NombreApellido = "Daniel Baez" }, Estado = EstadoOrdenEntrega.PendienteEntrega },
-            new OrdenEntrega { NroOE = 705, Cliente = "Construcciones del Plata S.R.L.", Lineas = new List<LineaOrdenEntrega> { new LineaOrdenEntrega { NroOP = 106, Bultos = 5 }, new LineaOrdenEntrega { NroOP = 107, Bultos = 4 } }, Transportista = new Transportista { DNI = 32321987, NombreApellido = "Daniel Baez" }, Estado = EstadoOrdenEntrega.PendienteEntrega }
+            new OrdenEntrega { NroOE = 701, Cliente = new Cliente { Cuit = 30712345678, Nombre = "Mercadito S.A." }, Lineas = new List<LineaOrdenEntrega> { new LineaOrdenEntrega { NroOP = 101, Bultos = 10 }, new LineaOrdenEntrega { NroOP = 102, Bultos = 8 } }, Transportista = new Transportista { DNI = 24568779, NombreApellido = "Jose Gomez" }, Estado = EstadoOrdenEntrega.PendienteEntrega },
+            new OrdenEntrega { NroOE = 704, Cliente = new Cliente { Cuit = 30712345678, Nombre = "Mercadito S.A." }, Lineas = new List<LineaOrdenEntrega> { new LineaOrdenEntrega { NroOP = 105, Bultos = 10 } }, Transportista = new Transportista { DNI = 24568779, NombreApellido = "Jose Gomez" }, Estado = EstadoOrdenEntrega.PendienteEntrega },
+            new OrdenEntrega { NroOE = 702, Cliente = new Cliente { Cuit = 30709876543, Nombre = "MundoFOX S.R.L." }, Lineas = new List<LineaOrdenEntrega> { new LineaOrdenEntrega { NroOP = 103, Bultos = 1 } }, Transportista = new Transportista { DNI = 24568779, NombreApellido = "Jose Gomez" }, Estado = EstadoOrdenEntrega.PendienteEntrega },
+            new OrdenEntrega { NroOE = 710, Cliente = new Cliente { Cuit = 30709876543, Nombre = "MundoFOX S.R.L." }, Lineas = new List<LineaOrdenEntrega> { new LineaOrdenEntrega { NroOP = 110, Bultos = 1 } }, Transportista = new Transportista { DNI = 20562667, NombreApellido = "Alejo Cisterna" }, Estado = EstadoOrdenEntrega.RemitoEmitido },
+            new OrdenEntrega { NroOE = 703, Cliente = new Cliente { Cuit = 30711122234, Nombre = "Ferretería Norte S.A." }, Lineas = new List<LineaOrdenEntrega> { new LineaOrdenEntrega { NroOP = 104, Bultos = 30 } }, Transportista = new Transportista { DNI = 32321987, NombreApellido = "Daniel Baez" }, Estado = EstadoOrdenEntrega.PendienteEntrega },
+            new OrdenEntrega { NroOE = 705, Cliente = new Cliente { Cuit = 30705554441, Nombre = "Construcciones del Plata S.R.L." }, Lineas = new List<LineaOrdenEntrega> { new LineaOrdenEntrega { NroOP = 106, Bultos = 5 }, new LineaOrdenEntrega { NroOP = 107, Bultos = 4 } }, Transportista = new Transportista { DNI = 32321987, NombreApellido = "Daniel Baez" }, Estado = EstadoOrdenEntrega.PendienteEntrega }
         };
 
         private List<Remito> _remitos = new List<Remito>
         {
-            new Remito { NroRemito = 410, Fecha = DateTime.Today.AddDays(-1), Cliente = "MundoFOX S.R.L.", Transportista = new Transportista { DNI = 20562667, NombreApellido = "Alejo Cisterna" }, NrosOE = new List<int> { 710 }, NrosOP = new List<int> { 110 }, TotalBultos = 1, Estado = EstadoRemito.Emitido }
+            new Remito { NroRemito = 410, Fecha = DateTime.Today.AddDays(-1), Cliente = new Cliente { Cuit = 30709876543, Nombre = "MundoFOX S.R.L." }, Transportista = new Transportista { DNI = 20562667, NombreApellido = "Alejo Cisterna" }, NrosOE = new List<int> { 710 }, NrosOP = new List<int> { 110 }, TotalBultos = 1, Estado = EstadoRemito.Emitido }
         };
 
         // OP que pasaron a Cumplida al confirmar la entrega.
@@ -72,7 +72,7 @@
             {
                 return _ordenesEntrega
                     .Where(oe => oe.Transportista.DNI == _transportista?.DNI && oe.Estado == EstadoOrdenEntrega.PendienteEntrega && !_seleccionadas.Contains(oe.NroOE))
-                    .OrderBy(oe => oe.Cliente)
+                    .OrderBy(oe => oe.Cliente.Nombre)
                     .ThenBy(oe => oe.NroOE)
                     .ToList();
             }
@@ -119,19 +119,19 @@
         }
 
         // Filas de "Se emitirán los siguientes remitos": un remito por cliente con sus OE seleccionadas.
-        // Toma las OE seleccionadas (Where), las agrupa por cliente (GroupBy), ordena los grupos por cliente (OrderBy)
-        // y de cada grupo arma un remito con el cliente y sus N° de OE ordenados (Select).
+        // Toma las OE seleccionadas (Where), las agrupa por CUIT del cliente (GroupBy), ordena los grupos por nombre del
+        // cliente (OrderBy) y de cada grupo arma un remito con el cliente de la primera OE y sus N° de OE ordenados (Select y First).
         public List<RemitoAEmitir> RemitosAEmitir
         {
             get
             {
                 return _ordenesEntrega
                     .Where(oe => _seleccionadas.Contains(oe.NroOE))
-                    .GroupBy(oe => oe.Cliente)
-                    .OrderBy(g => g.Key)
+                    .GroupBy(oe => oe.Cliente.Cuit)
+                    .OrderBy(g => g.First().Cliente.Nombre)
                     .Select(g => new RemitoAEmitir
                     {
-                        Cliente = g.Key,
+                        Cliente = g.First().Cliente,
                         NrosOE = g.Select(oe => oe.NroOE).OrderBy(n => n).ToList()
                     })
                     .ToList();
@@ -143,11 +143,12 @@
         {
             if (_seleccionadas.Count == 0 || _transportista == null) return false;
 
-            // Agrupa las OE seleccionadas (Where) por cliente (GroupBy), ordenadas por cliente (OrderBy): cada grupo es un remito.
+            // Agrupa las OE seleccionadas (Where) por CUIT del cliente (GroupBy), ordenadas por nombre del cliente (OrderBy):
+            // cada grupo es un remito.
             var porCliente = _ordenesEntrega
                 .Where(oe => _seleccionadas.Contains(oe.NroOE))
-                .GroupBy(oe => oe.Cliente)
-                .OrderBy(g => g.Key);
+                .GroupBy(oe => oe.Cliente.Cuit)
+                .OrderBy(g => g.First().Cliente.Nombre);
 
             foreach (var grupo in porCliente)
             {
@@ -157,7 +158,8 @@
                 {
                     NroRemito = _ultimoNroRemito,
                     Fecha = DateTime.Now,
-                    Cliente = grupo.Key,
+                    // El cliente es el mismo en todo el grupo: se toma de la primera OE (First).
+                    Cliente = grupo.First().Cliente,
                     Transportista = _transportista,
                     // Lista con el N° de cada OE del grupo (Select), lista con las OP de todas las líneas de esas OE
                     // (SelectMany) y suma de los bultos de esas líneas (Sum).

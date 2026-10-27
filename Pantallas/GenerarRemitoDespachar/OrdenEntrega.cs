@@ -3,7 +3,7 @@
     internal class OrdenEntrega
     {
         public int NroOE { get; set; }
-        public string Cliente { get; set; } = "";
+        public Cliente Cliente { get; set; } = new Cliente();
         public List<LineaOrdenEntrega> Lineas { get; set; } = new List<LineaOrdenEntrega>();
         public Transportista Transportista { get; set; } = new Transportista();
         public EstadoOrdenEntrega Estado { get; set; }
