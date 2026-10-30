@@ -1,0 +1,50 @@
+[
+  {
+    "NroRemito": 408,
+    "FechaEmision": "2026-10-12",
+    "Estado": "Cumplido",
+    "NrosOE": [
+      709
+    ],
+    "FechaCumplida": "2026-10-12",
+    "CuitCliente": 30709876543,
+    "DNITransportista": 24568779,
+    "IdDeposito": "GBA"
+  },
+  {
+    "NroRemito": 409,
+    "FechaEmision": "2026-10-12",
+    "Estado": "Cumplido",
+    "NrosOE": [
+      708
+    ],
+    "FechaCumplida": "2026-10-12",
+    "CuitCliente": 30711122234,
+    "DNITransportista": 32321987,
+    "IdDeposito": "GBA"
+  },
+  {
+    "NroRemito": 410,
+    "FechaEmision": "2026-10-14",
+    "Estado": "Emitido",
+    "NrosOE": [
+      710
+    ],
+    "FechaCumplida": null,
+    "CuitCliente": 30709876543,
+    "DNITransportista": 20562667,
+    "IdDeposito": "GBA"
+  },
+  {
+    "NroRemito": 411,
+    "FechaEmision": "2026-10-14",
+    "Estado": "Emitido",
+    "NrosOE": [
+      711
+    ],
+    "FechaCumplida": null,
+    "CuitCliente": 30705554441,
+    "DNITransportista": 20562667,
+    "IdDeposito": "GBA"
+  }
+]

@@ -1,0 +1,128 @@
+[
+  {
+    "CuitCliente": 30712345678,
+    "Deposito": "GBA",
+    "Sku": "CEM-50KG",
+    "Descripcion": "Bolsa de cemento 50 kg",
+    "CantidadComprometida": 15,
+    "CantidadEnPreparacion": 12,
+    "CantidadEnDespacho": 0
+  },
+  {
+    "CuitCliente": 30712345678,
+    "Deposito": "GBA",
+    "Sku": "CAL-25KG",
+    "Descripcion": "Bolsa de cal 25 kg",
+    "CantidadComprometida": 3,
+    "CantidadEnPreparacion": 36,
+    "CantidadEnDespacho": 15
+  },
+  {
+    "CuitCliente": 30709876543,
+    "Deposito": "GBA",
+    "Sku": "ZAP-0042",
+    "Descripcion": "Caja de zapatillas",
+    "CantidadComprometida": 34,
+    "CantidadEnPreparacion": 22,
+    "CantidadEnDespacho": 10
+  },
+  {
+    "CuitCliente": 30711122234,
+    "Deposito": "GBA",
+    "Sku": "TOR-M8",
+    "Descripcion": "Caja de tornillos M8 x 100",
+    "CantidadComprometida": 30,
+    "CantidadEnPreparacion": 0,
+    "CantidadEnDespacho": 30
+  },
+  {
+    "CuitCliente": 30711122234,
+    "Deposito": "GBA",
+    "Sku": "CLA-2P",
+    "Descripcion": "Caja de clavos 2 pulgadas",
+    "CantidadComprometida": 15,
+    "CantidadEnPreparacion": 0,
+    "CantidadEnDespacho": 0
+  },
+  {
+    "CuitCliente": 30711122234,
+    "Deposito": "GBA",
+    "Sku": "CAL-25KG",
+    "Descripcion": "Bolsa de cal 25 kg",
+    "CantidadComprometida": 0,
+    "CantidadEnPreparacion": 0,
+    "CantidadEnDespacho": 0
+  },
+  {
+    "CuitCliente": 30705554441,
+    "Deposito": "GBA",
+    "Sku": "ARE-25KG",
+    "Descripcion": "Bolsa de arena 25 kg",
+    "CantidadComprometida": 0,
+    "CantidadEnPreparacion": 12,
+    "CantidadEnDespacho": 11
+  },
+  {
+    "CuitCliente": 30705554441,
+    "Deposito": "GBA",
+    "Sku": "CEM-50KG",
+    "Descripcion": "Bolsa de cemento 50 kg",
+    "CantidadComprometida": 0,
+    "CantidadEnPreparacion": 0,
+    "CantidadEnDespacho": 0
+  },
+  {
+    "CuitCliente": 30715556667,
+    "Deposito": "ROS",
+    "Sku": "ARR-1KG",
+    "Descripcion": "Paquete de arroz 1 kg",
+    "CantidadComprometida": 40,
+    "CantidadEnPreparacion": 0,
+    "CantidadEnDespacho": 0
+  },
+  {
+    "CuitCliente": 30715556667,
+    "Deposito": "ROS",
+    "Sku": "ZAP-0042",
+    "Descripcion": "Caja de zapatillas",
+    "CantidadComprometida": 8,
+    "CantidadEnPreparacion": 0,
+    "CantidadEnDespacho": 0
+  },
+  {
+    "CuitCliente": 30709876543,
+    "Deposito": "ROS",
+    "Sku": "ZAP-0042",
+    "Descripcion": "Caja de zapatillas",
+    "CantidadComprometida": 0,
+    "CantidadEnPreparacion": 0,
+    "CantidadEnDespacho": 0
+  },
+  {
+    "CuitCliente": 30716667778,
+    "Deposito": "CBA",
+    "Sku": "CEM-50KG",
+    "Descripcion": "Bolsa de cemento 50 kg",
+    "CantidadComprometida": 0,
+    "CantidadEnPreparacion": 0,
+    "CantidadEnDespacho": 0
+  },
+  {
+    "CuitCliente": 30716667778,
+    "Deposito": "CBA",
+    "Sku": "YER-1KG",
+    "Descripcion": "Paquete de yerba 1 kg",
+    "CantidadComprometida": 2,
+    "CantidadEnPreparacion": 0,
+    "CantidadEnDespacho": 0
+  },
+  {
+    "CuitCliente": 30712345678,
+    "Deposito": "CBA",
+    "Sku": "CAL-25KG",
+    "Descripcion": "Bolsa de cal 25 kg",
+    "CantidadComprometida": 0,
+    "CantidadEnPreparacion": 0,
+    "CantidadEnDespacho": 0
+  }
+]

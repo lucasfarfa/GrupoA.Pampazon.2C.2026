@@ -1,0 +1,148 @@
+[
+  {
+    "NroOE": 700,
+    "FechaEmision": "2026-10-14",
+    "Estado": "PendienteDeEntrega",
+    "NrosOP": [
+      109
+    ],
+    "FechaRecepcionDespacho": "2026-10-14",
+    "IdDeposito": "GBA",
+    "CuitCliente": 30712345678,
+    "DNITransportista": 24568779,
+    "FechaEntregaTransportista": "2026-10-17"
+  },
+  {
+    "NroOE": 701,
+    "FechaEmision": "2026-10-14",
+    "Estado": "Emitida",
+    "NrosOP": [
+      119,
+      120
+    ],
+    "FechaRecepcionDespacho": null,
+    "IdDeposito": "GBA",
+    "CuitCliente": 30712345678,
+    "DNITransportista": 24568779,
+    "FechaEntregaTransportista": "2026-10-20"
+  },
+  {
+    "NroOE": 702,
+    "FechaEmision": "2026-10-14",
+    "Estado": "Emitida",
+    "NrosOP": [
+      121
+    ],
+    "FechaRecepcionDespacho": null,
+    "IdDeposito": "GBA",
+    "CuitCliente": 30709876543,
+    "DNITransportista": 24568779,
+    "FechaEntregaTransportista": "2026-10-20"
+  },
+  {
+    "NroOE": 703,
+    "FechaEmision": "2026-10-14",
+    "Estado": "PendienteDeEntrega",
+    "NrosOP": [
+      122
+    ],
+    "FechaRecepcionDespacho": "2026-10-14",
+    "IdDeposito": "GBA",
+    "CuitCliente": 30711122234,
+    "DNITransportista": 32321987,
+    "FechaEntregaTransportista": "2026-10-16"
+  },
+  {
+    "NroOE": 704,
+    "FechaEmision": "2026-10-14",
+    "Estado": "PendienteDeEntrega",
+    "NrosOP": [
+      123
+    ],
+    "FechaRecepcionDespacho": "2026-10-14",
+    "IdDeposito": "GBA",
+    "CuitCliente": 30712345678,
+    "DNITransportista": 24568779,
+    "FechaEntregaTransportista": "2026-10-21"
+  },
+  {
+    "NroOE": 705,
+    "FechaEmision": "2026-10-14",
+    "Estado": "PendienteDeEntrega",
+    "NrosOP": [
+      124,
+      125
+    ],
+    "FechaRecepcionDespacho": "2026-10-14",
+    "IdDeposito": "GBA",
+    "CuitCliente": 30705554441,
+    "DNITransportista": 32321987,
+    "FechaEntregaTransportista": "2026-10-16"
+  },
+  {
+    "NroOE": 706,
+    "FechaEmision": "2026-10-14",
+    "Estado": "PendienteDeEntrega",
+    "NrosOP": [
+      126
+    ],
+    "FechaRecepcionDespacho": "2026-10-14",
+    "IdDeposito": "GBA",
+    "CuitCliente": 30709876543,
+    "DNITransportista": 24568779,
+    "FechaEntregaTransportista": "2026-10-17"
+  },
+  {
+    "NroOE": 708,
+    "FechaEmision": "2026-10-10",
+    "Estado": "Cumplida",
+    "NrosOP": [
+      128,
+      129
+    ],
+    "FechaRecepcionDespacho": "2026-10-11",
+    "IdDeposito": "GBA",
+    "CuitCliente": 30711122234,
+    "DNITransportista": 32321987,
+    "FechaEntregaTransportista": "2026-10-12"
+  },
+  {
+    "NroOE": 709,
+    "FechaEmision": "2026-10-10",
+    "Estado": "Cumplida",
+    "NrosOP": [
+      130
+    ],
+    "FechaRecepcionDespacho": "2026-10-11",
+    "IdDeposito": "GBA",
+    "CuitCliente": 30709876543,
+    "DNITransportista": 24568779,
+    "FechaEntregaTransportista": "2026-10-12"
+  },
+  {
+    "NroOE": 710,
+    "FechaEmision": "2026-10-14",
+    "Estado": "RemitoEmitido",
+    "NrosOP": [
+      110
+    ],
+    "FechaRecepcionDespacho": "2026-10-14",
+    "IdDeposito": "GBA",
+    "CuitCliente": 30709876543,
+    "DNITransportista": 20562667,
+    "FechaEntregaTransportista": "2026-10-15"
+  },
+  {
+    "NroOE": 711,
+    "FechaEmision": "2026-10-14",
+    "Estado": "RemitoEmitido",
+    "NrosOP": [
+      127
+    ],
+    "FechaRecepcionDespacho": "2026-10-14",
+    "IdDeposito": "GBA",
+    "CuitCliente": 30705554441,
+    "DNITransportista": 20562667,
+    "FechaEntregaTransportista": "2026-10-15"
+  }
+]

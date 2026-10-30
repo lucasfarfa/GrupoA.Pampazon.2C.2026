@@ -1,0 +1,26 @@
+[
+  {
+    "Cuit": 30712345678,
+    "RazonSocial": "Mercadito S.A."
+  },
+  {
+    "Cuit": 30709876543,
+    "RazonSocial": "MundoFOX S.R.L."
+  },
+  {
+    "Cuit": 30711122234,
+    "RazonSocial": "Ferretería Norte S.A."
+  },
+  {
+    "Cuit": 30705554441,
+    "RazonSocial": "Construcciones del Plata S.R.L."
+  },
+  {
+    "Cuit": 30715556667,
+    "RazonSocial": "Distribuidora del Litoral S.A."
+  },
+  {
+    "Cuit": 30716667778,
+    "RazonSocial": "Almacenes de Cuyo S.R.L."
+  }
+]
