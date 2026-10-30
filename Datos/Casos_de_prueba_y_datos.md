@@ -71,7 +71,7 @@ No están en la planilla: los habilitan los datos nuevos. Si no se indica otra c
 | N.7 | Registrar OP | Depósito sin mercadería | Cualquier cliente, MDZ | Rechazo: "El cliente no tiene mercadería en el depósito seleccionado" | — |
 | N.8 | Generar OS | Filtro por depósito | Depósito ROS, sin filtro de fechas | Lista solo la OP 111 | — |
 | N.9 | Generar OS | Otro depósito | Depósito ROS, OP 111, confirma | OS registrada Pendiente: ARR-1KG 40 en 01-01-1 | Alta OS 507 Pendiente. OP 111 → En preparación |
-| N.10 | Generar OS | Depósito sin OP | Depósito MDZ | Mensaje "No hay órdenes de preparación pendientes" | — |
+| N.10 | Generar OS | Filtro por depósito | Depósito CBA, sin filtro de fechas | Lista solo la OP 112 | — |
 | N.11 | Preparar productos | Filtro por depósito | Depósito GBA | Lista OS 501 y 502. No lista la OS 506 de ROS | — |
 | N.12 | Empaquetar | Palet cerrado | OP 115 (ZAP-0042 x 12), confirma | Total bultos 1 | OP 115 → Preparada, `Bultos` 1, `FechaEmpaquetado` |
 | N.13 | Generar OE | Palet cerrado | Grupo MundoFOX · Jose Gomez · 16/10, confirma | OE con 1 OP y 1 bulto | Alta OE 712 Emitida. OP 118 → En entrega |
