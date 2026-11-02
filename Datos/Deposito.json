@@ -1,0 +1,206 @@
+[
+  {
+    "IdDeposito": "GBA",
+    "Posiciones": [
+      {
+        "Sector": 3,
+        "Posicion": 10,
+        "Fila": 1,
+        "Contenido": [
+          {
+            "CuitCliente": 30712345678,
+            "Sku": "CAL-25KG",
+            "Cantidad": 50
+          }
+        ]
+      },
+      {
+        "Sector": 3,
+        "Posicion": 11,
+        "Fila": 1,
+        "Contenido": [
+          {
+            "CuitCliente": 30711122234,
+            "Sku": "CAL-25KG",
+            "Cantidad": 5
+          },
+          {
+            "CuitCliente": 30705554441,
+            "Sku": "CEM-50KG",
+            "Cantidad": 30
+          }
+        ]
+      },
+      {
+        "Sector": 5,
+        "Posicion": 12,
+        "Fila": 1,
+        "Contenido": [
+          {
+            "CuitCliente": 30711122234,
+            "Sku": "TOR-M8",
+            "Cantidad": 500
+          }
+        ]
+      },
+      {
+        "Sector": 7,
+        "Posicion": 2,
+        "Fila": 1,
+        "Contenido": [
+          {
+            "CuitCliente": 30711122234,
+            "Sku": "CLA-2P",
+            "Cantidad": 10
+          }
+        ]
+      },
+      {
+        "Sector": 7,
+        "Posicion": 3,
+        "Fila": 1,
+        "Contenido": [
+          {
+            "CuitCliente": 30711122234,
+            "Sku": "CLA-2P",
+            "Cantidad": 20
+          }
+        ]
+      },
+      {
+        "Sector": 9,
+        "Posicion": 3,
+        "Fila": 2,
+        "Contenido": [
+          {
+            "CuitCliente": 30705554441,
+            "Sku": "ARE-25KG",
+            "Cantidad": 800
+          }
+        ]
+      },
+      {
+        "Sector": 12,
+        "Posicion": 5,
+        "Fila": 1,
+        "Contenido": [
+          {
+            "CuitCliente": 30709876543,
+            "Sku": "ZAP-0042",
+            "Cantidad": 100
+          }
+        ]
+      },
+      {
+        "Sector": 12,
+        "Posicion": 43,
+        "Fila": 2,
+        "Contenido": [
+          {
+            "CuitCliente": 30712345678,
+            "Sku": "CEM-50KG",
+            "Cantidad": 10
+          }
+        ]
+      },
+      {
+        "Sector": 12,
+        "Posicion": 44,
+        "Fila": 1,
+        "Contenido": [
+          {
+            "CuitCliente": 30712345678,
+            "Sku": "CEM-50KG",
+            "Cantidad": 50
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "IdDeposito": "ROS",
+    "Posiciones": [
+      {
+        "Sector": 1,
+        "Posicion": 1,
+        "Fila": 1,
+        "Contenido": [
+          {
+            "CuitCliente": 30715556667,
+            "Sku": "ARR-1KG",
+            "Cantidad": 200
+          }
+        ]
+      },
+      {
+        "Sector": 1,
+        "Posicion": 2,
+        "Fila": 1,
+        "Contenido": [
+          {
+            "CuitCliente": 30715556667,
+            "Sku": "ZAP-0042",
+            "Cantidad": 30
+          }
+        ]
+      },
+      {
+        "Sector": 2,
+        "Posicion": 1,
+        "Fila": 1,
+        "Contenido": [
+          {
+            "CuitCliente": 30709876543,
+            "Sku": "ZAP-0042",
+            "Cantidad": 60
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "IdDeposito": "CBA",
+    "Posiciones": [
+      {
+        "Sector": 1,
+        "Posicion": 1,
+        "Fila": 1,
+        "Contenido": [
+          {
+            "CuitCliente": 30716667778,
+            "Sku": "CEM-50KG",
+            "Cantidad": 120
+          }
+        ]
+      },
+      {
+        "Sector": 1,
+        "Posicion": 2,
+        "Fila": 1,
+        "Contenido": [
+          {
+            "CuitCliente": 30716667778,
+            "Sku": "YER-1KG",
+            "Cantidad": 3
+          }
+        ]
+      },
+      {
+        "Sector": 2,
+        "Posicion": 1,
+        "Fila": 1,
+        "Contenido": [
+          {
+            "CuitCliente": 30712345678,
+            "Sku": "CAL-25KG",
+            "Cantidad": 25
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "IdDeposito": "MDZ",
+    "Posiciones": []
+  }
+]

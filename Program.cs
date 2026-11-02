@@ -5,6 +5,7 @@ using GrupoA.PampazonSA.AdministracionDeposito.GenerarRemitoDespachar;
 using GrupoA.PampazonSA.AdministracionDeposito.PrepararProductos;
 using GrupoA.PampazonSA.AdministracionDeposito.RegistrarOrdenPreparacion;
 using GrupoA.PampazonSA.AdministracionDeposito.MenuPrincipal;
+using GrupoA.PampazonSA.AdministracionDeposito.Almacenes;
 
 namespace GrupoA.PampazonSA.AdministracionDeposito
 {
@@ -22,9 +23,15 @@ namespace GrupoA.PampazonSA.AdministracionDeposito
 
             // Inicia el menú principal por defecto
             Application.Run(new MenuPrincipalForm());
-            //Application.Run(new RegistrarOrdenPreparacionForm());
 
-
+            // Guarda todo al cerrar
+            ClienteAlmacen.Guardar();
+            DepositoAlmacen.Guardar();
+            MercaderiaAlmacen.Guardar();
+            OrdenPreparacionAlmacen.Guardar();
+            OrdenSeleccionAlmacen.Guardar();
+            OrdenEntregaAlmacen.Guardar();
+            RemitoAlmacen.Guardar();
         }
     }
 }
