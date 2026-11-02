@@ -8,13 +8,6 @@ namespace GrupoA.PampazonSA.AdministracionDeposito.Almacenes
 {
     static class RemitoAlmacen
     {
-        // Los enums se guardan con su nombre en el JSON, no con su número.
-        private static readonly JsonSerializerOptions Opciones = new JsonSerializerOptions
-        {
-            WriteIndented = true,
-            Converters = { new JsonStringEnumConverter() }
-        };
-
         // Expone una lista de RemitoEntidad
         public static List<RemitoEntidad> Remitos { get; private set; }
         static RemitoAlmacen()
@@ -23,7 +16,7 @@ namespace GrupoA.PampazonSA.AdministracionDeposito.Almacenes
             {
                 // Load
                 string contenido = File.ReadAllText(@"Datos\Remito.json");
-                Remitos = JsonSerializer.Deserialize<List<RemitoEntidad>>(contenido, Opciones) ?? new List<RemitoEntidad>();
+                Remitos = JsonSerializer.Deserialize<List<RemitoEntidad>>(contenido, new JsonSerializerOptions { Converters = { new JsonStringEnumConverter() } }) ?? new List<RemitoEntidad>();
             }
             else // no existe...
             {
@@ -34,7 +27,7 @@ namespace GrupoA.PampazonSA.AdministracionDeposito.Almacenes
 
         public static void Guardar()
         {
-            string contenido = JsonSerializer.Serialize(Remitos, Opciones);
+            string contenido = JsonSerializer.Serialize(Remitos, new JsonSerializerOptions { WriteIndented = true, Converters = { new JsonStringEnumConverter() } });
             File.WriteAllText(@"Datos\Remito.json", contenido);
         }
     }

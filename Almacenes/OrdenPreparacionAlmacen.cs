@@ -8,13 +8,6 @@ namespace GrupoA.PampazonSA.AdministracionDeposito.Almacenes
 {
     static class OrdenPreparacionAlmacen
     {
-        // Los enums se guardan con su nombre en el JSON, no con su número.
-        private static readonly JsonSerializerOptions Opciones = new JsonSerializerOptions
-        {
-            WriteIndented = true,
-            Converters = { new JsonStringEnumConverter() }
-        };
-
         // Expone una lista de OrdenPreparacionEntidad
         public static List<OrdenPreparacionEntidad> OrdenesPreparacion { get; private set; }
         static OrdenPreparacionAlmacen()
@@ -23,7 +16,7 @@ namespace GrupoA.PampazonSA.AdministracionDeposito.Almacenes
             {
                 // Load
                 string contenido = File.ReadAllText(@"Datos\OrdenPreparacion.json");
-                OrdenesPreparacion = JsonSerializer.Deserialize<List<OrdenPreparacionEntidad>>(contenido, Opciones) ?? new List<OrdenPreparacionEntidad>();
+                OrdenesPreparacion = JsonSerializer.Deserialize<List<OrdenPreparacionEntidad>>(contenido, new JsonSerializerOptions { Converters = { new JsonStringEnumConverter() } }) ?? new List<OrdenPreparacionEntidad>();
             }
             else // no existe...
             {
@@ -34,7 +27,7 @@ namespace GrupoA.PampazonSA.AdministracionDeposito.Almacenes
 
         public static void Guardar()
         {
-            string contenido = JsonSerializer.Serialize(OrdenesPreparacion, Opciones);
+            string contenido = JsonSerializer.Serialize(OrdenesPreparacion, new JsonSerializerOptions { WriteIndented = true, Converters = { new JsonStringEnumConverter() } });
             File.WriteAllText(@"Datos\OrdenPreparacion.json", contenido);
         }
     }

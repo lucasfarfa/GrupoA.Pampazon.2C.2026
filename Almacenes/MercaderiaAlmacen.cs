@@ -8,13 +8,6 @@ namespace GrupoA.PampazonSA.AdministracionDeposito.Almacenes
 {
     static class MercaderiaAlmacen
     {
-        // Los enums se guardan con su nombre en el JSON, no con su número.
-        private static readonly JsonSerializerOptions Opciones = new JsonSerializerOptions
-        {
-            WriteIndented = true,
-            Converters = { new JsonStringEnumConverter() }
-        };
-
         // Expone una lista de MercaderiaEntidad
         public static List<MercaderiaEntidad> Mercaderias { get; private set; }
         static MercaderiaAlmacen()
@@ -23,7 +16,7 @@ namespace GrupoA.PampazonSA.AdministracionDeposito.Almacenes
             {
                 // Load
                 string contenido = File.ReadAllText(@"Datos\Mercaderia.json");
-                Mercaderias = JsonSerializer.Deserialize<List<MercaderiaEntidad>>(contenido, Opciones) ?? new List<MercaderiaEntidad>();
+                Mercaderias = JsonSerializer.Deserialize<List<MercaderiaEntidad>>(contenido, new JsonSerializerOptions { Converters = { new JsonStringEnumConverter() } }) ?? new List<MercaderiaEntidad>();
             }
             else // no existe...
             {
@@ -34,7 +27,7 @@ namespace GrupoA.PampazonSA.AdministracionDeposito.Almacenes
 
         public static void Guardar()
         {
-            string contenido = JsonSerializer.Serialize(Mercaderias, Opciones);
+            string contenido = JsonSerializer.Serialize(Mercaderias, new JsonSerializerOptions { WriteIndented = true, Converters = { new JsonStringEnumConverter() } });
             File.WriteAllText(@"Datos\Mercaderia.json", contenido);
         }
     }
