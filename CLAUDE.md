@@ -9,6 +9,12 @@ cambiar.** Nombres, parámetros, tipos de retorno, propiedades públicas y
 constructores quedan exactamente como están. Los miembros privados del modelo se
 pueden cambiar libremente: son auxiliares y nadie más los ve.
 
+**PROHIBIDO pasar entidades a los formularios.** Las entidades (`*Entidad`) y los
+enums del almacén (`*Enum`) se usan solo en la parte privada del modelo. Lo que el
+modelo recibe del form o le devuelve son tipos nativos o clases de la carpeta de
+la pantalla; la conversión entre entidad y clase de la pantalla se hace en métodos
+privados del modelo (p. ej. `TraducirOrden`, `TraducirCliente`).
+
 ## RESTRICCIÓN ESTRICTA – CODIFICACIÓN FINAL TP CAI
 
 Esta restricción manda sobre cualquier otra indicación de este archivo, salvo las
