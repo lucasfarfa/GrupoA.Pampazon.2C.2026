@@ -9,12 +9,14 @@ Todas las pantallas leen el mismo juego de datos de `Datos/`. Cada OP tiene un s
 | `Cliente` | 6 | Los 4 del plan, más Distribuidora del Litoral S.A. y Almacenes de Cuyo S.R.L. |
 | `Deposito` | 4 | GBA, ROS y CBA con posiciones. MDZ sin posiciones |
 | `Mercaderia` | 14 | CEM-50KG, CAL-25KG y ZAP-0042 repetidos entre clientes. Poco stock: YER-1KG (3) y CAL-25KG de Ferretería Norte (5) |
-| `OrdenPreparacion` | 30 | 5 Pendientes, 7 En preparación, 4 Preparadas, 11 En entrega, 3 Cumplidas. GBA, ROS y CBA. Ambas modalidades |
-| `OrdenSeleccion` | 7 | 3 Pendientes (501, 502, 506) y 4 Cumplidas (500, 503, 504, 505) |
-| `OrdenEntrega` | 11 | 2 Emitidas, 5 Pendientes de entrega, 2 Remito emitido, 2 Cumplidas |
-| `Remito` | 4 | 2 Emitidos (R-410, R-411) y 2 Cumplidos (R-408, R-409) |
+| `OrdenPreparacion` | 45 | 5 Pendientes, 12 En preparación, 8 Preparadas, 17 En entrega, 3 Cumplidas. GBA, ROS y CBA. Ambas modalidades |
+| `OrdenSeleccion` | 14 | 4 Pendientes (496, 501, 502, 506) y 10 Cumplidas (491 a 493, 497 a 499, 500, 503 a 505) |
+| `OrdenEntrega` | 17 | 4 Emitidas, 7 Pendientes de entrega, 4 Remito emitido, 2 Cumplidas |
+| `Remito` | 6 | 4 Emitidos (R-405, R-406, R-410, R-411) y 2 Cumplidos (R-408, R-409) |
 
 Próximos números: OP 131, OS 507, OE 712, R-412.
+
+Los datos de ROS y CBA usan números más bajos que los de GBA (OP 083 a 097, OS 491 a 499, OE 693 a 699, R-405 y R-406) y fechas anteriores. Así los próximos números no cambian y los casos de GBA dan lo mismo que antes.
 
 ## Qué orden usa cada pantalla
 
@@ -27,6 +29,22 @@ Próximos números: OP 131, OS 507, OE 712, R-412.
 | E | Generar OE | OP 106, 107, 117 y 118 Preparadas sin OE |
 | F | Recepcionar OE | OE 701 y 702 Emitidas. OE 700 no se lista |
 | G | Remito y despacho | Jose Gomez: OE 700, 704, 706. Daniel Baez: OE 703, 705. Alejo Cisterna: R-410 y R-411. DNI 22333444: no existe |
+
+## Otros depósitos
+
+Para probar cada pantalla en ROS o CBA, elegir el depósito en el menú principal antes de abrirla. Registrar OP no usa el depósito del menú: se elige en su propio combo.
+
+| Hoja | Pantalla | ROS | CBA |
+| --- | --- | --- | --- |
+| A | Registrar OP | Distribuidora del Litoral: ARR-1KG disponible 160, ZAP-0042 disponible 22. MundoFOX: ZAP-0042 disponible 60 | Almacenes de Cuyo: CEM-50KG disponible 100, YER-1KG disponible 1. Mercadito: CAL-25KG disponible 25 |
+| B | Generar OS | OP 111 | OP 112 |
+| C | Preparar productos | OS 506 (OP 116): 01-02-1 ZAP-0042 8 | OS 496 (OP 084): 01-01-1 CEM-50KG 20 |
+| D | Empaquetar | OP 091 (Fulfillment, 20 bultos) y después 092 (Palet cerrado, 1 bulto). OS 491 Cumplida | OP 085 (Palet cerrado, 1 bulto) y después 086 (Fulfillment, 5 bultos). OS 497 Cumplida |
+| E | Generar OE | 1 fila: Distribuidora del Litoral · Alejo Cisterna · 21/10 · 2 (OP 093 y 094) | 2 filas: Almacenes de Cuyo · Daniel Baez · 22/10 · 1 (OP 087) — Mercadito · Jose Gomez · 22/10 · 1 (OP 088) |
+| F | Recepcionar OE | OE 693 (MundoFOX, OP 095) | OE 697 (Almacenes de Cuyo, OP 089) |
+| G | Remito y despacho | Alejo Cisterna: OE 694 (Distribuidora del Litoral, 15 bultos) y R-405 para firmar | Jose Gomez: OE 698 (Mercadito, 3 bultos). Daniel Baez: R-406 para firmar |
+
+Los mismos transportistas trabajan en varios depósitos: cada pantalla muestra solo sus documentos del depósito elegido. Por ejemplo, en ROS Jose Gomez no tiene OE pendientes, porque la OE 693 todavía está Emitida.
 
 ## Qué cambia cada caso en los JSON
 

@@ -1,30 +1,11 @@
-﻿namespace GrupoA.PampazonSA.AdministracionDeposito.GenerarOrdenEntrega
+﻿using GrupoA.PampazonSA.AdministracionDeposito.Almacenes;
+
+namespace GrupoA.PampazonSA.AdministracionDeposito.GenerarOrdenEntrega
 {
     internal class GenerarOrdenEntregaModelo
     {
-        // Depósito del operario.
-        private const string Deposito = "GBA";
-
-        private List<OrdenPreparacion> _ordenesPreparacion = new List<OrdenPreparacion>
-        {
-            new OrdenPreparacion { NroOP = 101, Deposito = "GBA", Cliente = new Cliente { Cuit = 30712345678, RazonSocial = "Mercadito S.A." }, Transportista = new Transportista { DNI = 24568779, NombreApellido = "Jose Gomez" }, FechaRetiro = new DateTime(2026, 10, 20), Bultos = 10, Estado = EstadoOrdenPreparacion.Preparada },
-            new OrdenPreparacion { NroOP = 102, Deposito = "GBA", Cliente = new Cliente { Cuit = 30712345678, RazonSocial = "Mercadito S.A." }, Transportista = new Transportista { DNI = 24568779, NombreApellido = "Jose Gomez" }, FechaRetiro = new DateTime(2026, 10, 20), Bultos = 8, Estado = EstadoOrdenPreparacion.Preparada },
-            new OrdenPreparacion { NroOP = 105, Deposito = "GBA", Cliente = new Cliente { Cuit = 30712345678, RazonSocial = "Mercadito S.A." }, Transportista = new Transportista { DNI = 24568779, NombreApellido = "Jose Gomez" }, FechaRetiro = new DateTime(2026, 10, 21), Bultos = 10, Estado = EstadoOrdenPreparacion.Preparada },
-            new OrdenPreparacion { NroOP = 103, Deposito = "GBA", Cliente = new Cliente { Cuit = 30709876543, RazonSocial = "MundoFOX S.R.L." }, Transportista = new Transportista { DNI = 24568779, NombreApellido = "Jose Gomez" }, FechaRetiro = new DateTime(2026, 10, 20), Bultos = 1, Estado = EstadoOrdenPreparacion.Preparada },
-            new OrdenPreparacion { NroOP = 109, Deposito = "GBA", Cliente = new Cliente { Cuit = 30712345678, RazonSocial = "Mercadito S.A." }, Transportista = new Transportista { DNI = 24568779, NombreApellido = "Jose Gomez" }, FechaRetiro = new DateTime(2026, 10, 17), Bultos = 5, Estado = EstadoOrdenPreparacion.EnEntrega, NroOE = 700 }
-        };
-
-        private List<OrdenEntrega> _ordenesEntrega = new List<OrdenEntrega>
-        {
-            new OrdenEntrega
-            {
-                NroOE = 700, Estado = EstadoOrdenEntrega.PendienteEntrega, Deposito = "GBA", FechaEmision = new DateTime(2026, 10, 14),
-                Cliente = new Cliente { Cuit = 30712345678, RazonSocial = "Mercadito S.A." }, Transportista = new Transportista { DNI = 24568779, NombreApellido = "Jose Gomez" }, FechaRetiro = new DateTime(2026, 10, 17),
-                Lineas = new List<LineaOrdenEntrega> { new LineaOrdenEntrega { NroOP = 109, Bultos = 5 } }
-            }
-        };
-
-        private int _ultimoNroOE = 700;
+        // Depósito del operario: el que se eligió en el menú principal.
+        private string Deposito => DepositoAlmacen.IdDepositoActivo;
 
         // Filas de "Órdenes preparadas sin orden de entrega": un grupo por cliente, transportista y fecha de retiro.
         // Agrupa las OP Preparadas sin OE por esa clave (GroupBy; el cliente por CUIT y el transportista por DNI); de cada
@@ -61,14 +42,11 @@
                 .ToList();
             if (ordenes.Count == 0) return false;
 
-            _ultimoNroOE++;
-            nroOE = _ultimoNroOE;
-
             // Cliente, transportista y fecha de retiro son iguales en todo el grupo: se toman de la primera OP (First).
             var primera = ordenes.First();
-            _ordenesEntrega.Add(new OrdenEntrega
+            var orden = new OrdenEntrega
             {
-                NroOE = nroOE,
+                NroOE = ProximoNroOE(),
                 Estado = EstadoOrdenEntrega.Emitida,
                 Deposito = Deposito,
                 FechaEmision = DateTime.Now,
@@ -77,23 +55,87 @@
                 FechaRetiro = primera.FechaRetiro,
                 // Una línea por OP con su N° y sus bultos (Select).
                 Lineas = ordenes.Select(op => new LineaOrdenEntrega { NroOP = op.NroOP, Bultos = op.Bultos }).ToList()
-            });
+            };
 
-            foreach (var op in ordenes)
+            OrdenEntregaAlmacen.OrdenesEntrega.Add(TraducirOrdenEntrega(orden));
+
+            // Pasa a En entrega en el almacén las OP de la OE (Where).
+            foreach (var op in OrdenPreparacionAlmacen.OrdenesPreparacion.Where(o => ordenes.Any(op => op.NroOP == o.NroOP)))
             {
-                op.Estado = EstadoOrdenPreparacion.EnEntrega;
-                op.NroOE = nroOE;
+                op.Estado = EstadoOrdenPreparacionEnum.EnEntrega;
             }
 
+            nroOE = orden.NroOE;
             return true;
         }
 
-        // OP Preparadas del depósito que todavía no tienen OE (Where).
+        // OP Preparadas del depósito que todavía no están en ninguna OE (Where), traducidas a la clase que usa la pantalla (Select).
         private List<OrdenPreparacion> OrdenesSinOE()
         {
-            return _ordenesPreparacion
-                .Where(op => op.Deposito == Deposito && op.Estado == EstadoOrdenPreparacion.Preparada && op.NroOE == null)
+            return OrdenPreparacionAlmacen.OrdenesPreparacion
+                .Where(op => op.Deposito == Deposito && op.Estado == EstadoOrdenPreparacionEnum.Preparada && BuscarOrdenEntrega(op.NroOP) == null)
+                .Select(op => TraducirOrden(op))
                 .ToList();
+        }
+
+        // OE que incluye la OP con ese N°, o null si no está en ninguna (FirstOrDefault).
+        private OrdenEntregaEntidad? BuscarOrdenEntrega(int nroOP)
+        {
+            return OrdenEntregaAlmacen.OrdenesEntrega.FirstOrDefault(oe => oe.NrosOP.Contains(nroOP));
+        }
+
+        // Arma la OP que usa la pantalla: el cliente sale del almacén de clientes y el transportista, de los datos de la OP.
+        // Solo se traducen OP Preparadas.
+        private OrdenPreparacion TraducirOrden(OrdenPreparacionEntidad op)
+        {
+            return new OrdenPreparacion
+            {
+                NroOP = op.NroOP,
+                Deposito = op.Deposito,
+                Cliente = BuscarCliente(op.CuitCliente),
+                Transportista = new Transportista { DNI = op.DNITransportista, NombreApellido = op.NombreTransportista },
+                FechaRetiro = op.FechaRetiro,
+                Bultos = op.Bultos,
+                Estado = EstadoOrdenPreparacion.Preparada,
+                NroOE = BuscarOrdenEntrega(op.NroOP)?.NroOE
+            };
+        }
+
+        // Arma la OE que se graba en el almacén a partir de la OE armada en la pantalla:
+        // del cliente y del transportista guarda solo sus claves, y de las líneas, el N° de cada OP (Select).
+        // La fecha de retiro del grupo es la fecha de entrega al transportista.
+        private OrdenEntregaEntidad TraducirOrdenEntrega(OrdenEntrega orden)
+        {
+            return new OrdenEntregaEntidad
+            {
+                NroOE = orden.NroOE,
+                FechaEmision = orden.FechaEmision,
+                Estado = TraducirEstado(orden.Estado),
+                NrosOP = orden.Lineas.Select(l => l.NroOP).ToList(),
+                IdDeposito = orden.Deposito,
+                CuitCliente = orden.Cliente.Cuit,
+                DNITransportista = orden.Transportista.DNI,
+                FechaEntregaTransportista = orden.FechaRetiro
+            };
+        }
+
+        // Busca el cliente por CUIT y toma su razón social (First).
+        private Cliente BuscarCliente(long cuit)
+        {
+            var cliente = ClienteAlmacen.Clientes.First(c => c.Cuit == cuit);
+            return new Cliente { Cuit = cliente.Cuit, RazonSocial = cliente.RazonSocial };
+        }
+
+        // Pasa el estado de la OE de la pantalla al del almacén: esta pantalla solo genera OE Emitidas.
+        private EstadoOrdenEntregaEnum TraducirEstado(EstadoOrdenEntrega estado)
+        {
+            return EstadoOrdenEntregaEnum.Emitida;
+        }
+
+        // El N° de OE es correlativo: el mayor del almacén más uno (Max), o 1 si no hay ninguna (DefaultIfEmpty).
+        private int ProximoNroOE()
+        {
+            return OrdenEntregaAlmacen.OrdenesEntrega.Select(oe => oe.NroOE).DefaultIfEmpty(0).Max() + 1;
         }
     }
 }

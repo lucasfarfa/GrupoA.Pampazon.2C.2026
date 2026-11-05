@@ -1,55 +1,9 @@
-﻿namespace GrupoA.PampazonSA.AdministracionDeposito.RegistrarOrdenPreparacion
+﻿using GrupoA.PampazonSA.AdministracionDeposito.Almacenes;
+
+namespace GrupoA.PampazonSA.AdministracionDeposito.RegistrarOrdenPreparacion
 {
     internal class RegistrarOrdenPreparacionModelo
     {
-
-        private List<Cliente> _clientes = new List<Cliente>
-        {
-            new Cliente { Cuit = 30712345678, RazonSocial = "Mercadito S.A." },
-            new Cliente { Cuit = 30709876543, RazonSocial = "MundoFOX S.R.L." },
-            new Cliente { Cuit = 30711122234, RazonSocial = "Ferretería Norte S.A." },
-            new Cliente { Cuit = 30705554441, RazonSocial = "Construcciones del Plata S.R.L." }
-        };
-
-        private List<string> _depositos = new List<string> { "GBA", "ROS", "CBA", "MDZ" };
-
-        // Ningún cliente tiene mercadería fuera de GBA.
-        private List<Mercaderia> _stock = new List<Mercaderia>
-        {
-            new Mercaderia { Cliente = new Cliente { Cuit = 30712345678, RazonSocial = "Mercadito S.A." }, Deposito = "GBA", Sku = "CEM-50KG", Descripcion = "Bolsa de cemento 50 kg", Cantidad = 60 },
-            new Mercaderia { Cliente = new Cliente { Cuit = 30712345678, RazonSocial = "Mercadito S.A." }, Deposito = "GBA", Sku = "CAL-25KG", Descripcion = "Bolsa de cal 25 kg", Cantidad = 50 },
-            new Mercaderia { Cliente = new Cliente { Cuit = 30709876543, RazonSocial = "MundoFOX S.R.L." }, Deposito = "GBA", Sku = "ZAP-0042", Descripcion = "Caja de zapatillas", Cantidad = 100 },
-            new Mercaderia { Cliente = new Cliente { Cuit = 30711122234, RazonSocial = "Ferretería Norte S.A." }, Deposito = "GBA", Sku = "TOR-M8", Descripcion = "Caja de tornillos M8 x 100", Cantidad = 500 },
-            new Mercaderia { Cliente = new Cliente { Cuit = 30705554441, RazonSocial = "Construcciones del Plata S.R.L." }, Deposito = "GBA", Sku = "ARE-25KG", Descripcion = "Bolsa de arena 25 kg", Cantidad = 800 }
-        };
-
-        // OP Pendientes que comprometen stock: CEM-50KG 15, CAL-25KG 3 y ZAP-0042 24.
-        private List<OrdenPreparacion> _ordenesPreparacion = new List<OrdenPreparacion>
-        {
-            new OrdenPreparacion
-            {
-                NroOP = 101, Cliente = new Cliente { Cuit = 30712345678, RazonSocial = "Mercadito S.A." }, Deposito = "GBA", Estado = EstadoOrdenPreparacion.Pendiente,
-                Lineas = new List<LineaOrdenPreparacion> { new LineaOrdenPreparacion { Sku = "CEM-50KG", Cantidad = 10 } }
-            },
-            new OrdenPreparacion
-            {
-                NroOP = 102, Cliente = new Cliente { Cuit = 30712345678, RazonSocial = "Mercadito S.A." }, Deposito = "GBA", Estado = EstadoOrdenPreparacion.Pendiente,
-                Lineas = new List<LineaOrdenPreparacion>
-                {
-                    new LineaOrdenPreparacion { Sku = "CEM-50KG", Cantidad = 5 },
-                    new LineaOrdenPreparacion { Sku = "CAL-25KG", Cantidad = 3 }
-                }
-            },
-            new OrdenPreparacion
-            {
-                NroOP = 103, Cliente = new Cliente { Cuit = 30709876543, RazonSocial = "MundoFOX S.R.L." }, Deposito = "GBA", Estado = EstadoOrdenPreparacion.Pendiente,
-                Lineas = new List<LineaOrdenPreparacion> { new LineaOrdenPreparacion { Sku = "ZAP-0042", Cantidad = 24 } }
-            }
-        };
-
-        // Las OP 104 a 109 ya existen en las pantallas siguientes del circuito: la nueva OP arranca en 110.
-        private int _ultimoNroOP = 109;
-
         // Orden que se está cargando en la pantalla.
         private Cliente? _cliente;
         private string? _deposito;
@@ -61,19 +15,22 @@
         public string? SkuSeleccionado => _sku;
         public bool HayProductos => _lineas.Count > 0;
 
-        // Nombres para la lista "Cliente": de cada cliente toma solo el nombre (Select).
-        public List<string> Clientes => _clientes.Select(c => c.RazonSocial).ToList();
-        public List<string> Depositos => _depositos.ToList();
+        // Nombres para la lista "Cliente": de cada cliente del almacén toma solo la razón social (Select).
+        public List<string> Clientes => ClienteAlmacen.Clientes.Select(c => c.RazonSocial).ToList();
+
+        // Códigos para la lista "Depósito": de cada depósito del almacén toma su código (Select).
+        // Esta pantalla no usa el depósito del menú: el operario lo elige acá.
+        public List<string> Depositos => DepositoAlmacen.Depositos.Select(d => d.IdDeposito).ToList();
 
         // Elige el cliente y devuelve su CUIT para mostrarlo. Cambiar el cliente vacía la lista de productos.
         public bool SeleccionarCliente(string nombre, out long cuit)
         {
             cuit = 0;
-            // Busca el cliente con ese nombre, o null si no existe (FirstOrDefault).
-            var cliente = _clientes.FirstOrDefault(c => c.RazonSocial == nombre);
+            // Busca el cliente con esa razón social en el almacén, o null si no existe (FirstOrDefault).
+            var cliente = ClienteAlmacen.Clientes.FirstOrDefault(c => c.RazonSocial == nombre);
             if (cliente == null) return false;
 
-            _cliente = cliente;
+            _cliente = TraducirCliente(cliente);
             _sku = null;
             _lineas.Clear();
             cuit = cliente.Cuit;
@@ -83,7 +40,7 @@
         // Cambiar el depósito vacía la lista de productos (CU-01, 17.9).
         public bool SeleccionarDeposito(string deposito)
         {
-            if (!_depositos.Contains(deposito)) return false;
+            if (!Depositos.Contains(deposito)) return false;
 
             _deposito = deposito;
             _sku = null;
@@ -91,38 +48,30 @@
             return true;
         }
 
-        // SKU para la lista "SKU": los que el cliente tiene en stock en el depósito elegido.
-        // De cada registro de stock toma el SKU (Select) y los ordena alfabéticamente (OrderBy).
-        public List<string> Skus => StockDelCliente().Select(s => s.Sku).OrderBy(s => s).ToList();
+        // SKU para la lista "SKU": los que el cliente tiene como mercadería en el depósito elegido.
+        // De cada mercadería toma el SKU (Select) y los ordena alfabéticamente (OrderBy).
+        public List<string> Skus => MercaderiaDelCliente().Select(m => m.Sku).OrderBy(s => s).ToList();
 
-        // Elige el SKU para mostrar su disponible. Devuelve true si el cliente lo tiene en stock en el depósito
-        // (Any: ¿hay algún registro de stock con ese SKU?).
+        // Elige el SKU para mostrar su disponible. Devuelve true si el cliente tiene esa mercadería en el depósito
+        // (Any: ¿hay alguna mercadería con ese SKU?).
         public bool SeleccionarSku(string sku)
         {
-            if (!StockDelCliente().Any(s => s.Sku == sku)) return false;
+            if (!MercaderiaDelCliente().Any(m => m.Sku == sku)) return false;
 
             _sku = sku;
             return true;
         }
 
-        // Cantidad que se puede pedir del SKU elegido: stock en almacén menos lo comprometido por las OP Pendientes.
+        // Cantidad que se puede pedir del SKU elegido: lo que hay en las posiciones del depósito
+        // menos lo comprometido por las OP Pendientes.
         public int Disponible
         {
             get
             {
-                // Busca el registro de stock del SKU elegido, o null si no hay (FirstOrDefault).
-                var stock = StockDelCliente().FirstOrDefault(s => s.Sku == _sku);
-                if (stock == null) return 0;
+                var mercaderia = BuscarMercaderia(_sku);
+                if (mercaderia == null) return 0;
 
-                // De las OP Pendientes del cliente en el depósito (Where) junta todas sus líneas (SelectMany),
-                // se queda con las del SKU elegido (Where) y suma sus cantidades (Sum).
-                int comprometido = _ordenesPreparacion
-                    .Where(o => o.Cliente.Cuit == stock.Cliente.Cuit && o.Deposito == stock.Deposito && o.Estado == EstadoOrdenPreparacion.Pendiente)
-                    .SelectMany(o => o.Lineas)
-                    .Where(l => l.Sku == _sku)
-                    .Sum(l => l.Cantidad);
-
-                return stock.Cantidad - comprometido;
+                return CantidadEnPosiciones(mercaderia) - mercaderia.CantidadComprometida;
             }
         }
 
@@ -151,12 +100,12 @@
         // Devuelve true si hay un SKU elegido, no está en la orden y la cantidad es válida y no supera el disponible.
         public bool AgregarProducto(int cantidad)
         {
-            // Busca el registro de stock del SKU elegido para tomar su descripción (FirstOrDefault).
-            var stock = StockDelCliente().FirstOrDefault(s => s.Sku == _sku);
-            if (stock == null) return false;
+            // La mercadería del SKU elegido da la descripción de la línea.
+            var mercaderia = BuscarMercaderia(_sku);
+            if (mercaderia == null) return false;
             if (!CantidadValida(cantidad) || !CantidadDisponible(cantidad) || SkuYaAgregado) return false;
 
-            _lineas.Add(new LineaOrdenPreparacion { Sku = stock.Sku, Descripcion = stock.Descripcion, Cantidad = cantidad });
+            _lineas.Add(new LineaOrdenPreparacion { Sku = mercaderia.Sku, Descripcion = mercaderia.Descripcion, Cantidad = cantidad });
             _sku = null;
             return true;
         }
@@ -216,12 +165,12 @@
             if (!ModalidadValida(modalidad) || !DniValido(dni) || !NombreValido(nombreTransportista) || !FechaRetiroValida(fechaRetiro))
                 return false;
 
-            _ultimoNroOP++;
-            nroOP = _ultimoNroOP;
+            // Se controla todo antes de cambiar nada: si a alguna línea le falta su mercadería no queda grabado a medias (Any).
+            if (_lineas.Any(l => BuscarMercaderia(l.Sku) == null)) return false;
 
-            _ordenesPreparacion.Add(new OrdenPreparacion
+            var orden = new OrdenPreparacion
             {
-                NroOP = nroOP,
+                NroOP = ProximoNroOP(),
                 FechaRecepcion = DateTime.Now,
                 Cliente = _cliente,
                 Deposito = _deposito,
@@ -230,7 +179,16 @@
                 FechaRetiro = fechaRetiro,
                 Estado = EstadoOrdenPreparacion.Pendiente,
                 Lineas = _lineas.ToList()
-            });
+            };
+
+            OrdenPreparacionAlmacen.OrdenesPreparacion.Add(TraducirOrden(orden));
+
+            foreach (var linea in orden.Lineas)
+            {
+                Comprometer(linea.Sku, linea.Cantidad);
+            }
+
+            nroOP = orden.NroOP;
 
             _cliente = null;
             _deposito = null;
@@ -239,10 +197,83 @@
             return true;
         }
 
-        // Registros de stock del cliente elegido en el depósito elegido (Where).
-        private List<Mercaderia> StockDelCliente()
+        // Arma el cliente que usa la pantalla a partir del cliente del almacén.
+        private Cliente TraducirCliente(ClienteEntidad cliente)
         {
-            return _stock.Where(s => s.Cliente.Cuit == _cliente?.Cuit && s.Deposito == _deposito).ToList();
+            return new Cliente { Cuit = cliente.Cuit, RazonSocial = cliente.RazonSocial };
+        }
+
+        // Arma la OP que se graba en el almacén a partir de la OP que se cargó en la pantalla:
+        // del cliente y del transportista guarda sus datos sueltos, y de cada línea, su SKU y su cantidad (Select).
+        private OrdenPreparacionEntidad TraducirOrden(OrdenPreparacion orden)
+        {
+            return new OrdenPreparacionEntidad
+            {
+                NroOP = orden.NroOP,
+                FechaRecepcion = orden.FechaRecepcion,
+                CuitCliente = orden.Cliente.Cuit,
+                Deposito = orden.Deposito,
+                Modalidad = TraducirModalidad(orden.Modalidad),
+                DNITransportista = orden.Transportista.DNI,
+                NombreTransportista = orden.Transportista.NombreApellido,
+                FechaRetiro = orden.FechaRetiro,
+                Estado = TraducirEstado(orden.Estado),
+                Lineas = orden.Lineas.Select(l => new Almacenes.LineaOrdenPreparacion { Sku = l.Sku, Cantidad = l.Cantidad }).ToList()
+            };
+        }
+
+        // Pasa la modalidad de la pantalla a la del almacén (tienen los mismos valores).
+        private ModalidadEnum TraducirModalidad(Modalidad modalidad)
+        {
+            return modalidad == Modalidad.PaletCerrado ? ModalidadEnum.PaletCerrado : ModalidadEnum.Fulfillment;
+        }
+
+        // Pasa el estado de la pantalla al del almacén: esta pantalla solo registra OP Pendientes.
+        private EstadoOrdenPreparacionEnum TraducirEstado(EstadoOrdenPreparacion estado)
+        {
+            return EstadoOrdenPreparacionEnum.Pendiente;
+        }
+
+        // Mercadería del cliente elegido en el depósito elegido (Where).
+        private List<MercaderiaEntidad> MercaderiaDelCliente()
+        {
+            return MercaderiaAlmacen.Mercaderias
+                .Where(m => m.CuitCliente == _cliente?.Cuit && m.Deposito == _deposito)
+                .ToList();
+        }
+
+        // Mercadería del cliente elegido en el depósito elegido con ese SKU, o null si no hay (FirstOrDefault).
+        private MercaderiaEntidad? BuscarMercaderia(string? sku)
+        {
+            return MercaderiaDelCliente().FirstOrDefault(m => m.Sku == sku);
+        }
+
+        // Cantidad de la mercadería guardada en las posiciones de su depósito: busca el depósito (FirstOrDefault),
+        // junta el contenido de todas sus posiciones (SelectMany), se queda con el del cliente y SKU (Where) y lo suma (Sum).
+        private int CantidadEnPosiciones(MercaderiaEntidad mercaderia)
+        {
+            var deposito = DepositoAlmacen.Depositos.FirstOrDefault(d => d.IdDeposito == mercaderia.Deposito);
+            if (deposito == null) return 0;
+
+            return deposito.Posiciones
+                .SelectMany(p => p.Contenido)
+                .Where(c => c.CuitCliente == mercaderia.CuitCliente && c.Sku == mercaderia.Sku)
+                .Sum(c => c.Cantidad);
+        }
+
+        // Suma la cantidad de la nueva OP a lo comprometido de su mercadería.
+        private void Comprometer(string sku, int cantidad)
+        {
+            var mercaderia = BuscarMercaderia(sku);
+            if (mercaderia == null) return;
+
+            mercaderia.CantidadComprometida += cantidad;
+        }
+
+        // El N° de OP es correlativo: el mayor del almacén más uno (Max), o 1 si no hay ninguna (DefaultIfEmpty).
+        private int ProximoNroOP()
+        {
+            return OrdenPreparacionAlmacen.OrdenesPreparacion.Select(op => op.NroOP).DefaultIfEmpty(0).Max() + 1;
         }
     }
 }

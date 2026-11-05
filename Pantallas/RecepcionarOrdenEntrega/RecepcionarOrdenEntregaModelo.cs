@@ -6,8 +6,8 @@ namespace GrupoA.PampazonSA.AdministracionDeposito.RecepcionarOrdenEntrega
     {
         private const string Preparacion = "Preparación";
 
-        // Depósito del operario.
-        private const string Deposito = "GBA";
+        // Depósito del operario: el que se eligió en el menú principal.
+        private string Deposito => DepositoAlmacen.IdDepositoActivo;
 
         // Filas de "Órdenes de entrega emitidas": las OE Emitidas del depósito.
         // Filtra por depósito y estado Emitida (Where), las ordena por fecha de emisión (OrderBy y ThenBy)

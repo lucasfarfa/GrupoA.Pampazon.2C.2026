@@ -1,46 +1,14 @@
-﻿namespace GrupoA.PampazonSA.AdministracionDeposito.GenerarRemitoDespachar
+﻿using GrupoA.PampazonSA.AdministracionDeposito.Almacenes;
+
+namespace GrupoA.PampazonSA.AdministracionDeposito.GenerarRemitoDespachar
 {
     internal class GenerarRemitoDespacharModelo
     {
-        private List<Transportista> _transportistas = new List<Transportista>
-        {
-            new Transportista { DNI = 24568779, NombreApellido = "Jose Gomez" },
-            new Transportista { DNI = 20562667, NombreApellido = "Alejo Cisterna" },
-            new Transportista { DNI = 32321987, NombreApellido = "Daniel Baez" }
-        };
-
-        private List<OrdenEntrega> _ordenesEntrega = new List<OrdenEntrega>
-        {
-            new OrdenEntrega { NroOE = 701, Cliente = new Cliente { Cuit = 30712345678, RazonSocial = "Mercadito S.A." }, Lineas = new List<LineaOrdenEntrega> { new LineaOrdenEntrega { NroOP = 101, Bultos = 10 }, new LineaOrdenEntrega { NroOP = 102, Bultos = 8 } }, Transportista = new Transportista { DNI = 24568779, NombreApellido = "Jose Gomez" }, Estado = EstadoOrdenEntrega.PendienteEntrega },
-            new OrdenEntrega { NroOE = 704, Cliente = new Cliente { Cuit = 30712345678, RazonSocial = "Mercadito S.A." }, Lineas = new List<LineaOrdenEntrega> { new LineaOrdenEntrega { NroOP = 105, Bultos = 10 } }, Transportista = new Transportista { DNI = 24568779, NombreApellido = "Jose Gomez" }, Estado = EstadoOrdenEntrega.PendienteEntrega },
-            new OrdenEntrega { NroOE = 702, Cliente = new Cliente { Cuit = 30709876543, RazonSocial = "MundoFOX S.R.L." }, Lineas = new List<LineaOrdenEntrega> { new LineaOrdenEntrega { NroOP = 103, Bultos = 1 } }, Transportista = new Transportista { DNI = 24568779, NombreApellido = "Jose Gomez" }, Estado = EstadoOrdenEntrega.PendienteEntrega },
-            new OrdenEntrega { NroOE = 710, Cliente = new Cliente { Cuit = 30709876543, RazonSocial = "MundoFOX S.R.L." }, Lineas = new List<LineaOrdenEntrega> { new LineaOrdenEntrega { NroOP = 110, Bultos = 1 } }, Transportista = new Transportista { DNI = 20562667, NombreApellido = "Alejo Cisterna" }, Estado = EstadoOrdenEntrega.RemitoEmitido },
-            new OrdenEntrega { NroOE = 703, Cliente = new Cliente { Cuit = 30711122234, RazonSocial = "Ferretería Norte S.A." }, Lineas = new List<LineaOrdenEntrega> { new LineaOrdenEntrega { NroOP = 104, Bultos = 30 } }, Transportista = new Transportista { DNI = 32321987, NombreApellido = "Daniel Baez" }, Estado = EstadoOrdenEntrega.PendienteEntrega },
-            new OrdenEntrega { NroOE = 705, Cliente = new Cliente { Cuit = 30705554441, RazonSocial = "Construcciones del Plata S.R.L." }, Lineas = new List<LineaOrdenEntrega> { new LineaOrdenEntrega { NroOP = 106, Bultos = 5 }, new LineaOrdenEntrega { NroOP = 107, Bultos = 4 } }, Transportista = new Transportista { DNI = 32321987, NombreApellido = "Daniel Baez" }, Estado = EstadoOrdenEntrega.PendienteEntrega }
-        };
-
-        // OP de las OE anteriores: están En entrega hasta que se confirma la entrega del remito.
-        private List<OrdenPreparacion> _ordenesPreparacion = new List<OrdenPreparacion>
-        {
-            new OrdenPreparacion { NroOP = 101, Estado = EstadoOrdenPreparacion.EnEntrega },
-            new OrdenPreparacion { NroOP = 102, Estado = EstadoOrdenPreparacion.EnEntrega },
-            new OrdenPreparacion { NroOP = 103, Estado = EstadoOrdenPreparacion.EnEntrega },
-            new OrdenPreparacion { NroOP = 104, Estado = EstadoOrdenPreparacion.EnEntrega },
-            new OrdenPreparacion { NroOP = 105, Estado = EstadoOrdenPreparacion.EnEntrega },
-            new OrdenPreparacion { NroOP = 106, Estado = EstadoOrdenPreparacion.EnEntrega },
-            new OrdenPreparacion { NroOP = 107, Estado = EstadoOrdenPreparacion.EnEntrega },
-            new OrdenPreparacion { NroOP = 110, Estado = EstadoOrdenPreparacion.EnEntrega }
-        };
-
-        private List<Remito> _remitos = new List<Remito>
-        {
-            new Remito { NroRemito = 410, FechaEmision = DateTime.Today.AddDays(-1), Cliente = new Cliente { Cuit = 30709876543, RazonSocial = "MundoFOX S.R.L." }, Transportista = new Transportista { DNI = 20562667, NombreApellido = "Alejo Cisterna" }, NrosOE = new List<int> { 710 }, NrosOP = new List<int> { 110 }, TotalBultos = 1, Estado = EstadoRemito.Emitido }
-        };
-
-        private int _ultimoNroRemito = 410;
-
         private Transportista? _transportista;   // transportista identificado con "Buscar órdenes"
         private List<int> _seleccionadas = new List<int>();
+
+        // Depósito del operario: el que se eligió en el menú principal.
+        private string Deposito => DepositoAlmacen.IdDepositoActivo;
 
         public bool HaySeleccion => _seleccionadas.Count > 0;
 
@@ -68,8 +36,7 @@
             transportista = null;
             if (!DniValido(dni)) return false;
 
-            // Busca el transportista con ese DNI, o null si no hay ninguno (FirstOrDefault).
-            transportista = _transportistas.FirstOrDefault(t => t.DNI == dni);
+            transportista = BuscarTransportistaPorDni(dni);
             _transportista = transportista;
             return transportista != null;
         }
@@ -81,7 +48,7 @@
         {
             get
             {
-                return _ordenesEntrega
+                return OrdenesDelDeposito()
                     .Where(oe => oe.Transportista.DNI == _transportista?.DNI && oe.Estado == EstadoOrdenEntrega.PendienteEntrega && !_seleccionadas.Contains(oe.NroOE))
                     .OrderBy(oe => oe.Cliente.RazonSocial)
                     .ThenBy(oe => oe.NroOE)
@@ -105,8 +72,8 @@
 
             foreach (var nro in nrosOE)
             {
-                // Busca la OE con ese número, o null si no existe (FirstOrDefault).
-                var oe = _ordenesEntrega.FirstOrDefault(o => o.NroOE == nro);
+                // Busca la OE del depósito con ese número, o null si no existe (FirstOrDefault).
+                var oe = OrdenesDelDeposito().FirstOrDefault(o => o.NroOE == nro);
                 if (oe == null || oe.Estado != EstadoOrdenEntrega.PendienteEntrega || _seleccionadas.Contains(nro))
                     return false;
             }
@@ -136,7 +103,7 @@
         {
             get
             {
-                return _ordenesEntrega
+                return OrdenesDelDeposito()
                     .Where(oe => _seleccionadas.Contains(oe.NroOE))
                     .GroupBy(oe => oe.Cliente.Cuit)
                     .OrderBy(g => g.First().Cliente.RazonSocial)
@@ -156,18 +123,17 @@
 
             // Agrupa las OE seleccionadas (Where) por CUIT del cliente (GroupBy), ordenadas por nombre del cliente (OrderBy):
             // cada grupo es un remito.
-            var porCliente = _ordenesEntrega
+            var porCliente = OrdenesDelDeposito()
                 .Where(oe => _seleccionadas.Contains(oe.NroOE))
                 .GroupBy(oe => oe.Cliente.Cuit)
-                .OrderBy(g => g.First().Cliente.RazonSocial);
+                .OrderBy(g => g.First().Cliente.RazonSocial)
+                .ToList();
 
             foreach (var grupo in porCliente)
             {
-                _ultimoNroRemito++;
-
-                _remitos.Add(new Remito
+                var remito = new Remito
                 {
-                    NroRemito = _ultimoNroRemito,
+                    NroRemito = ProximoNroRemito(),
                     FechaEmision = DateTime.Now,
                     // El cliente es el mismo en todo el grupo: se toma de la primera OE (First).
                     Cliente = grupo.First().Cliente,
@@ -178,10 +144,15 @@
                     NrosOP = grupo.SelectMany(oe => oe.Lineas).Select(l => l.NroOP).ToList(),
                     TotalBultos = grupo.SelectMany(oe => oe.Lineas).Sum(l => l.Bultos),
                     Estado = EstadoRemito.Emitido
-                });
+                };
 
-                foreach (var oe in grupo)
-                    oe.Estado = EstadoOrdenEntrega.RemitoEmitido;
+                RemitoAlmacen.Remitos.Add(TraducirRemito(remito));
+
+                // Pasa a Remito emitido en el almacén cada OE del remito (Where).
+                foreach (var oe in OrdenEntregaAlmacen.OrdenesEntrega.Where(o => remito.NrosOE.Contains(o.NroOE)))
+                {
+                    oe.Estado = EstadoOrdenEntregaEnum.RemitoEmitido;
+                }
             }
 
             _seleccionadas.Clear();
@@ -189,48 +160,194 @@
         }
 
         // Filas de "Remitos pendientes de firma" del transportista buscado.
-        // Filtra los remitos del transportista que siguen Emitidos (Where) y los ordena por N° (OrderBy).
+        // Filtra los remitos del depósito del transportista que siguen Emitidos (Where), los ordena por N° (OrderBy)
+        // y traduce cada uno a la clase que usa la pantalla (Select).
         public List<Remito> RemitosPendientesFirma
         {
             get
             {
-                return _remitos
-                    .Where(r => r.Transportista.DNI == _transportista?.DNI && r.Estado == EstadoRemito.Emitido)
+                return RemitoAlmacen.Remitos
+                    .Where(r => r.IdDeposito == Deposito && r.DNITransportista == _transportista?.DNI && r.Estado == EstadoRemitoEnum.Emitido)
                     .OrderBy(r => r.NroRemito)
+                    .Select(r => TraducirRemito(r))
                     .ToList();
             }
         }
 
-        // Confirma la entrega firmada: los remitos pasan a Cumplidos, sus OE y sus OP a Cumplidas.
-        // Devuelve true si hay al menos un remito y todos existen y estaban Emitidos.
+        // Confirma la entrega firmada: los remitos pasan a Cumplidos, sus OE y sus OP a Cumplidas,
+        // y la mercadería de esas OP sale de Despacho.
+        // Devuelve true si hay al menos un remito, todos existen y estaban Emitidos, y hay en Despacho la mercadería de sus OP.
         public bool ConfirmarEntrega(List<int> nrosRemito)
         {
             if (!HayRemitos(nrosRemito)) return false;
 
-            // Busca los remitos elegidos (Where); si falta alguno o alguno no está Emitido (Any), no confirma nada.
-            var remitos = _remitos.Where(r => nrosRemito.Contains(r.NroRemito)).ToList();
-            if (remitos.Count != nrosRemito.Count || remitos.Any(r => r.Estado != EstadoRemito.Emitido))
+            // Busca los remitos elegidos del depósito (Where); si falta alguno o alguno no está Emitido (Any), no confirma nada.
+            var remitos = RemitoAlmacen.Remitos.Where(r => r.IdDeposito == Deposito && nrosRemito.Contains(r.NroRemito)).ToList();
+            if (remitos.Count != nrosRemito.Count || remitos.Any(r => r.Estado != EstadoRemitoEnum.Emitido))
+                return false;
+
+            // Se controla todo antes de cambiar nada: si a alguna OP le falta mercadería en Despacho no queda grabado a medias (Any).
+            var ordenes = OrdenesDeRemitos(remitos);
+            if (ordenes.SelectMany(op => op.Lineas, (op, l) => (op, l)).Any(x => !HayEnDespacho(x.op, x.l.Sku, x.l.Cantidad)))
                 return false;
 
             foreach (var remito in remitos)
             {
-                remito.Estado = EstadoRemito.Cumplido;
+                remito.Estado = EstadoRemitoEnum.Cumplido;
                 remito.FechaCumplida = DateTime.Now;
 
                 // Pasa a Cumplida cada OE que figura en el remito (Where).
-                foreach (var oe in _ordenesEntrega.Where(o => remito.NrosOE.Contains(o.NroOE)))
+                foreach (var oe in OrdenEntregaAlmacen.OrdenesEntrega.Where(o => remito.NrosOE.Contains(o.NroOE)))
                 {
-                    oe.Estado = EstadoOrdenEntrega.Cumplida;
+                    oe.Estado = EstadoOrdenEntregaEnum.Cumplida;
                 }
+            }
 
-                // Pasa a Cumplida cada OP que figura en el remito (Where).
-                foreach (var op in _ordenesPreparacion.Where(o => remito.NrosOP.Contains(o.NroOP)))
+            // Pasa a Cumplida cada OP de los remitos y saca su mercadería de Despacho.
+            foreach (var op in ordenes)
+            {
+                op.Estado = EstadoOrdenPreparacionEnum.Cumplida;
+                foreach (var linea in op.Lineas)
                 {
-                    op.Estado = EstadoOrdenPreparacion.Cumplida;
+                    SacarDeDespacho(op, linea.Sku, linea.Cantidad);
                 }
             }
 
             return true;
+        }
+
+        // OE del depósito que ya recibió Despacho, traducidas a la clase que usa la pantalla (Where y Select).
+        // Las Emitidas todavía no llegaron a Despacho: esta pantalla no las usa.
+        private List<OrdenEntrega> OrdenesDelDeposito()
+        {
+            return OrdenEntregaAlmacen.OrdenesEntrega
+                .Where(oe => oe.IdDeposito == Deposito && oe.Estado != EstadoOrdenEntregaEnum.Emitida)
+                .Select(oe => TraducirOrden(oe))
+                .ToList();
+        }
+
+        // Transportista con ese DNI, armado con el nombre que figura en sus OP (FirstOrDefault); null si no hay ninguna OP suya.
+        private Transportista? BuscarTransportistaPorDni(int dni)
+        {
+            var op = OrdenPreparacionAlmacen.OrdenesPreparacion.FirstOrDefault(o => o.DNITransportista == dni);
+            if (op == null) return null;
+
+            return new Transportista { DNI = op.DNITransportista, NombreApellido = op.NombreTransportista };
+        }
+
+        // OP que lista la OE (Where), ordenadas por N° (OrderBy).
+        private List<OrdenPreparacionEntidad> OrdenesDe(OrdenEntregaEntidad oe)
+        {
+            return OrdenPreparacionAlmacen.OrdenesPreparacion
+                .Where(op => oe.NrosOP.Contains(op.NroOP))
+                .OrderBy(op => op.NroOP)
+                .ToList();
+        }
+
+        // OP de todas las OE de los remitos: busca las OE de cada remito (Where) y junta sus OP (SelectMany).
+        private List<OrdenPreparacionEntidad> OrdenesDeRemitos(List<RemitoEntidad> remitos)
+        {
+            return OrdenEntregaAlmacen.OrdenesEntrega
+                .Where(oe => remitos.Any(r => r.NrosOE.Contains(oe.NroOE)))
+                .SelectMany(oe => OrdenesDe(oe))
+                .ToList();
+        }
+
+        // Arma la OE que muestra la pantalla: el cliente sale del almacén de clientes, el transportista de su DNI,
+        // y las líneas, de las OP que lista la OE con su N° y sus bultos (Select).
+        private OrdenEntrega TraducirOrden(OrdenEntregaEntidad oe)
+        {
+            return new OrdenEntrega
+            {
+                NroOE = oe.NroOE,
+                Cliente = BuscarCliente(oe.CuitCliente),
+                Lineas = OrdenesDe(oe).Select(op => new LineaOrdenEntrega { NroOP = op.NroOP, Bultos = op.Bultos }).ToList(),
+                Transportista = BuscarTransportistaPorDni(oe.DNITransportista) ?? new Transportista { DNI = oe.DNITransportista },
+                Estado = TraducirEstado(oe.Estado)
+            };
+        }
+
+        // Arma el remito que muestra la pantalla: las OP y los bultos salen de las OE que lista el remito
+        // (Where, SelectMany y Sum).
+        private Remito TraducirRemito(RemitoEntidad remito)
+        {
+            var lineas = OrdenesDelDeposito()
+                .Where(oe => remito.NrosOE.Contains(oe.NroOE))
+                .SelectMany(oe => oe.Lineas)
+                .ToList();
+
+            return new Remito
+            {
+                NroRemito = remito.NroRemito,
+                FechaEmision = remito.FechaEmision,
+                Cliente = BuscarCliente(remito.CuitCliente),
+                Transportista = BuscarTransportistaPorDni(remito.DNITransportista) ?? new Transportista { DNI = remito.DNITransportista },
+                NrosOE = remito.NrosOE.ToList(),
+                NrosOP = lineas.Select(l => l.NroOP).ToList(),
+                TotalBultos = lineas.Sum(l => l.Bultos),
+                Estado = remito.Estado == EstadoRemitoEnum.Cumplido ? EstadoRemito.Cumplido : EstadoRemito.Emitido,
+                FechaCumplida = remito.FechaCumplida
+            };
+        }
+
+        // Arma el remito que se graba en el almacén a partir del remito armado en la pantalla:
+        // del cliente y del transportista guarda solo sus claves. Las OP y los bultos salen de sus OE.
+        private RemitoEntidad TraducirRemito(Remito remito)
+        {
+            return new RemitoEntidad
+            {
+                NroRemito = remito.NroRemito,
+                FechaEmision = remito.FechaEmision,
+                Estado = remito.Estado == EstadoRemito.Cumplido ? EstadoRemitoEnum.Cumplido : EstadoRemitoEnum.Emitido,
+                NrosOE = remito.NrosOE.ToList(),
+                FechaCumplida = remito.FechaCumplida,
+                CuitCliente = remito.Cliente.Cuit,
+                DNITransportista = remito.Transportista.DNI,
+                IdDeposito = Deposito
+            };
+        }
+
+        // Pasa el estado de la OE del almacén al de la pantalla (las Emitidas no llegan acá: ver OrdenesDelDeposito).
+        private EstadoOrdenEntrega TraducirEstado(EstadoOrdenEntregaEnum estado)
+        {
+            if (estado == EstadoOrdenEntregaEnum.PendienteDeEntrega) return EstadoOrdenEntrega.PendienteEntrega;
+            if (estado == EstadoOrdenEntregaEnum.RemitoEmitido) return EstadoOrdenEntrega.RemitoEmitido;
+            return EstadoOrdenEntrega.Cumplida;
+        }
+
+        // Busca el cliente por CUIT y toma su razón social (First).
+        private Cliente BuscarCliente(long cuit)
+        {
+            var cliente = ClienteAlmacen.Clientes.First(c => c.Cuit == cuit);
+            return new Cliente { Cuit = cliente.Cuit, RazonSocial = cliente.RazonSocial };
+        }
+
+        // Mercadería del cliente de la OP en su depósito con ese SKU, o null si no hay (FirstOrDefault).
+        private MercaderiaEntidad? BuscarMercaderia(OrdenPreparacionEntidad op, string sku)
+        {
+            return MercaderiaAlmacen.Mercaderias.FirstOrDefault(m => m.CuitCliente == op.CuitCliente && m.Deposito == op.Deposito && m.Sku == sku);
+        }
+
+        // Existe la mercadería y tiene en Despacho la cantidad que se entrega.
+        private bool HayEnDespacho(OrdenPreparacionEntidad op, string sku, int cantidad)
+        {
+            var mercaderia = BuscarMercaderia(op, sku);
+            return mercaderia != null && mercaderia.CantidadEnDespacho >= cantidad;
+        }
+
+        // Resta de Despacho la cantidad que se entrega.
+        private void SacarDeDespacho(OrdenPreparacionEntidad op, string sku, int cantidad)
+        {
+            var mercaderia = BuscarMercaderia(op, sku);
+            if (mercaderia == null) return;
+
+            mercaderia.CantidadEnDespacho -= cantidad;
+        }
+
+        // El N° de remito es correlativo: el mayor del almacén más uno (Max), o 1 si no hay ninguno (DefaultIfEmpty).
+        private int ProximoNroRemito()
+        {
+            return RemitoAlmacen.Remitos.Select(r => r.NroRemito).DefaultIfEmpty(0).Max() + 1;
         }
     }
 }

@@ -10,6 +10,9 @@ namespace GrupoA.PampazonSA.AdministracionDeposito.Almacenes
     {
         // Expone una lista de DepositoEntidad
         public static List<DepositoEntidad> Depositos { get; private set; }
+
+        // Depósito elegido en el menú principal; las pantallas leen de acá en qué depósito trabajan.
+        public static string IdDepositoActivo { get; set; } = "GBA";
         static DepositoAlmacen()
         {
             if (File.Exists(@"Datos\Deposito.json"))

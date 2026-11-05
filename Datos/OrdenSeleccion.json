@@ -1,5 +1,201 @@
 [
   {
+    "NroOS": 491,
+    "Deposito": "ROS",
+    "FechaEmision": "2026-10-07",
+    "Estado": "Cumplida",
+    "NrosOP": [
+      91,
+      92
+    ],
+    "Lineas": [
+      {
+        "Sector": 1,
+        "Posicion": 1,
+        "Fila": 1,
+        "CuitCliente": 30715556667,
+        "Sku": "ARR-1KG",
+        "Cantidad": 20
+      },
+      {
+        "Sector": 2,
+        "Posicion": 1,
+        "Fila": 1,
+        "CuitCliente": 30709876543,
+        "Sku": "ZAP-0042",
+        "Cantidad": 6
+      }
+    ],
+    "FechaCumplida": "2026-10-07"
+  },
+  {
+    "NroOS": 492,
+    "Deposito": "ROS",
+    "FechaEmision": "2026-10-06",
+    "Estado": "Cumplida",
+    "NrosOP": [
+      93,
+      94
+    ],
+    "Lineas": [
+      {
+        "Sector": 1,
+        "Posicion": 2,
+        "Fila": 1,
+        "CuitCliente": 30715556667,
+        "Sku": "ZAP-0042",
+        "Cantidad": 5
+      },
+      {
+        "Sector": 1,
+        "Posicion": 1,
+        "Fila": 1,
+        "CuitCliente": 30715556667,
+        "Sku": "ARR-1KG",
+        "Cantidad": 10
+      }
+    ],
+    "FechaCumplida": "2026-10-06"
+  },
+  {
+    "NroOS": 493,
+    "Deposito": "ROS",
+    "FechaEmision": "2026-10-06",
+    "Estado": "Cumplida",
+    "NrosOP": [
+      95,
+      96,
+      97
+    ],
+    "Lineas": [
+      {
+        "Sector": 2,
+        "Posicion": 1,
+        "Fila": 1,
+        "CuitCliente": 30709876543,
+        "Sku": "ZAP-0042",
+        "Cantidad": 7
+      },
+      {
+        "Sector": 1,
+        "Posicion": 1,
+        "Fila": 1,
+        "CuitCliente": 30715556667,
+        "Sku": "ARR-1KG",
+        "Cantidad": 15
+      }
+    ],
+    "FechaCumplida": "2026-10-06"
+  },
+  {
+    "NroOS": 496,
+    "Deposito": "CBA",
+    "FechaEmision": "2026-10-08",
+    "Estado": "Pendiente",
+    "NrosOP": [
+      84
+    ],
+    "Lineas": [
+      {
+        "Sector": 1,
+        "Posicion": 1,
+        "Fila": 1,
+        "CuitCliente": 30716667778,
+        "Sku": "CEM-50KG",
+        "Cantidad": 20
+      }
+    ],
+    "FechaCumplida": null
+  },
+  {
+    "NroOS": 497,
+    "Deposito": "CBA",
+    "FechaEmision": "2026-10-07",
+    "Estado": "Cumplida",
+    "NrosOP": [
+      85,
+      86
+    ],
+    "Lineas": [
+      {
+        "Sector": 1,
+        "Posicion": 1,
+        "Fila": 1,
+        "CuitCliente": 30716667778,
+        "Sku": "CEM-50KG",
+        "Cantidad": 10
+      },
+      {
+        "Sector": 2,
+        "Posicion": 1,
+        "Fila": 1,
+        "CuitCliente": 30712345678,
+        "Sku": "CAL-25KG",
+        "Cantidad": 5
+      }
+    ],
+    "FechaCumplida": "2026-10-07"
+  },
+  {
+    "NroOS": 498,
+    "Deposito": "CBA",
+    "FechaEmision": "2026-10-06",
+    "Estado": "Cumplida",
+    "NrosOP": [
+      87,
+      88,
+      89
+    ],
+    "Lineas": [
+      {
+        "Sector": 1,
+        "Posicion": 1,
+        "Fila": 1,
+        "CuitCliente": 30716667778,
+        "Sku": "CEM-50KG",
+        "Cantidad": 14
+      },
+      {
+        "Sector": 2,
+        "Posicion": 1,
+        "Fila": 1,
+        "CuitCliente": 30712345678,
+        "Sku": "CAL-25KG",
+        "Cantidad": 4
+      }
+    ],
+    "FechaCumplida": "2026-10-06"
+  },
+  {
+    "NroOS": 499,
+    "Deposito": "CBA",
+    "FechaEmision": "2026-10-06",
+    "Estado": "Cumplida",
+    "NrosOP": [
+      83,
+      90
+    ],
+    "Lineas": [
+      {
+        "Sector": 1,
+        "Posicion": 2,
+        "Fila": 1,
+        "CuitCliente": 30716667778,
+        "Sku": "YER-1KG",
+        "Cantidad": 1
+      },
+      {
+        "Sector": 2,
+        "Posicion": 1,
+        "Fila": 1,
+        "CuitCliente": 30712345678,
+        "Sku": "CAL-25KG",
+        "Cantidad": 3
+      }
+    ],
+    "FechaCumplida": "2026-10-06"
+  },
+  {
     "NroOS": 500,
     "Deposito": "GBA",
     "FechaEmision": "2026-10-09",

@@ -10,9 +10,10 @@ namespace GrupoA.PampazonSA.AdministracionDeposito.GenerarOrdenSeleccion
         public List<LineaOrdenSeleccion> Lineas { get; set; } = new List<LineaOrdenSeleccion>();
     }
 
-    // Mercadería a retirar: una línea por SKU y posición donde está almacenado.
+    // Mercadería a retirar: una línea por cliente, SKU y posición donde está almacenado.
     internal class LineaOrdenSeleccion
     {
+        public long CuitCliente { get; set; }
         public string Sku { get; set; } = "";
         public int Cantidad { get; set; }
         public PosicionDeposito Posicion { get; set; } = new PosicionDeposito();
