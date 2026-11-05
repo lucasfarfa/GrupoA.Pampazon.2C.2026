@@ -79,6 +79,7 @@ namespace GrupoA.PampazonSA.AdministracionDeposito.EmpaquetarProductos
             if (_modelo.HayOrdenAsignada)
             {
                 MessageBox.Show("No se registró el empaquetado", Text);
+                _modelo.LiberarOrdenAsignada();
             }
         }
     }

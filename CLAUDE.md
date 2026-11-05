@@ -56,6 +56,11 @@ EXCEPCIONES APROBADAS POR EL PROFESOR (revisión del 05/11/2026):
   parte privada, sin cambiar sus firmas públicas.
 - `RegistrarOrdenPreparacion` NO usa el depósito del menú: el operario elige el
   depósito en su propio combo (`SeleccionarDeposito`).
+- `EmpaquetarProductosModelo` tiene un método público agregado,
+  `public bool LiberarOrdenAsignada()`, y `EmpaquetarProductosForm.cs` lo llama
+  en su `FormClosing`. Al asignar una OP se marca `TomadaPreparacion = true`; este
+  método la vuelve a `false` si se cancela o se cierra la pantalla sin confirmar.
+  No sacarlo.
 
 FORMA DE TRABAJO CON LA IA:
 - Se migra a los almacenes de a UNA pantalla por vez.
