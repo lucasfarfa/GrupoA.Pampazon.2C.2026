@@ -1,4 +1,5 @@
-﻿using GrupoA.PampazonSA.AdministracionDeposito.EmpaquetarProductos;
+﻿using GrupoA.PampazonSA.AdministracionDeposito.Almacenes;
+using GrupoA.PampazonSA.AdministracionDeposito.EmpaquetarProductos;
 using GrupoA.PampazonSA.AdministracionDeposito.GenerarOrdenEntrega;
 using GrupoA.PampazonSA.AdministracionDeposito.GenerarOrdenSeleccion;
 using GrupoA.PampazonSA.AdministracionDeposito.GenerarRemitoDespachar;
@@ -30,16 +31,19 @@ public partial class MenuPrincipalForm : Form
 
     private void btnGenerarOrdenSeleccion_Click(object sender, EventArgs e)
     {
+        DepositoAlmacen.IdDepositoActivo = ObtenerDeposito();
         new GenerarOrdenSeleccionForm(ObtenerDeposito()).ShowDialog();
     }
 
     private void btnPrepararProductos_Click(object sender, EventArgs e)
     {
+        DepositoAlmacen.IdDepositoActivo = ObtenerDeposito();
         new PrepararProductosForm().ShowDialog();
     }
 
     private void btnEmpaquetar_Click(object sender, EventArgs e)
     {
+        DepositoAlmacen.IdDepositoActivo = ObtenerDeposito();
         new EmpaquetarProductosForm().ShowDialog();
     }
 
@@ -50,16 +54,19 @@ public partial class MenuPrincipalForm : Form
 
     private void btnGenerarEntrega_Click(object sender, EventArgs e)
     {
+        DepositoAlmacen.IdDepositoActivo = ObtenerDeposito();
         new GenerarOrdenEntregaForm().ShowDialog();
     }
 
     private void btnRecepcionarOrdenEntrega_Click(object sender, EventArgs e)
     {
+        DepositoAlmacen.IdDepositoActivo = ObtenerDeposito();
         new RecepcionarOrdenEntregaForm().ShowDialog();
     }
 
     private void btnGenerarRemito_Click(object sender, EventArgs e)
     {
+        DepositoAlmacen.IdDepositoActivo = ObtenerDeposito();
         new GenerarRemitoDespacharForm().ShowDialog();
     }
 }
