@@ -77,8 +77,8 @@
     "Sku": "ARR-1KG",
     "Descripcion": "Paquete de arroz 1 kg",
     "CantidadComprometida": 40,
-    "CantidadEnPreparacion": 0,
-    "CantidadEnDespacho": 0
+    "CantidadEnPreparacion": 30,
+    "CantidadEnDespacho": 15
   },
   {
     "CuitCliente": 30715556667,
@@ -86,7 +86,7 @@
     "Sku": "ZAP-0042",
     "Descripcion": "Caja de zapatillas",
     "CantidadComprometida": 8,
-    "CantidadEnPreparacion": 0,
+    "CantidadEnPreparacion": 5,
     "CantidadEnDespacho": 0
   },
   {
@@ -95,16 +95,16 @@
     "Sku": "ZAP-0042",
     "Descripcion": "Caja de zapatillas",
     "CantidadComprometida": 0,
-    "CantidadEnPreparacion": 0,
-    "CantidadEnDespacho": 0
+    "CantidadEnPreparacion": 10,
+    "CantidadEnDespacho": 3
   },
   {
     "CuitCliente": 30716667778,
     "Deposito": "CBA",
     "Sku": "CEM-50KG",
     "Descripcion": "Bolsa de cemento 50 kg",
-    "CantidadComprometida": 0,
-    "CantidadEnPreparacion": 0,
+    "CantidadComprometida": 20,
+    "CantidadEnPreparacion": 24,
     "CantidadEnDespacho": 0
   },
   {
@@ -114,7 +114,7 @@
     "Descripcion": "Paquete de yerba 1 kg",
     "CantidadComprometida": 2,
     "CantidadEnPreparacion": 0,
-    "CantidadEnDespacho": 0
+    "CantidadEnDespacho": 1
   },
   {
     "CuitCliente": 30712345678,
@@ -122,7 +122,7 @@
     "Sku": "CAL-25KG",
     "Descripcion": "Bolsa de cal 25 kg",
     "CantidadComprometida": 0,
-    "CantidadEnPreparacion": 0,
-    "CantidadEnDespacho": 0
+    "CantidadEnPreparacion": 9,
+    "CantidadEnDespacho": 3
   }
 ]

@@ -1,5 +1,305 @@
 [
   {
+    "NroOP": 83,
+    "FechaRecepcion": "2026-10-05T09:30:00",
+    "CuitCliente": 30716667778,
+    "Deposito": "CBA",
+    "Modalidad": "Fulfillment",
+    "DNITransportista": 32321987,
+    "NombreTransportista": "Daniel Baez",
+    "FechaRetiro": "2026-10-19",
+    "Estado": "EnEntrega",
+    "Lineas": [
+      {
+        "Sku": "YER-1KG",
+        "Cantidad": 1
+      }
+    ],
+    "TomadaPreparacion": false,
+    "Bultos": 1,
+    "FechaEmpaquetado": "2026-10-08"
+  },
+  {
+    "NroOP": 84,
+    "FechaRecepcion": "2026-10-07T09:00:00",
+    "CuitCliente": 30716667778,
+    "Deposito": "CBA",
+    "Modalidad": "Fulfillment",
+    "DNITransportista": 32321987,
+    "NombreTransportista": "Daniel Baez",
+    "FechaRetiro": "2026-10-23",
+    "Estado": "EnPreparacion",
+    "Lineas": [
+      {
+        "Sku": "CEM-50KG",
+        "Cantidad": 20
+      }
+    ],
+    "TomadaPreparacion": false,
+    "Bultos": 0,
+    "FechaEmpaquetado": null
+  },
+  {
+    "NroOP": 85,
+    "FechaRecepcion": "2026-10-06T09:00:00",
+    "CuitCliente": 30716667778,
+    "Deposito": "CBA",
+    "Modalidad": "PaletCerrado",
+    "DNITransportista": 32321987,
+    "NombreTransportista": "Daniel Baez",
+    "FechaRetiro": "2026-10-22",
+    "Estado": "EnPreparacion",
+    "Lineas": [
+      {
+        "Sku": "CEM-50KG",
+        "Cantidad": 10
+      }
+    ],
+    "TomadaPreparacion": false,
+    "Bultos": 0,
+    "FechaEmpaquetado": null
+  },
+  {
+    "NroOP": 86,
+    "FechaRecepcion": "2026-10-06T10:00:00",
+    "CuitCliente": 30712345678,
+    "Deposito": "CBA",
+    "Modalidad": "Fulfillment",
+    "DNITransportista": 24568779,
+    "NombreTransportista": "Jose Gomez",
+    "FechaRetiro": "2026-10-22",
+    "Estado": "EnPreparacion",
+    "Lineas": [
+      {
+        "Sku": "CAL-25KG",
+        "Cantidad": 5
+      }
+    ],
+    "TomadaPreparacion": false,
+    "Bultos": 0,
+    "FechaEmpaquetado": null
+  },
+  {
+    "NroOP": 87,
+    "FechaRecepcion": "2026-10-05T10:30:00",
+    "CuitCliente": 30716667778,
+    "Deposito": "CBA",
+    "Modalidad": "Fulfillment",
+    "DNITransportista": 32321987,
+    "NombreTransportista": "Daniel Baez",
+    "FechaRetiro": "2026-10-22",
+    "Estado": "Preparada",
+    "Lineas": [
+      {
+        "Sku": "CEM-50KG",
+        "Cantidad": 8
+      }
+    ],
+    "TomadaPreparacion": false,
+    "Bultos": 8,
+    "FechaEmpaquetado": "2026-10-09"
+  },
+  {
+    "NroOP": 88,
+    "FechaRecepcion": "2026-10-05T11:30:00",
+    "CuitCliente": 30712345678,
+    "Deposito": "CBA",
+    "Modalidad": "Fulfillment",
+    "DNITransportista": 24568779,
+    "NombreTransportista": "Jose Gomez",
+    "FechaRetiro": "2026-10-22",
+    "Estado": "Preparada",
+    "Lineas": [
+      {
+        "Sku": "CAL-25KG",
+        "Cantidad": 4
+      }
+    ],
+    "TomadaPreparacion": false,
+    "Bultos": 4,
+    "FechaEmpaquetado": "2026-10-09"
+  },
+  {
+    "NroOP": 89,
+    "FechaRecepcion": "2026-10-05T12:30:00",
+    "CuitCliente": 30716667778,
+    "Deposito": "CBA",
+    "Modalidad": "Fulfillment",
+    "DNITransportista": 32321987,
+    "NombreTransportista": "Daniel Baez",
+    "FechaRetiro": "2026-10-20",
+    "Estado": "EnEntrega",
+    "Lineas": [
+      {
+        "Sku": "CEM-50KG",
+        "Cantidad": 6
+      }
+    ],
+    "TomadaPreparacion": false,
+    "Bultos": 6,
+    "FechaEmpaquetado": "2026-10-08"
+  },
+  {
+    "NroOP": 90,
+    "FechaRecepcion": "2026-10-05T13:30:00",
+    "CuitCliente": 30712345678,
+    "Deposito": "CBA",
+    "Modalidad": "Fulfillment",
+    "DNITransportista": 24568779,
+    "NombreTransportista": "Jose Gomez",
+    "FechaRetiro": "2026-10-19",
+    "Estado": "EnEntrega",
+    "Lineas": [
+      {
+        "Sku": "CAL-25KG",
+        "Cantidad": 3
+      }
+    ],
+    "TomadaPreparacion": false,
+    "Bultos": 3,
+    "FechaEmpaquetado": "2026-10-08"
+  },
+  {
+    "NroOP": 91,
+    "FechaRecepcion": "2026-10-06T09:00:00",
+    "CuitCliente": 30715556667,
+    "Deposito": "ROS",
+    "Modalidad": "Fulfillment",
+    "DNITransportista": 20562667,
+    "NombreTransportista": "Alejo Cisterna",
+    "FechaRetiro": "2026-10-21",
+    "Estado": "EnPreparacion",
+    "Lineas": [
+      {
+        "Sku": "ARR-1KG",
+        "Cantidad": 20
+      }
+    ],
+    "TomadaPreparacion": false,
+    "Bultos": 0,
+    "FechaEmpaquetado": null
+  },
+  {
+    "NroOP": 92,
+    "FechaRecepcion": "2026-10-06T11:00:00",
+    "CuitCliente": 30709876543,
+    "Deposito": "ROS",
+    "Modalidad": "PaletCerrado",
+    "DNITransportista": 20562667,
+    "NombreTransportista": "Alejo Cisterna",
+    "FechaRetiro": "2026-10-21",
+    "Estado": "EnPreparacion",
+    "Lineas": [
+      {
+        "Sku": "ZAP-0042",
+        "Cantidad": 6
+      }
+    ],
+    "TomadaPreparacion": false,
+    "Bultos": 0,
+    "FechaEmpaquetado": null
+  },
+  {
+    "NroOP": 93,
+    "FechaRecepcion": "2026-10-05T09:00:00",
+    "CuitCliente": 30715556667,
+    "Deposito": "ROS",
+    "Modalidad": "Fulfillment",
+    "DNITransportista": 20562667,
+    "NombreTransportista": "Alejo Cisterna",
+    "FechaRetiro": "2026-10-21",
+    "Estado": "Preparada",
+    "Lineas": [
+      {
+        "Sku": "ZAP-0042",
+        "Cantidad": 5
+      }
+    ],
+    "TomadaPreparacion": false,
+    "Bultos": 5,
+    "FechaEmpaquetado": "2026-10-09"
+  },
+  {
+    "NroOP": 94,
+    "FechaRecepcion": "2026-10-05T10:00:00",
+    "CuitCliente": 30715556667,
+    "Deposito": "ROS",
+    "Modalidad": "Fulfillment",
+    "DNITransportista": 20562667,
+    "NombreTransportista": "Alejo Cisterna",
+    "FechaRetiro": "2026-10-21",
+    "Estado": "Preparada",
+    "Lineas": [
+      {
+        "Sku": "ARR-1KG",
+        "Cantidad": 10
+      }
+    ],
+    "TomadaPreparacion": false,
+    "Bultos": 10,
+    "FechaEmpaquetado": "2026-10-09"
+  },
+  {
+    "NroOP": 95,
+    "FechaRecepcion": "2026-10-05T11:00:00",
+    "CuitCliente": 30709876543,
+    "Deposito": "ROS",
+    "Modalidad": "Fulfillment",
+    "DNITransportista": 24568779,
+    "NombreTransportista": "Jose Gomez",
+    "FechaRetiro": "2026-10-20",
+    "Estado": "EnEntrega",
+    "Lineas": [
+      {
+        "Sku": "ZAP-0042",
+        "Cantidad": 4
+      }
+    ],
+    "TomadaPreparacion": false,
+    "Bultos": 4,
+    "FechaEmpaquetado": "2026-10-08"
+  },
+  {
+    "NroOP": 96,
+    "FechaRecepcion": "2026-10-05T12:00:00",
+    "CuitCliente": 30715556667,
+    "Deposito": "ROS",
+    "Modalidad": "Fulfillment",
+    "DNITransportista": 20562667,
+    "NombreTransportista": "Alejo Cisterna",
+    "FechaRetiro": "2026-10-19",
+    "Estado": "EnEntrega",
+    "Lineas": [
+      {
+        "Sku": "ARR-1KG",
+        "Cantidad": 15
+      }
+    ],
+    "TomadaPreparacion": false,
+    "Bultos": 15,
+    "FechaEmpaquetado": "2026-10-08"
+  },
+  {
+    "NroOP": 97,
+    "FechaRecepcion": "2026-10-05T13:00:00",
+    "CuitCliente": 30709876543,
+    "Deposito": "ROS",
+    "Modalidad": "PaletCerrado",
+    "DNITransportista": 20562667,
+    "NombreTransportista": "Alejo Cisterna",
+    "FechaRetiro": "2026-10-19",
+    "Estado": "EnEntrega",
+    "Lineas": [
+      {
+        "Sku": "ZAP-0042",
+        "Cantidad": 3
+      }
+    ],
+    "TomadaPreparacion": false,
+    "Bultos": 1,
+    "FechaEmpaquetado": "2026-10-08"
+  },
+  {
     "NroOP": 101,
     "FechaRecepcion": "2026-10-14T09:00:00",
     "CuitCliente": 30712345678,
