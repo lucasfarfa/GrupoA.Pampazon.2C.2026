@@ -17,13 +17,13 @@
 
         private void InitializeComponent()
         {
-            groupBox1 = new GroupBox();
+            grpTransportista = new GroupBox();
             btnBuscarOrdenes = new Button();
             lblNombreTransportista = new Label();
-            label4 = new Label();
+            lblNombre = new Label();
             textDNITransportista = new TextBox();
-            label3 = new Label();
-            groupBox2 = new GroupBox();
+            lblDni = new Label();
+            grpOEPendientes = new GroupBox();
             btnDeseleccionar = new Button();
             btnSeleccionar = new Button();
             lvOEPendientesEntrega = new ListView();
@@ -31,35 +31,35 @@
             colNOEPendiente = new ColumnHeader();
             colOP = new ColumnHeader();
             colBultos = new ColumnHeader();
-            groupBox3 = new GroupBox();
+            grpRemitosEmitir = new GroupBox();
             btnEmitirRemitos = new Button();
             lvRemitosEmitir = new ListView();
             colClienteEmitirRemito = new ColumnHeader();
             colOEincluida = new ColumnHeader();
-            groupBox4 = new GroupBox();
+            grpRemitosPendientesFirma = new GroupBox();
             btnConfirmarEntregaFirma = new Button();
             lvRemitosPendientesFirma = new ListView();
             colNRemito = new ColumnHeader();
             btnCancelar = new Button();
-            groupBox1.SuspendLayout();
-            groupBox2.SuspendLayout();
-            groupBox3.SuspendLayout();
-            groupBox4.SuspendLayout();
+            grpTransportista.SuspendLayout();
+            grpOEPendientes.SuspendLayout();
+            grpRemitosEmitir.SuspendLayout();
+            grpRemitosPendientesFirma.SuspendLayout();
             SuspendLayout();
             // 
-            // groupBox1
+            // grpTransportista
             // 
-            groupBox1.Controls.Add(btnBuscarOrdenes);
-            groupBox1.Controls.Add(lblNombreTransportista);
-            groupBox1.Controls.Add(label4);
-            groupBox1.Controls.Add(textDNITransportista);
-            groupBox1.Controls.Add(label3);
-            groupBox1.Location = new Point(11, 12);
-            groupBox1.Name = "groupBox1";
-            groupBox1.Size = new Size(917, 80);
-            groupBox1.TabIndex = 2;
-            groupBox1.TabStop = false;
-            groupBox1.Text = "Identificar transportista";
+            grpTransportista.Controls.Add(btnBuscarOrdenes);
+            grpTransportista.Controls.Add(lblNombreTransportista);
+            grpTransportista.Controls.Add(lblNombre);
+            grpTransportista.Controls.Add(textDNITransportista);
+            grpTransportista.Controls.Add(lblDni);
+            grpTransportista.Location = new Point(11, 12);
+            grpTransportista.Name = "grpTransportista";
+            grpTransportista.Size = new Size(917, 80);
+            grpTransportista.TabIndex = 2;
+            grpTransportista.TabStop = false;
+            grpTransportista.Text = "Identificar transportista";
             // 
             // btnBuscarOrdenes
             // 
@@ -80,14 +80,14 @@
             lblNombreTransportista.TabIndex = 4;
             lblNombreTransportista.Text = "[NOMBRE, APELLIDO]";
             // 
-            // label4
+            // lblNombre
             // 
-            label4.AutoSize = true;
-            label4.Location = new Point(251, 36);
-            label4.Name = "label4";
-            label4.Size = new Size(67, 20);
-            label4.TabIndex = 3;
-            label4.Text = "Nombre:";
+            lblNombre.AutoSize = true;
+            lblNombre.Location = new Point(251, 36);
+            lblNombre.Name = "lblNombre";
+            lblNombre.Size = new Size(67, 20);
+            lblNombre.TabIndex = 3;
+            lblNombre.Text = "Nombre:";
             // 
             // textDNITransportista
             // 
@@ -96,26 +96,26 @@
             textDNITransportista.Size = new Size(195, 27);
             textDNITransportista.TabIndex = 2;
             // 
-            // label3
+            // lblDni
             // 
-            label3.AutoSize = true;
-            label3.Location = new Point(6, 36);
-            label3.Name = "label3";
-            label3.Size = new Size(38, 20);
-            label3.TabIndex = 1;
-            label3.Text = "DNI:";
+            lblDni.AutoSize = true;
+            lblDni.Location = new Point(6, 36);
+            lblDni.Name = "lblDni";
+            lblDni.Size = new Size(38, 20);
+            lblDni.TabIndex = 1;
+            lblDni.Text = "DNI:";
             // 
-            // groupBox2
+            // grpOEPendientes
             // 
-            groupBox2.Controls.Add(btnDeseleccionar);
-            groupBox2.Controls.Add(btnSeleccionar);
-            groupBox2.Controls.Add(lvOEPendientesEntrega);
-            groupBox2.Location = new Point(11, 98);
-            groupBox2.Name = "groupBox2";
-            groupBox2.Size = new Size(917, 216);
-            groupBox2.TabIndex = 3;
-            groupBox2.TabStop = false;
-            groupBox2.Text = "1. Ordenes de entrega pendientes de entrega";
+            grpOEPendientes.Controls.Add(btnDeseleccionar);
+            grpOEPendientes.Controls.Add(btnSeleccionar);
+            grpOEPendientes.Controls.Add(lvOEPendientesEntrega);
+            grpOEPendientes.Location = new Point(11, 98);
+            grpOEPendientes.Name = "grpOEPendientes";
+            grpOEPendientes.Size = new Size(917, 216);
+            grpOEPendientes.TabIndex = 3;
+            grpOEPendientes.TabStop = false;
+            grpOEPendientes.Text = "1. Ordenes de entrega pendientes de entrega";
             // 
             // btnDeseleccionar
             // 
@@ -168,16 +168,16 @@
             colBultos.Text = "Bultos";
             colBultos.Width = 80;
             // 
-            // groupBox3
+            // grpRemitosEmitir
             // 
-            groupBox3.Controls.Add(btnEmitirRemitos);
-            groupBox3.Controls.Add(lvRemitosEmitir);
-            groupBox3.Location = new Point(12, 320);
-            groupBox3.Name = "groupBox3";
-            groupBox3.Size = new Size(917, 216);
-            groupBox3.TabIndex = 4;
-            groupBox3.TabStop = false;
-            groupBox3.Text = "2. Se emitirán los siguientes remitos:";
+            grpRemitosEmitir.Controls.Add(btnEmitirRemitos);
+            grpRemitosEmitir.Controls.Add(lvRemitosEmitir);
+            grpRemitosEmitir.Location = new Point(12, 320);
+            grpRemitosEmitir.Name = "grpRemitosEmitir";
+            grpRemitosEmitir.Size = new Size(917, 216);
+            grpRemitosEmitir.TabIndex = 4;
+            grpRemitosEmitir.TabStop = false;
+            grpRemitosEmitir.Text = "2. Se emitirán los siguientes remitos:";
             // 
             // btnEmitirRemitos
             // 
@@ -210,16 +210,16 @@
             colOEincluida.Text = "OE incluidas";
             colOEincluida.Width = 100;
             // 
-            // groupBox4
+            // grpRemitosPendientesFirma
             // 
-            groupBox4.Controls.Add(btnConfirmarEntregaFirma);
-            groupBox4.Controls.Add(lvRemitosPendientesFirma);
-            groupBox4.Location = new Point(12, 542);
-            groupBox4.Name = "groupBox4";
-            groupBox4.Size = new Size(917, 216);
-            groupBox4.TabIndex = 8;
-            groupBox4.TabStop = false;
-            groupBox4.Text = "3. Remitos pendiente de firma";
+            grpRemitosPendientesFirma.Controls.Add(btnConfirmarEntregaFirma);
+            grpRemitosPendientesFirma.Controls.Add(lvRemitosPendientesFirma);
+            grpRemitosPendientesFirma.Location = new Point(12, 542);
+            grpRemitosPendientesFirma.Name = "grpRemitosPendientesFirma";
+            grpRemitosPendientesFirma.Size = new Size(917, 216);
+            grpRemitosPendientesFirma.TabIndex = 8;
+            grpRemitosPendientesFirma.TabStop = false;
+            grpRemitosPendientesFirma.Text = "3. Remitos pendiente de firma";
             // 
             // btnConfirmarEntregaFirma
             // 
@@ -263,10 +263,10 @@
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(941, 825);
             Controls.Add(btnCancelar);
-            Controls.Add(groupBox4);
-            Controls.Add(groupBox3);
-            Controls.Add(groupBox2);
-            Controls.Add(groupBox1);
+            Controls.Add(grpRemitosPendientesFirma);
+            Controls.Add(grpRemitosEmitir);
+            Controls.Add(grpOEPendientes);
+            Controls.Add(grpTransportista);
             FormBorderStyle = FormBorderStyle.FixedDialog;
             MaximizeBox = false;
             MinimizeBox = false;
@@ -274,22 +274,22 @@
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Generar remito y despachar";
             FormClosing += GenerarRemitoDespacharForm_FormClosing;
-            groupBox1.ResumeLayout(false);
-            groupBox1.PerformLayout();
-            groupBox2.ResumeLayout(false);
-            groupBox3.ResumeLayout(false);
-            groupBox4.ResumeLayout(false);
+            grpTransportista.ResumeLayout(false);
+            grpTransportista.PerformLayout();
+            grpOEPendientes.ResumeLayout(false);
+            grpRemitosEmitir.ResumeLayout(false);
+            grpRemitosPendientesFirma.ResumeLayout(false);
             ResumeLayout(false);
         }
 
         #endregion
-        private GroupBox groupBox1;
-        private Label label3;
+        private GroupBox grpTransportista;
+        private Label lblDni;
         private Button btnBuscarOrdenes;
         private Label lblNombreTransportista;
-        private Label label4;
+        private Label lblNombre;
         private TextBox textDNITransportista;
-        private GroupBox groupBox2;
+        private GroupBox grpOEPendientes;
         private Button btnDeseleccionar;
         private Button btnSeleccionar;
         private ListView lvOEPendientesEntrega;
@@ -297,12 +297,12 @@
         private ColumnHeader colNOEPendiente;
         private ColumnHeader colOP;
         private ColumnHeader colBultos;
-        private GroupBox groupBox3;
+        private GroupBox grpRemitosEmitir;
         private Button btnEmitirRemitos;
         private ListView lvRemitosEmitir;
         private ColumnHeader colClienteEmitirRemito;
         private ColumnHeader colOEincluida;
-        private GroupBox groupBox4;
+        private GroupBox grpRemitosPendientesFirma;
         private Button btnConfirmarEntregaFirma;
         private ListView lvRemitosPendientesFirma;
         private ColumnHeader colNRemito;

@@ -20,11 +20,11 @@
             grpOrden = new GroupBox();
             lblModalidad = new Label();
             lblNroOrden = new Label();
-            label5 = new Label();
-            label3 = new Label();
-            groupBox2 = new GroupBox();
+            lblModalidadTitulo = new Label();
+            lblOrdenTitulo = new Label();
+            grpProductos = new GroupBox();
             lblTotalBultos = new Label();
-            label2 = new Label();
+            lblTotalBultosTitulo = new Label();
             lstProductos = new ListView();
             columnSKU = new ColumnHeader();
             colDescripcion = new ColumnHeader();
@@ -33,15 +33,15 @@
             btnEmpaquetar = new Button();
             btnCancelar = new Button();
             grpOrden.SuspendLayout();
-            groupBox2.SuspendLayout();
+            grpProductos.SuspendLayout();
             SuspendLayout();
             // 
             // grpOrden
             // 
             grpOrden.Controls.Add(lblModalidad);
             grpOrden.Controls.Add(lblNroOrden);
-            grpOrden.Controls.Add(label5);
-            grpOrden.Controls.Add(label3);
+            grpOrden.Controls.Add(lblModalidadTitulo);
+            grpOrden.Controls.Add(lblOrdenTitulo);
             grpOrden.Location = new Point(6, 9);
             grpOrden.Margin = new Padding(2, 2, 2, 2);
             grpOrden.Name = "grpOrden";
@@ -71,39 +71,39 @@
             lblNroOrden.TabIndex = 12;
             lblNroOrden.Text = "NRO ORDEN A PREPARAR";
             // 
-            // label5
+            // lblModalidadTitulo
             // 
-            label5.AutoSize = true;
-            label5.Location = new Point(384, 25);
-            label5.Margin = new Padding(2, 0, 2, 0);
-            label5.Name = "label5";
-            label5.Size = new Size(67, 15);
-            label5.TabIndex = 10;
-            label5.Text = "Modalidad:";
+            lblModalidadTitulo.AutoSize = true;
+            lblModalidadTitulo.Location = new Point(384, 25);
+            lblModalidadTitulo.Margin = new Padding(2, 0, 2, 0);
+            lblModalidadTitulo.Name = "lblModalidadTitulo";
+            lblModalidadTitulo.Size = new Size(67, 15);
+            lblModalidadTitulo.TabIndex = 10;
+            lblModalidadTitulo.Text = "Modalidad:";
             // 
-            // label3
+            // lblOrdenTitulo
             // 
-            label3.AutoSize = true;
-            label3.Location = new Point(8, 25);
-            label3.Margin = new Padding(2, 0, 2, 0);
-            label3.Name = "label3";
-            label3.Size = new Size(43, 15);
-            label3.TabIndex = 0;
-            label3.Text = "Orden:";
+            lblOrdenTitulo.AutoSize = true;
+            lblOrdenTitulo.Location = new Point(8, 25);
+            lblOrdenTitulo.Margin = new Padding(2, 0, 2, 0);
+            lblOrdenTitulo.Name = "lblOrdenTitulo";
+            lblOrdenTitulo.Size = new Size(43, 15);
+            lblOrdenTitulo.TabIndex = 0;
+            lblOrdenTitulo.Text = "Orden:";
             // 
-            // groupBox2
+            // grpProductos
             // 
-            groupBox2.Controls.Add(lblTotalBultos);
-            groupBox2.Controls.Add(label2);
-            groupBox2.Controls.Add(lstProductos);
-            groupBox2.Location = new Point(6, 76);
-            groupBox2.Margin = new Padding(2, 2, 2, 2);
-            groupBox2.Name = "groupBox2";
-            groupBox2.Padding = new Padding(2, 2, 2, 2);
-            groupBox2.Size = new Size(663, 275);
-            groupBox2.TabIndex = 7;
-            groupBox2.TabStop = false;
-            groupBox2.Text = "Productos a empaquetar";
+            grpProductos.Controls.Add(lblTotalBultos);
+            grpProductos.Controls.Add(lblTotalBultosTitulo);
+            grpProductos.Controls.Add(lstProductos);
+            grpProductos.Location = new Point(6, 76);
+            grpProductos.Margin = new Padding(2, 2, 2, 2);
+            grpProductos.Name = "grpProductos";
+            grpProductos.Padding = new Padding(2, 2, 2, 2);
+            grpProductos.Size = new Size(663, 275);
+            grpProductos.TabIndex = 7;
+            grpProductos.TabStop = false;
+            grpProductos.Text = "Productos a empaquetar";
             // 
             // lblTotalBultos
             // 
@@ -114,14 +114,14 @@
             lblTotalBultos.TabIndex = 14;
             lblTotalBultos.Text = "[X]";
             // 
-            // label2
+            // lblTotalBultosTitulo
             // 
-            label2.AutoSize = true;
-            label2.Location = new Point(542, 252);
-            label2.Name = "label2";
-            label2.Size = new Size(72, 15);
-            label2.TabIndex = 13;
-            label2.Text = "Total Bultos:";
+            lblTotalBultosTitulo.AutoSize = true;
+            lblTotalBultosTitulo.Location = new Point(542, 252);
+            lblTotalBultosTitulo.Name = "lblTotalBultosTitulo";
+            lblTotalBultosTitulo.Size = new Size(72, 15);
+            lblTotalBultosTitulo.TabIndex = 13;
+            lblTotalBultosTitulo.Text = "Total Bultos:";
             // 
             // lstProductos
             // 
@@ -189,7 +189,7 @@
             ClientSize = new Size(677, 421);
             Controls.Add(btnCancelar);
             Controls.Add(btnEmpaquetar);
-            Controls.Add(groupBox2);
+            Controls.Add(grpProductos);
             Controls.Add(grpOrden);
             FormBorderStyle = FormBorderStyle.FixedDialog;
             MaximizeBox = false;
@@ -201,25 +201,25 @@
             Load += EmpaquetarProductosForm_Load;
             grpOrden.ResumeLayout(false);
             grpOrden.PerformLayout();
-            groupBox2.ResumeLayout(false);
-            groupBox2.PerformLayout();
+            grpProductos.ResumeLayout(false);
+            grpProductos.PerformLayout();
             ResumeLayout(false);
         }
 
         #endregion
 
         private GroupBox grpOrden;
-        private Label label5;
+        private Label lblModalidadTitulo;
         // private TextBox textModalidad;
-        private GroupBox groupBox2;
+        private GroupBox grpProductos;
         private ListView lstProductos;
         // private ColumnHeader columnHeader1;
         // private ColumnHeader columnHeader2;
         private ColumnHeader CantidadCol;
         private Button btnEmpaquetar;
-        private Label label3;
+        private Label lblOrdenTitulo;
         private Label lblTotalBultos;
-        private Label label2;
+        private Label lblTotalBultosTitulo;
         // private TextBox txtNumeroOrden;
         private Button btnCancelar;
         private Label lblModalidad;
