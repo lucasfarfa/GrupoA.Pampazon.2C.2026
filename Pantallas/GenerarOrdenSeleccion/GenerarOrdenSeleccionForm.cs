@@ -107,6 +107,7 @@ namespace GrupoA.PampazonSA.AdministracionDeposito.GenerarOrdenSeleccion
             RefrescarListas();
         }
 
+        // CU-02, exc. 8.4.
         private void btnAgregarTodo_Click(object sender, EventArgs e)
         {
             List<int> nrosOP = new List<int>();
@@ -116,12 +117,18 @@ namespace GrupoA.PampazonSA.AdministracionDeposito.GenerarOrdenSeleccion
                 nrosOP.Add((int)item.Tag);
             }
 
+            if (!_modelo.HayOrdenes(nrosOP))
+            {
+                MessageBox.Show("No hay órdenes para agregar", Text);
+                return;
+            }
+
             if (!_modelo.IncluirOrdenes(nrosOP)) return;
 
             RefrescarListas();
         }
 
-        // CU-02, exc. 9.1 y 9.2.
+        // CU-02, exc. 11.1 y 11.4.
         private void btnQuitar_Click(object sender, EventArgs e)
         {
             List<int> nrosOP = new List<int>();
@@ -131,15 +138,26 @@ namespace GrupoA.PampazonSA.AdministracionDeposito.GenerarOrdenSeleccion
                 nrosOP.Add((int)item.Tag);
             }
 
-            if (!_modelo.HayOrdenes(nrosOP)) return;
+            if (!_modelo.HayOrdenes(nrosOP))
+            {
+                MessageBox.Show("Seleccione al menos una orden", Text);
+                return;
+            }
 
             if (!_modelo.QuitarOrdenes(nrosOP)) return;
 
             RefrescarListas();
         }
 
+        // CU-02, exc. 11.1 y 11.7.
         private void btnQuitarTodo_Click(object sender, EventArgs e)
         {
+            if (_modelo.CantidadIncluidas == 0)
+            {
+                MessageBox.Show("No hay órdenes agregadas", Text);
+                return;
+            }
+
             if (!_modelo.QuitarTodas()) return;
 
             RefrescarListas();
@@ -154,7 +172,7 @@ namespace GrupoA.PampazonSA.AdministracionDeposito.GenerarOrdenSeleccion
             e.NewValue = _modelo.EstaIncluida(nroOP) ? CheckState.Checked : CheckState.Unchecked;
         }
 
-        // CU-02, pasos 10 a 16.
+        // CU-02, pasos 12 a 20 y exc. 20.1.
         private void GenerarOSBtn_Click(object sender, EventArgs e)
         {
             if (_modelo.CantidadIncluidas == 0)
@@ -173,6 +191,11 @@ namespace GrupoA.PampazonSA.AdministracionDeposito.GenerarOrdenSeleccion
 
             MessageBox.Show("Orden de selección N° " + nroOS + " generada", Text);
             RefrescarListas();
+
+            if (!_modelo.HayOrdenesPendientes)
+            {
+                MessageBox.Show("No hay órdenes de preparación pendientes", Text);
+            }
         }
 
         // Convierte el texto del combo a la modalidad, sin importar mayúsculas; vacío no filtra (null).

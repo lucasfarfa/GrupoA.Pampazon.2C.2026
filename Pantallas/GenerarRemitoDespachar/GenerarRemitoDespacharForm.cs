@@ -76,7 +76,12 @@
                 nrosOE.AddRange((List<int>)item.Tag);
             }
 
-            if (!_modelo.HayOrdenes(nrosOE)) return;
+            // CU-07, exc. 10.4.
+            if (!_modelo.HayOrdenes(nrosOE))
+            {
+                MessageBox.Show("Seleccione al menos un remito a emitir", Text);
+                return;
+            }
 
             if (!_modelo.DeseleccionarOrdenes(nrosOE)) return;
 
@@ -98,8 +103,13 @@
                 return;
             }
 
+            // Los remitos recién emitidos quedan pendientes de firma: son los que aparecen nuevos en esa lista.
+            List<int> anteriores = _modelo.RemitosPendientesFirma.Select(r => r.NroRemito).ToList();
+
             if (!_modelo.EmitirRemitos()) return;
 
+            List<int> emitidos = _modelo.RemitosPendientesFirma.Select(r => r.NroRemito).Where(nro => !anteriores.Contains(nro)).ToList();
+            MessageBox.Show("Se emitieron los remitos " + string.Join(", ", emitidos.Select(nro => "R-" + nro)), Text);
             RefrescarListas();
         }
 
@@ -167,9 +177,12 @@
         // Cubre tanto "Cancelar" como cerrar la ventana.
         private void GenerarRemitoDespacharForm_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if (_modelo.HaySeleccion)
+            if (!_modelo.HaySeleccion) return;
+
+            if (MessageBox.Show("No se emitió ningún remito. ¿Desea salir?", Text,
+                    MessageBoxButtons.OKCancel, MessageBoxIcon.Question) != DialogResult.OK)
             {
-                MessageBox.Show("No se emitió ningún remito", Text);
+                e.Cancel = true;
             }
         }
     }

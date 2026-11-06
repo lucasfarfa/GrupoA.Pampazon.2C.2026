@@ -61,6 +61,12 @@
 
             MessageBox.Show("Orden de entrega N° " + nroOE + " generada", Text);
             RefrescarListas();
+
+            // CU-05, exc. 13.1.
+            if (_modelo.Grupos.Count == 0)
+            {
+                MessageBox.Show("No hay órdenes preparadas pendientes de orden de entrega", Text);
+            }
         }
 
         // Vuelve a cargar los grupos de OP Preparadas sin OE que tiene el modelo.

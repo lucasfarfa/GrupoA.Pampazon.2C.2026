@@ -55,7 +55,8 @@
             if (!_modelo.ConfirmarRecepcion(nroOE)) return;
 
             MessageBox.Show("Orden de entrega N° " + nroOE + " recepcionada", Text);
-            RefrescarListas();
+            // Si era la última, avisa que no quedan OE (CU-06, exc. 13.1).
+            CargarOrdenes();
         }
 
         // Vuelve a cargar las OE Emitidas que tiene el modelo.
