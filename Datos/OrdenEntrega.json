@@ -171,6 +171,19 @@
     "FechaEntregaTransportista": "2026-10-17"
   },
   {
+    "NroOE": 707,
+    "FechaEmision": "2026-10-14",
+    "Estado": "PendienteDeEntrega",
+    "NrosOP": [
+      100
+    ],
+    "FechaRecepcionDespacho": "2026-10-14",
+    "IdDeposito": "GBA",
+    "CuitCliente": 30711122234,
+    "DNITransportista": 32321987,
+    "FechaEntregaTransportista": "2027-12-31"
+  },
+  {
     "NroOE": 708,
     "FechaEmision": "2026-10-10",
     "Estado": "Cumplida",
