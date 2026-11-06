@@ -1,5 +1,4 @@
-﻿using GrupoA.PampazonSA.AdministracionDeposito.Almacenes;
-using GrupoA.PampazonSA.AdministracionDeposito.EmpaquetarProductos;
+﻿using GrupoA.PampazonSA.AdministracionDeposito.EmpaquetarProductos;
 using GrupoA.PampazonSA.AdministracionDeposito.GenerarOrdenEntrega;
 using GrupoA.PampazonSA.AdministracionDeposito.GenerarOrdenSeleccion;
 using GrupoA.PampazonSA.AdministracionDeposito.GenerarRemitoDespachar;
@@ -13,37 +12,38 @@ namespace GrupoA.PampazonSA.AdministracionDeposito.MenuPrincipal;
 // Los controles están definidos en MenuPrincipalForm.Designer.cs
 public partial class MenuPrincipalForm : Form
 {
+    private readonly MenuPrincipalModelo _modelo = new MenuPrincipalModelo();
+
     public MenuPrincipalForm()
     {
         InitializeComponent();
 
-        cboDeposito.Items.AddRange(new object[] { "GBA (Gran Buenos Aires)", "ROS (Rosario)", "CBA (Córdoba)" });
+        cboDeposito.DropDownStyle = ComboBoxStyle.DropDownList;
+        cboDeposito.Items.AddRange(_modelo.Depositos.ToArray());
         cboDeposito.SelectedIndex = 0;
     }
 
-    // Código del depósito elegido en el combo, en el mismo orden que sus ítems; "" si no hay ninguno elegido.
+    // Código del depósito elegido en el combo; "" si no hay ninguno elegido.
     private string ObtenerDeposito()
     {
-        string[] codigos = { "GBA", "ROS", "CBA" };
-        if (cboDeposito.SelectedIndex < 0 || cboDeposito.SelectedIndex >= codigos.Length) return "";
-        return codigos[cboDeposito.SelectedIndex];
+        return cboDeposito.SelectedItem as string ?? "";
     }
 
     private void btnGenerarOrdenSeleccion_Click(object sender, EventArgs e)
     {
-        DepositoAlmacen.IdDepositoActivo = ObtenerDeposito();
-        new GenerarOrdenSeleccionForm(ObtenerDeposito()).ShowDialog();
+        if (!_modelo.SeleccionarDeposito(ObtenerDeposito())) return;
+        new GenerarOrdenSeleccionForm(_modelo.DepositoSeleccionado).ShowDialog();
     }
 
     private void btnPrepararProductos_Click(object sender, EventArgs e)
     {
-        DepositoAlmacen.IdDepositoActivo = ObtenerDeposito();
+        if (!_modelo.SeleccionarDeposito(ObtenerDeposito())) return;
         new PrepararProductosForm().ShowDialog();
     }
 
     private void btnEmpaquetar_Click(object sender, EventArgs e)
     {
-        DepositoAlmacen.IdDepositoActivo = ObtenerDeposito();
+        if (!_modelo.SeleccionarDeposito(ObtenerDeposito())) return;
         new EmpaquetarProductosForm().ShowDialog();
     }
 
@@ -54,19 +54,19 @@ public partial class MenuPrincipalForm : Form
 
     private void btnGenerarEntrega_Click(object sender, EventArgs e)
     {
-        DepositoAlmacen.IdDepositoActivo = ObtenerDeposito();
+        if (!_modelo.SeleccionarDeposito(ObtenerDeposito())) return;
         new GenerarOrdenEntregaForm().ShowDialog();
     }
 
     private void btnRecepcionarOrdenEntrega_Click(object sender, EventArgs e)
     {
-        DepositoAlmacen.IdDepositoActivo = ObtenerDeposito();
+        if (!_modelo.SeleccionarDeposito(ObtenerDeposito())) return;
         new RecepcionarOrdenEntregaForm().ShowDialog();
     }
 
     private void btnGenerarRemito_Click(object sender, EventArgs e)
     {
-        DepositoAlmacen.IdDepositoActivo = ObtenerDeposito();
+        if (!_modelo.SeleccionarDeposito(ObtenerDeposito())) return;
         new GenerarRemitoDespacharForm().ShowDialog();
     }
 }
