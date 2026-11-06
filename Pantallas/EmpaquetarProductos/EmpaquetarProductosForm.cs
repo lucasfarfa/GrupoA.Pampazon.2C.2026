@@ -24,7 +24,7 @@ namespace GrupoA.PampazonSA.AdministracionDeposito.EmpaquetarProductos
                 lblTotalBultos.Text = "";
                 btnEmpaquetar.Enabled = false;
                 RefrescarListas();
-                MessageBox.Show("No hay órdenes para empaquetar", Text);
+                MessageBox.Show("No hay órdenes para empaquetar en este depósito", Text);
                 return;
             }
 

@@ -16,7 +16,7 @@
 
             // CU-03, 2.1
             if (_modelo.NrosOSPendientes.Count == 0)
-                MessageBox.Show("No hay órdenes de selección pendientes", Text);
+                MessageBox.Show("No hay órdenes de selección pendientes en este depósito", Text);
         }
 
         // La clave de la OS es el ítem del combo (su N°).

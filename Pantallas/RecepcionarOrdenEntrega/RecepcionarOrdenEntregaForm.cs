@@ -30,7 +30,7 @@
 
             if (_modelo.OrdenesEmitidas.Count == 0)
             {
-                MessageBox.Show("No hay órdenes de entrega para recepcionar", Text);
+                MessageBox.Show("No hay órdenes de entrega para recepcionar en este depósito", Text);
             }
         }
 
