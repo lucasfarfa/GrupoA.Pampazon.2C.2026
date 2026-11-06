@@ -65,12 +65,16 @@
         }
 
         // Salida. Cubre "Cancelar" y cerrar la ventana con la X.
-        // Solo avisa si hay una OS elegida sin confirmar.
+        // Solo pregunta si hay una OS elegida sin confirmar.
         private void PrepararProductosForm_FormClosing(object sender, FormClosingEventArgs e)
         {
             if (_modelo.OrdenSeleccionada == null) return;
 
-            MessageBox.Show("No se registró la entrega a Preparación", Text);
+            if (MessageBox.Show("No se registró la entrega a Preparación. ¿Desea salir?", Text,
+                    MessageBoxButtons.OKCancel, MessageBoxIcon.Question) != DialogResult.OK)
+            {
+                e.Cancel = true;
+            }
         }
 
         // Vuelve a cargar las OS pendientes y el detalle de la OS elegida con lo que tiene el modelo.

@@ -9,9 +9,9 @@ Todas las pantallas leen el mismo juego de datos de `Datos/`. Cada OP tiene un s
 | `Cliente` | 6 | Los 4 del plan, más Distribuidora del Litoral S.A. y Almacenes de Cuyo S.R.L. |
 | `Deposito` | 4 | GBA, ROS y CBA con posiciones. MDZ sin posiciones |
 | `Mercaderia` | 14 | CEM-50KG, CAL-25KG y ZAP-0042 repetidos entre clientes. Poco stock: YER-1KG (3) y CAL-25KG de Ferretería Norte (5) |
-| `OrdenPreparacion` | 45 | 5 Pendientes, 12 En preparación, 8 Preparadas, 17 En entrega, 3 Cumplidas. GBA, ROS y CBA. Ambas modalidades |
+| `OrdenPreparacion` | 46 | 5 Pendientes, 12 En preparación, 8 Preparadas, 18 En entrega, 3 Cumplidas. GBA, ROS y CBA. Ambas modalidades |
 | `OrdenSeleccion` | 14 | 4 Pendientes (496, 501, 502, 506) y 10 Cumplidas (491 a 493, 497 a 499, 500, 503 a 505) |
-| `OrdenEntrega` | 17 | 4 Emitidas, 7 Pendientes de entrega, 4 Remito emitido, 2 Cumplidas |
+| `OrdenEntrega` | 18 | 4 Emitidas, 8 Pendientes de entrega, 4 Remito emitido, 2 Cumplidas. La OE 707 (OP 100) tiene retiro 31/12/2027 |
 | `Remito` | 6 | 4 Emitidos (R-405, R-406, R-410, R-411) y 2 Cumplidos (R-408, R-409) |
 
 Próximos números: OP 131, OS 507, OE 712, R-412.
@@ -28,7 +28,7 @@ Los datos de ROS y CBA usan números más bajos que los de GBA (OP 083 a 097, OS
 | D | Empaquetar | OP 105, 108 y 115, en ese orden. OS 503 Cumplida |
 | E | Generar OE | OP 106, 107, 117 y 118 Preparadas sin OE |
 | F | Recepcionar OE | OE 701 y 702 Emitidas. OE 700 no se lista |
-| G | Remito y despacho | Jose Gomez: OE 700, 704, 706. Daniel Baez: OE 703, 705. Alejo Cisterna: R-410 y R-411. DNI 22333444: no existe |
+| G | Remito y despacho | Jose Gomez: OE 700, 704, 706. Daniel Baez: OE 703, 705 (la 707 tiene retiro 31/12/2027 y no se lista). Alejo Cisterna: R-410 y R-411. DNI 22333444: no existe |
 
 ## Otros depósitos
 
@@ -60,7 +60,7 @@ Solo se listan los casos que graban. Los rechazos y las cancelaciones no cambian
 | D.5 | Confirmar OP 105 (10 bultos) | 105 → Preparada, `Bultos` 10, `FechaEmpaquetado` | — | — | — | — | — |
 | D.6 | Cancelar con OP 105 asignada | `TomadaPreparacion` false | — | — | — | — | — |
 | E.2 | Grupo Construcciones del Plata, retiro 16/10 | 106 y 107 → En entrega | — | Alta OE 712 Emitida | — | — | — |
-| F.4 | Recepcionar OE 701 | — | — | 701 → Pendiente de entrega, con `FechaRecepcionDespacho` | — | — | CEM-50KG de Mercadito: en preparación 12 → 0, en despacho 0 → 12. CAL-25KG de Mercadito: en preparación 36 → 30, en despacho 15 → 21 |
+| F.3 | Recepcionar OE 701 | — | — | 701 → Pendiente de entrega, con `FechaRecepcionDespacho` | — | — | CEM-50KG de Mercadito: en preparación 12 → 0, en despacho 0 → 12. CAL-25KG de Mercadito: en preparación 36 → 30, en despacho 15 → 21 |
 | G.5 | Emitir con OE 700, 704 y 706 | — | — | Las tres → Remito emitido | Alta R-412 (Mercadito) y R-413 (MundoFOX) Emitidos | — | — |
 | G.7 | Confirmar R-412 y R-413 | 109, 123 y 126 → Cumplida | — | 700, 704 y 706 → Cumplida | Cumplidos, con fecha | — | CAL-25KG de Mercadito: en despacho 15 → 0. ZAP-0042 de MundoFOX: en despacho 10 → 6 |
 | G.7 | Confirmar R-410 | 110 → Cumplida | — | 710 → Cumplida | Cumplido, con fecha | — | ZAP-0042 de MundoFOX: en despacho 10 → 4 |
@@ -97,6 +97,7 @@ No están en la planilla: los habilitan los datos nuevos. Si no se indica otra c
 | N.15 | Remito y despacho | Dos remitos de un transportista | DNI 32321987, OE 705 y 703, confirma | Dos remitos: Construcciones del Plata y Ferretería Norte | 703 y 705 → Remito emitido. Alta R-412 y R-413 Emitidos |
 | N.16 | Remito y despacho | Firma de varios remitos | DNI 20562667, R-410 y R-411, confirma | Los dos salen de la lista | R-410 y R-411 → Cumplidos. OE 710 y 711 → Cumplida. OP 110 y 127 → Cumplida. ZAP-0042 de MundoFOX: en despacho 10 → 4. ARE-25KG: en despacho 11 → 9 |
 | N.17 | Remito y despacho | Documentos ya cerrados | DNI 32321987 | No lista las OE 708 y 709 ni el R-409 | — |
+| N.18 | Remito y despacho | Retiro futuro | DNI 32321987 | No lista la OE 707: su retiro es el 31/12/2027 | — |
 
 ## Circuito completo
 

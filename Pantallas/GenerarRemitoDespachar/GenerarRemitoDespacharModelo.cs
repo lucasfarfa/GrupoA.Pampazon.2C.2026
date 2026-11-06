@@ -42,14 +42,15 @@ namespace GrupoA.PampazonSA.AdministracionDeposito.GenerarRemitoDespachar
         }
 
         // Filas de "Órdenes de entrega pendientes": las del transportista buscado que todavía no se eligieron.
-        // Filtra por transportista, estado Pendiente de entrega y no seleccionadas (Where)
+        // Filtra por transportista, estado Pendiente de entrega, retiro hasta hoy y no seleccionadas (Where)
         // y ordena por cliente y después por N° de OE (OrderBy y ThenBy).
         public List<OrdenEntrega> OrdenesPendientes
         {
             get
             {
                 return OrdenesDelDeposito()
-                    .Where(oe => oe.Transportista.DNI == _transportista?.DNI && oe.Estado == EstadoOrdenEntrega.PendienteEntrega && !_seleccionadas.Contains(oe.NroOE))
+                    .Where(oe => oe.Transportista.DNI == _transportista?.DNI && oe.Estado == EstadoOrdenEntrega.PendienteEntrega && !_seleccionadas.Contains(oe.NroOE)
+                        && RetiroHastaHoy(oe.NroOE))
                     .OrderBy(oe => oe.Cliente.RazonSocial)
                     .ThenBy(oe => oe.NroOE)
                     .ToList();
@@ -65,7 +66,7 @@ namespace GrupoA.PampazonSA.AdministracionDeposito.GenerarRemitoDespachar
         }
 
         // Pasa las OE elegidas a "Se emitirán los siguientes remitos".
-        // Devuelve true si hay al menos una OE y todas existen, siguen pendientes y no estaban seleccionadas.
+        // Devuelve true si hay al menos una OE y todas existen, siguen pendientes, se pueden retirar hoy y no estaban seleccionadas.
         public bool SeleccionarOrdenes(List<int> nrosOE)
         {
             if (!HayOrdenes(nrosOE)) return false;
@@ -74,12 +75,19 @@ namespace GrupoA.PampazonSA.AdministracionDeposito.GenerarRemitoDespachar
             {
                 // Busca la OE del depósito con ese número, o null si no existe (FirstOrDefault).
                 var oe = OrdenesDelDeposito().FirstOrDefault(o => o.NroOE == nro);
-                if (oe == null || oe.Estado != EstadoOrdenEntrega.PendienteEntrega || _seleccionadas.Contains(nro))
+                if (oe == null || oe.Estado != EstadoOrdenEntrega.PendienteEntrega || _seleccionadas.Contains(nro) || !RetiroHastaHoy(nro))
                     return false;
             }
 
             _seleccionadas.AddRange(nrosOE);
             return true;
+        }
+
+        // La OE se puede retirar: su fecha de retiro es hoy o un día anterior (CU-07, paso 5).
+        // Busca la OE en el almacén (Any), porque la clase de la pantalla no tiene la fecha de retiro.
+        private bool RetiroHastaHoy(int nroOE)
+        {
+            return OrdenEntregaAlmacen.OrdenesEntrega.Any(oe => oe.NroOE == nroOE && oe.FechaEntregaTransportista.Date <= DateTime.Today);
         }
 
         // Devuelve las OE elegidas a "Órdenes de entrega pendientes". Devuelve true si hay al menos una y todas estaban seleccionadas.

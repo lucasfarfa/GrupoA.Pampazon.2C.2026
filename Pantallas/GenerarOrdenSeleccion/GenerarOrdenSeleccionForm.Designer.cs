@@ -17,9 +17,9 @@
 
         private void InitializeComponent()
         {
-            label1 = new Label();
+            lblDeposito = new Label();
             DepositoLbl = new Label();
-            groupBox1 = new GroupBox();
+            grpOPPendientes = new GroupBox();
             OPPendientesListView = new ListView();
             NumeroOpCol = new ColumnHeader();
             ClienteCol = new ColumnHeader();
@@ -29,7 +29,7 @@
             btnAgregar = new Button();
             btnQuitar = new Button();
             btnQuitarTodo = new Button();
-            groupBox2 = new GroupBox();
+            grpResumen = new GroupBox();
             listViewResumen = new ListView();
             colResSku = new ColumnHeader();
             colResCantidad = new ColumnHeader();
@@ -46,19 +46,19 @@
             comboModalidad = new ComboBox();
             btnLimpiarFiltros = new Button();
             groupBoxFiltros = new GroupBox();
-            groupBox1.SuspendLayout();
-            groupBox2.SuspendLayout();
+            grpOPPendientes.SuspendLayout();
+            grpResumen.SuspendLayout();
             groupBoxFiltros.SuspendLayout();
             SuspendLayout();
             // 
-            // label1
+            // lblDeposito
             // 
-            label1.AutoSize = true;
-            label1.Location = new Point(12, 15);
-            label1.Name = "label1";
-            label1.Size = new Size(57, 15);
-            label1.TabIndex = 0;
-            label1.Text = "Depósito:";
+            lblDeposito.AutoSize = true;
+            lblDeposito.Location = new Point(12, 15);
+            lblDeposito.Name = "lblDeposito";
+            lblDeposito.Size = new Size(57, 15);
+            lblDeposito.TabIndex = 0;
+            lblDeposito.Text = "Depósito:";
             // 
             // DepositoLbl
             // 
@@ -69,19 +69,19 @@
             DepositoLbl.TabIndex = 1;
             DepositoLbl.Text = "[DEPOSITO]";
             // 
-            // groupBox1
+            // grpOPPendientes
             // 
-            groupBox1.Controls.Add(OPPendientesListView);
-            groupBox1.Controls.Add(btnAgregarTodo);
-            groupBox1.Controls.Add(btnAgregar);
-            groupBox1.Controls.Add(btnQuitar);
-            groupBox1.Controls.Add(btnQuitarTodo);
-            groupBox1.Location = new Point(13, 130);
-            groupBox1.Name = "groupBox1";
-            groupBox1.Size = new Size(1112, 200);
-            groupBox1.TabIndex = 3;
-            groupBox1.TabStop = false;
-            groupBox1.Text = "Órdenes de Preparación Pendientes";
+            grpOPPendientes.Controls.Add(OPPendientesListView);
+            grpOPPendientes.Controls.Add(btnAgregarTodo);
+            grpOPPendientes.Controls.Add(btnAgregar);
+            grpOPPendientes.Controls.Add(btnQuitar);
+            grpOPPendientes.Controls.Add(btnQuitarTodo);
+            grpOPPendientes.Location = new Point(13, 130);
+            grpOPPendientes.Name = "grpOPPendientes";
+            grpOPPendientes.Size = new Size(1112, 200);
+            grpOPPendientes.TabIndex = 3;
+            grpOPPendientes.TabStop = false;
+            grpOPPendientes.Text = "Órdenes de Preparación Pendientes";
             // 
             // OPPendientesListView
             // 
@@ -156,15 +156,15 @@
             btnQuitarTodo.Text = "Quitar Todo";
             btnQuitarTodo.Click += btnQuitarTodo_Click;
             // 
-            // groupBox2
+            // grpResumen
             // 
-            groupBox2.Controls.Add(listViewResumen);
-            groupBox2.Location = new Point(12, 331);
-            groupBox2.Name = "groupBox2";
-            groupBox2.Size = new Size(1112, 230);
-            groupBox2.TabIndex = 4;
-            groupBox2.TabStop = false;
-            groupBox2.Text = "Resumen consolidado de Productos";
+            grpResumen.Controls.Add(listViewResumen);
+            grpResumen.Location = new Point(12, 331);
+            grpResumen.Name = "grpResumen";
+            grpResumen.Size = new Size(1112, 230);
+            grpResumen.TabIndex = 4;
+            grpResumen.TabStop = false;
+            grpResumen.Text = "Resumen consolidado de Productos";
             // 
             // listViewResumen
             // 
@@ -326,11 +326,11 @@
             ClientSize = new Size(1136, 613);
             Controls.Add(CencelarBtn);
             Controls.Add(GenerarOSBtn);
-            Controls.Add(groupBox2);
-            Controls.Add(groupBox1);
+            Controls.Add(grpResumen);
+            Controls.Add(grpOPPendientes);
             Controls.Add(groupBoxFiltros);
             Controls.Add(DepositoLbl);
-            Controls.Add(label1);
+            Controls.Add(lblDeposito);
             FormBorderStyle = FormBorderStyle.FixedDialog;
             MaximizeBox = false;
             MinimizeBox = false;
@@ -339,8 +339,8 @@
             Text = "Generar Orden de Selección";
             FormClosing += GenerarOrdenSeleccionForm_FormClosing;
             Load += GenerarOrdenSeleccionForm_Load;
-            groupBox1.ResumeLayout(false);
-            groupBox2.ResumeLayout(false);
+            grpOPPendientes.ResumeLayout(false);
+            grpResumen.ResumeLayout(false);
             groupBoxFiltros.ResumeLayout(false);
             groupBoxFiltros.PerformLayout();
             ResumeLayout(false);
@@ -349,9 +349,9 @@
 
         #endregion
 
-        private Label label1;
+        private Label lblDeposito;
         private Label DepositoLbl;
-        private GroupBox groupBox1;
+        private GroupBox grpOPPendientes;
         private ListView OPPendientesListView;
         private ColumnHeader NumeroOpCol;
         private ColumnHeader ClienteCol;
@@ -361,7 +361,7 @@
         private Button btnQuitar;
         private Button btnAgregarTodo;
         private Button btnQuitarTodo;
-        private GroupBox groupBox2;
+        private GroupBox grpResumen;
         private ListView listViewResumen;
         private ColumnHeader colResSku;
         private ColumnHeader colResCantidad;

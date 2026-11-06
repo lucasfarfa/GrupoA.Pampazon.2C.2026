@@ -300,6 +300,26 @@
     "FechaEmpaquetado": "2026-10-08"
   },
   {
+    "NroOP": 100,
+    "FechaRecepcion": "2026-10-12T08:30:00",
+    "CuitCliente": 30711122234,
+    "Deposito": "GBA",
+    "Modalidad": "Fulfillment",
+    "DNITransportista": 32321987,
+    "NombreTransportista": "Daniel Baez",
+    "FechaRetiro": "2027-12-31",
+    "Estado": "EnEntrega",
+    "Lineas": [
+      {
+        "Sku": "TOR-M8",
+        "Cantidad": 5
+      }
+    ],
+    "TomadaPreparacion": false,
+    "Bultos": 5,
+    "FechaEmpaquetado": "2026-10-13"
+  },
+  {
     "NroOP": 101,
     "FechaRecepcion": "2026-10-14T09:00:00",
     "CuitCliente": 30712345678,

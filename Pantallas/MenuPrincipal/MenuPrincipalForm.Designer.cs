@@ -27,9 +27,9 @@ namespace GrupoA.PampazonSA.AdministracionDeposito.MenuPrincipal
             EmpaquetarBtn = new Button();
             GenerarOrdenEntregaBtn = new Button();
             GenerarRemitoDespachar = new Button();
-            button1 = new Button();
+            btnRecepcionarOrdenEntrega = new Button();
             cboDeposito = new ComboBox();
-            label3 = new Label();
+            lblDeposito = new Label();
             SuspendLayout();
             // 
             // RegistrarOrdenPrepracionBtn
@@ -98,16 +98,16 @@ namespace GrupoA.PampazonSA.AdministracionDeposito.MenuPrincipal
             GenerarRemitoDespachar.UseVisualStyleBackColor = false;
             GenerarRemitoDespachar.Click += btnGenerarRemito_Click;
             // 
-            // button1
+            // btnRecepcionarOrdenEntrega
             // 
-            button1.BackColor = Color.FromArgb(192, 255, 192);
-            button1.Location = new Point(88, 391);
-            button1.Name = "button1";
-            button1.Size = new Size(324, 46);
-            button1.TabIndex = 9;
-            button1.Text = "Recepcionar Orden de Entrega";
-            button1.UseVisualStyleBackColor = false;
-            button1.Click += btnRecepcionarOrdenEntrega_Click;
+            btnRecepcionarOrdenEntrega.BackColor = Color.FromArgb(192, 255, 192);
+            btnRecepcionarOrdenEntrega.Location = new Point(88, 391);
+            btnRecepcionarOrdenEntrega.Name = "btnRecepcionarOrdenEntrega";
+            btnRecepcionarOrdenEntrega.Size = new Size(324, 46);
+            btnRecepcionarOrdenEntrega.TabIndex = 9;
+            btnRecepcionarOrdenEntrega.Text = "Recepcionar Orden de Entrega";
+            btnRecepcionarOrdenEntrega.UseVisualStyleBackColor = false;
+            btnRecepcionarOrdenEntrega.Click += btnRecepcionarOrdenEntrega_Click;
             // 
             // cboDeposito
             // 
@@ -117,14 +117,14 @@ namespace GrupoA.PampazonSA.AdministracionDeposito.MenuPrincipal
             cboDeposito.Size = new Size(218, 25);
             cboDeposito.TabIndex = 11;
             // 
-            // label3
+            // lblDeposito
             // 
-            label3.AutoSize = true;
-            label3.Location = new Point(69, 27);
-            label3.Name = "label3";
-            label3.Size = new Size(64, 19);
-            label3.TabIndex = 10;
-            label3.Text = "Depósito";
+            lblDeposito.AutoSize = true;
+            lblDeposito.Location = new Point(69, 27);
+            lblDeposito.Name = "lblDeposito";
+            lblDeposito.Size = new Size(64, 19);
+            lblDeposito.TabIndex = 10;
+            lblDeposito.Text = "Depósito";
             // 
             // MenuPrincipalForm
             // 
@@ -132,8 +132,8 @@ namespace GrupoA.PampazonSA.AdministracionDeposito.MenuPrincipal
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(506, 554);
             Controls.Add(cboDeposito);
-            Controls.Add(label3);
-            Controls.Add(button1);
+            Controls.Add(lblDeposito);
+            Controls.Add(btnRecepcionarOrdenEntrega);
             Controls.Add(GenerarRemitoDespachar);
             Controls.Add(GenerarOrdenEntregaBtn);
             Controls.Add(EmpaquetarBtn);
@@ -157,8 +157,8 @@ namespace GrupoA.PampazonSA.AdministracionDeposito.MenuPrincipal
         private System.Windows.Forms.Button EmpaquetarBtn;
         private System.Windows.Forms.Button GenerarOrdenEntregaBtn;
         private System.Windows.Forms.Button GenerarRemitoDespachar;
-        private Button button1;
+        private Button btnRecepcionarOrdenEntrega;
         private ComboBox cboDeposito;
-        private Label label3;
+        private Label lblDeposito;
     }
 }

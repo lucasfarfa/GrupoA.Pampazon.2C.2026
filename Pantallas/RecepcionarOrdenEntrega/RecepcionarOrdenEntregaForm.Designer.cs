@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            groupBox1 = new GroupBox();
+            grpOEEmitidas = new GroupBox();
             lvOEEmitidas = new ListView();
             NOECol = new ColumnHeader();
             TransportistaCol = new ColumnHeader();
@@ -38,21 +38,21 @@
             btnConfirmar = new Button();
             btnCancelar = new Button();
             btnActualizar = new Button();
-            groupBox1.SuspendLayout();
+            grpOEEmitidas.SuspendLayout();
             SuspendLayout();
             // 
-            // groupBox1
+            // grpOEEmitidas
             // 
-            groupBox1.Controls.Add(lvOEEmitidas);
-            groupBox1.Controls.Add(btnConfirmar);
-            groupBox1.Location = new Point(10, 9);
-            groupBox1.Margin = new Padding(3, 2, 3, 2);
-            groupBox1.Name = "groupBox1";
-            groupBox1.Padding = new Padding(3, 2, 3, 2);
-            groupBox1.Size = new Size(679, 379);
-            groupBox1.TabIndex = 0;
-            groupBox1.TabStop = false;
-            groupBox1.Text = "Órdenes de Entrega emitidas";
+            grpOEEmitidas.Controls.Add(lvOEEmitidas);
+            grpOEEmitidas.Controls.Add(btnConfirmar);
+            grpOEEmitidas.Location = new Point(10, 9);
+            grpOEEmitidas.Margin = new Padding(3, 2, 3, 2);
+            grpOEEmitidas.Name = "grpOEEmitidas";
+            grpOEEmitidas.Padding = new Padding(3, 2, 3, 2);
+            grpOEEmitidas.Size = new Size(679, 379);
+            grpOEEmitidas.TabIndex = 0;
+            grpOEEmitidas.TabStop = false;
+            grpOEEmitidas.Text = "Órdenes de Entrega emitidas";
             // 
             // lvOEEmitidas
             // 
@@ -130,18 +130,18 @@
             ClientSize = new Size(700, 432);
             Controls.Add(btnActualizar);
             Controls.Add(btnCancelar);
-            Controls.Add(groupBox1);
+            Controls.Add(grpOEEmitidas);
             Margin = new Padding(3, 2, 3, 2);
             Name = "RecepcionarOrdenEntregaForm";
             Text = "RecepcionarOrdenEntregaForm";
             Load += RecepcionarOrdenEntregaForm_Load;
-            groupBox1.ResumeLayout(false);
+            grpOEEmitidas.ResumeLayout(false);
             ResumeLayout(false);
         }
 
         #endregion
 
-        private GroupBox groupBox1;
+        private GroupBox grpOEEmitidas;
         private ListView lvOEEmitidas;
         private ColumnHeader NOECol;
         private ColumnHeader TransportistaCol;
