@@ -31,7 +31,7 @@ namespace GrupoA.PampazonSA.AdministracionDeposito.GenerarOrdenSeleccion
 
             if (!_modelo.HayOrdenesPendientes)
             {
-                MessageBox.Show("No hay órdenes de preparación pendientes", Text);
+                MessageBox.Show("No hay órdenes de preparación pendientes en este depósito", Text);
                 return;
             }
 

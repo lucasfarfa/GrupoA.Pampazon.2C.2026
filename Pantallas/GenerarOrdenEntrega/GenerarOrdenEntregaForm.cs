@@ -17,7 +17,7 @@
 
             if (_modelo.Grupos.Count == 0)
             {
-                MessageBox.Show("No hay órdenes preparadas pendientes de orden de entrega", Text);
+                MessageBox.Show("No hay órdenes preparadas pendientes de orden de entrega en este depósito", Text);
             }
         }
 
