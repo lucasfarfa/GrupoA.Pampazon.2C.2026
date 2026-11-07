@@ -68,6 +68,18 @@
         ]
       },
       {
+        "Sector": 7,
+        "Posicion": 4,
+        "Fila": 1,
+        "Contenido": [
+          {
+            "CuitCliente": 30711122234,
+            "Sku": "PIN-4L",
+            "Cantidad": 0
+          }
+        ]
+      },
+      {
         "Sector": 9,
         "Posicion": 3,
         "Fila": 2,

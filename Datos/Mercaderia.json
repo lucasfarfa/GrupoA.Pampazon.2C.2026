@@ -124,5 +124,14 @@
     "CantidadComprometida": 0,
     "CantidadEnPreparacion": 9,
     "CantidadEnDespacho": 3
+  },
+  {
+    "CuitCliente": 30711122234,
+    "Deposito": "GBA",
+    "Sku": "PIN-4L",
+    "Descripcion": "Lata de pintura 4 L",
+    "CantidadComprometida": 0,
+    "CantidadEnPreparacion": 0,
+    "CantidadEnDespacho": 0
   }
 ]
