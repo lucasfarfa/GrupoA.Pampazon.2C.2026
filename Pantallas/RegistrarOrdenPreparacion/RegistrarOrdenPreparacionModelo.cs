@@ -37,7 +37,7 @@ namespace GrupoA.PampazonSA.AdministracionDeposito.RegistrarOrdenPreparacion
             return true;
         }
 
-        // Cambiar el depósito vacía la lista de productos (CU-01, 17.9).
+        // Cambiar el depósito vacía la lista de productos (CU-01, 20.9).
         public bool SeleccionarDeposito(string deposito)
         {
             if (!Depositos.Contains(deposito)) return false;
@@ -48,15 +48,20 @@ namespace GrupoA.PampazonSA.AdministracionDeposito.RegistrarOrdenPreparacion
             return true;
         }
 
-        // SKU para la lista "SKU": los que el cliente tiene como mercadería en el depósito elegido.
-        // De cada mercadería toma el SKU (Select) y los ordena alfabéticamente (OrderBy).
-        public List<string> Skus => MercaderiaDelCliente().Select(m => m.Sku).OrderBy(s => s).ToList();
+        // SKU para la lista "SKU": los que el cliente tiene con cantidad mayor a cero en alguna posición del depósito
+        // elegido (CU-01, paso 8). Filtra la mercadería con stock en posiciones (Where), toma el SKU (Select)
+        // y los ordena alfabéticamente (OrderBy).
+        public List<string> Skus => MercaderiaDelCliente()
+            .Where(m => CantidadEnPosiciones(m) > 0)
+            .Select(m => m.Sku)
+            .OrderBy(s => s)
+            .ToList();
 
-        // Elige el SKU para mostrar su disponible. Devuelve true si el cliente tiene esa mercadería en el depósito
-        // (Any: ¿hay alguna mercadería con ese SKU?).
+        // Elige el SKU para mostrar su disponible. Devuelve true si el cliente tiene ese SKU con stock
+        // en alguna posición del depósito (Any: ¿hay alguna mercadería con ese SKU y cantidad mayor a cero?).
         public bool SeleccionarSku(string sku)
         {
-            if (!MercaderiaDelCliente().Any(m => m.Sku == sku)) return false;
+            if (!MercaderiaDelCliente().Any(m => m.Sku == sku && CantidadEnPosiciones(m) > 0)) return false;
 
             _sku = sku;
             return true;
@@ -155,7 +160,7 @@ namespace GrupoA.PampazonSA.AdministracionDeposito.RegistrarOrdenPreparacion
             return Enum.IsDefined(modalidad);
         }
 
-        // Registra la OP Pendiente con los productos cargados; al quedar Pendiente compromete su stock (CU-01, pasos 27 y 28).
+        // Registra la OP Pendiente con los productos cargados; al quedar Pendiente compromete su stock (CU-01, pasos 31 y 32).
         // Devuelve true si hay cliente, depósito y productos, y la modalidad y los datos del transportista y del retiro son válidos.
         // Deja el modelo vacío para una nueva orden.
         public bool Registrar(Modalidad modalidad, int dni, string nombreTransportista, DateTime fechaRetiro, out int nroOP)

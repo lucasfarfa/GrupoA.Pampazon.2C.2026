@@ -204,21 +204,39 @@ namespace GrupoA.PampazonSA.AdministracionDeposito.GenerarOrdenSeleccion
         }
 
         // Si un SKU del cliente está en más de una posición, agrega una línea por posición hasta cubrir la cantidad.
+        // Recorre las posiciones del cliente con ese SKU (Where) ordenadas por X-Y-Z (OrderBy y ThenBy)
+        // y de cada una toma lo que queda libre después de lo asignado en OS Pendientes (CU-02, paso 17).
         // Devuelve false si entre todas sus posiciones no alcanza.
         private bool AgregarPosiciones(List<LineaOrdenSeleccion> detalle, long cuit, string sku, int cantidadPedida)
         {
             int restante = cantidadPedida;
-            // Recorre las posiciones del depósito que tienen mercadería de ese cliente y SKU (Where).
-            foreach (var stock in StockDelCliente(cuit).Where(s => s.Sku == sku && s.Cantidad > 0))
+            foreach (var stock in StockDelCliente(cuit).Where(s => s.Sku == sku)
+                         .OrderBy(s => s.Posicion.Sector).ThenBy(s => s.Posicion.Posicion).ThenBy(s => s.Posicion.Fila))
             {
                 if (restante == 0) break;
 
-                int cantidad = Math.Min(restante, stock.Cantidad);
+                int libre = stock.Cantidad - AsignadoEnOSPendientes(cuit, sku, stock.Posicion);
+                if (libre <= 0) continue;
+
+                int cantidad = Math.Min(restante, libre);
                 detalle.Add(new LineaOrdenSeleccion { CuitCliente = cuit, Sku = sku, Cantidad = cantidad, Posicion = stock.Posicion });
                 restante -= cantidad;
             }
 
             return restante == 0;
+        }
+
+        // Lo ya asignado a esa posición, cliente y SKU en las OS Pendientes del depósito (CU-02, paso 17).
+        // Toma las OS Pendientes del depósito (Where), junta sus líneas (SelectMany),
+        // se queda con las de esa posición, cliente y SKU (Where) y suma sus cantidades (Sum).
+        private int AsignadoEnOSPendientes(long cuit, string sku, PosicionDeposito posicion)
+        {
+            return OrdenSeleccionAlmacen.OrdenesSeleccion
+                .Where(os => os.Deposito == Deposito && os.Estado == EstadoOrdenSeleccionEnum.Pendiente)
+                .SelectMany(os => os.Lineas)
+                .Where(l => l.CuitCliente == cuit && l.Sku == sku
+                    && l.Sector == posicion.Sector && l.Posicion == posicion.Posicion && l.Fila == posicion.Fila)
+                .Sum(l => l.Cantidad);
         }
 
         // Registros de stock del cliente en las posiciones del depósito elegido.
