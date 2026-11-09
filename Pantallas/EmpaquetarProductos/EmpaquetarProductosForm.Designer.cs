@@ -42,11 +42,11 @@
             grpOrden.Controls.Add(lblNroOrden);
             grpOrden.Controls.Add(lblModalidadTitulo);
             grpOrden.Controls.Add(lblOrdenTitulo);
-            grpOrden.Location = new Point(6, 9);
-            grpOrden.Margin = new Padding(2, 2, 2, 2);
+            grpOrden.Location = new Point(7, 12);
+            grpOrden.Margin = new Padding(2, 3, 2, 3);
             grpOrden.Name = "grpOrden";
-            grpOrden.Padding = new Padding(2, 2, 2, 2);
-            grpOrden.Size = new Size(665, 63);
+            grpOrden.Padding = new Padding(2, 3, 2, 3);
+            grpOrden.Size = new Size(760, 84);
             grpOrden.TabIndex = 6;
             grpOrden.TabStop = false;
             grpOrden.Text = "Orden de Preparación ";
@@ -54,40 +54,40 @@
             // lblModalidad
             // 
             lblModalidad.AutoSize = true;
-            lblModalidad.Location = new Point(461, 25);
+            lblModalidad.Location = new Point(527, 33);
             lblModalidad.Margin = new Padding(2, 0, 2, 0);
             lblModalidad.Name = "lblModalidad";
-            lblModalidad.Size = new Size(98, 15);
+            lblModalidad.Size = new Size(121, 20);
             lblModalidad.TabIndex = 13;
             lblModalidad.Text = "Pallet/Fullfilment";
             // 
             // lblNroOrden
             // 
             lblNroOrden.AutoSize = true;
-            lblNroOrden.Location = new Point(58, 25);
+            lblNroOrden.Location = new Point(66, 33);
             lblNroOrden.Margin = new Padding(2, 0, 2, 0);
             lblNroOrden.Name = "lblNroOrden";
-            lblNroOrden.Size = new Size(144, 15);
+            lblNroOrden.Size = new Size(182, 20);
             lblNroOrden.TabIndex = 12;
             lblNroOrden.Text = "NRO ORDEN A PREPARAR";
             // 
             // lblModalidadTitulo
             // 
             lblModalidadTitulo.AutoSize = true;
-            lblModalidadTitulo.Location = new Point(384, 25);
+            lblModalidadTitulo.Location = new Point(439, 33);
             lblModalidadTitulo.Margin = new Padding(2, 0, 2, 0);
             lblModalidadTitulo.Name = "lblModalidadTitulo";
-            lblModalidadTitulo.Size = new Size(67, 15);
+            lblModalidadTitulo.Size = new Size(85, 20);
             lblModalidadTitulo.TabIndex = 10;
             lblModalidadTitulo.Text = "Modalidad:";
             // 
             // lblOrdenTitulo
             // 
             lblOrdenTitulo.AutoSize = true;
-            lblOrdenTitulo.Location = new Point(8, 25);
+            lblOrdenTitulo.Location = new Point(9, 33);
             lblOrdenTitulo.Margin = new Padding(2, 0, 2, 0);
             lblOrdenTitulo.Name = "lblOrdenTitulo";
-            lblOrdenTitulo.Size = new Size(43, 15);
+            lblOrdenTitulo.Size = new Size(53, 20);
             lblOrdenTitulo.TabIndex = 0;
             lblOrdenTitulo.Text = "Orden:";
             // 
@@ -96,11 +96,11 @@
             grpProductos.Controls.Add(lblTotalBultos);
             grpProductos.Controls.Add(lblTotalBultosTitulo);
             grpProductos.Controls.Add(lstProductos);
-            grpProductos.Location = new Point(6, 76);
-            grpProductos.Margin = new Padding(2, 2, 2, 2);
+            grpProductos.Location = new Point(7, 101);
+            grpProductos.Margin = new Padding(2, 3, 2, 3);
             grpProductos.Name = "grpProductos";
-            grpProductos.Padding = new Padding(2, 2, 2, 2);
-            grpProductos.Size = new Size(663, 275);
+            grpProductos.Padding = new Padding(2, 3, 2, 3);
+            grpProductos.Size = new Size(758, 367);
             grpProductos.TabIndex = 7;
             grpProductos.TabStop = false;
             grpProductos.Text = "Productos a empaquetar";
@@ -108,18 +108,18 @@
             // lblTotalBultos
             // 
             lblTotalBultos.AutoSize = true;
-            lblTotalBultos.Location = new Point(626, 252);
+            lblTotalBultos.Location = new Point(715, 336);
             lblTotalBultos.Name = "lblTotalBultos";
-            lblTotalBultos.Size = new Size(22, 15);
+            lblTotalBultos.Size = new Size(28, 20);
             lblTotalBultos.TabIndex = 14;
             lblTotalBultos.Text = "[X]";
             // 
             // lblTotalBultosTitulo
             // 
             lblTotalBultosTitulo.AutoSize = true;
-            lblTotalBultosTitulo.Location = new Point(542, 252);
+            lblTotalBultosTitulo.Location = new Point(619, 336);
             lblTotalBultosTitulo.Name = "lblTotalBultosTitulo";
-            lblTotalBultosTitulo.Size = new Size(72, 15);
+            lblTotalBultosTitulo.Size = new Size(90, 20);
             lblTotalBultosTitulo.TabIndex = 13;
             lblTotalBultosTitulo.Text = "Total Bultos:";
             // 
@@ -128,10 +128,10 @@
             lstProductos.Columns.AddRange(new ColumnHeader[] { columnSKU, colDescripcion, colCantidad });
             lstProductos.FullRowSelect = true;
             lstProductos.HeaderStyle = ColumnHeaderStyle.Nonclickable;
-            lstProductos.Location = new Point(8, 18);
-            lstProductos.Margin = new Padding(2, 2, 2, 2);
+            lstProductos.Location = new Point(9, 24);
+            lstProductos.Margin = new Padding(2, 3, 2, 3);
             lstProductos.Name = "lstProductos";
-            lstProductos.Size = new Size(649, 223);
+            lstProductos.Size = new Size(741, 296);
             lstProductos.TabIndex = 1;
             lstProductos.UseCompatibleStateImageBehavior = false;
             lstProductos.View = View.Details;
@@ -159,11 +159,11 @@
             // btnEmpaquetar
             // 
             btnEmpaquetar.Enabled = false;
-            btnEmpaquetar.ForeColor = SystemColors.HotTrack;
-            btnEmpaquetar.Location = new Point(390, 381);
-            btnEmpaquetar.Margin = new Padding(2, 2, 2, 2);
+            btnEmpaquetar.ForeColor = SystemColors.Desktop;
+            btnEmpaquetar.Location = new Point(446, 508);
+            btnEmpaquetar.Margin = new Padding(2, 3, 2, 3);
             btnEmpaquetar.Name = "btnEmpaquetar";
-            btnEmpaquetar.Size = new Size(188, 35);
+            btnEmpaquetar.Size = new Size(215, 47);
             btnEmpaquetar.TabIndex = 9;
             btnEmpaquetar.Text = "Confirmar Empaquetado";
             btnEmpaquetar.UseVisualStyleBackColor = true;
@@ -173,10 +173,10 @@
             // 
             btnCancelar.BackColor = SystemColors.ControlLight;
             btnCancelar.ForeColor = SystemColors.WindowFrame;
-            btnCancelar.Location = new Point(580, 381);
-            btnCancelar.Margin = new Padding(2, 2, 2, 2);
+            btnCancelar.Location = new Point(663, 508);
+            btnCancelar.Margin = new Padding(2, 3, 2, 3);
             btnCancelar.Name = "btnCancelar";
-            btnCancelar.Size = new Size(89, 35);
+            btnCancelar.Size = new Size(102, 47);
             btnCancelar.TabIndex = 10;
             btnCancelar.Text = "Cancelar";
             btnCancelar.UseVisualStyleBackColor = false;
@@ -184,14 +184,15 @@
             // 
             // EmpaquetarProductosForm
             // 
-            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(677, 421);
+            ClientSize = new Size(774, 561);
             Controls.Add(btnCancelar);
             Controls.Add(btnEmpaquetar);
             Controls.Add(grpProductos);
             Controls.Add(grpOrden);
             FormBorderStyle = FormBorderStyle.FixedDialog;
+            Margin = new Padding(3, 4, 3, 4);
             MaximizeBox = false;
             MinimizeBox = false;
             Name = "EmpaquetarProductosForm";
