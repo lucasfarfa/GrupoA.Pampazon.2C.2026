@@ -233,10 +233,10 @@ namespace GrupoA.PampazonSA.AdministracionDeposito.RegistrarOrdenPreparacion
             return modalidad == Modalidad.PaletCerrado ? ModalidadEnum.PaletCerrado : ModalidadEnum.Fulfillment;
         }
 
-        // Pasa el estado de la pantalla al del almacén: esta pantalla solo registra OP Pendientes.
+        // Pasa el estado de la pantalla al del almacén: busca el estado del almacén con el mismo nombre (Enum.Parse).
         private EstadoOrdenPreparacionEnum TraducirEstado(EstadoOrdenPreparacion estado)
         {
-            return EstadoOrdenPreparacionEnum.Pendiente;
+            return Enum.Parse<EstadoOrdenPreparacionEnum>(estado.ToString());
         }
 
         // Mercadería del cliente elegido en el depósito elegido (Where).

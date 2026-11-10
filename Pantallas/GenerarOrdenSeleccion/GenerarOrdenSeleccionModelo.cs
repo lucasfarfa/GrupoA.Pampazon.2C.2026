@@ -13,17 +13,20 @@ namespace GrupoA.PampazonSA.AdministracionDeposito.GenerarOrdenSeleccion
         // OP incluidas en la OS en armado.
         private List<int> _incluidas = new List<int>();
 
-        // Depósito elegido en el menú principal; null hasta que se selecciona uno válido.
-        public string? Deposito { get; private set; }
+        // Depósito del operario: el que se eligió en el menú principal; null si no es uno de los depósitos del almacén.
+        public string? Deposito => ExisteDeposito(DepositoAlmacen.IdDepositoActivo) ? DepositoAlmacen.IdDepositoActivo : null;
 
-        // Elige el depósito con el que trabaja la pantalla. Devuelve false si el código no es uno de los depósitos del almacén
-        // (Any: ¿hay algún depósito con ese código?).
+        // El form la llama con el depósito que recibe del menú, pero la pantalla siempre trabaja con el depósito activo.
+        // Devuelve true si el código recibido es el depósito activo y existe en el almacén.
         public bool SeleccionarDeposito(string deposito)
         {
-            if (!DepositoAlmacen.Depositos.Any(d => d.IdDeposito == deposito)) return false;
+            return Deposito != null && deposito == Deposito;
+        }
 
-            Deposito = deposito;
-            return true;
+        // Hay un depósito con ese código en el almacén (Any).
+        private bool ExisteDeposito(string deposito)
+        {
+            return DepositoAlmacen.Depositos.Any(d => d.IdDeposito == deposito);
         }
 
         public int CantidadIncluidas => _incluidas.Count;
@@ -115,8 +118,11 @@ namespace GrupoA.PampazonSA.AdministracionDeposito.GenerarOrdenSeleccion
             return true;
         }
 
+        // Desmarca todas las OP de la OS que se está armando. Devuelve true si había al menos una incluida.
         public bool QuitarTodas()
         {
+            if (_incluidas.Count == 0) return false;
+
             _incluidas.Clear();
             return true;
         }
@@ -309,10 +315,10 @@ namespace GrupoA.PampazonSA.AdministracionDeposito.GenerarOrdenSeleccion
             return modalidad == ModalidadEnum.PaletCerrado ? Modalidad.PaletCerrado : Modalidad.Fulfillment;
         }
 
-        // Pasa el estado de la OS de la pantalla al del almacén: esta pantalla solo genera OS Pendientes.
+        // Pasa el estado de la OS de la pantalla al del almacén: busca el estado del almacén con el mismo nombre (Enum.Parse).
         private EstadoOrdenSeleccionEnum TraducirEstado(EstadoOrdenSeleccion estado)
         {
-            return EstadoOrdenSeleccionEnum.Pendiente;
+            return Enum.Parse<EstadoOrdenSeleccionEnum>(estado.ToString());
         }
 
         // El N° de OS es correlativo: el mayor del almacén más uno (Max), o 1 si no hay ninguna (DefaultIfEmpty).
