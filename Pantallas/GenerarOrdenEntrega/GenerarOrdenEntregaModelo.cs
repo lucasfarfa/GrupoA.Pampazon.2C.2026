@@ -126,10 +126,10 @@ namespace GrupoA.PampazonSA.AdministracionDeposito.GenerarOrdenEntrega
             return new Cliente { Cuit = cliente.Cuit, RazonSocial = cliente.RazonSocial };
         }
 
-        // Pasa el estado de la OE de la pantalla al del almacén: esta pantalla solo genera OE Emitidas.
+        // Pasa el estado de la OE de la pantalla al del almacén (en el almacén, Pendiente de entrega se llama PendienteDeEntrega).
         private EstadoOrdenEntregaEnum TraducirEstado(EstadoOrdenEntrega estado)
         {
-            return EstadoOrdenEntregaEnum.Emitida;
+            return estado == EstadoOrdenEntrega.PendienteEntrega ? EstadoOrdenEntregaEnum.PendienteDeEntrega : EstadoOrdenEntregaEnum.Emitida;
         }
 
         // El N° de OE es correlativo: el mayor del almacén más uno (Max), o 1 si no hay ninguna (DefaultIfEmpty).
