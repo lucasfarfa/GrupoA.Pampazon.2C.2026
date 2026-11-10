@@ -194,7 +194,7 @@ namespace GrupoA.PampazonSA.AdministracionDeposito.RegistrarOrdenPreparacion
                 return;
             }
 
-            if (!DateTime.TryParseExact(textoFecha, "dd/MM/yyyy", CultureInfo.InvariantCulture, DateTimeStyles.None, out DateTime fechaRetiro))
+            if (!DateTime.TryParseExact(textoFecha, "d/M/yyyy", CultureInfo.InvariantCulture, DateTimeStyles.None, out DateTime fechaRetiro))
             {
                 MessageBox.Show("Fecha inválida", Text);
                 return;
