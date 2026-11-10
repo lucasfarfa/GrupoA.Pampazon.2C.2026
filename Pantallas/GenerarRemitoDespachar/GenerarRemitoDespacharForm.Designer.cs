@@ -78,7 +78,7 @@
             lblNombreTransportista.Name = "lblNombreTransportista";
             lblNombreTransportista.Size = new Size(153, 20);
             lblNombreTransportista.TabIndex = 4;
-            lblNombreTransportista.Text = "[NOMBRE, APELLIDO]";
+            lblNombreTransportista.Text = "";
             // 
             // lblNombre
             // 

@@ -109,7 +109,7 @@
             // 
             // FechaEntregaCol
             // 
-            FechaEntregaCol.Text = "Fecha Entrega";
+            FechaEntregaCol.Text = "Fecha Recepción";
             FechaEntregaCol.Width = 130;
             // 
             // ModalidadCol
