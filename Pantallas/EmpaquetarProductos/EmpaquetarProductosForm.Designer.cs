@@ -171,14 +171,13 @@
             // 
             // btnCancelar
             // 
-            btnCancelar.BackColor = SystemColors.ControlLight;
             btnCancelar.Location = new Point(663, 508);
             btnCancelar.Margin = new Padding(2, 3, 2, 3);
             btnCancelar.Name = "btnCancelar";
             btnCancelar.Size = new Size(102, 47);
             btnCancelar.TabIndex = 10;
             btnCancelar.Text = "Cancelar";
-            btnCancelar.UseVisualStyleBackColor = false;
+            btnCancelar.UseVisualStyleBackColor = true;
             btnCancelar.Click += btnCancelar_Click;
             // 
             // EmpaquetarProductosForm

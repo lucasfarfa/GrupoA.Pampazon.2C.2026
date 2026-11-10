@@ -88,7 +88,7 @@
             btnCerrar.Name = "btnCerrar";
             btnCerrar.Size = new Size(100, 32);
             btnCerrar.TabIndex = 2;
-            btnCerrar.Text = "Cerrar";
+            btnCerrar.Text = "Cancelar";
             btnCerrar.UseVisualStyleBackColor = true;
             btnCerrar.Click += btnCerrar_Click;
             // 
