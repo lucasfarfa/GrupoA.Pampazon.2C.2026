@@ -172,7 +172,6 @@
             // btnCancelar
             // 
             btnCancelar.BackColor = SystemColors.ControlLight;
-            btnCancelar.ForeColor = SystemColors.WindowFrame;
             btnCancelar.Location = new Point(663, 508);
             btnCancelar.Margin = new Padding(2, 3, 2, 3);
             btnCancelar.Name = "btnCancelar";
@@ -197,7 +196,7 @@
             MinimizeBox = false;
             Name = "EmpaquetarProductosForm";
             StartPosition = FormStartPosition.CenterScreen;
-            Text = "Empaquetar Productos - Pampazon S.A";
+            Text = "Empaquetar Productos - Pampazon S.A.";
             FormClosing += EmpaquetarProductosForm_FormClosing;
             Load += EmpaquetarProductosForm_Load;
             grpOrden.ResumeLayout(false);

@@ -105,7 +105,7 @@
             MinimizeBox = false;
             Name = "GenerarOrdenEntregaForm";
             StartPosition = FormStartPosition.CenterScreen;
-            Text = "Generar Orden de Entrega";
+            Text = "Generar Orden de Entrega - Pampazon S.A.";
             Load += GenerarOrdenEntregaForm_Load;
             gbPendientes.ResumeLayout(false);
             ResumeLayout(false);

@@ -272,7 +272,7 @@
             MinimizeBox = false;
             Name = "GenerarRemitoDespacharForm";
             StartPosition = FormStartPosition.CenterScreen;
-            Text = "Generar remito y despachar";
+            Text = "Generar Remito y Despachar - Pampazon S.A.";
             FormClosing += GenerarRemitoDespacharForm_FormClosing;
             grpTransportista.ResumeLayout(false);
             grpTransportista.PerformLayout();
