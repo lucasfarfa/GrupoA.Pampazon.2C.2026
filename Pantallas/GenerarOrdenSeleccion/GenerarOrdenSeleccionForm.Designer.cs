@@ -336,7 +336,7 @@
             MinimizeBox = false;
             Name = "GenerarOrdenSeleccionForm";
             StartPosition = FormStartPosition.CenterScreen;
-            Text = "Generar Orden de Selección";
+            Text = "Generar Orden de Selección - Pampazon S.A.";
             FormClosing += GenerarOrdenSeleccionForm_FormClosing;
             Load += GenerarOrdenSeleccionForm_Load;
             grpOPPendientes.ResumeLayout(false);

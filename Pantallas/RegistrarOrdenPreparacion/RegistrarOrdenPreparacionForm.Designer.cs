@@ -105,6 +105,7 @@
             // 
             // cboDeposito
             // 
+            cboDeposito.DropDownStyle = ComboBoxStyle.DropDownList;
             cboDeposito.FormattingEnabled = true;
             cboDeposito.Location = new Point(150, 80);
             cboDeposito.Name = "cboDeposito";
@@ -140,6 +141,7 @@
             // 
             // cboCliente
             // 
+            cboCliente.DropDownStyle = ComboBoxStyle.DropDownList;
             cboCliente.FormattingEnabled = true;
             cboCliente.Location = new Point(150, 20);
             cboCliente.Name = "cboCliente";
@@ -307,6 +309,7 @@
             // 
             // cboSku
             // 
+            cboSku.DropDownStyle = ComboBoxStyle.DropDownList;
             cboSku.FormattingEnabled = true;
             cboSku.Location = new Point(50, 25);
             cboSku.Name = "cboSku";

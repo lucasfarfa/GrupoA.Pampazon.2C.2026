@@ -23,6 +23,9 @@ namespace GrupoA.PampazonSA.AdministracionDeposito.RegistrarOrdenPreparacion
 
             // El DNI no admite más de 8 caracteres.
             txtDniTransportista.MaxLength = 8;
+
+            // La cantidad no admite más de 7 caracteres (planilla A.10).
+            txtCantidad.MaxLength = 7;
         }
 
         private void cboCliente_SelectedIndexChanged(object sender, EventArgs e)

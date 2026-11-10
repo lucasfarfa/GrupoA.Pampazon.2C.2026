@@ -133,7 +133,7 @@
             Controls.Add(grpOEEmitidas);
             Margin = new Padding(3, 2, 3, 2);
             Name = "RecepcionarOrdenEntregaForm";
-            Text = "RecepcionarOrdenEntregaForm";
+            Text = "Recepcionar Orden de Entrega - Pampazon S.A.";
             Load += RecepcionarOrdenEntregaForm_Load;
             grpOEEmitidas.ResumeLayout(false);
             ResumeLayout(false);
