@@ -11,8 +11,10 @@
 
 # Archivos de publicación
 Publish/
+
 # Archivos locales md
 REPO.md
+CLAUDE.md
 
 # Diagrama de clases (no va en el entregable)
 DiagramaClases_Pampazon-Diagrama de Clases.drawio.pdf
