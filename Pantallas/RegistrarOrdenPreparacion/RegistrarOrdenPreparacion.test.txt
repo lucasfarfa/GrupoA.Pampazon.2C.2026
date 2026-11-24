@@ -1,3 +1,5 @@
+Test 1: Registrar una OP Fulfillment
+
 Presionar: Registrar Orden de Preparación
 Cliente: Mercadito S.A.
 Verificar: CUIT 30-71234567-8
@@ -29,3 +31,79 @@ Verificar en bin\Debug\net10.0-windows\Datos\OrdenPreparacion.json:
 
 Verificar en bin\Debug\net10.0-windows\Datos\Mercaderia.json:
 - CuitCliente 30712345678, Deposito "GBA", Sku "CEM-50KG": CantidadComprometida 35
+
+
+Test 2: Rechazos de datos inválidos
+
+Presionar: Registrar Orden de Preparación
+Presionar: Registrar OP
+Verificar: Mensaje "Debe completar: Cliente, Depósito, Modalidad, DNI, Nombre del transportista, Fecha de retiro"
+Presionar: Aceptar
+Cliente: Mercadito S.A.
+Depósito: MDZ
+Verificar: Mensaje "El cliente no tiene mercadería en el depósito seleccionado"
+Presionar: Aceptar
+Depósito: GBA
+Modalidad: Fulfillment
+DNI: 12AB
+Nombre: Jose Gomez
+Fecha de Retiro: 31/12/2027
+Presionar: Registrar OP
+Verificar: Mensaje "El DNI debe tener 7 u 8 dígitos numéricos"
+Presionar: Aceptar
+DNI: 123456
+Presionar: Registrar OP
+Verificar: Mensaje "El DNI debe tener 7 u 8 dígitos numéricos"
+Presionar: Aceptar
+DNI: 24568779
+Nombre: Jose Gomez 2
+Presionar: Registrar OP
+Verificar: Mensaje "El nombre solo admite letras, espacios, apóstrofos y guiones"
+Presionar: Aceptar
+Nombre: Jose Gomez
+Fecha de Retiro: 31/13/2027
+Presionar: Registrar OP
+Verificar: Mensaje "Fecha inválida"
+Presionar: Aceptar
+Fecha de Retiro: 01/01/2020
+Presionar: Registrar OP
+Verificar: Mensaje "La fecha de retiro no puede ser anterior a hoy"
+Presionar: Aceptar
+Fecha de Retiro: 31/12/2027
+Presionar: Registrar OP
+Verificar: Mensaje "Debe agregar al menos un producto"
+Presionar: Aceptar
+Presionar: Agregar
+Verificar: Mensaje "Debe seleccionar un SKU"
+Presionar: Aceptar
+SKU: CEM-50KG
+Cantidad: 0
+Presionar: Agregar
+Verificar: Mensaje "La cantidad debe ser un número entero mayor a cero"
+Presionar: Aceptar
+Cantidad: 5
+Presionar: Agregar
+Verificar: Productos a preparar: CEM-50KG | Bolsa de cemento 50 kg | 5
+SKU: CEM-50KG
+Cantidad: 5
+Presionar: Agregar
+Verificar: Mensaje "El SKU ya está en la orden. Quítelo de la lista para cambiar la cantidad"
+Presionar: Aceptar
+Presionar: Quitar seleccionado
+Verificar: Mensaje "Seleccione un producto de la lista"
+Presionar: Aceptar
+Depósito: CBA
+Verificar: Mensaje "Se quitarán los productos cargados. ¿Desea continuar?"
+Presionar: Cancelar (del mensaje)
+Verificar: Depósito GBA
+Verificar: Productos a preparar: CEM-50KG | Bolsa de cemento 50 kg | 5
+Presionar: Cancelar
+Verificar: Mensaje "No se registró ninguna orden de preparación. ¿Desea salir?"
+Presionar: Aceptar
+Cerrar el sistema
+
+Verificar en bin\Debug\net10.0-windows\Datos\OrdenPreparacion.json:
+- No existe el NroOP 131
+
+Verificar en bin\Debug\net10.0-windows\Datos\Mercaderia.json:
+- CuitCliente 30712345678, Deposito "GBA", Sku "CEM-50KG": CantidadComprometida 15

@@ -1,3 +1,5 @@
+Test 1: Empaquetar hasta vaciar la cola
+
 Depósito: GBA
 Presionar: Empaquetar productos
 Verificar: Orden 105
@@ -36,3 +38,23 @@ Verificar en bin\Debug\net10.0-windows\Datos\OrdenPreparacion.json:
 - NroOP 105: Estado "Preparada", Bultos 10, FechaEmpaquetado de hoy
 - NroOP 108: Estado "Preparada", Bultos 20, FechaEmpaquetado de hoy
 - NroOP 115: Estado "Preparada", Bultos 1, FechaEmpaquetado de hoy
+
+
+Test 2: Cancelar con una OP asignada
+
+Depósito: GBA
+Presionar: Empaquetar productos
+Verificar: Orden 105
+Presionar: Cancelar
+Verificar: Mensaje "No se registró el empaquetado"
+Presionar: Aceptar
+Presionar: Empaquetar productos
+Verificar: Orden 105
+Verificar: Confirmar Empaquetado habilitado
+Presionar: Cancelar
+Verificar: Mensaje "No se registró el empaquetado"
+Presionar: Aceptar
+Cerrar el sistema
+
+Verificar en bin\Debug\net10.0-windows\Datos\OrdenPreparacion.json:
+- NroOP 105: Estado "EnPreparacion", TomadaPreparacion false, Bultos 0

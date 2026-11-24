@@ -1,3 +1,5 @@
+Test 1: Emitir y firmar remitos de dos clientes
+
 Depósito: GBA
 Presionar: Generar remito y despachar
 DNI: 22333444
@@ -50,3 +52,67 @@ Verificar en bin\Debug\net10.0-windows\Datos\OrdenPreparacion.json:
 Verificar en bin\Debug\net10.0-windows\Datos\Mercaderia.json, Deposito "GBA":
 - CuitCliente 30712345678, Sku "CAL-25KG": CantidadEnDespacho 0
 - CuitCliente 30709876543, Sku "ZAP-0042": CantidadEnDespacho 6
+
+
+Test 2: Rechazos y documentos que no se listan
+
+Depósito: GBA
+Presionar: Generar remito y despachar
+DNI: 12AB
+Presionar: Buscar órdenes
+Verificar: Mensaje "El DNI debe tener 7 u 8 dígitos numéricos"
+Presionar: Aceptar
+DNI: 123456
+Presionar: Buscar órdenes
+Verificar: Mensaje "El DNI debe tener 7 u 8 dígitos numéricos"
+Presionar: Aceptar
+DNI: 20562667
+Presionar: Buscar órdenes
+Verificar: Mensaje "No hay órdenes de entrega pendientes para el DNI 20562667"
+Presionar: Aceptar
+Verificar: Nombre: Alejo Cisterna
+Verificar: 1. Ordenes de entrega pendientes de entrega vacío
+Verificar: 3. Remitos pendiente de firma:
+  R-410
+  R-411
+Presionar: Seleccionar
+Verificar: Mensaje "Seleccione al menos una orden de entrega"
+Presionar: Aceptar
+Presionar: Deseleccionar
+Verificar: Mensaje "Seleccione al menos un remito a emitir"
+Presionar: Aceptar
+Presionar: Emitir remitos
+Verificar: Mensaje "Debe seleccionar al menos una orden de entrega"
+Presionar: Aceptar
+Presionar: Confirmar entrega y firma
+Verificar: Mensaje "Debe seleccionar al menos un remito"
+Presionar: Aceptar
+DNI: 32321987
+Presionar: Buscar órdenes
+Verificar: Nombre: Daniel Baez
+Verificar: 1. Ordenes de entrega pendientes de entrega:
+  Construcciones del Plata S.R.L. | 705 | 124, 125 | 9
+  Ferretería Norte S.A. | 703 | 122 | 30
+Verificar: 3. Remitos pendiente de firma vacío
+Seleccionar fila: 703
+Presionar: Seleccionar
+Verificar: 2. Se emitirán los siguientes remitos: Ferretería Norte S.A. | 703
+Seleccionar fila: Ferretería Norte S.A. | 703 (en 2. Se emitirán los siguientes remitos)
+Presionar: Deseleccionar
+Verificar: 1. Ordenes de entrega pendientes de entrega:
+  Construcciones del Plata S.R.L. | 705 | 124, 125 | 9
+  Ferretería Norte S.A. | 703 | 122 | 30
+Verificar: 2. Se emitirán los siguientes remitos vacío
+Seleccionar fila: 705
+Presionar: Seleccionar
+Presionar: Cancelar
+Verificar: Mensaje "No se emitió ningún remito. ¿Desea salir?"
+Presionar: Aceptar
+Cerrar el sistema
+
+Verificar en bin\Debug\net10.0-windows\Datos\Remito.json:
+- No existe el NroRemito 412
+- NroRemito 410 y 411: Estado "Emitido"
+
+Verificar en bin\Debug\net10.0-windows\Datos\OrdenEntrega.json:
+- NroOE 703, 705 y 707: Estado "PendienteDeEntrega"
