@@ -1,0 +1,31 @@
+Presionar: Registrar Orden de Preparación
+Cliente: Mercadito S.A.
+Verificar: CUIT 30-71234567-8
+Depósito: GBA
+Modalidad: Fulfillment
+SKU: CEM-50KG
+Verificar: Disponible 45
+Cantidad: 50
+Presionar: Agregar
+Verificar: Mensaje "La cantidad supera el disponible del SKU CEM-50KG: 45 unidades"
+Presionar: Aceptar
+Cantidad: 20
+Presionar: Agregar
+Verificar: Productos a preparar: CEM-50KG | Bolsa de cemento 50 kg | 20
+DNI: 24568779
+Nombre: Jose Gomez
+Fecha de Retiro: 31/12/2027
+Presionar: Registrar OP
+Verificar: Mensaje "¿Confirma el registro de la orden de preparación?"
+Presionar: Aceptar
+Verificar: Mensaje "Orden de preparación N° 131 registrada"
+Presionar: Aceptar
+Verificar: Productos a preparar vacío
+Presionar: Cancelar
+Cerrar el sistema
+
+Verificar en bin\Debug\net10.0-windows\Datos\OrdenPreparacion.json:
+- Nuevo registro NroOP 131: CuitCliente 30712345678, Deposito "GBA", Modalidad "Fulfillment", Estado "Pendiente", DNITransportista 24568779, FechaRetiro 2027-12-31, Lineas CEM-50KG 20
+
+Verificar en bin\Debug\net10.0-windows\Datos\Mercaderia.json:
+- CuitCliente 30712345678, Deposito "GBA", Sku "CEM-50KG": CantidadComprometida 35

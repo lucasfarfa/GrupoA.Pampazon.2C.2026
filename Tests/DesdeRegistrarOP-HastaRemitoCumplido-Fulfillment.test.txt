@@ -1,0 +1,117 @@
+Depósito: GBA
+
+Presionar: Registrar Orden de Preparación
+Cliente: Mercadito S.A.
+Depósito: GBA
+Modalidad: Fulfillment
+SKU: CEM-50KG
+Cantidad: 20
+Presionar: Agregar
+DNI: 24568779
+Nombre: Jose Gomez
+Fecha de Retiro: fecha de hoy (dd/mm/aaaa)
+Presionar: Registrar OP
+Presionar: Aceptar
+Verificar: Mensaje "Orden de preparación N° 131 registrada"
+Presionar: Aceptar
+Presionar: Cancelar
+
+Presionar: Generar Orden de Selección
+Cliente: Mercadito
+Presionar: Buscar
+Seleccionar fila: 131
+Presionar: Agregar Seleccionadas
+Verificar: Resumen consolidado de Productos: CEM-50KG | 20
+Presionar: Generar Orden de Selección
+Presionar: Aceptar
+Verificar: Mensaje "Orden de selección N° 507 generada"
+Presionar: Aceptar
+Presionar: Cancelar
+
+Presionar: Preparar productos
+Orden de seleccion: 507
+Verificar: Mercadería a retirar del almacén:
+  12-43-2 | CEM-50KG | 10
+  12-44-1 | CEM-50KG | 10
+Presionar: Confirmar entrega a Preparación
+Presionar: Aceptar
+Verificar: Mensaje "La OS 507 quedó Cumplida. Se descontó el stock de almacén."
+Presionar: Aceptar
+Presionar: Cancelar
+
+Presionar: Empaquetar productos
+Verificar: Orden 105
+Presionar: Confirmar Empaquetado
+Presionar: Aceptar
+Presionar: Aceptar
+Verificar: Orden 108
+Presionar: Confirmar Empaquetado
+Presionar: Aceptar
+Presionar: Aceptar
+Verificar: Orden 115
+Presionar: Confirmar Empaquetado
+Presionar: Aceptar
+Presionar: Aceptar
+Verificar: Orden 131
+Verificar: Modalidad Fulfillment
+Verificar: Total Bultos 20
+Presionar: Confirmar Empaquetado
+Presionar: Aceptar
+Verificar: Mensaje "Orden de preparación N° 131 preparada"
+Presionar: Aceptar
+Verificar: Mensaje "No hay órdenes para empaquetar en este depósito"
+Presionar: Aceptar
+Presionar: Cancelar
+
+Presionar: Generar Orden de Entrega
+Seleccionar fila: Mercadito S.A. | Jose Gomez | fecha de hoy | 1
+Presionar: Generar Orden de Entrega
+Presionar: Aceptar
+Verificar: Mensaje "Orden de entrega N° 712 generada"
+Presionar: Aceptar
+Presionar: Cancelar
+
+Presionar: Recepcionar Orden de Entrega
+Seleccionar fila: 712
+Presionar: Confirmar recepción en Despacho
+Presionar: Aceptar
+Verificar: Mensaje "Orden de entrega N° 712 recepcionada"
+Presionar: Aceptar
+Presionar: Cancelar
+
+Presionar: Generar remito y despachar
+DNI: 24568779
+Presionar: Buscar órdenes
+Seleccionar fila: Mercadito S.A. | 712 | 131 | 20
+Presionar: Seleccionar
+Verificar: 2. Se emitirán los siguientes remitos: Mercadito S.A. | 712
+Presionar: Emitir remitos
+Presionar: Aceptar
+Verificar: Mensaje "Se emitieron los remitos R-412"
+Presionar: Aceptar
+Seleccionar fila: R-412
+Presionar: Confirmar entrega y firma
+Presionar: Aceptar
+Verificar: Mensaje "Entrega confirmada"
+Presionar: Aceptar
+Presionar: Cancelar
+Cerrar el sistema
+
+Verificar en bin\Debug\net10.0-windows\Datos\OrdenPreparacion.json:
+- NroOP 131: Estado "Cumplida", Bultos 20
+
+Verificar en bin\Debug\net10.0-windows\Datos\OrdenSeleccion.json:
+- NroOS 507: Estado "Cumplida", NrosOP [131]
+
+Verificar en bin\Debug\net10.0-windows\Datos\OrdenEntrega.json:
+- NroOE 712: Estado "Cumplida", NrosOP [131]
+
+Verificar en bin\Debug\net10.0-windows\Datos\Remito.json:
+- NroRemito 412: Estado "Cumplido", NrosOE [712]
+
+Verificar en bin\Debug\net10.0-windows\Datos\Deposito.json, IdDeposito "GBA", CuitCliente 30712345678, Sku "CEM-50KG":
+- Sector 12, Posicion 43, Fila 2: Cantidad 0
+- Sector 12, Posicion 44, Fila 1: Cantidad 40
+
+Verificar en bin\Debug\net10.0-windows\Datos\Mercaderia.json, CuitCliente 30712345678, Deposito "GBA", Sku "CEM-50KG":
+- CantidadComprometida 15, CantidadEnPreparacion 12, CantidadEnDespacho 0

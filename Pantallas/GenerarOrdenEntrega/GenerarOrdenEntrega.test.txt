@@ -1,0 +1,27 @@
+Depósito: GBA
+Presionar: Generar Orden de Entrega
+Verificar: Órdenes preparadas sin orden de entrega:
+  Construcciones del Plata S.R.L. | Daniel Baez | 16/10/2026 | 2
+  Construcciones del Plata S.R.L. | Daniel Baez | 17/10/2026 | 1
+  MundoFOX S.R.L. | Jose Gomez | 16/10/2026 | 1
+Presionar: Generar Orden de Entrega
+Verificar: Mensaje "Debe seleccionar un grupo de órdenes"
+Presionar: Aceptar
+Seleccionar fila: Construcciones del Plata S.R.L. | Daniel Baez | 16/10/2026 | 2
+Presionar: Generar Orden de Entrega
+Verificar: Mensaje "¿Confirma la orden de entrega para Construcciones del Plata S.R.L., transportista Daniel Baez, retiro 16/10/2026, con 2 OP?"
+Presionar: Aceptar
+Verificar: Mensaje "Orden de entrega N° 712 generada"
+Presionar: Aceptar
+Verificar: Órdenes preparadas sin orden de entrega:
+  Construcciones del Plata S.R.L. | Daniel Baez | 17/10/2026 | 1
+  MundoFOX S.R.L. | Jose Gomez | 16/10/2026 | 1
+Presionar: Cancelar
+Cerrar el sistema
+
+Verificar en bin\Debug\net10.0-windows\Datos\OrdenEntrega.json:
+- Nuevo registro NroOE 712: Estado "Emitida", NrosOP [106, 107], IdDeposito "GBA", CuitCliente 30705554441, DNITransportista 32321987, FechaEntregaTransportista 2026-10-16
+
+Verificar en bin\Debug\net10.0-windows\Datos\OrdenPreparacion.json:
+- NroOP 106: Estado "EnEntrega"
+- NroOP 107: Estado "EnEntrega"

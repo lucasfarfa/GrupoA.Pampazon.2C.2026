@@ -1,0 +1,31 @@
+Depósito: GBA
+Presionar: Preparar productos
+Verificar: Depósito: GBA
+Verificar: Orden de seleccion tiene 501 y 502
+Orden de seleccion: 501
+Verificar: Mercadería a retirar del almacén:
+  05-12-1 | TOR-M8 | 30
+  07-02-1 | CLA-2P | 10
+  07-03-1 | CLA-2P | 5
+Presionar: Confirmar entrega a Preparación
+Verificar: Mensaje "¿Confirma que entregó toda la mercadería de la OS N° 501 a Preparación?"
+Presionar: Aceptar
+Verificar: Mensaje "La OS 501 quedó Cumplida. Se descontó el stock de almacén."
+Presionar: Aceptar
+Verificar: Orden de seleccion tiene solo 502
+Verificar: Mercadería a retirar del almacén vacío
+Presionar: Cancelar
+Cerrar el sistema
+
+Verificar en bin\Debug\net10.0-windows\Datos\OrdenSeleccion.json:
+- NroOS 501: Estado "Cumplida", FechaCumplida de hoy
+- NroOS 502: Estado "Pendiente"
+
+Verificar en bin\Debug\net10.0-windows\Datos\Deposito.json, IdDeposito "GBA", CuitCliente 30711122234:
+- Sector 5, Posicion 12, Fila 1, Sku "TOR-M8": Cantidad 470
+- Sector 7, Posicion 2, Fila 1, Sku "CLA-2P": Cantidad 0
+- Sector 7, Posicion 3, Fila 1, Sku "CLA-2P": Cantidad 15
+
+Verificar en bin\Debug\net10.0-windows\Datos\Mercaderia.json, CuitCliente 30711122234, Deposito "GBA":
+- Sku "TOR-M8": CantidadComprometida 0, CantidadEnPreparacion 30
+- Sku "CLA-2P": CantidadComprometida 0, CantidadEnPreparacion 15

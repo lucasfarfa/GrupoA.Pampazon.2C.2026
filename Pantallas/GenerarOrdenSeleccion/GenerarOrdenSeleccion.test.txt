@@ -1,0 +1,41 @@
+Depósito: GBA
+Presionar: Generar Orden de Selección
+Verificar: Depósito: GBA
+Verificar: Órdenes de Preparación Pendientes:
+  103 | MundoFOX S.R.L. | 13/10/2026 16:00 | Palet cerrado
+  101 | Mercadito S.A. | 14/10/2026 09:00 | Fulfillment
+  102 | Mercadito S.A. | 14/10/2026 10:30 | Fulfillment
+Cliente: Mercadito
+Presionar: Buscar
+Verificar: Órdenes de Preparación Pendientes:
+  101 | Mercadito S.A. | 14/10/2026 09:00 | Fulfillment
+  102 | Mercadito S.A. | 14/10/2026 10:30 | Fulfillment
+Presionar: Agregar Todo
+Verificar: 101 y 102 tildadas
+Verificar: Resumen consolidado de Productos:
+  CAL-25KG | 3
+  CEM-50KG | 15
+Presionar: Generar Orden de Selección
+Verificar: Mensaje "¿Confirma la generación de la orden de selección con 2 OP?"
+Presionar: Aceptar
+Verificar: Mensaje "Orden de selección N° 507 generada"
+Presionar: Aceptar
+Verificar: Órdenes de Preparación Pendientes vacío
+Verificar: Resumen consolidado de Productos vacío
+Presionar: Limpiar filtros
+Verificar: Órdenes de Preparación Pendientes:
+  103 | MundoFOX S.R.L. | 13/10/2026 16:00 | Palet cerrado
+Presionar: Cancelar
+Cerrar el sistema
+
+Verificar en bin\Debug\net10.0-windows\Datos\OrdenSeleccion.json:
+- Nuevo registro NroOS 507: Deposito "GBA", Estado "Pendiente", NrosOP [101, 102]
+- Lineas de la OS 507:
+  Sector 3, Posicion 10, Fila 1, Sku "CAL-25KG", Cantidad 3
+  Sector 12, Posicion 43, Fila 2, Sku "CEM-50KG", Cantidad 10
+  Sector 12, Posicion 44, Fila 1, Sku "CEM-50KG", Cantidad 5
+
+Verificar en bin\Debug\net10.0-windows\Datos\OrdenPreparacion.json:
+- NroOP 101: Estado "EnPreparacion"
+- NroOP 102: Estado "EnPreparacion"
+- NroOP 103: Estado "Pendiente"

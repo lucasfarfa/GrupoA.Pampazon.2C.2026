@@ -1,0 +1,23 @@
+Depósito: GBA
+Presionar: Recepcionar Orden de Entrega
+Verificar: Órdenes de Entrega emitidas:
+  701 | Jose Gomez | Mercadito S.A. | 14/10/2026 | 119, 120
+  702 | Jose Gomez | MundoFOX S.R.L. | 14/10/2026 | 121
+Seleccionar fila: 701
+Presionar: Confirmar recepción en Despacho
+Verificar: Mensaje "¿Confirma la recepción de la OE N° 701 en Despacho?"
+Presionar: Aceptar
+Verificar: Mensaje "Orden de entrega N° 701 recepcionada"
+Presionar: Aceptar
+Verificar: Órdenes de Entrega emitidas:
+  702 | Jose Gomez | MundoFOX S.R.L. | 14/10/2026 | 121
+Presionar: Cancelar
+Cerrar el sistema
+
+Verificar en bin\Debug\net10.0-windows\Datos\OrdenEntrega.json:
+- NroOE 701: Estado "PendienteDeEntrega", FechaRecepcionDespacho de hoy
+- NroOE 702: Estado "Emitida"
+
+Verificar en bin\Debug\net10.0-windows\Datos\Mercaderia.json, CuitCliente 30712345678, Deposito "GBA":
+- Sku "CEM-50KG": CantidadEnPreparacion 0, CantidadEnDespacho 12
+- Sku "CAL-25KG": CantidadEnPreparacion 30, CantidadEnDespacho 21

@@ -1,0 +1,52 @@
+Depósito: GBA
+Presionar: Generar remito y despachar
+DNI: 22333444
+Presionar: Buscar órdenes
+Verificar: Mensaje "No hay órdenes de entrega pendientes para el DNI 22333444"
+Presionar: Aceptar
+DNI: 24568779
+Presionar: Buscar órdenes
+Verificar: Nombre: Jose Gomez
+Verificar: 1. Ordenes de entrega pendientes de entrega:
+  Mercadito S.A. | 700 | 109 | 5
+  Mercadito S.A. | 704 | 123 | 10
+  MundoFOX S.R.L. | 706 | 126 | 1
+Verificar: 3. Remitos pendiente de firma vacío
+Seleccionar filas (Ctrl + clic): 700, 704 y 706
+Presionar: Seleccionar
+Verificar: 1. Ordenes de entrega pendientes de entrega vacío
+Verificar: 2. Se emitirán los siguientes remitos:
+  Mercadito S.A. | 700, 704
+  MundoFOX S.R.L. | 706
+Presionar: Emitir remitos
+Verificar: Mensaje "Se emitirán 2 remitos. ¿Confirma?"
+Presionar: Aceptar
+Verificar: Mensaje "Se emitieron los remitos R-412, R-413"
+Presionar: Aceptar
+Verificar: 2. Se emitirán los siguientes remitos vacío
+Verificar: 3. Remitos pendiente de firma:
+  R-412
+  R-413
+Seleccionar filas (Ctrl + clic): R-412 y R-413
+Presionar: Confirmar entrega y firma
+Verificar: Mensaje "¿Confirma la entrega de los remitos N° R-412, R-413 con la copia firmada?"
+Presionar: Aceptar
+Verificar: Mensaje "Entrega confirmada"
+Presionar: Aceptar
+Verificar: 3. Remitos pendiente de firma vacío
+Presionar: Cancelar
+Cerrar el sistema
+
+Verificar en bin\Debug\net10.0-windows\Datos\Remito.json:
+- Nuevo registro NroRemito 412: CuitCliente 30712345678, NrosOE [700, 704], DNITransportista 24568779, IdDeposito "GBA", Estado "Cumplido", FechaCumplida de hoy
+- Nuevo registro NroRemito 413: CuitCliente 30709876543, NrosOE [706], DNITransportista 24568779, IdDeposito "GBA", Estado "Cumplido", FechaCumplida de hoy
+
+Verificar en bin\Debug\net10.0-windows\Datos\OrdenEntrega.json:
+- NroOE 700, 704 y 706: Estado "Cumplida"
+
+Verificar en bin\Debug\net10.0-windows\Datos\OrdenPreparacion.json:
+- NroOP 109, 123 y 126: Estado "Cumplida"
+
+Verificar en bin\Debug\net10.0-windows\Datos\Mercaderia.json, Deposito "GBA":
+- CuitCliente 30712345678, Sku "CAL-25KG": CantidadEnDespacho 0
+- CuitCliente 30709876543, Sku "ZAP-0042": CantidadEnDespacho 6
