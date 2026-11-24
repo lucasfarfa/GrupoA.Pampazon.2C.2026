@@ -51,7 +51,7 @@ Verificar en bin\Debug\net10.0-windows\Datos\OrdenPreparacion.json:
 
 Verificar en bin\Debug\net10.0-windows\Datos\Mercaderia.json, Deposito "GBA":
 - CuitCliente 30712345678, Sku "CAL-25KG": CantidadEnDespacho 0
-- CuitCliente 30709876543, Sku "ZAP-0042": CantidadEnDespacho 6
+- CuitCliente 30709876543, Sku "ZAP-0042": CantidadEnDespacho 12
 
 
 Test 2: Rechazos y documentos que no se listan
@@ -92,7 +92,7 @@ Presionar: Buscar órdenes
 Verificar: Nombre: Daniel Baez
 Verificar: 1. Ordenes de entrega pendientes de entrega:
   Construcciones del Plata S.R.L. | 705 | 124, 125 | 9
-  Ferretería Norte S.A. | 703 | 122 | 30
+  Ferretería Norte S.A. | 703 | 122 | 3
 Verificar: 3. Remitos pendiente de firma vacío
 Seleccionar fila: 703
 Presionar: Seleccionar
@@ -101,7 +101,7 @@ Seleccionar fila: Ferretería Norte S.A. | 703 (en 2. Se emitirán los siguiente
 Presionar: Deseleccionar
 Verificar: 1. Ordenes de entrega pendientes de entrega:
   Construcciones del Plata S.R.L. | 705 | 124, 125 | 9
-  Ferretería Norte S.A. | 703 | 122 | 30
+  Ferretería Norte S.A. | 703 | 122 | 3
 Verificar: 2. Se emitirán los siguientes remitos vacío
 Seleccionar fila: 705
 Presionar: Seleccionar

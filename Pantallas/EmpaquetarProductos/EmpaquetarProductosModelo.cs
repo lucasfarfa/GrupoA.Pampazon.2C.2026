@@ -20,15 +20,18 @@ namespace GrupoA.PampazonSA.AdministracionDeposito.EmpaquetarProductos
             }
         }
 
-        // Total de bultos a mostrar. Palet cerrado: un bulto (el palet).
-        // Fulfillment: un bulto por unidad, o sea la suma de las cantidades de los productos (Sum).
+        // Total de bultos a mostrar.
+        // Palet cerrado: cada palet sale tal como entró, así que es un bulto por palet: suma de cantidad / unidades por palet (Sum).
+        // Fulfillment: cada producto se embala en cajas: suma de cantidad / unidades por bulto redondeado hacia arriba (Sum).
+        // Si la mercadería no tiene definido el palet o la caja (0), cada unidad cuenta como un bulto.
         public int TotalBultos
         {
             get
             {
                 if (_ordenAsignada == null) return 0;
-                if (_ordenAsignada.Modalidad == Modalidad.PaletCerrado) return 1;
-                return _ordenAsignada.Lineas.Sum(p => p.Cantidad);
+                if (_ordenAsignada.Modalidad == Modalidad.PaletCerrado)
+                    return _ordenAsignada.Lineas.Sum(p => p.Cantidad / Math.Max(1, p.UnidadesPorPalet));
+                return _ordenAsignada.Lineas.Sum(p => (int)Math.Ceiling((double)p.Cantidad / Math.Max(1, p.UnidadesPorBulto)));
             }
         }
 
@@ -114,7 +117,8 @@ namespace GrupoA.PampazonSA.AdministracionDeposito.EmpaquetarProductos
         }
 
         // Arma la OP que muestra la pantalla: el N° de OS sale de la OS que la incluye,
-        // y la descripción de cada producto, de la mercadería del cliente en el depósito (Select).
+        // y la descripción y el embalaje (unidades por caja y por palet) de cada producto,
+        // de la mercadería del cliente en el depósito (Select).
         private OrdenPreparacion TraducirOrden(OrdenPreparacionEntidad op)
         {
             return new OrdenPreparacion
@@ -124,17 +128,30 @@ namespace GrupoA.PampazonSA.AdministracionDeposito.EmpaquetarProductos
                 Modalidad = TraducirModalidad(op.Modalidad),
                 NroOS = BuscarOrdenSeleccion(op.NroOP)?.NroOS ?? 0,
                 Estado = EstadoOrdenPreparacion.EnPreparacion,
-                Lineas = op.Lineas.Select(l => new LineaOrdenPreparacion { Sku = l.Sku, Descripcion = BuscarDescripcion(op, l.Sku), Cantidad = l.Cantidad }).ToList(),
+                Lineas = op.Lineas.Select(l => TraducirLinea(op, l)).ToList(),
                 Bultos = op.Bultos,
                 FechaEmpaquetado = op.FechaEmpaquetado
             };
         }
 
-        // Descripción de la mercadería del cliente de la OP en su depósito con ese SKU (FirstOrDefault); "" si no hay.
-        private string BuscarDescripcion(OrdenPreparacionEntidad op, string sku)
+        // Arma la línea que muestra la pantalla con los datos de la mercadería; sin mercadería, descripción vacía y embalaje 0.
+        private LineaOrdenPreparacion TraducirLinea(OrdenPreparacionEntidad op, Almacenes.LineaOrdenPreparacion linea)
         {
-            var mercaderia = MercaderiaAlmacen.Mercaderias.FirstOrDefault(m => m.CuitCliente == op.CuitCliente && m.Deposito == op.Deposito && m.Sku == sku);
-            return mercaderia?.Descripcion ?? "";
+            var mercaderia = BuscarMercaderia(op, linea.Sku);
+            return new LineaOrdenPreparacion
+            {
+                Sku = linea.Sku,
+                Descripcion = mercaderia?.Descripcion ?? "",
+                Cantidad = linea.Cantidad,
+                UnidadesPorBulto = mercaderia?.UnidadesPorBulto ?? 0,
+                UnidadesPorPalet = mercaderia?.UnidadesPorPalet ?? 0
+            };
+        }
+
+        // Mercadería del cliente de la OP en su depósito con ese SKU, o null si no hay (FirstOrDefault).
+        private MercaderiaEntidad? BuscarMercaderia(OrdenPreparacionEntidad op, string sku)
+        {
+            return MercaderiaAlmacen.Mercaderias.FirstOrDefault(m => m.CuitCliente == op.CuitCliente && m.Deposito == op.Deposito && m.Sku == sku);
         }
 
         // Pasa la modalidad del almacén a la de la pantalla (tienen los mismos valores).

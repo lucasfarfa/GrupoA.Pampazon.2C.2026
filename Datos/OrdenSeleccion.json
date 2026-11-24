@@ -23,7 +23,7 @@
         "Fila": 1,
         "CuitCliente": 30709876543,
         "Sku": "ZAP-0042",
-        "Cantidad": 6
+        "Cantidad": 12
       }
     ],
     "FechaCumplida": "2026-10-07"
@@ -285,7 +285,7 @@
         "Fila": 1,
         "CuitCliente": 30709876543,
         "Sku": "ZAP-0042",
-        "Cantidad": 10
+        "Cantidad": 12
       }
     ],
     "FechaCumplida": null

@@ -107,3 +107,44 @@ Verificar en bin\Debug\net10.0-windows\Datos\OrdenPreparacion.json:
 
 Verificar en bin\Debug\net10.0-windows\Datos\Mercaderia.json:
 - CuitCliente 30712345678, Deposito "GBA", Sku "CEM-50KG": CantidadComprometida 15
+
+
+Test 3: Palet cerrado solo con palets completos
+
+Presionar: Registrar Orden de Preparación
+Cliente: MundoFOX S.R.L.
+Depósito: GBA
+Modalidad: Fulfillment
+SKU: ZAP-0042
+Verificar: Disponible 64
+Cantidad: 10
+Presionar: Agregar
+Modalidad: Palet cerrado
+DNI: 24568779
+Nombre: Jose Gomez
+Fecha de Retiro: 31/12/2027
+Presionar: Registrar OP
+Verificar: Mensaje "Palet cerrado: las cantidades de estos SKU no completan palets enteros: ZAP-0042"
+Presionar: Aceptar
+Seleccionar fila: ZAP-0042 (en Productos a preparar)
+Presionar: Quitar seleccionado
+SKU: ZAP-0042
+Cantidad: 13
+Presionar: Agregar
+Verificar: Mensaje "Palet cerrado: la cantidad debe ser múltiplo de 12 unidades (palet completo del SKU ZAP-0042)"
+Presionar: Aceptar
+Cantidad: 24
+Presionar: Agregar
+Verificar: Productos a preparar: ZAP-0042 | Caja de zapatillas | 24
+Presionar: Registrar OP
+Presionar: Aceptar
+Verificar: Mensaje "Orden de preparación N° 131 registrada"
+Presionar: Aceptar
+Presionar: Cancelar
+Cerrar el sistema
+
+Verificar en bin\Debug\net10.0-windows\Datos\OrdenPreparacion.json:
+- Nuevo registro NroOP 131: CuitCliente 30709876543, Deposito "GBA", Modalidad "PaletCerrado", Estado "Pendiente", Lineas ZAP-0042 24
+
+Verificar en bin\Debug\net10.0-windows\Datos\Mercaderia.json:
+- CuitCliente 30709876543, Deposito "GBA", Sku "ZAP-0042": CantidadComprometida 60

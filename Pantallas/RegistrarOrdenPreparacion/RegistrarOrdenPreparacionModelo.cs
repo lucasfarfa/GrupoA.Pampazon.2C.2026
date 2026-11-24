@@ -95,6 +95,50 @@ namespace GrupoA.PampazonSA.AdministracionDeposito.RegistrarOrdenPreparacion
             return cantidad <= Disponible;
         }
 
+        // Unidades que trae un palet completo del SKU elegido, para el mensaje de palet cerrado; 0 si no hay SKU elegido.
+        public int UnidadesPorPaletSeleccionado
+        {
+            get
+            {
+                var mercaderia = BuscarMercaderia(_sku);
+                if (mercaderia == null) return 0;
+
+                return mercaderia.UnidadesPorPalet;
+            }
+        }
+
+        // En Palet cerrado la cantidad del SKU elegido tiene que completar palets enteros (múltiplo de UnidadesPorPalet).
+        // En Fulfillment cualquier cantidad sirve.
+        public bool CantidadEnPaletsCompletos(Modalidad modalidad, int cantidad)
+        {
+            if (modalidad != Modalidad.PaletCerrado) return true;
+
+            return CompletaPalets(_sku, cantidad);
+        }
+
+        // En Palet cerrado todas las líneas cargadas tienen que completar palets enteros. Devuelve false si alguna no cierra
+        // y en skus los SKU de esas líneas: se queda con las que no completan palets (Where) y toma su SKU (Select).
+        public bool PaletsCompletos(Modalidad modalidad, out List<string> skus)
+        {
+            skus = new List<string>();
+            if (modalidad != Modalidad.PaletCerrado) return true;
+
+            skus = _lineas
+                .Where(l => !CompletaPalets(l.Sku, l.Cantidad))
+                .Select(l => l.Sku)
+                .ToList();
+            return skus.Count == 0;
+        }
+
+        // La cantidad es múltiplo del palet de ese SKU del cliente en el depósito. Sin palet definido (0) no cierra nunca.
+        private bool CompletaPalets(string? sku, int cantidad)
+        {
+            var mercaderia = BuscarMercaderia(sku);
+            if (mercaderia == null || mercaderia.UnidadesPorPalet <= 0) return false;
+
+            return cantidad % mercaderia.UnidadesPorPalet == 0;
+        }
+
         // Hay al menos un SKU elegido de "Productos a preparar".
         public bool HaySkus(List<string> skus)
         {
@@ -169,6 +213,7 @@ namespace GrupoA.PampazonSA.AdministracionDeposito.RegistrarOrdenPreparacion
             if (_cliente == null || _deposito == null || _lineas.Count == 0) return false;
             if (!ModalidadValida(modalidad) || !DniValido(dni) || !NombreValido(nombreTransportista) || !FechaRetiroValida(fechaRetiro))
                 return false;
+            if (!PaletsCompletos(modalidad, out _)) return false;
 
             // Se controla todo antes de cambiar nada: si a alguna línea le falta su mercadería no queda grabado a medias (Any).
             if (_lineas.Any(l => BuscarMercaderia(l.Sku) == null)) return false;

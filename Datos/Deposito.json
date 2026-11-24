@@ -27,7 +27,19 @@
           {
             "CuitCliente": 30705554441,
             "Sku": "CEM-50KG",
-            "Cantidad": 30
+            "Cantidad": 15
+          }
+        ]
+      },
+      {
+        "Sector": 3,
+        "Posicion": 12,
+        "Fila": 1,
+        "Contenido": [
+          {
+            "CuitCliente": 30705554441,
+            "Sku": "CEM-50KG",
+            "Cantidad": 15
           }
         ]
       },
@@ -164,7 +176,7 @@
           {
             "CuitCliente": 30709876543,
             "Sku": "ZAP-0042",
-            "Cantidad": 60
+            "Cantidad": 54
           }
         ]
       }

@@ -7,8 +7,8 @@ Todas las pantallas leen el mismo juego de datos de `Datos/`. Cada OP tiene un s
 | Almacén | Cantidad | Detalle |
 | --- | --- | --- |
 | `Cliente` | 6 | Los 4 del plan, más Distribuidora del Litoral S.A. y Almacenes de Cuyo S.R.L. |
-| `Deposito` | 4 | GBA, ROS y CBA con posiciones. MDZ sin posiciones |
-| `Mercaderia` | 14 | CEM-50KG, CAL-25KG y ZAP-0042 repetidos entre clientes. Poco stock: YER-1KG (3) y CAL-25KG de Ferretería Norte (5) |
+| `Deposito` | 4 | GBA, ROS y CBA con posiciones. MDZ sin posiciones. El CEM-50KG de Construcciones del Plata en GBA está repartido en 03-11-1 (15) y 03-12-1 (15) |
+| `Mercaderia` | 14 | CEM-50KG, CAL-25KG y ZAP-0042 repetidos entre clientes. Poco stock: YER-1KG (3) y CAL-25KG de Ferretería Norte (5). Cada registro tiene `UnidadesPorBulto` y `UnidadesPorPalet` (ver Embalaje y palet cerrado) |
 | `OrdenPreparacion` | 46 | 5 Pendientes, 12 En preparación, 8 Preparadas, 18 En entrega, 3 Cumplidas. GBA, ROS y CBA. Ambas modalidades |
 | `OrdenSeleccion` | 14 | 4 Pendientes (496, 501, 502, 506) y 10 Cumplidas (491 a 493, 497 a 499, 500, 503 a 505) |
 | `OrdenEntrega` | 18 | 4 Emitidas, 8 Pendientes de entrega, 4 Remito emitido, 2 Cumplidas. La OE 707 (OP 100) tiene retiro 31/12/2027 |
@@ -36,13 +36,13 @@ Para probar cada pantalla en ROS o CBA, elegir el depósito en el menú principa
 
 | Hoja | Pantalla | ROS | CBA |
 | --- | --- | --- | --- |
-| A | Registrar OP | Distribuidora del Litoral: ARR-1KG disponible 160, ZAP-0042 disponible 22. MundoFOX: ZAP-0042 disponible 60 | Almacenes de Cuyo: CEM-50KG disponible 100, YER-1KG disponible 1. Mercadito: CAL-25KG disponible 25 |
+| A | Registrar OP | Distribuidora del Litoral: ARR-1KG disponible 160, ZAP-0042 disponible 22. MundoFOX: ZAP-0042 disponible 54 | Almacenes de Cuyo: CEM-50KG disponible 90, YER-1KG disponible 3. Mercadito: CAL-25KG disponible 25 |
 | B | Generar OS | OP 111 | OP 112 |
 | C | Preparar productos | OS 506 (OP 116): 01-02-1 ZAP-0042 8 | OS 496 (OP 084): 01-01-1 CEM-50KG 20 |
-| D | Empaquetar | OP 091 (Fulfillment, 20 bultos) y después 092 (Palet cerrado, 1 bulto). OS 491 Cumplida | OP 085 (Palet cerrado, 1 bulto) y después 086 (Fulfillment, 5 bultos). OS 497 Cumplida |
+| D | Empaquetar | OP 091 (Fulfillment, ARR-1KG x 20 en cajas de 10: 2 bultos) y después 092 (Palet cerrado, ZAP-0042 x 12: 1 palet, 1 bulto). OS 491 Cumplida | OP 085 (Palet cerrado, 1 bulto) y después 086 (Fulfillment, 5 bultos). OS 497 Cumplida |
 | E | Generar OE | 1 fila: Distribuidora del Litoral · Alejo Cisterna · 21/10 · 2 (OP 093 y 094) | 2 filas: Almacenes de Cuyo · Daniel Baez · 22/10 · 1 (OP 087) — Mercadito · Jose Gomez · 22/10 · 1 (OP 088) |
 | F | Recepcionar OE | OE 693 (MundoFOX, OP 095) | OE 697 (Almacenes de Cuyo, OP 089) |
-| G | Remito y despacho | Alejo Cisterna: OE 694 (Distribuidora del Litoral, 15 bultos) y R-405 para firmar | Jose Gomez: OE 698 (Mercadito, 3 bultos). Daniel Baez: R-406 para firmar |
+| G | Remito y despacho | Alejo Cisterna: OE 694 (Distribuidora del Litoral, 2 bultos) y R-405 para firmar | Jose Gomez: OE 698 (Mercadito, 3 bultos). Daniel Baez: R-406 para firmar |
 
 Los mismos transportistas trabajan en varios depósitos: cada pantalla muestra solo sus documentos del depósito elegido. Por ejemplo, en ROS Jose Gomez no tiene OE pendientes, porque la OE 693 todavía está Emitida.
 
@@ -62,16 +62,16 @@ Solo se listan los casos que graban. Los rechazos y las cancelaciones no cambian
 | E.2 | Grupo Construcciones del Plata, retiro 16/10 | 106 y 107 → En entrega | — | Alta OE 712 Emitida | — | — | — |
 | F.3 | Recepcionar OE 701 | — | — | 701 → Pendiente de entrega, con `FechaRecepcionDespacho` | — | — | CEM-50KG de Mercadito: en preparación 12 → 0, en despacho 0 → 12. CAL-25KG de Mercadito: en preparación 36 → 30, en despacho 15 → 21 |
 | G.5 | Emitir con OE 700, 704 y 706 | — | — | Las tres → Remito emitido | Alta R-412 (Mercadito) y R-413 (MundoFOX) Emitidos | — | — |
-| G.7 | Confirmar R-412 y R-413 | 109, 123 y 126 → Cumplida | — | 700, 704 y 706 → Cumplida | Cumplidos, con fecha | — | CAL-25KG de Mercadito: en despacho 15 → 0. ZAP-0042 de MundoFOX: en despacho 10 → 6 |
-| G.7 | Confirmar R-410 | 110 → Cumplida | — | 710 → Cumplida | Cumplido, con fecha | — | ZAP-0042 de MundoFOX: en despacho 10 → 4 |
+| G.7 | Confirmar R-412 y R-413 | 109, 123 y 126 → Cumplida | — | 700, 704 y 706 → Cumplida | Cumplidos, con fecha | — | CAL-25KG de Mercadito: en despacho 15 → 0. ZAP-0042 de MundoFOX: en despacho 24 → 12 |
+| G.7 | Confirmar R-410 | 110 → Cumplida | — | 710 → Cumplida | Cumplido, con fecha | — | ZAP-0042 de MundoFOX: en despacho 24 → 12 |
 
 ## Resultados esperados con estos datos
 
 - **B:** "ayer" es 13/10/2026 y "hoy" es 14/10/2026. Hay que elegir esas fechas en los filtros, porque las recepciones son fijas.
-- **C.3, OS 501:** 05-12-1 TOR-M8 30 · 07-02-1 CLA-2P 10 · 07-03-1 CLA-2P 5. OS 502: 12-05-1 ZAP-0042 10.
+- **C.3, OS 501:** 05-12-1 TOR-M8 30 · 07-02-1 CLA-2P 10 · 07-03-1 CLA-2P 5. OS 502: 12-05-1 ZAP-0042 12.
 - **D:** se asigna 105 (Fulfillment, 10 bultos), después 108 (Fulfillment, 20 bultos) y 115 (Palet cerrado, 1 bulto). Después ya no hay órdenes para empaquetar, si la OS 501 y la 502 siguen Pendientes.
 - **E.1:** 3 filas: Construcciones del Plata · Daniel Baez · 16/10 · 2 — Construcciones del Plata · Daniel Baez · 17/10 · 1 — MundoFOX · Jose Gomez · 16/10 · 1.
-- **G.3:** Jose Gomez ve Mercadito 700 (OP 109 · 5), Mercadito 704 (OP 123 · 10) y MundoFOX 706 (OP 126 · 1). Daniel Baez ve Construcciones del Plata 705 (OP 124, 125 · 9) y Ferretería Norte 703 (OP 122 · 30).
+- **G.3:** Jose Gomez ve Mercadito 700 (OP 109 · 5), Mercadito 704 (OP 123 · 10) y MundoFOX 706 (OP 126 · 1). Daniel Baez ve Construcciones del Plata 705 (OP 124, 125 · 9) y Ferretería Norte 703 (OP 122 · 3).
 - **G.1:** con 20562667 no hay OE pendientes y se ven R-410 y R-411.
 
 ## Casos agregados
@@ -82,10 +82,10 @@ No están en la planilla: los habilitan los datos nuevos. Si no se indica otra c
 | --- | --- | --- | --- | --- | --- |
 | N.1 | Registrar OP | SKU por cliente | Construcciones del Plata, CEM-50KG | Lista ARE-25KG y CEM-50KG. Disponible 30, no 45 como Mercadito | — |
 | N.2 | Registrar OP | SKU por cliente | Ferretería Norte | Lista CAL-25KG, CLA-2P y TOR-M8 | — |
-| N.3 | Registrar OP | Poco stock | Almacenes de Cuyo, CBA, YER-1KG, cantidad 2 | Disponible 1. Rechazo: "La cantidad supera el disponible del SKU YER-1KG: 1 unidades" | — |
+| N.3 | Registrar OP | Poco stock | Almacenes de Cuyo, CBA, YER-1KG, cantidad 4 | Disponible 3. Rechazo: "La cantidad supera el disponible del SKU YER-1KG: 3 unidades" | — |
 | N.4 | Registrar OP | Poco stock | Ferretería Norte, CAL-25KG, cantidad 5, confirma | Se acepta. Disponible 0 | Alta OP 131 Pendiente. CAL-25KG de Ferretería Norte: comprometida 0 → 5 |
 | N.5 | Registrar OP | Mismo cliente en otro depósito | Mercadito, CBA | Lista CAL-25KG. Disponible 25 | — |
-| N.6 | Registrar OP | Mismo SKU en otro depósito | MundoFOX, ROS, ZAP-0042 | Disponible 60. En GBA es 66 | — |
+| N.6 | Registrar OP | Mismo SKU en otro depósito | MundoFOX, ROS, ZAP-0042 | Disponible 54. En GBA es 64 | — |
 | N.7 | Registrar OP | Depósito sin mercadería | Cualquier cliente, MDZ | Rechazo: "El cliente no tiene mercadería en el depósito seleccionado" | — |
 | N.8 | Generar OS | Filtro por depósito | Depósito ROS, sin filtro de fechas | Lista solo la OP 111 | — |
 | N.9 | Generar OS | Otro depósito | Depósito ROS, OP 111, confirma | OS registrada Pendiente: ARR-1KG 40 en 01-01-1 | Alta OS 507 Pendiente. OP 111 → En preparación |
@@ -93,11 +93,46 @@ No están en la planilla: los habilitan los datos nuevos. Si no se indica otra c
 | N.11 | Preparar productos | Filtro por depósito | Depósito GBA | Lista OS 501 y 502. No lista la OS 506 de ROS | — |
 | N.12 | Empaquetar | Palet cerrado | OP 115 (ZAP-0042 x 12), confirma | Total bultos 1 | OP 115 → Preparada, `Bultos` 1, `FechaEmpaquetado` |
 | N.13 | Generar OE | Palet cerrado | Grupo MundoFOX · Jose Gomez · 16/10, confirma | OE con 1 OP y 1 bulto | Alta OE 712 Emitida. OP 118 → En entrega |
-| N.14 | Recepcionar OE | OE de un solo cliente | OE 702, confirma | Sale de la lista. Queda la OE 701 | 702 → Pendiente de entrega. ZAP-0042 de MundoFOX: en preparación 22 → 14, en despacho 10 → 18 |
+| N.14 | Recepcionar OE | OE de un solo cliente | OE 702, confirma | Sale de la lista. Queda la OE 701 | 702 → Pendiente de entrega. ZAP-0042 de MundoFOX: en preparación 36 → 24, en despacho 24 → 36 |
 | N.15 | Remito y despacho | Dos remitos de un transportista | DNI 32321987, OE 705 y 703, confirma | Dos remitos: Construcciones del Plata y Ferretería Norte | 703 y 705 → Remito emitido. Alta R-412 y R-413 Emitidos |
-| N.16 | Remito y despacho | Firma de varios remitos | DNI 20562667, R-410 y R-411, confirma | Los dos salen de la lista | R-410 y R-411 → Cumplidos. OE 710 y 711 → Cumplida. OP 110 y 127 → Cumplida. ZAP-0042 de MundoFOX: en despacho 10 → 4. ARE-25KG: en despacho 11 → 9 |
+| N.16 | Remito y despacho | Firma de varios remitos | DNI 20562667, R-410 y R-411, confirma | Los dos salen de la lista | R-410 y R-411 → Cumplidos. OE 710 y 711 → Cumplida. OP 110 y 127 → Cumplida. ZAP-0042 de MundoFOX: en despacho 24 → 12. ARE-25KG: en despacho 11 → 9 |
 | N.17 | Remito y despacho | Documentos ya cerrados | DNI 32321987 | No lista las OE 708 y 709 ni el R-409 | — |
 | N.18 | Remito y despacho | Retiro futuro | DNI 32321987 | No lista la OE 707: su retiro es el 31/12/2027 | — |
+
+## Embalaje y palet cerrado
+
+Los bultos de una OP los calcula Empaquetar con el embalaje de cada mercadería:
+
+- **Fulfillment:** por cada SKU, cantidad / `UnidadesPorBulto`, redondeado hacia arriba. Ejemplo: ARR-1KG x 20 en cajas de 10 = 2 bultos.
+- **Palet cerrado:** por cada SKU, cantidad / `UnidadesPorPalet`. Cada palet sale como un bulto, tal como entró.
+
+Registrar OP solo acepta en Palet cerrado cantidades múltiplo de `UnidadesPorPalet`, y Generar OS toma de cada posición solo palets enteros.
+
+| SKU | Unidades por bulto | Unidades por palet |
+| --- | --- | --- |
+| CEM-50KG | 1 | 10 |
+| CAL-25KG | 1 | 40 |
+| ARE-25KG | 1 | 40 |
+| ARR-1KG | 10 | 200 |
+| YER-1KG | 10 | 200 |
+| TOR-M8 | 10 | 100 |
+| CLA-2P | 10 | 100 |
+| PIN-4L | 4 | 48 |
+| ZAP-0042 | 6 | 12 |
+
+Para que las OP de Palet cerrado que todavía no se empaquetaron completen palets enteros se ajustaron: OP 114 (ZAP-0042 10 → 12, y su línea en la OS 502), OP 092 (ZAP-0042 6 → 12, y su línea en la OS 491) y OP 112 (YER-1KG x 2 → CEM-50KG x 10).
+
+Las OP ya empaquetadas (Preparada, En entrega, Cumplida) tienen los bultos recalculados con esta regla: 093, 094, 095, 096, 100, 122, 128 y 129 (Fulfillment). Las de Palet cerrado 097, 110, 118, 121, 126 y 130 pasaron a ZAP-0042 x 12 (un palet, 1 bulto), con sus cantidades en preparación y en despacho ajustadas.
+
+| Caso | Pantalla | Qué prueba | Datos de prueba | Resultado esperado | Qué cambia en los JSON |
+| --- | --- | --- | --- | --- | --- |
+| P.1 | Registrar OP | Palet cerrado al agregar | MundoFOX, GBA, Palet cerrado, ZAP-0042, cantidad 13 | Rechazo: "Palet cerrado: la cantidad debe ser múltiplo de 12 unidades (palet completo del SKU ZAP-0042)" | — |
+| P.2 | Registrar OP | Palet cerrado elegido después de cargar | MundoFOX, GBA, Fulfillment, ZAP-0042 x 10, cambia a Palet cerrado y registra | Rechazo: "Palet cerrado: las cantidades de estos SKU no completan palets enteros: ZAP-0042" | — |
+| P.3 | Registrar OP | Palet cerrado válido | MundoFOX, GBA, Palet cerrado, ZAP-0042 x 24, confirma | Se acepta | Alta OP 131 Pendiente, Palet cerrado. ZAP-0042 de MundoFOX: comprometida 36 → 60 |
+| P.4 | Generar OS | Palets enteros | GBA, OP 103 (ZAP-0042 x 24), confirma | OS registrada | Alta OS 507: ZAP-0042 24 en 12-05-1. OP 103 → En preparación |
+| P.5 | Generar OS | No alcanza con palets enteros | Registrar Construcciones del Plata, GBA, Palet cerrado, CEM-50KG x 30 (OP 131) y generar la OS con esa OP | Rechazo: "No hay palets completos suficientes del SKU CEM-50KG para las OP de palet cerrado". Hay 30 bolsas pero repartidas en dos posiciones de 15: solo entran 2 palets de 10 | Solo el alta de la OP 131 |
+| P.6 | Empaquetar | Embalaje Fulfillment | Depósito ROS, OP 091 (ARR-1KG x 20), confirma | Total bultos 2 | 091 → Preparada, `Bultos` 2 |
+| P.7 | Empaquetar | Un bulto por palet | Depósito ROS, OP 092 (ZAP-0042 x 12, palet de 12), confirma | Total bultos 1 | 092 → Preparada, `Bultos` 1 |
 
 ## Circuito completo
 

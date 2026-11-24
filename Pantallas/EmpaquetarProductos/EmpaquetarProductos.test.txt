@@ -58,3 +58,32 @@ Cerrar el sistema
 
 Verificar en bin\Debug\net10.0-windows\Datos\OrdenPreparacion.json:
 - NroOP 105: Estado "EnPreparacion", TomadaPreparacion false, Bultos 0
+
+
+Test 3: Bultos por embalaje y por palet
+
+Depósito: ROS
+Presionar: Empaquetar productos
+Verificar: Orden 91
+Verificar: Modalidad Fulfillment
+Verificar: Productos a empaquetar: ARR-1KG | Paquete de arroz 1 kg | 20
+Verificar: Total Bultos 2
+Presionar: Confirmar Empaquetado
+Verificar: Mensaje "¿Confirma el empaquetado de la OP N° 91 en 2 bultos?"
+Presionar: Aceptar
+Presionar: Aceptar
+Verificar: Orden 92
+Verificar: Modalidad Palet cerrado
+Verificar: Productos a empaquetar: ZAP-0042 | Caja de zapatillas | 12
+Verificar: Total Bultos 1
+Presionar: Confirmar Empaquetado
+Presionar: Aceptar
+Presionar: Aceptar
+Verificar: Mensaje "No hay órdenes para empaquetar en este depósito"
+Presionar: Aceptar
+Presionar: Cancelar
+Cerrar el sistema
+
+Verificar en bin\Debug\net10.0-windows\Datos\OrdenPreparacion.json:
+- NroOP 91: Estado "Preparada", Bultos 2
+- NroOP 92: Estado "Preparada", Bultos 1

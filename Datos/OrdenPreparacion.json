@@ -192,7 +192,7 @@
     "Lineas": [
       {
         "Sku": "ZAP-0042",
-        "Cantidad": 6
+        "Cantidad": 12
       }
     ],
     "TomadaPreparacion": false,
@@ -216,7 +216,7 @@
       }
     ],
     "TomadaPreparacion": false,
-    "Bultos": 5,
+    "Bultos": 1,
     "FechaEmpaquetado": "2026-10-09"
   },
   {
@@ -236,7 +236,7 @@
       }
     ],
     "TomadaPreparacion": false,
-    "Bultos": 10,
+    "Bultos": 1,
     "FechaEmpaquetado": "2026-10-09"
   },
   {
@@ -256,7 +256,7 @@
       }
     ],
     "TomadaPreparacion": false,
-    "Bultos": 4,
+    "Bultos": 1,
     "FechaEmpaquetado": "2026-10-08"
   },
   {
@@ -276,7 +276,7 @@
       }
     ],
     "TomadaPreparacion": false,
-    "Bultos": 15,
+    "Bultos": 2,
     "FechaEmpaquetado": "2026-10-08"
   },
   {
@@ -292,7 +292,7 @@
     "Lineas": [
       {
         "Sku": "ZAP-0042",
-        "Cantidad": 3
+        "Cantidad": 12
       }
     ],
     "TomadaPreparacion": false,
@@ -316,7 +316,7 @@
       }
     ],
     "TomadaPreparacion": false,
-    "Bultos": 5,
+    "Bultos": 1,
     "FechaEmpaquetado": "2026-10-13"
   },
   {
@@ -516,7 +516,7 @@
     "Lineas": [
       {
         "Sku": "ZAP-0042",
-        "Cantidad": 6
+        "Cantidad": 12
       }
     ],
     "TomadaPreparacion": false,
@@ -555,8 +555,8 @@
     "Estado": "Pendiente",
     "Lineas": [
       {
-        "Sku": "YER-1KG",
-        "Cantidad": 2
+        "Sku": "CEM-50KG",
+        "Cantidad": 10
       }
     ],
     "TomadaPreparacion": false,
@@ -596,7 +596,7 @@
     "Lineas": [
       {
         "Sku": "ZAP-0042",
-        "Cantidad": 10
+        "Cantidad": 12
       }
     ],
     "TomadaPreparacion": false,
@@ -676,7 +676,7 @@
     "Lineas": [
       {
         "Sku": "ZAP-0042",
-        "Cantidad": 2
+        "Cantidad": 12
       }
     ],
     "TomadaPreparacion": false,
@@ -736,7 +736,7 @@
     "Lineas": [
       {
         "Sku": "ZAP-0042",
-        "Cantidad": 8
+        "Cantidad": 12
       }
     ],
     "TomadaPreparacion": false,
@@ -760,7 +760,7 @@
       }
     ],
     "TomadaPreparacion": false,
-    "Bultos": 30,
+    "Bultos": 3,
     "FechaEmpaquetado": "2026-10-14"
   },
   {
@@ -836,7 +836,7 @@
     "Lineas": [
       {
         "Sku": "ZAP-0042",
-        "Cantidad": 4
+        "Cantidad": 12
       }
     ],
     "TomadaPreparacion": false,
@@ -880,7 +880,7 @@
       }
     ],
     "TomadaPreparacion": false,
-    "Bultos": 10,
+    "Bultos": 1,
     "FechaEmpaquetado": "2026-10-10"
   },
   {
@@ -900,7 +900,7 @@
       }
     ],
     "TomadaPreparacion": false,
-    "Bultos": 5,
+    "Bultos": 1,
     "FechaEmpaquetado": "2026-10-10"
   },
   {
@@ -916,7 +916,7 @@
     "Lineas": [
       {
         "Sku": "ZAP-0042",
-        "Cantidad": 3
+        "Cantidad": 12
       }
     ],
     "TomadaPreparacion": false,

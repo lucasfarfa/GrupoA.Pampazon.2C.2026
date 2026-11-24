@@ -13,5 +13,7 @@ namespace GrupoA.PampazonSA.AdministracionDeposito.Almacenes
         public int CantidadComprometida { get; set; }
         public int CantidadEnPreparacion { get; set; }
         public int CantidadEnDespacho { get; set; }
+        public int UnidadesPorBulto { get; set; }   // unidades que entran en una caja (Fulfillment)
+        public int UnidadesPorPalet { get; set; }   // unidades que trae un palet completo (Palet cerrado)
     }
 }

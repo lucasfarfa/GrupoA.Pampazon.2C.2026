@@ -1,3 +1,5 @@
+Test 1: Generar una OS con dos OP Fulfillment
+
 Depósito: GBA
 Presionar: Generar Orden de Selección
 Verificar: Depósito: GBA
@@ -39,3 +41,65 @@ Verificar en bin\Debug\net10.0-windows\Datos\OrdenPreparacion.json:
 - NroOP 101: Estado "EnPreparacion"
 - NroOP 102: Estado "EnPreparacion"
 - NroOP 103: Estado "Pendiente"
+
+
+Test 2: OS de palet cerrado con palets enteros
+
+Depósito: GBA
+Presionar: Generar Orden de Selección
+Seleccionar fila: 103
+Presionar: Agregar Seleccionadas
+Verificar: Resumen consolidado de Productos: ZAP-0042 | 24
+Presionar: Generar Orden de Selección
+Verificar: Mensaje "¿Confirma la generación de la orden de selección con 1 OP?"
+Presionar: Aceptar
+Verificar: Mensaje "Orden de selección N° 507 generada"
+Presionar: Aceptar
+Presionar: Cancelar
+Cerrar el sistema
+
+Verificar en bin\Debug\net10.0-windows\Datos\OrdenSeleccion.json:
+- Nuevo registro NroOS 507: Estado "Pendiente", NrosOP [103]
+- Lineas de la OS 507: Sector 12, Posicion 5, Fila 1, Sku "ZAP-0042", Cantidad 24
+
+Verificar en bin\Debug\net10.0-windows\Datos\OrdenPreparacion.json:
+- NroOP 103: Estado "EnPreparacion"
+
+
+Test 3: Palet cerrado sin palets completos suficientes
+
+Presionar: Registrar Orden de Preparación
+Cliente: Construcciones del Plata S.R.L.
+Depósito: GBA
+Modalidad: Palet cerrado
+SKU: CEM-50KG
+Verificar: Disponible 30
+Cantidad: 30
+Presionar: Agregar
+DNI: 32321987
+Nombre: Daniel Baez
+Fecha de Retiro: 31/12/2027
+Presionar: Registrar OP
+Presionar: Aceptar
+Verificar: Mensaje "Orden de preparación N° 131 registrada"
+Presionar: Aceptar
+Presionar: Cancelar
+Depósito: GBA
+Presionar: Generar Orden de Selección
+Cliente: Construcciones
+Presionar: Buscar
+Presionar: Agregar Todo
+Verificar: Resumen consolidado de Productos: CEM-50KG | 30
+Presionar: Generar Orden de Selección
+Verificar: Mensaje "No hay palets completos suficientes del SKU CEM-50KG para las OP de palet cerrado"
+Presionar: Aceptar
+Presionar: Cancelar
+Verificar: Mensaje "No se generó ninguna orden de selección. ¿Desea salir?"
+Presionar: Aceptar
+Cerrar el sistema
+
+Verificar en bin\Debug\net10.0-windows\Datos\OrdenSeleccion.json:
+- No existe el NroOS 507
+
+Verificar en bin\Debug\net10.0-windows\Datos\OrdenPreparacion.json:
+- NroOP 131: Modalidad "PaletCerrado", Estado "Pendiente"

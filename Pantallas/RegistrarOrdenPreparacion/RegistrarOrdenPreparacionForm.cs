@@ -129,6 +129,13 @@ namespace GrupoA.PampazonSA.AdministracionDeposito.RegistrarOrdenPreparacion
                 return;
             }
 
+            // Si ya se eligió Palet cerrado se avisa al agregar; si se elige después, lo controla "Registrar OP".
+            if (rbPaletCerrado.Checked && !_modelo.CantidadEnPaletsCompletos(Modalidad.PaletCerrado, cantidad))
+            {
+                MessageBox.Show("Palet cerrado: la cantidad debe ser múltiplo de " + _modelo.UnidadesPorPaletSeleccionado + " unidades (palet completo del SKU " + _modelo.SkuSeleccionado + ")", Text);
+                return;
+            }
+
             if (!_modelo.AgregarProducto(cantidad)) return;
 
             cboSku.SelectedIndex = -1;
@@ -212,13 +219,19 @@ namespace GrupoA.PampazonSA.AdministracionDeposito.RegistrarOrdenPreparacion
                 return;
             }
 
+            Modalidad modalidad = rbFulfillment.Checked ? Modalidad.Fulfillment : Modalidad.PaletCerrado;
+            if (!_modelo.PaletsCompletos(modalidad, out List<string> skusSinPalets))
+            {
+                MessageBox.Show("Palet cerrado: las cantidades de estos SKU no completan palets enteros: " + string.Join(", ", skusSinPalets), Text);
+                return;
+            }
+
             if (MessageBox.Show("¿Confirma el registro de la orden de preparación?", Text,
                     MessageBoxButtons.OKCancel, MessageBoxIcon.Question) != DialogResult.OK)
             {
                 return;
             }
 
-            Modalidad modalidad = rbFulfillment.Checked ? Modalidad.Fulfillment : Modalidad.PaletCerrado;
             if (!_modelo.Registrar(modalidad, dni, nombre, fechaRetiro, out int nroOP)) return;
 
             MessageBox.Show("Orden de preparación N° " + nroOP + " registrada", Text);

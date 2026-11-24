@@ -150,11 +150,7 @@ namespace GrupoA.PampazonSA.AdministracionDeposito.GenerarOrdenSeleccion
             if (Deposito == null || _incluidas.Count == 0) return false;
 
             // Se arma todo el detalle antes de grabar: si a algún producto le falta mercadería, no queda nada a medias.
-            var detalle = new List<LineaOrdenSeleccion>();
-            foreach (var producto in ProductosPorCliente())
-            {
-                if (!AgregarPosiciones(detalle, producto.Cliente.Cuit, producto.Sku, producto.Cantidad)) return false;
-            }
+            if (!ArmarDetalle(out List<LineaOrdenSeleccion> detalle, out _)) return false;
 
             var orden = new OrdenSeleccion
             {
@@ -195,33 +191,68 @@ namespace GrupoA.PampazonSA.AdministracionDeposito.GenerarOrdenSeleccion
             return OrdenesDelDeposito().Where(op => _incluidas.Contains(op.NroOP)).ToList();
         }
 
-        // Cantidad a retirar por cliente y SKU: la mercadería de cada cliente está en sus propias posiciones.
-        // De cada OP incluida arma un par cliente-línea (SelectMany), los agrupa por CUIT y SKU (GroupBy),
-        // los ordena por SKU y cliente (OrderBy y ThenBy) y suma las cantidades de cada grupo (Select y Sum).
-        private List<(Cliente Cliente, string Sku, int Cantidad)> ProductosPorCliente()
+        // Para avisar antes de confirmar si las OP de palet cerrado no alcanzan con palets enteros.
+        // Devuelve false y el SKU que no alcanzó; si falta mercadería de Fulfillment no es un problema de palets y da true.
+        public bool PaletsCompletosSuficientes(out string sku)
+        {
+            ArmarDetalle(out _, out string? skuSinPalets);
+            sku = skuSinPalets ?? "";
+            return skuSinPalets == null;
+        }
+
+        // Arma el detalle por posición de las OP incluidas. Devuelve false si a algún producto no le alcanza la mercadería;
+        // si el que no alcanzó es de palet cerrado, lo devuelve en skuSinPalets.
+        private bool ArmarDetalle(out List<LineaOrdenSeleccion> detalle, out string? skuSinPalets)
+        {
+            detalle = new List<LineaOrdenSeleccion>();
+            skuSinPalets = null;
+            foreach (var producto in ProductosPorCliente())
+            {
+                bool paletCerrado = producto.Modalidad == Modalidad.PaletCerrado;
+                if (!AgregarPosiciones(detalle, producto.Cliente.Cuit, producto.Sku, producto.Cantidad, paletCerrado))
+                {
+                    if (paletCerrado) skuSinPalets = producto.Sku;
+                    return false;
+                }
+            }
+            return true;
+        }
+
+        // Cantidad a retirar por cliente, SKU y modalidad: la mercadería de cada cliente está en sus propias posiciones,
+        // y lo de palet cerrado se calcula aparte porque solo puede salir en palets enteros.
+        // De cada OP incluida arma un par cliente-línea (SelectMany), los agrupa por CUIT, SKU y modalidad (GroupBy),
+        // los ordena con palet cerrado primero, para que reserve sus palets antes de que Fulfillment tome unidades sueltas,
+        // y después por SKU y cliente (OrderBy y ThenBy), y suma las cantidades de cada grupo (Select y Sum).
+        private List<(Cliente Cliente, string Sku, Modalidad Modalidad, int Cantidad)> ProductosPorCliente()
         {
             return OrdenesIncluidas()
-                .SelectMany(op => op.Lineas, (op, linea) => (op.Cliente, linea.Sku, linea.Cantidad))
-                .GroupBy(p => (p.Cliente.Cuit, p.Sku))
-                .OrderBy(g => g.Key.Sku)
+                .SelectMany(op => op.Lineas, (op, linea) => (op.Cliente, op.Modalidad, linea.Sku, linea.Cantidad))
+                .GroupBy(p => (p.Cliente.Cuit, p.Sku, p.Modalidad))
+                .OrderBy(g => g.Key.Modalidad == Modalidad.PaletCerrado ? 0 : 1)
+                .ThenBy(g => g.Key.Sku)
                 .ThenBy(g => g.Key.Cuit)
-                .Select(g => (g.First().Cliente, g.Key.Sku, g.Sum(p => p.Cantidad)))
+                .Select(g => (g.First().Cliente, g.Key.Sku, g.Key.Modalidad, g.Sum(p => p.Cantidad)))
                 .ToList();
         }
 
         // Si un SKU del cliente está en más de una posición, agrega una línea por posición hasta cubrir la cantidad.
         // Recorre las posiciones del cliente con ese SKU (Where) ordenadas por X-Y-Z (OrderBy y ThenBy)
-        // y de cada una toma lo que queda libre después de lo asignado en OS Pendientes (CU-02, paso 17).
+        // y de cada una toma lo que queda libre después de lo asignado en OS Pendientes (CU-02, paso 17)
+        // y en esta misma OS. En palet cerrado solo toma palets enteros: redondea lo libre hacia abajo a múltiplo del palet.
         // Devuelve false si entre todas sus posiciones no alcanza.
-        private bool AgregarPosiciones(List<LineaOrdenSeleccion> detalle, long cuit, string sku, int cantidadPedida)
+        private bool AgregarPosiciones(List<LineaOrdenSeleccion> detalle, long cuit, string sku, int cantidadPedida, bool paletCerrado)
         {
+            int unidadesPorPalet = UnidadesPorPalet(cuit, sku);
+            if (paletCerrado && unidadesPorPalet <= 0) return false;
+
             int restante = cantidadPedida;
             foreach (var stock in StockDelCliente(cuit).Where(s => s.Sku == sku)
                          .OrderBy(s => s.Posicion.Sector).ThenBy(s => s.Posicion.Posicion).ThenBy(s => s.Posicion.Fila))
             {
                 if (restante == 0) break;
 
-                int libre = stock.Cantidad - AsignadoEnOSPendientes(cuit, sku, stock.Posicion);
+                int libre = stock.Cantidad - AsignadoEnOSPendientes(cuit, sku, stock.Posicion) - AsignadoEnDetalle(detalle, cuit, sku, stock.Posicion);
+                if (paletCerrado) libre = libre / unidadesPorPalet * unidadesPorPalet;
                 if (libre <= 0) continue;
 
                 int cantidad = Math.Min(restante, libre);
@@ -243,6 +274,23 @@ namespace GrupoA.PampazonSA.AdministracionDeposito.GenerarOrdenSeleccion
                 .Where(l => l.CuitCliente == cuit && l.Sku == sku
                     && l.Sector == posicion.Sector && l.Posicion == posicion.Posicion && l.Fila == posicion.Fila)
                 .Sum(l => l.Cantidad);
+        }
+
+        // Lo ya tomado de esa posición, cliente y SKU en la OS que se está armando (el mismo SKU puede pasar una vez
+        // por palet cerrado y otra por Fulfillment). Se queda con las líneas de esa posición, cliente y SKU (Where) y suma (Sum).
+        private int AsignadoEnDetalle(List<LineaOrdenSeleccion> detalle, long cuit, string sku, PosicionDeposito posicion)
+        {
+            return detalle
+                .Where(l => l.CuitCliente == cuit && l.Sku == sku
+                    && l.Posicion.Sector == posicion.Sector && l.Posicion.Posicion == posicion.Posicion && l.Posicion.Fila == posicion.Fila)
+                .Sum(l => l.Cantidad);
+        }
+
+        // Unidades que trae un palet completo de la mercadería del cliente en el depósito con ese SKU (FirstOrDefault); 0 si no hay.
+        private int UnidadesPorPalet(long cuit, string sku)
+        {
+            var mercaderia = MercaderiaAlmacen.Mercaderias.FirstOrDefault(m => m.CuitCliente == cuit && m.Deposito == Deposito && m.Sku == sku);
+            return mercaderia?.UnidadesPorPalet ?? 0;
         }
 
         // Registros de stock del cliente en las posiciones del depósito elegido.

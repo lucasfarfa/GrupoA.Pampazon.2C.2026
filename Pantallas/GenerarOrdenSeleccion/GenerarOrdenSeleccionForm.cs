@@ -181,6 +181,12 @@ namespace GrupoA.PampazonSA.AdministracionDeposito.GenerarOrdenSeleccion
                 return;
             }
 
+            if (!_modelo.PaletsCompletosSuficientes(out string sku))
+            {
+                MessageBox.Show("No hay palets completos suficientes del SKU " + sku + " para las OP de palet cerrado", Text);
+                return;
+            }
+
             if (MessageBox.Show("¿Confirma la generación de la orden de selección con " + _modelo.CantidadIncluidas + " OP?", Text,
                     MessageBoxButtons.OKCancel, MessageBoxIcon.Question) != DialogResult.OK)
             {
