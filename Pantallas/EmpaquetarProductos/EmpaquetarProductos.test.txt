@@ -1,0 +1,38 @@
+Depósito: GBA
+Presionar: Empaquetar productos
+Verificar: Orden 105
+Verificar: Modalidad Fulfillment
+Verificar: Total Bultos 10
+Verificar: Productos a empaquetar: CAL-25KG | Bolsa de cal 25 kg | 10
+Presionar: Confirmar Empaquetado
+Verificar: Mensaje "¿Confirma el empaquetado de la OP N° 105 en 10 bultos?"
+Presionar: Aceptar
+Verificar: Mensaje "Orden de preparación N° 105 preparada"
+Presionar: Aceptar
+Verificar: Orden 108
+Verificar: Modalidad Fulfillment
+Verificar: Total Bultos 20
+Verificar: Productos a empaquetar: CAL-25KG | Bolsa de cal 25 kg | 20
+Presionar: Confirmar Empaquetado
+Presionar: Aceptar
+Presionar: Aceptar
+Verificar: Orden 115
+Verificar: Modalidad Palet cerrado
+Verificar: Total Bultos 1
+Verificar: Productos a empaquetar: ZAP-0042 | Caja de zapatillas | 12
+Presionar: Confirmar Empaquetado
+Verificar: Mensaje "¿Confirma el empaquetado de la OP N° 115 en 1 bultos?"
+Presionar: Aceptar
+Verificar: Mensaje "Orden de preparación N° 115 preparada"
+Presionar: Aceptar
+Verificar: Mensaje "No hay órdenes para empaquetar en este depósito"
+Presionar: Aceptar
+Verificar: Productos a empaquetar vacío
+Verificar: Confirmar Empaquetado deshabilitado
+Presionar: Cancelar
+Cerrar el sistema
+
+Verificar en bin\Debug\net10.0-windows\Datos\OrdenPreparacion.json:
+- NroOP 105: Estado "Preparada", Bultos 10, FechaEmpaquetado de hoy
+- NroOP 108: Estado "Preparada", Bultos 20, FechaEmpaquetado de hoy
+- NroOP 115: Estado "Preparada", Bultos 1, FechaEmpaquetado de hoy
