@@ -1,3 +1,5 @@
+using GrupoA.PampazonSA.AdministracionDeposito.Almacenes;
+
 namespace GrupoA.PampazonSA.AdministracionDeposito.EmpaquetarProductos
 {
     public partial class EmpaquetarProductosForm : Form
@@ -19,12 +21,8 @@ namespace GrupoA.PampazonSA.AdministracionDeposito.EmpaquetarProductos
         {
             if (!_modelo.AsignarSiguienteOrden(out OrdenPreparacion? orden) || orden == null)
             {
-                lblNroOrden.Text = "";
-                lblModalidad.Text = "";
-                lblTotalBultos.Text = "";
-                btnEmpaquetar.Enabled = false;
-                RefrescarListas();
                 MessageBox.Show("No hay órdenes para empaquetar en este depósito", Text);
+                Close();
                 return;
             }
 
@@ -81,6 +79,11 @@ namespace GrupoA.PampazonSA.AdministracionDeposito.EmpaquetarProductos
                 MessageBox.Show("No se registró el empaquetado", Text);
                 _modelo.LiberarOrdenAsignada();
             }
+        }
+
+        private void grpProductos_Enter(object sender, EventArgs e)
+        {
+
         }
     }
 }

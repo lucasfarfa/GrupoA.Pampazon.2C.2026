@@ -10,17 +10,21 @@ namespace GrupoA.PampazonSA.AdministracionDeposito.Almacenes
     {
         // Expone una lista de OrdenPreparacionEntidad
         public static List<OrdenPreparacionEntidad> OrdenesPreparacion { get; private set; }
+
         static OrdenPreparacionAlmacen()
+        {
+            Recargar();
+        }
+
+        public static void Recargar()
         {
             if (File.Exists(@"Datos\OrdenPreparacion.json"))
             {
-                // Load
                 string contenido = File.ReadAllText(@"Datos\OrdenPreparacion.json");
                 OrdenesPreparacion = JsonSerializer.Deserialize<List<OrdenPreparacionEntidad>>(contenido, new JsonSerializerOptions { Converters = { new JsonStringEnumConverter() } }) ?? new List<OrdenPreparacionEntidad>();
             }
-            else // no existe...
+            else
             {
-                // ni me complico tiro una ex
                 throw new ApplicationException($"No se encuentra el archivo OrdenPreparacion.json");
             }
         }

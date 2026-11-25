@@ -38,6 +38,8 @@ namespace GrupoA.PampazonSA.AdministracionDeposito.EmpaquetarProductos
         // o null si no queda ninguna (FirstOrDefault), y la traduce a la clase que usa la pantalla.
         public bool AsignarSiguienteOrden(out OrdenPreparacion? orden)
         {
+            OrdenPreparacionAlmacen.Recargar();
+
             orden = null;
             var op = OrdenPreparacionAlmacen.OrdenesPreparacion
                 .Where(o => o.Deposito == Deposito
@@ -51,6 +53,8 @@ namespace GrupoA.PampazonSA.AdministracionDeposito.EmpaquetarProductos
             {
                 op.TomadaPreparacion = true;
                 orden = TraducirOrden(op);
+                OrdenPreparacionAlmacen.Guardar();
+
             }
 
             _ordenAsignada = orden;
@@ -69,6 +73,8 @@ namespace GrupoA.PampazonSA.AdministracionDeposito.EmpaquetarProductos
         // Registra la OP asignada como Preparada con sus bultos, fecha y hora (CU-04, paso 8).
         public bool ConfirmarEmpaquetado(out int nroOP)
         {
+            OrdenPreparacionAlmacen.Recargar();
+
             nroOP = 0;
             if (_ordenAsignada == null || _ordenAsignada.Estado != EstadoOrdenPreparacion.EnPreparacion) return false;
 
@@ -85,6 +91,8 @@ namespace GrupoA.PampazonSA.AdministracionDeposito.EmpaquetarProductos
             op.FechaEmpaquetado = _ordenAsignada.FechaEmpaquetado;
             op.Estado = EstadoOrdenPreparacionEnum.Preparada;
 
+            OrdenPreparacionAlmacen.Guardar(); // <-- AGREGAR ESTO
+
             nroOP = _ordenAsignada.NroOP;
             _ordenAsignada = null;
             return true;
@@ -95,6 +103,8 @@ namespace GrupoA.PampazonSA.AdministracionDeposito.EmpaquetarProductos
         // Devuelve true si había una OP asignada y sigue En preparación en el almacén.
         public bool LiberarOrdenAsignada()
         {
+            OrdenPreparacionAlmacen.Recargar();
+
             if (_ordenAsignada == null) return false;
 
             // Busca en el almacén la OP asignada si sigue En preparación, o null si no (FirstOrDefault).
@@ -103,6 +113,9 @@ namespace GrupoA.PampazonSA.AdministracionDeposito.EmpaquetarProductos
             if (op == null) return false;
 
             op.TomadaPreparacion = false;
+
+            OrdenPreparacionAlmacen.Guardar(); // <-- AGREGAR ESTO
+
             _ordenAsignada = null;
             return true;
         }
