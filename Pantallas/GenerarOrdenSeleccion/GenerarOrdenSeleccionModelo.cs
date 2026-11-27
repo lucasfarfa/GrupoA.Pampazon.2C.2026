@@ -176,6 +176,9 @@ namespace GrupoA.PampazonSA.AdministracionDeposito.GenerarOrdenSeleccion
 
             nroOS = orden.NroOS;
             _incluidas.Clear();
+            OrdenSeleccionAlmacen.Guardar();
+            OrdenPreparacionAlmacen.Guardar();
+
             return true;
         }
 

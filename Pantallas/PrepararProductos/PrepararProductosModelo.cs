@@ -87,6 +87,9 @@ namespace GrupoA.PampazonSA.AdministracionDeposito.PrepararProductos
             os.FechaCumplida = DateTime.Now;
             if (_nroOsSeleccionada == nro)
                 _nroOsSeleccionada = null;
+            DepositoAlmacen.Guardar();        // <-- Guarda el descuento de stock en las posiciones
+            MercaderiaAlmacen.Guardar();      // <-- Guarda el cambio de Comprometida a EnPreparacion
+            OrdenSeleccionAlmacen.Guardar();  // <-- Guarda la OS como Cumplida
 
             return true;
         }

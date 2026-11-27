@@ -26,6 +26,8 @@ namespace GrupoA.PampazonSA.AdministracionDeposito.RegistrarOrdenPreparacion
 
             // La cantidad no admite más de 7 caracteres (planilla A.10).
             txtCantidad.MaxLength = 7;
+
+            txtFechaRetiro.Text = DateTime.Now.ToString("d/M/yyyy");
         }
 
         private void cboCliente_SelectedIndexChanged(object sender, EventArgs e)

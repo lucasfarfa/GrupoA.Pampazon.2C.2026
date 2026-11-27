@@ -9,7 +9,7 @@ namespace GrupoA.PampazonSA.AdministracionDeposito.Almacenes
     static class OrdenPreparacionAlmacen
     {
         // Expone una lista de OrdenPreparacionEntidad
-        public static List<OrdenPreparacionEntidad> OrdenesPreparacion { get; private set; }
+        public static List<OrdenPreparacionEntidad> OrdenesPreparacion { get; private set; } = new List<OrdenPreparacionEntidad>();
 
         static OrdenPreparacionAlmacen()
         {
@@ -18,14 +18,26 @@ namespace GrupoA.PampazonSA.AdministracionDeposito.Almacenes
 
         public static void Recargar()
         {
-            if (File.Exists(@"Datos\OrdenPreparacion.json"))
+            if (!File.Exists(@"Datos\OrdenPreparacion.json")) return;
+
+            string contenido = File.ReadAllText(@"Datos\OrdenPreparacion.json");
+            var desdeDisco = JsonSerializer.Deserialize<List<OrdenPreparacionEntidad>>(contenido, new JsonSerializerOptions { Converters = { new JsonStringEnumConverter() } });
+            if (desdeDisco == null) return;
+
+            foreach (var opDisco in desdeDisco)
             {
-                string contenido = File.ReadAllText(@"Datos\OrdenPreparacion.json");
-                OrdenesPreparacion = JsonSerializer.Deserialize<List<OrdenPreparacionEntidad>>(contenido, new JsonSerializerOptions { Converters = { new JsonStringEnumConverter() } }) ?? new List<OrdenPreparacionEntidad>();
-            }
-            else
-            {
-                throw new ApplicationException($"No se encuentra el archivo OrdenPreparacion.json");
+                var opMemoria = OrdenesPreparacion.FirstOrDefault(o => o.NroOP == opDisco.NroOP);
+                if (opMemoria != null)
+                {
+                    opMemoria.TomadaPreparacion = opDisco.TomadaPreparacion;
+                    opMemoria.Estado = opDisco.Estado;
+                    opMemoria.Bultos = opDisco.Bultos;
+                    opMemoria.FechaEmpaquetado = opDisco.FechaEmpaquetado;
+                }
+                else
+                {
+                    OrdenesPreparacion.Add(opDisco);
+                }
             }
         }
 

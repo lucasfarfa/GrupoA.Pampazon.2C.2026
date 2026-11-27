@@ -185,8 +185,8 @@ namespace GrupoA.PampazonSA.AdministracionDeposito.RegistrarOrdenPreparacion
                 Estado = EstadoOrdenPreparacion.Pendiente,
                 Lineas = _lineas.ToList()
             };
-
-            OrdenPreparacionAlmacen.OrdenesPreparacion.Add(TraducirOrden(orden));
+            var oent = TraducirOrden(orden);
+            OrdenPreparacionAlmacen.OrdenesPreparacion.Add(oent);
 
             foreach (var linea in orden.Lineas)
             {
@@ -199,6 +199,10 @@ namespace GrupoA.PampazonSA.AdministracionDeposito.RegistrarOrdenPreparacion
             _deposito = null;
             _sku = null;
             _lineas.Clear();
+
+            OrdenPreparacionAlmacen.Guardar();
+            MercaderiaAlmacen.Guardar(); // (o el nombre que tenga tu método para guardar mercadería)
+
             return true;
         }
 
